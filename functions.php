@@ -69,6 +69,9 @@ require get_template_directory() . '/parts/classes/google-fonts.php';
 // Handle SVG icons
 require get_template_directory() . '/parts/classes/svg-icons.php';
 
+// Handle Customizer settings
+require get_template_directory() . '/parts/classes/theme-customizer.php';
+
 
 /*	-----------------------------------------------------------------------------------------------
 	REGISTER STYLES
@@ -843,8 +846,74 @@ if ( ! function_exists( 'chaplin_block_editor_styles' ) ) :
 endif;
 
 
+/* ---------------------------------------------------------------------------------------------
+   BLOCK EDITOR SETTINGS
+   Add custom colors and font sizes to the block editor
+------------------------------------------------------------------------------------------------ */
+
+
+if ( ! function_exists( 'chaplin_block_editor_settings' ) ) :
+	function chaplin_block_editor_settings() {
+
+		/* Block Editor Palette --------------------------------------- */
+
+		$editor_color_palette = array();
+
+		// Get the color options
+		$chaplin_accent_color_options = Chaplin_Customize::chaplin_get_accent_color_options();
+
+		// Loop over them and construct an array for the editor-color-palette
+		if ( $chaplin_accent_color_options ) {
+			foreach( $chaplin_accent_color_options as $color_option_name => $color_option ) {
+				$editor_color_palette[] = array(
+					'name' 	=> $color_option['label'],
+					'slug' 	=> $color_option['slug'],
+					'color' => get_theme_mod( $color_option_name, $color_option['default'] ),
+				);
+			}
+		}
+
+		// If we have accent colors, add them to the block editor palette
+		if ( $editor_color_palette ) {
+			add_theme_support( 'editor-color-palette', $editor_color_palette );
+		}
+
+		/* Gutenberg Font Sizes --------------------------------------- */
+
+		add_theme_support( 'editor-font-sizes', array(
+			array(
+				'name' 		=> _x( 'Small', 'Name of the small font size in Gutenberg', 'chaplin' ),
+				'shortName' => _x( 'S', 'Short name of the small font size in the Gutenberg editor.', 'chaplin' ),
+				'size' 		=> 16,
+				'slug' 		=> 'small',
+			),
+			array(
+				'name' 		=> _x( 'Regular', 'Name of the regular font size in Gutenberg', 'chaplin' ),
+				'shortName' => _x( 'M', 'Short name of the regular font size in the Gutenberg editor.', 'chaplin' ),
+				'size' 		=> 18,
+				'slug' 		=> 'regular',
+			),
+			array(
+				'name' 		=> _x( 'Large', 'Name of the large font size in Gutenberg', 'chaplin' ),
+				'shortName' => _x( 'L', 'Short name of the large font size in the Gutenberg editor.', 'chaplin' ),
+				'size' 		=> 24,
+				'slug' 		=> 'large',
+			),
+			array(
+				'name' 		=> _x( 'Larger', 'Name of the larger font size in Gutenberg', 'chaplin' ),
+				'shortName' => _x( 'XL', 'Short name of the larger font size in the Gutenberg editor.', 'chaplin' ),
+				'size' 		=> 32,
+				'slug' 		=> 'larger',
+			),
+		) );
+
+	}
+	add_action( 'after_setup_theme', 'chaplin_block_editor_settings' );
+endif;
+
+
 /*	-----------------------------------------------------------------------------------------------
-	EDITOR STYLES FOR THE BLOCK EDITOR
+	GENERATE CSS
 --------------------------------------------------------------------------------------------------- */
 
 if ( ! function_exists( 'chaplin_generate_css' ) ) :
@@ -863,12 +932,12 @@ endif;
 
 
 /*	-----------------------------------------------------------------------------------------------
-	OUTPUT CSS DEPENDENT ON CUSTOMIZER OPTIONS
-	Retrieve the custom colors and fonts set in the Customizer, and output CSS accordingly
+	GET CSS BUILT FROM CUSTOMIZER OPTIONS
+	Build CSS reflecting colors, fonts and other options set in the Customizer, and return them for output
 --------------------------------------------------------------------------------------------------- */
 
-if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
-	function chaplin_customizer_css_output() {
+if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
+	function chaplin_get_customizer_css() {
 
 		/* Get variables --------------------- */
 
@@ -914,16 +983,16 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 			chaplin_generate_css( 'body', 'color', $primary );
 			chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type="button"], input[type="reset"], input[type="submit"]', 'background-color', $primary );
 
-			chaplin_generate_css( '.color-primary, .color-primary-hover:hover', 'color', $primary );
-			chaplin_generate_css( '.bg-primary, .bg-primary-hover:hover', 'background-color', $primary );
+			chaplin_generate_css( '.color-primary, .color-primary-hover:hover, .has-primary-color', 'color', $primary );
+			chaplin_generate_css( '.bg-primary, .bg-primary-hover:hover, .has-primary-background-color', 'background-color', $primary );
 			chaplin_generate_css( '.border-color-primary, .border-color-primary-hover:hover', 'border-color', $primary );
 			chaplin_generate_css( '.fill-children-primary, .fill-children-primary *', 'fill', $primary );
 		endif;
 
 		// Secondary color
 		if ( $secondary ) :
-			chaplin_generate_css( '.color-secondary, .color-secondary-hover:hover', 'color', $secondary );
-			chaplin_generate_css( '.bg-secondary, .bg-secondary-hover:hover', 'background-color', $secondary );
+			chaplin_generate_css( '.color-secondary, .color-secondary-hover:hover, .has-secondary-color', 'color', $secondary );
+			chaplin_generate_css( '.bg-secondary, .bg-secondary-hover:hover, .has-secondary-background-color', 'background-color', $secondary );
 			chaplin_generate_css( '.border-color-secondary, .border-color-secondary-hover:hover', 'border-color', $secondary );
 			chaplin_generate_css( '.fill-children-secondary, .fill-children-secondary *', 'fill', $secondary );
 		endif;
@@ -933,8 +1002,8 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 			chaplin_generate_css( 'a', 'color', $accent );
 			chaplin_generate_css( 'blockquote', 'border-color', $accent );
 
-			chaplin_generate_css( '.color-accent, .color-accent-hover:hover', 'color', $accent );
-			chaplin_generate_css( '.bg-accent, .bg-accent-hover:hover', 'background-color', $accent );
+			chaplin_generate_css( '.color-accent, .color-accent-hover:hover, .has-accent-color', 'color', $accent );
+			chaplin_generate_css( '.bg-accent, .bg-accent-hover:hover, .has-accent-background-color', 'background-color', $accent );
 			chaplin_generate_css( '.border-color-accent, .border-color-accent-hover:hover', 'border-color', $accent );
 			chaplin_generate_css( '.fill-children-accent, .fill-children-accent *', 'fill', $accent );
 		endif;
@@ -949,8 +1018,8 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 			chaplin_generate_css( '.wp-block-latest-posts.is-grid li', 'border-color', $border );
 			chaplin_generate_css( '.footer-menu li', 'border-color', $border );
 
-			chaplin_generate_css( '.color-border, .color-border-hover:hover', 'color', $border );
-			chaplin_generate_css( '.bg-border, .bg-border-hover:hover', 'background-color', $border );
+			chaplin_generate_css( '.color-border, .color-border-hover:hover, .has-border-color', 'color', $border );
+			chaplin_generate_css( '.bg-border, .bg-border-hover:hover, .has-border-background-color', 'background-color', $border );
 			chaplin_generate_css( '.border-color-border, .border-color-border-hover:hover', 'border-color', $border );
 			chaplin_generate_css( '.fill-children-border, .fill-children-border *', 'fill', $border );
 		endif;
@@ -960,8 +1029,8 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 			chaplin_generate_css( 'code, kbd, samp', 'background-color', $light_background );
 			chaplin_generate_css( 'table.is-style-stripes tr:nth-child( odd )', 'background-color', $light_background );
 
-			chaplin_generate_css( '.color-light-background, .color-light-background-hover:hover', 'color', $light_background );
-			chaplin_generate_css( '.bg-light-background, .bg-light-background-hover:hover', 'background-color', $light_background );
+			chaplin_generate_css( '.color-light-background, .color-light-background-hover:hover, .has-light-background-color', 'color', $light_background );
+			chaplin_generate_css( '.bg-light-background, .bg-light-background-hover:hover, .has-light-background-background-color', 'background-color', $light_background );
 			chaplin_generate_css( '.border-color-light-background, .border-color-light-background-hover:hover', 'border-color', $light_background );
 			chaplin_generate_css( '.fill-children-light-background, .fill-children-light-background *', 'fill', $light_background );
 		endif;
@@ -980,7 +1049,21 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 
 		/* Return the results ---------------- */
 
-		wp_add_inline_style( 'chaplin_style', ob_get_clean() );
+		return ob_get_clean();
+
+	}
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
+	OUTPUT CUSTOMIZER CSS ON THE FRONT-END
+	Get CSS built from the Customizer settings (fonts and colors), and output them on the front-end
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
+	function chaplin_customizer_css_output() {
+
+		wp_add_inline_style( 'chaplin_style', chaplin_get_customizer_css() );
 
 	}
 	add_action( 'wp_enqueue_scripts', 'chaplin_customizer_css_output' );
@@ -1035,476 +1118,6 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 		}
 
 	endif;
-endif;
-
-
-/* ---------------------------------------------------------------------------------------------
-   CUSTOMIZER SETTINGS
-   --------------------------------------------------------------------------------------------- */
-
-if ( ! class_exists( 'Chaplin_Customize' ) ) :
-	class Chaplin_Customize {
-
-		public static function chaplin_register( $wp_customize ) {
-
-			/* ------------------------------------------------------------------------
-			 * Site Identity
-			 * ------------------------------------------------------------------------ */
-
-			/* 2X Header Logo ---------------- */
-
-			$wp_customize->add_setting( 'chaplin_retina_logo', array(
-				'capability' 		=> 'edit_theme_options',
-				'sanitize_callback' => 'chaplin_sanitize_checkbox',
-				'transport'			=> 'postMessage',
-			) );
-
-			$wp_customize->add_control( 'chaplin_retina_logo', array(
-				'type' 			=> 'checkbox',
-				'section' 		=> 'title_tagline',
-				'priority'		=> 10,
-				'label' 		=> __( 'Retina logo', 'chaplin' ),
-				'description' 	=> __( 'Scales the logo to half its uploaded size, making it sharp on high-res screens.', 'chaplin' ),
-			) );
-
-			/* ------------------------------------------------------------------------
-			 * Colors
-			 * ------------------------------------------------------------------------ */
-
-			$chaplin_accent_color_options = apply_filters( 'chaplin_accent_color_options', array(
-				'chaplin_accent_color' => array(
-					'default'	=> '#007C89',
-					'label'		=> __( 'Accent Color', 'chaplin' )
-				),
-				'chaplin_primary_text_color' => array(
-					'default'	=> '#1A1B1F',
-					'label'		=> __( 'Primary Text Color', 'chaplin' )
-				),
-				'chaplin_secondary_text_color' => array(
-					'default'	=> '#747579',
-					'label'		=> __( 'Secondary Text Color', 'chaplin' )
-				),
-				'chaplin_border_color' => array(
-					'default'	=> '#E1E1E3',
-					'label'		=> __( 'Border Color', 'chaplin' )
-				),
-				'chaplin_light_background_color' => array(
-					'default'	=> '#F1F1F3',
-					'label'		=> __( 'Light Background Color', 'chaplin' )
-				),
-			) );
-
-			// Loop over the color options and add them to the customizer
-			foreach ( $chaplin_accent_color_options as $color_option_name => $color_option ) {
-
-				$wp_customize->add_setting( $color_option_name, array(
-					'default' 			=> $color_option['default'],
-					'type' 				=> 'theme_mod',
-					'sanitize_callback' => 'sanitize_hex_color',
-				) );
-
-				$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $color_option_name, array(
-					'label' 		=> $color_option['label'],
-					'section' 		=> 'colors',
-					'settings' 		=> $color_option_name,
-					'priority' 		=> 10,
-				) ) );
-
-			}
-
-			// Update background color with postMessage, so inline CSS output is updated as well
-			$wp_customize->get_setting( 'background_color' )->transport = 'refresh';
-
-			/* ------------------------------------------------------------------------
-			 * Fonts
-			 * ------------------------------------------------------------------------ */
-
-			$wp_customize->add_section( 'chaplin_fonts_options', array(
-				'title' 		=> __( 'Fonts', 'chaplin' ),
-				'priority' 		=> 40,
-				'capability' 	=> 'edit_theme_options',
-				'description' 	=> __( 'Specify which fonts to use. The theme supports all fonts on <a href="https://fonts.google.com" target="_blank">Google Fonts</a> and all <a href="https://www.w3schools.com/cssref/css_websafe_fonts.asp" target="_blank">web safe fonts</a>.', 'chaplin' ),
-			) );
-
-			/* Font Options ------------------ */
-
-			$chaplin_font_options = apply_filters( 'chaplin_font_options', array(
-				'chaplin_body_font' => array(
-					'default'	=> '',
-					'label'		=> __( 'Body Font', 'chaplin' ),
-					'slug'		=> 'body'
-				),
-				'chaplin_headings_font' => array(
-					'default'	=> 'Merriweather',
-					'label'		=> __( 'Headings Font', 'chaplin' ),
-					'slug'		=> 'headings'
-				),
-			) );
-
-			// Loop over the font options and add them to the customizer
-			foreach ( $chaplin_font_options as $font_option_name => $font_option ) {
-				$wp_customize->add_setting( $font_option_name, array(
-					'default' 			=> $font_option['default'],
-					'sanitize_callback' => 'wp_filter_nohtml_kses',
-					'type'				=> 'theme_mod',
-				) );
-
-				$wp_customize->add_control( $font_option_name, array(
-					'type'			=> 'text',
-					'label' 		=> $font_option['label'],
-					'description'	=> self::chaplin_suggested_fonts_data_list( $font_option['slug'] ),
-					'section' 		=> 'chaplin_fonts_options',
-					'input_attrs' 	=> array(
-						'autocapitalize'	=> 'off',
-						'autocomplete'		=> 'off',
-						'autocorrect'		=> 'off',
-						'class'				=> 'font-suggestions',
-						'list'  			=> 'chaplin-suggested-fonts-list-' . $font_option['slug'],
-						'placeholder' 		=> __( 'Enter the font name', 'chaplin' ),
-						'spellcheck'		=> 'false',
-					),
-				) );
-			}
-
-			// Languages
-			$wp_customize->add_setting( 'chaplin_font_languages', array(
-				'capability' 		=> 'edit_theme_options',
-				'default'           => array( 'latin' ),
-				'sanitize_callback' => 'chaplin_sanitize_multiple_checkboxes',
-			) );
-
-			$wp_customize->add_control( new Chaplin_Customize_Control_Checkbox_Multiple( $wp_customize, 'chaplin_font_languages', array(
-				'section' 		=> 'chaplin_fonts_options',
-				'label'   		=> __( 'Languages', 'chaplin' ),
-				'description'	=> __( 'All fonts do not support all languages. Check your font on Google Fonts to make sure.', 'chaplin' ),
-				'choices' 		=> apply_filters( 'chaplin_font_languages', array(
-					'latin'			=> __( 'Latin', 'chaplin' ),
-					'latin-ext'		=> __( 'Latin Extended', 'chaplin' ),
-					'cyrillic'		=> __( 'Cyrillic', 'chaplin' ),
-					'cyrillic-ext'	=> __( 'Cyrillic Extended', 'chaplin' ),
-					'greek'			=> __( 'Greek', 'chaplin' ),
-					'greek-ext'		=> __( 'Greek Extended', 'chaplin' ),
-					'vietnamese'	=> __( 'Vietnamese', 'chaplin' ),
-				) ),
-			) ) );
-
-
-			/* ------------------------------------------------------------------------
-			 * Fallback Image Options
-			 * ------------------------------------------------------------------------ */
-
-			$wp_customize->add_section( 'chaplin_image_options', array(
-				'title' 		=> __( 'Images', 'chaplin' ),
-				'priority' 		=> 40,
-				'capability' 	=> 'edit_theme_options',
-				'description' 	=> __( 'Settings for images in Chaplin.', 'chaplin' ),
-			) );
-
-			// Activate low-resolution images setting
-			$wp_customize->add_setting( 'chaplin_activate_low_resolution_images', array(
-				'capability' 		=> 'edit_theme_options',
-				'sanitize_callback' => 'chaplin_sanitize_checkbox'
-			) );
-
-			$wp_customize->add_control( 'chaplin_activate_low_resolution_images', array(
-				'type' 			=> 'checkbox',
-				'section' 		=> 'chaplin_image_options',
-				'priority'		=> 5,
-				'label' 		=> __( 'Use Low-Resolution Images', 'chaplin' ),
-				'description'	=> __( 'Checking this will decrease load times, but also make images look less sharp on high-resolution screens.', 'chaplin' ),
-			) );
-
-			// Fallback image setting
-			$wp_customize->add_setting( 'chaplin_fallback_image', array(
-				'capability' 		=> 'edit_theme_options',
-				'sanitize_callback' => 'absint'
-			) );
-
-			$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'chaplin_fallback_image', array(
-				'label'			=> __( 'Fallback Image', 'chaplin' ),
-				'description'	=> __( 'The selected image will be used when a post is missing a featured image. A default fallback image included in the theme will be used if no image is set.', 'chaplin' ),
-				'priority'		=> 10,
-				'mime_type'		=> 'image',
-				'section' 		=> 'chaplin_image_options',
-			) ) );
-
-			// Disable fallback image setting
-			$wp_customize->add_setting( 'chaplin_disable_fallback_image', array(
-				'capability' 		=> 'edit_theme_options',
-				'sanitize_callback' => 'chaplin_sanitize_checkbox'
-			) );
-
-			$wp_customize->add_control( 'chaplin_disable_fallback_image', array(
-				'type' 			=> 'checkbox',
-				'section' 		=> 'chaplin_image_options',
-				'priority'		=> 15,
-				'label' 		=> __( 'Disable Fallback Image', 'chaplin' )
-			) );
-
-			/* ------------------------------------------------------------------------
-			 * Site Header Options
-			 * ------------------------------------------------------------------------ */
-
-			$wp_customize->add_section( 'chaplin_site_header_options', array(
-				'title' 		=> __( 'Site Header', 'chaplin' ),
-				'priority' 		=> 40,
-				'capability' 	=> 'edit_theme_options',
-				'description' 	=> __( 'Settings for the site header.', 'chaplin' ),
-			) );
-
-			/* Sticky Header ----------------- */
-
-			$wp_customize->add_setting( 'chaplin_sticky_header', array(
-				'capability' 		=> 'edit_theme_options',
-				'sanitize_callback' => 'chaplin_sanitize_checkbox',
-			) );
-
-			$wp_customize->add_control( 'chaplin_sticky_header', array(
-				'type' 			=> 'checkbox',
-				'section' 		=> 'chaplin_site_header_options',
-				'priority'		=> 10,
-				'label' 		=> __( 'Sticky Header', 'chaplin' ),
-				'description' 	=> __( 'Stick the header to the top of the window on scroll.', 'chaplin' ),
-			) );
-
-			/* Header Search ------------------- */
-
-			$wp_customize->add_setting( 'chaplin_header_search', array(
-				'capability' 		=> 'edit_theme_options',
-				'sanitize_callback' => 'chaplin_sanitize_checkbox',
-			) );
-
-			$wp_customize->add_control( 'chaplin_header_search', array(
-				'type' 			=> 'checkbox',
-				'section' 		=> 'chaplin_site_header_options',
-				'priority'		=> 10,
-				'label' 		=> __( 'Disable Search Button', 'chaplin' ),
-				'description' 	=> __( 'Check to disable the search button in the header.', 'chaplin' ),
-			) );
-
-			/* ------------------------------------------------------------------------
-			 * Posts
-			 * ------------------------------------------------------------------------ */
-
-			$wp_customize->add_section( 'chaplin_single_post_options', array(
-				'title' 		=> __( 'Posts', 'chaplin' ),
-				'priority' 		=> 41,
-				'capability' 	=> 'edit_theme_options',
-				'description' 	=> __( 'Settings for what to display on single posts.', 'chaplin' ),
-			) );
-
-			/* Post Meta Setting ------------- */
-
-			$post_meta_choices = apply_filters( 'chaplin_post_meta_choices_in_the_customizer', array(
-				'author'		=> __( 'Author', 'chaplin' ),
-				'categories'	=> __( 'Categories', 'chaplin' ),
-				'comments'		=> __( 'Comments', 'chaplin' ),
-				'edit-link'		=> __( 'Edit link (for logged in users)', 'chaplin' ),
-				'post-date'		=> __( 'Post date', 'chaplin' ),
-				'sticky'		=> __( 'Sticky status', 'chaplin' ),
-				'tags'			=> __( 'Tags', 'chaplin' ),
-			) );
-
-			// Post Meta Single Top Setting
-			$wp_customize->add_setting( 'chaplin_post_meta_single_top', array(
-				'capability' 		=> 'edit_theme_options',
-				'default'           => array( 'post-date', 'categories' ),
-				'sanitize_callback' => 'chaplin_sanitize_multiple_checkboxes',
-			) );
-
-			$wp_customize->add_control( new Chaplin_Customize_Control_Checkbox_Multiple( $wp_customize, 'chaplin_post_meta_single_top', array(
-				'section' 		=> 'chaplin_single_post_options',
-				'label'   		=> __( 'Top Post Meta:', 'chaplin' ),
-				'description'	=> __( 'Select post meta to display above the content.', 'chaplin' ),
-				'choices' 		=> $post_meta_choices,
-			) ) );
-
-			// Post Meta Single Bottom Setting
-			$wp_customize->add_setting( 'chaplin_post_meta_single_bottom', array(
-				'capability' 		=> 'edit_theme_options',
-				'default'           => array( 'tags' ),
-				'sanitize_callback' => 'chaplin_sanitize_multiple_checkboxes',
-			) );
-
-			$wp_customize->add_control( new Chaplin_Customize_Control_Checkbox_Multiple( $wp_customize, 'chaplin_post_meta_single_bottom', array(
-				'section' 		=> 'chaplin_single_post_options',
-				'label'   		=> __( 'Bottom Post Meta:', 'chaplin' ),
-				'description'	=> __( 'Select post meta to display below the content.', 'chaplin' ),
-				'choices' 		=> $post_meta_choices,
-			) ) );
-
-			/* Disable Related Posts Setting - */
-
-			$wp_customize->add_setting( 'chaplin_disable_related_posts', array(
-				'capability' 		=> 'edit_theme_options',
-				'sanitize_callback' => 'chaplin_sanitize_checkbox',
-			) );
-
-			$wp_customize->add_control( 'chaplin_disable_related_posts', array(
-				'type' 			=> 'checkbox',
-				'section' 		=> 'chaplin_single_post_options',
-				'priority'		=> 10,
-				'label' 		=> __( 'Disable Related Posts', 'chaplin' ),
-				'description' 	=> __( 'Check to hide the related posts section.', 'chaplin' ),
-			) );
-
-			/* ------------------------------------------------------------------------
-			 * Pagination Options
-			 * ------------------------------------------------------------------------ */
-
-			$wp_customize->add_section( 'chaplin_pagination_options', array(
-				'title' 		=> __( 'Archive Pagination', 'chaplin' ),
-				'priority' 		=> 45,
-				'capability' 	=> 'edit_theme_options',
-				'description' 	=> __( 'Choose which type of pagination to use on archive pages.', 'chaplin' ),
-			) );
-
-			/* Pagination Type Setting ----------------------------- */
-
-			$wp_customize->add_setting( 'chaplin_pagination_type', array(
-				'capability' 		=> 'edit_theme_options',
-				'default'           => 'button',
-				'sanitize_callback' => 'chaplin_sanitize_radio',
-			) );
-
-			$wp_customize->add_control( 'chaplin_pagination_type', array(
-				'type'			=> 'radio',
-				'section' 		=> 'chaplin_pagination_options',
-				'label'   		=> __( 'Pagination Type:', 'chaplin' ),
-				'choices' 		=> array(
-					'button'		=> __( 'Load more on button click', 'chaplin' ),
-					'scroll'		=> __( 'Load more on scroll', 'chaplin' ),
-					'links'			=> __( 'Previous and next page links', 'chaplin' ),
-				),
-			) );
-
-			/* ------------------------------------------------------------------------
-			 * Template: Cover Template
-			 * ------------------------------------------------------------------------ */
-
-			$wp_customize->add_section( 'chaplin_cover_template_options', array(
-				'title' 		=> __( 'Cover Template', 'chaplin' ),
-				'priority' 		=> 45,
-				'capability' 	=> 'edit_theme_options',
-				'description' 	=> __( 'Settings for the "Cover Template" page template.', 'chaplin' ),
-			) );
-
-			/* Overlay Color Setting ---------- */
-
-			$wp_customize->add_setting( 'chaplin_cover_template_overlay_color', array(
-				'default' 			=> get_theme_mod( 'chaplin_accent_color', '#007C89' ),
-				'type' 				=> 'theme_mod',
-				'sanitize_callback' => 'sanitize_hex_color',
-			) );
-
-			$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'chaplin_cover_template_overlay_color', array(
-				'label' 		=> __( 'Image Overlay Color', 'chaplin' ),
-				'description'	=> __( 'The color used for the featured image overlay. Defaults to the accent color.', 'chaplin' ),
-				'section' 		=> 'chaplin_cover_template_options',
-				'settings' 		=> 'chaplin_cover_template_overlay_color',
-				'priority' 		=> 10,
-			) ) );
-
-			/* Overlay Color Opacity --------- */
-
-			$wp_customize->add_setting( 'chaplin_cover_template_overlay_opacity', array(
-				'default' 			=> '80',
-				'sanitize_callback' => 'chaplin_sanitize_select',
-			) );
-
-			$wp_customize->add_control( 'chaplin_cover_template_overlay_opacity', array(
-				'label' 		=> __( 'Image Overlay Opacity', 'chaplin' ),
-				'description'	=> __( 'Make sure that the value is high enough that the text is readable.', 'chaplin' ),
-				'section' 		=> 'chaplin_cover_template_options',
-				'settings' 		=> 'chaplin_cover_template_overlay_opacity',
-				'type' 			=> 'select',
-				'priority' 		=> 20,
-				'choices' 		=> array(
-					'0' 			=> __( '0%', 'chaplin' ),
-					'10' 			=> __( '10%', 'chaplin' ),
-					'20' 			=> __( '20%', 'chaplin' ),
-					'30' 			=> __( '30%', 'chaplin' ),
-					'40' 			=> __( '40%', 'chaplin' ),
-					'50' 			=> __( '50%', 'chaplin' ),
-					'60' 			=> __( '60%', 'chaplin' ),
-					'70' 			=> __( '70%', 'chaplin' ),
-					'80' 			=> __( '80%', 'chaplin' ),
-					'90' 			=> __( '90%', 'chaplin' ),
-					'100' 			=> __( '100%', 'chaplin' ),
-				),
-			) );
-
-			/* Fixed Background -------------- */
-
-			$wp_customize->add_setting( 'chaplin_cover_template_fixed_background', array(
-				'capability' 		=> 'edit_theme_options',
-				'sanitize_callback' => 'chaplin_sanitize_checkbox',
-			) );
-
-			$wp_customize->add_control( 'chaplin_cover_template_fixed_background', array(
-				'type' 			=> 'checkbox',
-				'section' 		=> 'chaplin_cover_template_options',
-				'priority'		=> 30,
-				'label' 		=> __( 'Fixed Background Image', 'chaplin' ),
-				'description' 	=> __( 'Creates a parallax effect when the visitor scrolls.', 'chaplin' ),
-			) );
-
-			/* Sanitation functions ----------------------------- */
-
-			// Sanitize boolean for checkbox
-			function chaplin_sanitize_checkbox( $checked ) {
-				return ( ( isset( $checked ) && true == $checked ) ? true : false );
-			}
-
-			// Sanitize booleans for multiple checkboxes
-			function chaplin_sanitize_multiple_checkboxes( $values ) {
-				$multi_values = ! is_array( $values ) ? explode( ',', $values ) : $values;
-				return ! empty( $multi_values ) ? array_map( 'sanitize_text_field', $multi_values ) : array();
-			}
-
-			// Sanitize radio
-			function chaplin_sanitize_radio( $input, $setting ) {
-				$input = sanitize_key( $input );
-				$choices = $setting->manager->get_control( $setting->id )->choices;
-				return ( array_key_exists( $input, $choices ) ? $input : $setting->default );
-			}
-
-			// Sanitize select
-			function chaplin_sanitize_select( $input, $setting ) {
-				$input = sanitize_key( $input );
-				$choices = $setting->manager->get_control( $setting->id )->choices;
-				return ( array_key_exists( $input, $choices ) ? $input : $setting->default );
-			}
-
-		}
-
-		// Return an array of suggested fonts
-		public static function chaplin_suggested_fonts_data_list( $font_option ) {
-
-			$suggested_fonts = Chaplin_Google_Fonts::get_suggested_fonts( $font_option );
-
-			$list = '<datalist id="chaplin-suggested-fonts-list-' . esc_attr( $font_option ) . '">';
-			foreach ( $suggested_fonts as $font ) {
-				$list .= '<option value="' . esc_attr( $font ) . '">';
-			}
-			$list .= '</datalist>';
-
-			echo $list;
-		}
-
-		// Initiate the customize controls js
-		public static function chaplin_customize_controls() {
-			wp_enqueue_script( 'chaplin-customize-controls', get_template_directory_uri() . '/assets/js/customize-controls.js', array( 'jquery', 'customize-controls' ), '', true );
-		}
-
-	}
-
-	// Setup the Theme Customizer settings and controls
-	add_action( 'customize_register', array( 'Chaplin_Customize', 'chaplin_register' ) );
-
-	// Enqueue customize controls javascript in Theme Customizer admin screen
-	add_action( 'customize_controls_init', array( 'Chaplin_Customize', 'chaplin_customize_controls' ) );
-
 endif;
 
 

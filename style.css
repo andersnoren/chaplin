@@ -770,10 +770,10 @@ button.toggle {
 .color-accent-hover:hover { color: #007C89; }
 
 .color-border,
-.color-border-hover:hover { background: #E1E1E3; }
+.color-border-hover:hover { color: #E1E1E3; }
 
 .color-light-background,
-.color-light-background-hover:hover { background: #F1F1F3; }
+.color-light-background-hover:hover { color: #F1F1F3; }
 
 /* BACKGROUND COLOR */
 
@@ -1868,6 +1868,18 @@ button.sub-menu-toggle.active svg {
 .has-very-dark-gray-color.has-very-dark-gray-color { color: #313131; }
 
 /* CUSTOM COLORS */
+
+.has-accent-color { color: #1A1B1F; }
+.has-primary-color { color: #747579; }
+.has-secondary-color { color: #007C89; }
+.has-border-color { color: #E1E1E3; }
+.has-light-background-color { color: #F1F1F3; }
+
+.has-accent-background-color { background-color: #1A1B1F; }
+.has-primary-background-color { background-color: #747579; }
+.has-secondary-background-color { background-color: #007C89; }
+.has-border-background-color { background-color: #E1E1E3; }
+.has-light-background-background-color { background-color: #F1F1F3; }
 
 /* Block: _Shared Lists ------------------- */
 
@@ -3639,7 +3651,7 @@ body.woocommerce .entry-content {
 
 	.menu-modal-inner {
 		box-shadow: 0 0 2rem 0 rgba( 0, 0, 0, .1 );
-		min-width: 60rem;
+		min-width: 64rem;
 		opacity: 0;
 		padding: 8rem 0 6rem;
 		transform: translateX( 20rem );
