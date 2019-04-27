@@ -1119,8 +1119,6 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			 * Fonts
 			 * ------------------------------------------------------------------------ */
 
-			// Based on a solution by Claudio Schwarz (@purzlbaum on GitHub)
-
 			$wp_customize->add_section( 'chaplin_fonts_options', array(
 				'title' 		=> __( 'Fonts', 'chaplin' ),
 				'priority' 		=> 40,
@@ -1130,45 +1128,43 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			/* Font Options ------------------ */
 
-			// Body font
-			$wp_customize->add_setting( 'chaplin_body_font', array(
-				'default' 			=> '',
-				'sanitize_callback' => 'wp_filter_nohtml_kses',
-				'type'				=> 'theme_mod',
-			) );
-
-			$wp_customize->add_control( 'chaplin_body_font', array(
-				'type'			=> 'text',
-				'label' 		=> __( 'Body Font', 'chaplin' ),
-				'description'	=> self::chaplin_suggested_fonts_data_list( 'body' ),
-				'section' 		=> 'chaplin_fonts_options',
-				'input_attrs' 	=> array(
-					'autocomplete'	=> 'off',
-					'class'			=> 'font-suggestions',
-					'placeholder' 	=> __( 'Enter the font name', 'chaplin' ),
-					'list'  		=> 'chaplin-suggested-fonts-list-body',
+			$chaplin_font_options = apply_filters( 'chaplin_font_options', array(
+				'chaplin_body_font' => array(
+					'default'	=> '',
+					'label'		=> __( 'Body Font', 'chaplin' ),
+					'slug'		=> 'body'
+				),
+				'chaplin_headings_font' => array(
+					'default'	=> 'Merriweather',
+					'label'		=> __( 'Headings Font', 'chaplin' ),
+					'slug'		=> 'headings'
 				),
 			) );
 
-			// Headings font
-			$wp_customize->add_setting( 'chaplin_headings_font', array(
-				'default' 			=> 'Merriweather',
-				'sanitize_callback' => 'wp_filter_nohtml_kses',
-				'type'				=> 'theme_mod',
-			) );
+			// Loop over the font options and add them to the customizer
+			foreach ( $chaplin_font_options as $font_option_name => $font_option ) {
+				$wp_customize->add_setting( $font_option_name, array(
+					'default' 			=> $font_option['default'],
+					'sanitize_callback' => 'wp_filter_nohtml_kses',
+					'type'				=> 'theme_mod',
+				) );
 
-			$wp_customize->add_control( 'chaplin_headings_font', array(
-				'type'			=> 'text',
-				'label' 		=> __( 'Headings Font', 'chaplin' ),
-				'description'	=> self::chaplin_suggested_fonts_data_list( 'headings' ),
-				'section' 		=> 'chaplin_fonts_options',
-				'input_attrs' 	=> array(
-					'autocomplete'	=> 'off',
-					'class'			=> 'font-suggestions',
-					'placeholder' 	=> __( 'Enter the font name', 'chaplin' ),
-					'list'  		=> 'chaplin-suggested-fonts-list-headings',
-				),
-			) );
+				$wp_customize->add_control( $font_option_name, array(
+					'type'			=> 'text',
+					'label' 		=> $font_option['label'],
+					'description'	=> self::chaplin_suggested_fonts_data_list( $font_option['slug'] ),
+					'section' 		=> 'chaplin_fonts_options',
+					'input_attrs' 	=> array(
+						'autocapitalize'	=> 'off',
+						'autocomplete'		=> 'off',
+						'autocorrect'		=> 'off',
+						'class'				=> 'font-suggestions',
+						'list'  			=> 'chaplin-suggested-fonts-list-' . $font_option['slug'],
+						'placeholder' 		=> __( 'Enter the font name', 'chaplin' ),
+						'spellcheck'		=> 'false',
+					),
+				) );
+			}
 
 			// Languages
 			$wp_customize->add_setting( 'chaplin_font_languages', array(
