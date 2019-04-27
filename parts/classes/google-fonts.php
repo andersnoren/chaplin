@@ -8,11 +8,30 @@
 if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 	class Chaplin_Google_Fonts {
 
-		// Set default fonts
+
+		/* --------------------------------------------------------------------
+		   SET DEFAULT FONTS
+		   -------------------------------------------------------------------- */
+
 		public static $default_headings_font = 'Merriweather';
 		public static $default_body_font = '';
 
-		// Get the enqueue URL for the fonts selected
+
+		/* --------------------------------------------------------------------
+		   WEB SAFE FONTS
+		   Store a list of web safe fonts that don't need Google Fonts
+		   -------------------------------------------------------------------- */
+
+		public static $web_safe_fonts = array(
+			'--apple-system', 'Arial', 'Comic Sans', 'Courier New', 'Courier', 'Garamond', 'Georgia', 'Helvetica', 'Impact', 'Palatino', 'Times New Roman', 'Times', 'Trebuchet', 'Verdana',
+		);
+
+
+		/* --------------------------------------------------------------------
+		   GET GOOGLE FONTS ENQUEUE URL
+		   Get the enqueue URL for the fonts selected
+		   -------------------------------------------------------------------- */
+
 		public static function get_google_fonts_url() {
 
 			// Get the fonts set in the Customizer
@@ -71,7 +90,12 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 
 		}
 
-		// Get the font value from a font name
+
+		/* --------------------------------------------------------------------
+		   GET FONT VALUE
+		   Get the font value from a font name
+		   -------------------------------------------------------------------- */
+
 		public static function get_font_value_from_name( $font_name, $font_option ) {
 
 			// Different styles for body and headings
@@ -84,7 +108,12 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 			return $font_name . $styles;
 		}
 
-		// Get the font fallback stack
+
+		/* --------------------------------------------------------------------
+		   GET FONT FALLBACKS
+		   Get the font fallback stack
+		   -------------------------------------------------------------------- */
+
 		public static function get_font_fallbacks() {
 			$sans_serif = '-apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif';
 			$serif = 'Georgia, "Times New Roman", Times, serif';
@@ -93,23 +122,84 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 			return $sans_serif;
 		}
 
-		// Store a list of web safe fonts that don't need Google Fonts
-		static $web_safe_fonts = array(
-			'--apple-system',
-			'Arial',
-			'Comic Sans',
-			'Courier New',
-			'Courier',
-			'Garamond',
-			'Georgia',
-			'Helvetica',
-			'Impact',
-			'Palatino',
-			'Times New Roman',
-			'Times',
-			'Trebuchet',
-			'Verdana',
-		);
+		/* --------------------------------------------------------------------
+		   GET SUGGESTED FONTS
+		   Get suggested fonts for autocomplete in the Customizer
+		   -------------------------------------------------------------------- */
+
+		public static function get_suggested_fonts( $font_option ) {
+			$suggested_fonts = array(
+				'Alegreya Sans',
+				'Alegreya',
+				'Archivo',
+				'Arial',
+				'Cabin',
+				'Catamaran',
+				'EB Garamond',
+				'Exo 2',
+				'Fira Sans',
+				'Georgia',
+				'Helvetica',
+				'IBM Plex Sans',
+				'IBM Plex Serif',
+				'Josefin Sans',
+				'Lato',
+				'Libre Baskerville',
+				'Libre Franklin',
+				'Lora',
+				'Merriweather Sans',
+				'Merriweather',
+				'Montserrat',
+				'Muli',
+				'Neuton',
+				'Noto Sans',
+				'Noto Serif',
+				'Nunito Sans',
+				'Nunito',
+				'Open Sans',
+				'PT Sans Caption',
+				'PT Sans',
+				'PT Serif Caption',
+				'PT Serif',
+				'Playfair Display',
+				'Quattrocento Sans',
+				'Quattrocento',
+				'Roboto Condensed',
+				'Roboto Mono',
+				'Roboto Slab',
+				'Roboto',
+				'Rubik',
+				'Source Sans Pro',
+				'Source Serif Pro',
+				'Times New Roman',
+				'Titillium Web',
+				'Ubuntu',
+				'Vollkorn',
+				'Work Sans',
+			);
+
+			// Font families suitable for headings, but not body text
+			if ( $font_option == 'headings' ) {
+				$suggested_fonts = array_merge( $suggested_fonts, array(
+					'Abril Fatface',
+					'Anton',
+					'Bitter',
+					'Bree Serif',
+					'Domine',
+					'Fjalla One',
+					'Josefin Slab',
+					'Patua One',
+					'Playfair Display SC',
+					'Playfair Display',
+					'Questrial',
+					'Righteous',
+					'Teko',
+					'Zilla Slab',
+				) );
+			}
+
+			return apply_filters( 'chaplin_suggested_fonts', $suggested_fonts, $font_option );
+		}
 
 	}
 endif;

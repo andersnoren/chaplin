@@ -8,7 +8,12 @@
 if ( ! class_exists( 'Chaplin_SVG_Icons' ) ) :
 	class Chaplin_SVG_Icons {
 
-		// Get the SVG code for the specified icon
+
+		/* --------------------------------------------------------------------
+		   GET SVG CODE
+		   Get the SVG code for the specified icon
+		   -------------------------------------------------------------------- */
+
 		public static function get_svg( $icon, $color = '#1A1A1B' ) {
 			$arr = apply_filters( 'chaplin_svg_icons', self::$icons );
 			if ( array_key_exists( $icon, $arr ) ) {
@@ -22,8 +27,12 @@ if ( ! class_exists( 'Chaplin_SVG_Icons' ) ) :
 			}
 			return null;
 		}
+
+		/* --------------------------------------------------------------------
+		   ICON STORAGe
+		   Store the code for all SVGs in an array
+		   -------------------------------------------------------------------- */
 		
-		// Store all SVGs in an array
 		static $icons = array(
 			'arrow-down'	=> '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16">
   <polygon fill="#1A1A1B" points="7.793 0 7.793 13.53 13.192 8.124 14.116 9.041 7.141 16 .182 9.041 1.083 8.124 6.489 13.53 6.489 0"/>

@@ -1140,9 +1140,13 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			$wp_customize->add_control( 'chaplin_body_font', array(
 				'type'			=> 'text',
 				'label' 		=> __( 'Body Font', 'chaplin' ),
+				'description'	=> self::chaplin_suggested_fonts_data_list( 'body' ),
 				'section' 		=> 'chaplin_fonts_options',
 				'input_attrs' 	=> array(
+					'autocomplete'	=> 'off',
+					'class'			=> 'font-suggestions',
 					'placeholder' 	=> __( 'Enter the font name', 'chaplin' ),
+					'list'  		=> 'chaplin-suggested-fonts-list-body',
 				),
 			) );
 
@@ -1156,9 +1160,13 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			$wp_customize->add_control( 'chaplin_headings_font', array(
 				'type'			=> 'text',
 				'label' 		=> __( 'Headings Font', 'chaplin' ),
+				'description'	=> self::chaplin_suggested_fonts_data_list( 'headings' ),
 				'section' 		=> 'chaplin_fonts_options',
 				'input_attrs' 	=> array(
+					'autocomplete'	=> 'off',
+					'class'			=> 'font-suggestions',
 					'placeholder' 	=> __( 'Enter the font name', 'chaplin' ),
+					'list'  		=> 'chaplin-suggested-fonts-list-headings',
 				),
 			) );
 
@@ -1388,7 +1396,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			/* Overlay Color Setting ---------- */
 
 			$wp_customize->add_setting( 'chaplin_cover_template_overlay_color', array(
-				'default' 			=> '#007C89',
+				'default' 			=> get_theme_mod( 'chaplin_accent_color', '#007C89' ),
 				'type' 				=> 'theme_mod',
 				'sanitize_callback' => 'sanitize_hex_color',
 			) );
@@ -1472,6 +1480,20 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				return ( array_key_exists( $input, $choices ) ? $input : $setting->default );
 			}
 
+		}
+
+		// Return an array of suggested fonts
+		public static function chaplin_suggested_fonts_data_list( $font_option ) {
+
+			$suggested_fonts = Chaplin_Google_Fonts::get_suggested_fonts( $font_option );
+
+			$list = '<datalist id="chaplin-suggested-fonts-list-' . esc_attr( $font_option ) . '">';
+			foreach ( $suggested_fonts as $font ) {
+				$list .= '<option value="' . esc_attr( $font ) . '">';
+			}
+			$list .= '</datalist>';
+
+			echo $list;
 		}
 
 		// Initiate the customize controls js
