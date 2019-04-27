@@ -879,21 +879,17 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 		$border = 				get_theme_mod( 'chaplin_border_color' );
 		$light_background = 	get_theme_mod( 'chaplin_light_background_color' );
 
-		$body_font_slug = 		get_theme_mod( 'chaplin_body_font' );
-		$body_font = 			'';
-		$headings_font_slug = 	get_theme_mod( 'chaplin_headings_font' );
-		$headings_font = 		'';
+		$body_font = 			get_theme_mod( 'chaplin_body_font', Chaplin_Google_Fonts::$default_body_font );
+		$headings_font = 		get_theme_mod( 'chaplin_headings_font', Chaplin_Google_Fonts::$default_headings_font );
 
-		// Only output CSS for headings if they aren't the defaults
-		if ( $body_font_slug && $body_font_slug !== Chaplin_Google_Fonts::$default_body_font ) {
-			$body_font = 			Chaplin_Google_Fonts::get_font_name_from_slug( $body_font_slug, 'body' );
-			$body_font_stack = 		Chaplin_Google_Fonts::get_font_fallbacks_from_slug( $body_font_slug, 'body' );
-			$body_font = 			$body_font . ', '. $body_font_stack;
+		// Output CSS for headings if they aren't the defaults
+		if ( $body_font ) {
+			$body_font_stack = 	Chaplin_Google_Fonts::get_font_fallbacks( $body_font, 'body' );
+			$body_font = 		$body_font . ', '. $body_font_stack;
 		}
 
-		if ( $headings_font_slug && $headings_font_slug !== Chaplin_Google_Fonts::$default_headings_font ) {
-			$headings_font = 		Chaplin_Google_Fonts::get_font_name_from_slug( $headings_font_slug, 'headings' );
-			$headings_font_stack = 	Chaplin_Google_Fonts::get_font_fallbacks_from_slug( $headings_font_slug, 'headings' );
+		if ( $headings_font ) {
+			$headings_font_stack = 	Chaplin_Google_Fonts::get_font_fallbacks( $headings_font, 'headings' );
 			$headings_font = 		$headings_font . ', ' . $headings_font_stack;
 		}
 		
@@ -901,18 +897,18 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 
 		/* Colors ---------------------------- */
 
+		// Background color
 		if ( $background ) : 
-
 			chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type="button"], input[type="reset"], input[type="submit"]', 'color', $background );
 
 			chaplin_generate_css( '.color-body-background, .color-body-background-hover:hover', 'color', $background );
 			chaplin_generate_css( '.bg-body-background, .bg-body-background-hover:hover', 'background-color', $background );
 			chaplin_generate_css( '.border-color-body-background, .border-color-body-background-hover:hover', 'border-color', $background );
 			chaplin_generate_css( '.fill-children-body-background, .fill-children-body-background *', 'fill', $background );
-
 		endif;
-		if ( $primary ) : 
 
+		// Primary color
+		if ( $primary ) : 
 			chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $primary ) . '\');' );
 
 			chaplin_generate_css( 'body', 'color', $primary );
@@ -922,18 +918,18 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 			chaplin_generate_css( '.bg-primary, .bg-primary-hover:hover', 'background-color', $primary );
 			chaplin_generate_css( '.border-color-primary, .border-color-primary-hover:hover', 'border-color', $primary );
 			chaplin_generate_css( '.fill-children-primary, .fill-children-primary *', 'fill', $primary );
-
 		endif;
+
+		// Secondary color
 		if ( $secondary ) :
-			
 			chaplin_generate_css( '.color-secondary, .color-secondary-hover:hover', 'color', $secondary );
 			chaplin_generate_css( '.bg-secondary, .bg-secondary-hover:hover', 'background-color', $secondary );
 			chaplin_generate_css( '.border-color-secondary, .border-color-secondary-hover:hover', 'border-color', $secondary );
 			chaplin_generate_css( '.fill-children-secondary, .fill-children-secondary *', 'fill', $secondary );
-
 		endif;
+
+		// Accent color
 		if ( $accent ) : 
-			
 			chaplin_generate_css( 'a', 'color', $accent );
 			chaplin_generate_css( 'blockquote', 'border-color', $accent );
 
@@ -941,10 +937,10 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 			chaplin_generate_css( '.bg-accent, .bg-accent-hover:hover', 'background-color', $accent );
 			chaplin_generate_css( '.border-color-accent, .border-color-accent-hover:hover', 'border-color', $accent );
 			chaplin_generate_css( '.fill-children-accent, .fill-children-accent *', 'fill', $accent );
-			
 		endif;
+		
+		// Border color
 		if ( $border ) : 
-			
 			chaplin_generate_css( 'hr, pre, th, td, input, textarea, select', 'border-color', $border );
 			chaplin_generate_css( 'caption', 'background', $border );
 
@@ -957,10 +953,10 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 			chaplin_generate_css( '.bg-border, .bg-border-hover:hover', 'background-color', $border );
 			chaplin_generate_css( '.border-color-border, .border-color-border-hover:hover', 'border-color', $border );
 			chaplin_generate_css( '.fill-children-border, .fill-children-border *', 'fill', $border );
-
 		endif;
-		if ( $light_background ) : 
 
+		// Light background color
+		if ( $light_background ) : 
 			chaplin_generate_css( 'code, kbd, samp', 'background-color', $light_background );
 			chaplin_generate_css( 'table.is-style-stripes tr:nth-child( odd )', 'background-color', $light_background );
 
@@ -968,27 +964,23 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 			chaplin_generate_css( '.bg-light-background, .bg-light-background-hover:hover', 'background-color', $light_background );
 			chaplin_generate_css( '.border-color-light-background, .border-color-light-background-hover:hover', 'border-color', $light_background );
 			chaplin_generate_css( '.fill-children-light-background, .fill-children-light-background *', 'fill', $light_background );
-
 		endif;
 
 		/* Fonts ----------------------------- */
 
+		// Body font
 		if ( $body_font ) :
-
 			chaplin_generate_css( 'body', 'font-family', $body_font );
-
 		endif;
+
+		// Headings font
 		if ( $headings_font ) :
-
 			chaplin_generate_css( 'h1, h2, h3, h4, h5, h6, .faux-heading', 'font-family', $headings_font );
-
 		endif;
 
 		/* Return the results ---------------- */
 
-		$customizer_css = ob_get_clean();
-
-		wp_add_inline_style( 'chaplin_style', $customizer_css );
+		wp_add_inline_style( 'chaplin_style', ob_get_clean() );
 
 	}
 	add_action( 'wp_enqueue_scripts', 'chaplin_customizer_css_output' );
@@ -1133,76 +1125,65 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'title' 		=> __( 'Fonts', 'chaplin' ),
 				'priority' 		=> 40,
 				'capability' 	=> 'edit_theme_options',
-				'description' 	=> sprintf( _x( 'Select which fonts to use in Chaplin. Fonts are loaded from %s. For better performance, select web safe fonts.', '%s = Google Fonts link', 'chaplin' ), '<a href="https://fonts.google.com">Google Fonts</a>' ),
+				'description' 	=> __( 'Specify which fonts to use. The theme supports all fonts on <a href="https://fonts.google.com" target="_blank">Google Fonts</a> and all <a href="https://www.w3schools.com/cssref/css_websafe_fonts.asp" target="_blank">web safe fonts</a>.', 'chaplin' ),
 			) );
 
 			/* Font Options ------------------ */
 
-			$font_choices = Chaplin_Google_Fonts::google_fonts_values();
-
 			// Body font
 			$wp_customize->add_setting( 'chaplin_body_font', array(
-				'default' 			=> Chaplin_Google_Fonts::$default_body_font,
-				'sanitize_callback' => 'chaplin_sanitize_fonts',
-				'type'				=> 'theme_mod',
-			) );
-
-			$wp_customize->add_control( 'chaplin_body_font', array(
-				'type'			=> 'select',
-				'label' 		=> __( 'Body Font', 'chaplin' ),
-				'section' 		=> 'chaplin_fonts_options',
-				'choices' 		=> $font_choices
-			) );
-
-			// Other body font
-			$wp_customize->add_setting( 'chaplin_body_font_other', array(
 				'default' 			=> '',
 				'sanitize_callback' => 'wp_filter_nohtml_kses',
 				'type'				=> 'theme_mod',
 			) );
 
-			$wp_customize->add_control( 'chaplin_body_font_other', array(
+			$wp_customize->add_control( 'chaplin_body_font', array(
 				'type'			=> 'text',
-				'label' 		=> __( 'Other Body Font', 'chaplin' ),
+				'label' 		=> __( 'Body Font', 'chaplin' ),
 				'section' 		=> 'chaplin_fonts_options',
 				'input_attrs' 	=> array(
-					'placeholder' 	=> __( 'Enter any Google Fonts name', 'chaplin' ),
+					'placeholder' 	=> __( 'Enter the font name', 'chaplin' ),
 				),
 			) );
 
 			// Headings font
 			$wp_customize->add_setting( 'chaplin_headings_font', array(
-				'default' 			=> Chaplin_Google_Fonts::$default_headings_font,
-				'sanitize_callback' => 'chaplin_sanitize_fonts',
-				'type'				=> 'theme_mod',
-			) );
-
-			$wp_customize->add_control( 'chaplin_headings_font', array(
-				'type'			=> 'select',
-				'label' 		=> __( 'Headings Font', 'chaplin' ),
-				'section' 		=> 'chaplin_fonts_options',
-				'choices' 		=> $font_choices,
-				'input_attrs' 	=> array(
-					'placeholder' 	=> __( 'Enter any Google Fonts name', 'chaplin' ),
-				),
-			) );
-
-			// Other headings font
-			$wp_customize->add_setting( 'chaplin_headings_font_other', array(
-				'default' 			=> '',
+				'default' 			=> 'Merriweather',
 				'sanitize_callback' => 'wp_filter_nohtml_kses',
 				'type'				=> 'theme_mod',
 			) );
 
-			$wp_customize->add_control( 'chaplin_headings_font_other', array(
+			$wp_customize->add_control( 'chaplin_headings_font', array(
 				'type'			=> 'text',
-				'label' 		=> __( 'Other Headings Font', 'chaplin' ),
-				'description'	=> __( 'Enter the name of the font on Google Fonts.', 'chaplin' ),
+				'label' 		=> __( 'Headings Font', 'chaplin' ),
 				'section' 		=> 'chaplin_fonts_options',
 				'input_attrs' 	=> array(
-					'placeholder' 	=> __( 'Enter any Google Fonts name', 'chaplin' ),
+					'placeholder' 	=> __( 'Enter the font name', 'chaplin' ),
 				),
 			) );
+
+			// Languages
+			$wp_customize->add_setting( 'chaplin_font_languages', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'           => array( 'latin' ),
+				'sanitize_callback' => 'chaplin_sanitize_multiple_checkboxes',
+			) );
+
+			$wp_customize->add_control( new Chaplin_Customize_Control_Checkbox_Multiple( $wp_customize, 'chaplin_font_languages', array(
+				'section' 		=> 'chaplin_fonts_options',
+				'label'   		=> __( 'Languages', 'chaplin' ),
+				'description'	=> __( 'All fonts do not support all languages. Check your font on Google Fonts to make sure.', 'chaplin' ),
+				'choices' 		=> apply_filters( 'chaplin_font_languages', array(
+					'latin'			=> __( 'Latin', 'chaplin' ),
+					'latin-ext'		=> __( 'Latin Extended', 'chaplin' ),
+					'cyrillic'		=> __( 'Cyrillic', 'chaplin' ),
+					'cyrillic-ext'	=> __( 'Cyrillic Extended', 'chaplin' ),
+					'greek'			=> __( 'Greek', 'chaplin' ),
+					'greek-ext'		=> __( 'Greek Extended', 'chaplin' ),
+					'vietnamese'	=> __( 'Vietnamese', 'chaplin' ),
+				) ),
+			) ) );
+
 
 			/* ------------------------------------------------------------------------
 			 * Fallback Image Options
@@ -1489,17 +1470,6 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				$input = sanitize_key( $input );
 				$choices = $setting->manager->get_control( $setting->id )->choices;
 				return ( array_key_exists( $input, $choices ) ? $input : $setting->default );
-			}
-
-			function chaplin_sanitize_fonts( $input, $setting ) {
-				$valid_font_choices = Chaplin_Google_Fonts::google_fonts_values();
-
-				if ( array_key_exists( $input, $valid_font_choices ) ) {
-					return $input;
-				} else {
-					return '';
-				}
-
 			}
 
 		}

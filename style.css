@@ -192,7 +192,6 @@ main {
 }
 
 h1, h2, h3, h4, h5, h6, .faux-heading {
-	font-family: 'Merriweather', Georgia, "Times New Roman", Times, serif;
 	font-feature-settings: "lnum";
 	font-variant-numeric: lining-nums;
 	font-weight: 700;
