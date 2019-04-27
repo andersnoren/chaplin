@@ -886,14 +886,14 @@ if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
 
 		// Only output CSS for headings if they aren't the defaults
 		if ( $body_font_slug && $body_font_slug !== Chaplin_Google_Fonts::$default_body_font ) {
-			$body_font = 			Chaplin_Google_Fonts::get_font_name_from_slug( $body_font_slug );
-			$body_font_stack = 		Chaplin_Google_Fonts::get_font_fallbacks_from_slug( $body_font_slug );
+			$body_font = 			Chaplin_Google_Fonts::get_font_name_from_slug( $body_font_slug, 'body' );
+			$body_font_stack = 		Chaplin_Google_Fonts::get_font_fallbacks_from_slug( $body_font_slug, 'body' );
 			$body_font = 			$body_font . ', '. $body_font_stack;
 		}
 
 		if ( $headings_font_slug && $headings_font_slug !== Chaplin_Google_Fonts::$default_headings_font ) {
-			$headings_font = 		Chaplin_Google_Fonts::get_font_name_from_slug( $headings_font_slug );
-			$headings_font_stack = 	Chaplin_Google_Fonts::get_font_fallbacks_from_slug( $headings_font_slug );
+			$headings_font = 		Chaplin_Google_Fonts::get_font_name_from_slug( $headings_font_slug, 'headings' );
+			$headings_font_stack = 	Chaplin_Google_Fonts::get_font_fallbacks_from_slug( $headings_font_slug, 'headings' );
 			$headings_font = 		$headings_font . ', ' . $headings_font_stack;
 		}
 		
@@ -1133,7 +1133,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'title' 		=> __( 'Fonts', 'chaplin' ),
 				'priority' 		=> 40,
 				'capability' 	=> 'edit_theme_options',
-				'description' 	=> __( 'Specify which fonts to use in Chaplin. Fonts are loaded from Google Fonts. For better performance, select web safe fonts.', 'chaplin' ),
+				'description' 	=> sprintf( _x( 'Select which fonts to use in Chaplin. Fonts are loaded from %s. For better performance, select web safe fonts.', '%s = Google Fonts link', 'chaplin' ), '<a href="https://fonts.google.com">Google Fonts</a>' ),
 			) );
 
 			/* Font Options ------------------ */
@@ -1154,6 +1154,22 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'choices' 		=> $font_choices
 			) );
 
+			// Other body font
+			$wp_customize->add_setting( 'chaplin_body_font_other', array(
+				'default' 			=> '',
+				'sanitize_callback' => 'wp_filter_nohtml_kses',
+				'type'				=> 'theme_mod',
+			) );
+
+			$wp_customize->add_control( 'chaplin_body_font_other', array(
+				'type'			=> 'text',
+				'label' 		=> __( 'Other Body Font', 'chaplin' ),
+				'section' 		=> 'chaplin_fonts_options',
+				'input_attrs' 	=> array(
+					'placeholder' 	=> __( 'Enter any Google Fonts name', 'chaplin' ),
+				),
+			) );
+
 			// Headings font
 			$wp_customize->add_setting( 'chaplin_headings_font', array(
 				'default' 			=> Chaplin_Google_Fonts::$default_headings_font,
@@ -1166,6 +1182,26 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'label' 		=> __( 'Headings Font', 'chaplin' ),
 				'section' 		=> 'chaplin_fonts_options',
 				'choices' 		=> $font_choices,
+				'input_attrs' 	=> array(
+					'placeholder' 	=> __( 'Enter any Google Fonts name', 'chaplin' ),
+				),
+			) );
+
+			// Other headings font
+			$wp_customize->add_setting( 'chaplin_headings_font_other', array(
+				'default' 			=> '',
+				'sanitize_callback' => 'wp_filter_nohtml_kses',
+				'type'				=> 'theme_mod',
+			) );
+
+			$wp_customize->add_control( 'chaplin_headings_font_other', array(
+				'type'			=> 'text',
+				'label' 		=> __( 'Other Headings Font', 'chaplin' ),
+				'description'	=> __( 'Enter the name of the font on Google Fonts.', 'chaplin' ),
+				'section' 		=> 'chaplin_fonts_options',
+				'input_attrs' 	=> array(
+					'placeholder' 	=> __( 'Enter any Google Fonts name', 'chaplin' ),
+				),
 			) );
 
 			/* ------------------------------------------------------------------------

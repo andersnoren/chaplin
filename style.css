@@ -192,11 +192,11 @@ main {
 }
 
 h1, h2, h3, h4, h5, h6, .faux-heading {
-	font-family: 'Merriweather', Georgia, serif;
+	font-family: 'Merriweather', Georgia, "Times New Roman", Times, serif;
 	font-feature-settings: "lnum";
 	font-variant-numeric: lining-nums;
 	font-weight: 700;
-	letter-spacing: -0.01em;
+	letter-spacing: -0.005em;
 	line-height: 1.25;
 	margin: 4rem 0 2.5rem;
 }
@@ -1071,7 +1071,6 @@ ul.social-icons li {
 .site-title {
 	font-size: 2.1rem;
 	font-weight: 700;
-	letter-spacing: -0.01em;
 	line-height: 1;
 }
 
@@ -3087,6 +3086,10 @@ body.woocommerce .entry-content {
 
 .footer-copyright {
 	font-weight: 600;
+}
+
+.theme-credits {
+	white-space: nowrap;
 }
 
 

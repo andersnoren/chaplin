@@ -10,7 +10,7 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 
 		// Set default fonts
 		static $default_body_font = 'web-safe-sans-serif';
-		static $default_headings_font = 'Merriweather:400,300italic,300,400italic,700,700italic';
+		static $default_headings_font = 'merriweather';
 
 		// Get the enqueue URL for the fonts selected
 		public static function get_google_fonts_url() {
@@ -30,8 +30,9 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 
 			$google_fonts_families = array();
 
-			foreach ( $font_options as $font_slug ) {
-				$font_value = self::get_font_value_from_slug( $font_slug );
+			// Loop over the fonts and get the enqueue values (name:styles)
+			foreach ( $font_options as $font_option => $font_slug ) {
+				$font_value = self::get_font_value_from_slug( $font_slug, $font_option );
 				if ( $font_value && ! in_array( $font_value, $web_safe_fonts ) ) {
 					$google_fonts_families[] = urlencode( $font_value );
 				}
@@ -53,10 +54,10 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 		
 		// Return an array of Google Fonts values used by the customizer settings and validation
 		public static function google_fonts_values() {
-			$complete_font_list = self::google_fonts_list();
+			$google_fonts_list = self::google_fonts_list();
 			$font_values = array();
 
-			foreach ( $complete_font_list as $font_slug => $font_data ) {
+			foreach ( $google_fonts_list as $font_slug => $font_data ) {
 				$font_values[$font_slug] = $font_data['name'];
 			}
 
@@ -222,11 +223,25 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 					'fallback_type'	=> 'sans-serif',
 					'styles'		=> '400,700,400italic,700italic',
 				),
+				'work-sans' => array(
+					'name'			=> 'Work Sans',
+					'fallback_type'	=> 'sans-serif',
+					'styles'		=> '400,500,600,700,400italic,700italic',
+				),
+				'other'		=> array(
+					'name'			=> __( 'Other', 'chaplin' ),
+				),
 			);
 		}
 
 		// Get the font value from a font slug
-		public static function get_font_value_from_slug( $font_slug ) {
+		public static function get_font_value_from_slug( $font_slug, $font_option ) {
+			if ( $font_slug == 'other' ) {
+				$other_font_name = get_theme_mod( 'chaplin_' . $font_option . '_font_other' );
+				$font_value = $other_font_name . ':400,500,600,700,400italic,700italic';
+				return $font_value;
+			}
+
 			$complete_font_list = self::google_fonts_list();
 			
 			$font = $complete_font_list[$font_slug];
@@ -235,7 +250,12 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 		}
 
 		// Get the font name from a font slug
-		public static function get_font_name_from_slug( $font_slug ) {
+		public static function get_font_name_from_slug( $font_slug, $font_option ) {
+			if ( $font_slug == 'other' ) {
+				$other_font_name = get_theme_mod( 'chaplin_' . $font_option . '_font_other' );
+				return $other_font_name;
+			}
+
 			$complete_font_list = self::google_fonts_list();
 			
 			$font = $complete_font_list[$font_slug];
@@ -244,18 +264,26 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 
 		// Get the front fallback stack from a font slug
 		public static function get_font_fallbacks_from_slug( $font_slug ) {
+			$sans_serif = '-apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif';
+			$serif = 'Georgia, "Times New Roman", Times, serif';
+			$mono = 'Menlo, monospace';
+
+			if ( $font_slug == 'other' ) {
+				return $sans_serif;
+			}
+
 			$complete_font_list = self::google_fonts_list();
 			
 			$font_fallback_type = $complete_font_list[$font_slug]['fallback_type'];
 			switch ( $font_fallback_type ) {
 				case 'sans-serif' :
-					return '-apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif';
+					return $sans_serif;
 					break;
 				case 'serif' :
-					return 'Georgia, "Times New Roman", Times, serif';
+					return $serif;
 					break;
 				case 'mono' :
-					return 'Menlo, monospace';
+					return $mono;
 					break;
 			}
 		}
