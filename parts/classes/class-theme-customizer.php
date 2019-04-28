@@ -33,7 +33,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			 * Colors
 			 * ------------------------------------------------------------------------ */
 
-			$chaplin_accent_color_options = self::chaplin_get_accent_color_options();
+			$chaplin_accent_color_options = self::chaplin_get_color_options();
 
 			// Loop over the color options and add them to the customizer
 			foreach ( $chaplin_accent_color_options as $color_option_name => $color_option ) {
@@ -430,10 +430,10 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			}
 			$list .= '</datalist>';
 
-			echo $list;
+			return $list;
 		}
 
-		public static function chaplin_get_accent_color_options() {
+		public static function chaplin_get_color_options() {
 			return apply_filters( 'chaplin_accent_color_options', array(
 				'chaplin_accent_color' => array(
 					'default'	=> '#007C89',

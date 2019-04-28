@@ -1881,12 +1881,14 @@ button.sub-menu-toggle.active svg {
 .has-secondary-color { color: #007C89; }
 .has-border-color { color: #E1E1E3; }
 .has-light-background-color { color: #F1F1F3; }
+.has-background-color { color: #FFF; }
 
 .has-accent-background-color { background-color: #1A1B1F; }
 .has-primary-background-color { background-color: #747579; }
 .has-secondary-background-color { background-color: #007C89; }
 .has-border-background-color { background-color: #E1E1E3; }
 .has-light-background-background-color { background-color: #F1F1F3; }
+.has-background-background-color { background-color: #FFF; }
 
 /* Block: _Shared Lists ------------------- */
 
@@ -2584,6 +2586,17 @@ button.sub-menu-toggle.active svg {
 /* Block: Navigation Menu -------------------- */
 /* Block: Page Break ------------------------- */
 /* Block: Paragraph -------------------------- */
+
+p.has-background {
+	padding: 2rem;
+}
+
+@media ( min-width: 600px ) {
+	p.has-background {
+		padding: 3rem;
+	}
+}
+
 /* Block: Preformatted ----------------------- */
 /* Block: Pullquote -------------------------- */
 

@@ -13,7 +13,9 @@ if ( ! function_exists( 'chaplin_theme_support' ) ) :
 		add_theme_support( 'automatic-feed-links' );
 
 		// Custom background color
-		add_theme_support( 'custom-background' );
+		add_theme_support( 'custom-background', array(
+			'default-color'	=> 'FFFFFF'
+		) );
 
 		// Set content-width
 		global $content_width;
@@ -507,7 +509,7 @@ if ( ! function_exists( 'chaplin_is_comment_by_post_author' ) ) :
 			}
 		}
 		return false;
-		
+
 	}
 endif;
 
@@ -884,7 +886,7 @@ if ( ! function_exists( 'chaplin_block_editor_settings' ) ) :
 		$editor_color_palette = array();
 
 		// Get the color options
-		$chaplin_accent_color_options = Chaplin_Customize::chaplin_get_accent_color_options();
+		$chaplin_accent_color_options = Chaplin_Customize::chaplin_get_color_options();
 
 		// Loop over them and construct an array for the editor-color-palette
 		if ( $chaplin_accent_color_options ) {
@@ -896,6 +898,17 @@ if ( ! function_exists( 'chaplin_block_editor_settings' ) ) :
 				);
 			}
 		}
+
+		// Add the background option
+		$background_color = get_theme_mod( 'background_color' );
+		if ( ! $background_color ) {
+			$background_color = get_theme_support( 'custom-background' )[0]['default-color'];
+		}
+		$editor_color_palette[] = array(
+			'name' 	=> __( 'Background Color', 'chaplin' ),
+			'slug' 	=> 'background',
+			'color' => '#' . $background_color,
+		);
 
 		// If we have accent colors, add them to the block editor palette
 		if ( $editor_color_palette ) {
@@ -994,8 +1007,8 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		if ( $background ) : 
 			chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type="button"], input[type="reset"], input[type="submit"]', 'color', $background );
 
-			chaplin_generate_css( '.color-body-background, .color-body-background-hover:hover', 'color', $background );
-			chaplin_generate_css( '.bg-body-background, .bg-body-background-hover:hover', 'background-color', $background );
+			chaplin_generate_css( '.color-body-background, .color-body-background-hover:hover, .has-background-color', 'color', $background );
+			chaplin_generate_css( '.bg-body-background, .bg-body-background-hover:hover, .has-background-background-color', 'background-color', $background );
 			chaplin_generate_css( '.border-color-body-background, .border-color-body-background-hover:hover', 'border-color', $background );
 			chaplin_generate_css( '.fill-children-body-background, .fill-children-body-background *', 'fill', $background );
 		endif;
