@@ -1047,6 +1047,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		
 		// Border color
 		if ( $border ) : 
+			chaplin_generate_css( 'hr', 'color', $border );
 			chaplin_generate_css( 'hr, pre, th, td, input, textarea, select', 'border-color', $border );
 			chaplin_generate_css( 'caption', 'background', $border );
 
@@ -1055,6 +1056,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			chaplin_generate_css( '.wp-block-latest-posts.is-grid li', 'border-color', $border );
 			chaplin_generate_css( '.footer-menu li', 'border-color', $border );
 			chaplin_generate_css( '.comment .comment', 'border-color', $border );
+			chaplin_generate_css( '.related-posts', 'border-color', $border );
 
 			chaplin_generate_css( '.color-border, .color-border-hover:hover, .has-border-color', 'color', $border );
 			chaplin_generate_css( '.bg-border, .bg-border-hover:hover, .has-border-background-color', 'background-color', $border );

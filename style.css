@@ -250,6 +250,7 @@ address {
 hr {
 	border: none;
 	border-top: .1rem solid #E1E1E3;
+	color: #E1E1E3;
 	margin: 5rem 0;
 }
 
@@ -1328,6 +1329,7 @@ button.sub-menu-toggle.active svg {
 	display: none;
 	font-size: 1.6rem;
 	font-weight: 500;
+	margin: 0;
 }
 
 .menu-copyright a:hover {
@@ -1723,6 +1725,10 @@ button.sub-menu-toggle.active svg {
 	border-top: .1rem solid #E1E1E3;
 	margin-top: 5rem;
 	padding-top: 5rem;
+}
+
+.related-posts-title {
+	margin-top: 0;
 }
 
 
@@ -3712,7 +3718,7 @@ body.woocommerce .entry-content {
 		box-shadow: 0 0 2rem 0 rgba( 0, 0, 0, .1 );
 		min-width: 64rem;
 		opacity: 0;
-		padding: 8rem 0 6rem;
+		padding: 8rem 0 0;
 		transform: translateX( 20rem );
 		transition: transform .2s ease-in, opacity .2s ease-in;
 		width: 50%;
@@ -3722,6 +3728,10 @@ body.woocommerce .entry-content {
 		opacity: 1;
 		transform: translateX( 0 );
 		transition-timing-function: ease-out;
+	}
+
+	.menu-bottom {
+		padding-bottom: 6rem;
 	}
 
 	/* Sub Page ------------------------------ */
