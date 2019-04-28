@@ -518,8 +518,10 @@ endif;
 
 if ( ! function_exists( 'chaplin_filter_comment_reply_link' ) ) :
 	function chaplin_filter_comment_reply_link( $link ) {
+
 		$link = str_replace( 'class=\'', 'class=\'do-not-scroll ', $link );
 		return $link;
+		
 	}
 	add_filter( 'comment_reply_link', 'chaplin_filter_comment_reply_link' );
 endif;
