@@ -64,13 +64,16 @@ endif;
 --------------------------------------------------------------------------------------------------- */
 
 // Handle Google Fonts
-require get_template_directory() . '/parts/classes/google-fonts.php';
+require get_template_directory() . '/parts/classes/class-google-fonts.php';
 
 // Handle SVG icons
-require get_template_directory() . '/parts/classes/svg-icons.php';
+require get_template_directory() . '/parts/classes/class-svg-icons.php';
 
 // Handle Customizer settings
-require get_template_directory() . '/parts/classes/theme-customizer.php';
+require get_template_directory() . '/parts/classes/class-theme-customizer.php';
+
+// Custom comment walker
+require get_template_directory() . '/parts/classes/class-comment-walker.php';
 
 
 /*	-----------------------------------------------------------------------------------------------
@@ -484,6 +487,25 @@ if ( ! function_exists( 'chaplin_get_theme_svg' ) ) :
 endif;
 
 
+/*	-----------------------------------------------------------------------------------------------
+	IS COMMENT BY POST AUTHOR?
+	Check if the specified comment is written by the author of the post commented on.
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_is_comment_by_post_author' ) ) :
+	function chaplin_is_comment_by_post_author( $comment = null ) {
+		if ( is_object( $comment ) && $comment->user_id > 0 ) {
+			$user = get_userdata( $comment->user_id );
+			$post = get_post( $comment->comment_post_ID );
+			if ( ! empty( $user ) && ! empty( $post ) ) {
+				return $comment->user_id === $post->post_author;
+			}
+		}
+		return false;
+	}
+endif;
+
+
 /* ------------------------------------------------------------------------------------------------
    OUTPUT & GET POST META
    If it's a single post, output the post meta values specified in the Customizer settings.
@@ -713,27 +735,6 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 		return;
 
 	}
-endif;
-
-
-/* 	-----------------------------------------------------------------------------------------------
-	FILTER COMMENT TEXT TO OUTPUT "BY POST AUTHOR" TEXT
---------------------------------------------------------------------------------------------------- */
-
-if ( ! function_exists( 'chaplin_loading_indicator' ) ) :
-	function chaplin_filter_comment_text( $comment_text, $comment, $args ) {
-
-		$comment_author_user_id = $comment->user_id;
-		$post_author_user_id = get_post_field( 'post_author', $comment->comment_post_ID );
-
-		if ( $comment_author_user_id === $post_author_user_id ) {
-			$comment_text .= '<div class="by-post-author-wrapper">' . __( 'By Post Author', 'chaplin' ) . '</div>';
-		}
-
-		return $comment_text;
-
-	}
-	add_filter( 'comment_text', 'chaplin_filter_comment_text', 10, 3 );
 endif;
 
 

@@ -11,7 +11,7 @@
 			get_template_part( 'content', get_post_type() );
 
 			// Display related posts
-			get_template_part( 'related-posts' );
+			get_template_part( 'parts/related-posts' );
 
 		endwhile;
 

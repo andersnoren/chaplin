@@ -184,8 +184,6 @@ path {
 /*	2. Element Base
 /* --------------------------------------------------------------------------------------------- */
 
-*:first-child { margin-top: 0; }
-*:last-child { margin-bottom: 0; }
 
 main {
 	display: block;
@@ -245,6 +243,7 @@ acronym {
 }
 
 address {
+	line-height: 1.5;
 	margin: 0 0 2rem 0;
 }
 
@@ -281,8 +280,7 @@ li {
 
 li > ul,
 li > ol {
-	margin-bottom: 0;
-	margin-left: 2rem;
+	margin: 1rem 0 0 2rem;
 }
 
 .reset-list-style,
@@ -1719,6 +1717,15 @@ button.sub-menu-toggle.active svg {
 }
 
 
+/* Related Posts ----------------------------- */
+
+.related-posts {
+	border-top: .1rem solid #E1E1E3;
+	margin-top: 5rem;
+	padding-top: 5rem;
+}
+
+
 /* --------------------------------------------------------------------------------------------- */
 /*	X. Entry Content
 /* --------------------------------------------------------------------------------------------- */
@@ -2529,6 +2536,9 @@ button.sub-menu-toggle.active svg {
     word-break: break-word;
 }
 
+.wp-block-media-text .wp-block-media-text__content > *:first-child { margin-top: 0; }
+.wp-block-media-text .wp-block-media-text__content > *:last-child { margin-bottom: 0; }
+
 .wp-block-media-text > figure > img, .wp-block-media-text > figure > video {
     max-width: unset;
     vertical-align: middle;
@@ -2773,7 +2783,7 @@ table.is-style-stripes tr:nth-child( odd ) {
 	position: relative;
 }
 
-.comment a {
+.comments a {
 	color: inherit;
 }
 
@@ -2787,8 +2797,8 @@ table.is-style-stripes tr:nth-child( odd ) {
 
 .comment-meta {
 	display: flex;
-	margin-bottom: 1em;
-	position: relative;
+	flex-wrap: wrap;
+	margin: -.5em 0 1.2em -1.2em;
 }
 
 .comment-meta .avatar {
@@ -2805,42 +2815,50 @@ table.is-style-stripes tr:nth-child( odd ) {
 	text-decoration: underline;
 }
 
-.comment-author b {
-	font-weight: 600;
-}
-
-.comment-author b a {
-	border-bottom: .1rem solid currentColor;
-}
-
-.comment-author b a:hover {
-	text-decoration: none;
-}
-
-.comment-author .says { 
-	display: none; 
-}
-
+.comment-author,
 .comment-metadata {
-	margin: 0 0 0 2rem;
+	margin: .5em 0 0 1.2em;
 }
 
-.comment-metadata .edit-link:before {
-	content: " • ";
+.comment-author {
+	font-weight: 500;
 }
+
+.comment-author .url {
+	text-decoration: underline;
+}
+
 
 /* COMMENT CONTENT */
 
-.comment-content h1 { font-size: 2.7em; }
-.comment-content h2 { font-size: 2.4em; }
-.comment-content h3 { font-size: 2.1em; }
-.comment-content h4 { font-size: 1.6em; }
-.comment-content h5 { font-size: 1.3em; }
+.comment-content p {
+	margin-bottom: 1em;
+}
+
+.comment-content h1 { font-size: 2em; }
+.comment-content h2 { font-size: 1.8em; }
+.comment-content h3 { font-size: 1.6em; }
+.comment-content h4 { font-size: 1.4em; }
+.comment-content h5 { font-size: 1.2em; }
 .comment-content h6 { font-size: 1em; }
 
-.comment .reply {
-	margin-top: 1em;
+/* COMMENT FOOTER */
+
+.comment-footer-meta {
+	line-height: 1;
+	margin: 1.2em 0 0;
 }
+
+.comment-footer-meta > * + * {
+	margin-left: 1.2em;
+}
+
+.bypostauthor .comment-footer-meta .by-post-author {
+	display: inline;
+}
+
+.comment-footer-meta a { text-decoration: none; }
+.comment-footer-meta a:hover { text-decoration: underline; }
 
 
 /* Pingbacks & Trackbacks ------------------------- */
@@ -2867,6 +2885,10 @@ table.is-style-stripes tr:nth-child( odd ) {
 .comments-pagination .page-numbers {
 	display: none;
 	text-decoration: none;
+}
+
+.comments-pagination .page-numbers:hover {
+	text-decoration: underline;
 }
 
 .comments-pagination .prev,
@@ -3401,10 +3423,18 @@ body.woocommerce .entry-content {
 
 	.pagination-single .next-post {
 		flex-direction: row-reverse;
+		text-align: right;
 	}
 
 	.pagination-single .next-post .arrow {
 		margin: 0 0 0 2rem;
+	}
+
+	/* RELATED POSTS */
+
+	.related-posts {
+		margin-top: 8rem;
+		padding-top: 6rem;
 	}
 
 	/* Entry Content ------------------------- */
@@ -3449,7 +3479,7 @@ body.woocommerce .entry-content {
 	}
 
 	.comment-reply-title {
-		margin-bottom: 4rem;
+		margin-bottom: 4.6rem;
 	}
 
 	.comment,
@@ -3467,8 +3497,8 @@ body.woocommerce .entry-content {
 		display: block;
 		height: 6rem;
 		position: absolute;
-			left: -8rem;
-			top: 0;
+			left: 0;
+			top: .5em;
 		width: 6rem;
 	}
 
@@ -3477,12 +3507,7 @@ body.woocommerce .entry-content {
 	}
 
 	.comment-metadata {
-		font-size: 1.8rem;
 		white-space: nowrap;
-	}
-
-	.comment .comment-reply-link {
-		font-size: 1.8rem;
 	}
 
 	.comments-pagination {

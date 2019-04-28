@@ -17,6 +17,7 @@
 		<?php
 
 		wp_list_comments( array(
+			'walker'      	=> new Chaplin_Walker_Comment(),
 			'avatar_size'	=> 120,
 			'style' 		=> 'div',
 		) );
@@ -31,7 +32,7 @@
 
 			// If we're only showing the "Next" link, add a class indicating so
 			if ( strpos( $comment_pagination, 'prev page-numbers' ) === false ) {
-				$pagination_classes .= ' only-next';
+				$pagination_classes = ' only-next';
 			} else {
 				$pagination_classes = '';
 			}
@@ -60,7 +61,7 @@ elseif ( is_single() ) : ?>
 
 	<div class="comment-respond" id="respond">
 
-		<p class="comments-closed"><?php _e( 'Comments are closed', 'chaplin' ); ?></p>
+		<p class="comments-closed"><?php _e( 'Comments are closed.', 'chaplin' ); ?></p>
 
 	</div><!-- #respond -->
 
