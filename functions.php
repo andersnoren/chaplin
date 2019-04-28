@@ -498,6 +498,7 @@ endif;
 
 if ( ! function_exists( 'chaplin_is_comment_by_post_author' ) ) :
 	function chaplin_is_comment_by_post_author( $comment = null ) {
+
 		if ( is_object( $comment ) && $comment->user_id > 0 ) {
 			$user = get_userdata( $comment->user_id );
 			$post = get_post( $comment->comment_post_ID );
@@ -506,6 +507,7 @@ if ( ! function_exists( 'chaplin_is_comment_by_post_author' ) ) :
 			}
 		}
 		return false;
+		
 	}
 endif;
 
@@ -521,7 +523,7 @@ if ( ! function_exists( 'chaplin_filter_comment_reply_link' ) ) :
 
 		$link = str_replace( 'class=\'', 'class=\'do-not-scroll ', $link );
 		return $link;
-		
+
 	}
 	add_filter( 'comment_reply_link', 'chaplin_filter_comment_reply_link' );
 endif;

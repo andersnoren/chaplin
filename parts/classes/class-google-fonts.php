@@ -18,16 +18,6 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 
 
 		/* --------------------------------------------------------------------
-		   WEB SAFE FONTS
-		   Store a list of web safe fonts that don't need Google Fonts
-		   -------------------------------------------------------------------- */
-
-		public static $web_safe_fonts = array(
-			'--apple-system', 'Arial', 'Comic Sans', 'Courier New', 'Courier', 'Garamond', 'Georgia', 'Helvetica', 'Impact', 'Palatino', 'Times New Roman', 'Times', 'Trebuchet', 'Verdana',
-		);
-
-
-		/* --------------------------------------------------------------------
 		   GET GOOGLE FONTS ENQUEUE URL
 		   Get the enqueue URL for the fonts selected
 		   -------------------------------------------------------------------- */
@@ -106,6 +96,7 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 			}
 
 			return $font_name . $styles;
+
 		}
 
 
@@ -115,12 +106,23 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 		   -------------------------------------------------------------------- */
 
 		public static function get_font_fallbacks() {
+
 			$sans_serif = '-apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif';
 			$serif = 'Georgia, "Times New Roman", Times, serif';
 			$mono = 'Menlo, monospace';
 
 			return $sans_serif;
+
 		}
+		
+
+		/* --------------------------------------------------------------------
+		   WEB SAFE FONTS
+		   Store a list of web safe fonts that don't need Google Fonts
+		   -------------------------------------------------------------------- */
+
+		public static $web_safe_fonts = array( '--apple-system', 'Arial', 'Comic Sans', 'Courier New', 'Courier', 'Garamond', 'Georgia', 'Helvetica', 'Impact', 'Palatino', 'Times New Roman', 'Times', 'Trebuchet', 'Verdana' );
+
 
 		/* --------------------------------------------------------------------
 		   GET SUGGESTED FONTS
@@ -128,6 +130,7 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 		   -------------------------------------------------------------------- */
 
 		public static function get_suggested_fonts( $font_option ) {
+
 			$suggested_fonts = array(
 				'Alegreya Sans',
 				'Alegreya',
