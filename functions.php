@@ -127,6 +127,10 @@ if ( ! function_exists( 'chaplin_register_scripts' ) ) :
 	function chaplin_register_scripts() {
 
 		$theme_version = wp_get_theme()->get( 'Version' );
+
+		if ( ( ! is_admin() ) && is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+			wp_enqueue_script( 'comment-reply' );
+		}
 		
 		$js_dependencies = array( 'jquery', 'imagesloaded' );
 
@@ -503,6 +507,21 @@ if ( ! function_exists( 'chaplin_is_comment_by_post_author' ) ) :
 		}
 		return false;
 	}
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
+	FILTER COMMENT REPLY LINK TO NOT JS SCROLL
+	Filter the comment reply link to add a class indicating it should not use JS slow-scroll, as it
+	makes it scroll to the wrong position on the page
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_filter_comment_reply_link' ) ) :
+	function chaplin_filter_comment_reply_link( $link ) {
+		$link = str_replace( 'class=\'', 'class=\'do-not-scroll ', $link );
+		return $link;
+	}
+	add_filter( 'comment_reply_link', 'chaplin_filter_comment_reply_link' );
 endif;
 
 
@@ -1018,6 +1037,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			chaplin_generate_css( 'button.sub-menu-toggle', 'border-color', $border );
 			chaplin_generate_css( '.wp-block-latest-posts.is-grid li', 'border-color', $border );
 			chaplin_generate_css( '.footer-menu li', 'border-color', $border );
+			chaplin_generate_css( '.comment .comment', 'border-color', $border );
 
 			chaplin_generate_css( '.color-border, .color-border-hover:hover, .has-border-color', 'color', $border );
 			chaplin_generate_css( '.bg-border, .bg-border-hover:hover, .has-border-background-color', 'background-color', $border );

@@ -23,9 +23,11 @@
 		) );
 
 		$comment_pagination = paginate_comments_links( array(
-			'echo'		=> false,
-			'prev_text' => '&larr; ' . __( 'Older Comments', 'chaplin' ),
-			'next_text' => __( 'Newer Comments', 'chaplin' ) . ' &rarr;',
+			'echo'					=> false,
+			'end_size'				=> 0,
+			'mid_size'				=> 0,
+			'next_text' 			=> __( 'Newer Comments', 'chaplin' ) . ' &rarr;',
+			'prev_text' 			=> '&larr; ' . __( 'Older Comments', 'chaplin' ),
 		) );
 
 		if ( $comment_pagination ) :

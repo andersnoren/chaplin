@@ -621,6 +621,7 @@ chaplin.smoothScroll = {
 		// Remove links that don't actually link to anything
 		.not( '[href="#"]' )
 		.not( '[href="#0"]' )
+		.not( '.do-not-scroll' )
 		.on( 'click', function( event ) {
 			// On-page links
 			if ( location.pathname.replace(/^\//, '' ) == this.pathname.replace(/^\//, '' ) && location.hostname == this.hostname ) {

@@ -2761,7 +2761,7 @@ table.is-style-stripes tr:nth-child( odd ) {
 }
 
 .comment-reply-title {
-	margin-bottom: 3rem;
+	margin: 0 0 3rem 0;
 }
 
 
@@ -2772,11 +2772,17 @@ table.is-style-stripes tr:nth-child( odd ) {
 .comment,
 .pingback,
 .trackback { 
+	padding-top: 3.5rem;
+}
+
+div.comment:first-of-type {
 	margin-top: 3.5rem;
+	padding-top: 0;
 }
 
 .comments-header + div {
 	margin-top: 0;
+	padding-top: 0;
 }
 
 .comment-body {
@@ -2788,7 +2794,8 @@ table.is-style-stripes tr:nth-child( odd ) {
 }
 
 .comment .comment { 
-	margin-left: 5%;
+	border-left: .1rem solid #e1e1e3;
+	padding-left: 5%;
 }
 
 .comment-meta {
@@ -2830,6 +2837,9 @@ table.is-style-stripes tr:nth-child( odd ) {
 
 
 /* COMMENT CONTENT */
+
+.comment-content > *:first-child { margin-top: 0; }
+.comment-content > *:last-child { margin-bottom: 0; }
 
 .comment-content p {
 	margin-bottom: 1em;
@@ -2873,6 +2883,7 @@ table.is-style-stripes tr:nth-child( odd ) {
 
 .comments-pagination {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	margin-top: 6rem;
 	text-align: center;
@@ -2896,8 +2907,14 @@ table.is-style-stripes tr:nth-child( odd ) {
 	display: block;
 }
 
-.comments-pagination .prev { left: 0; }
-.comments-pagination .next { right: 0; }
+.comments-pagination .prev { 
+	left: 0;
+}
+
+.comments-pagination .next {
+	right: 0;
+	text-align: right;
+}
 
 
 /* Comment Respond ---------------------------- */
@@ -3485,6 +3502,10 @@ body.woocommerce .entry-content {
 	.comment,
 	.pingback,
 	.trackback {
+		padding-top: 5rem;
+	}
+
+	div.comment:first-of-type {
 		margin-top: 5rem;
 	}
 
@@ -3523,7 +3544,7 @@ body.woocommerce .entry-content {
 	/* COMMENT RESPOND */
 
 	.comment-respond:not(:first-child) {
-		padding-top: 8rem;
+		padding-top: 7rem;
 	}
 
 	.comment-form {
