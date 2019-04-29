@@ -1240,6 +1240,7 @@ ul.social-icons li {
 .menu-modal-inner {
 	display: flex;
 	justify-content: stretch;
+	overflow: auto;
 	width: 100%;
 }
 
@@ -1287,7 +1288,7 @@ ul.social-icons li {
 }
 
 .main-menu a:hover,
-.main-menu li.current-menu-item > a {
+.main-menu li.current-menu-item > .ancestor-wrapper > a {
 	text-decoration: underline;
 }
 
@@ -1322,6 +1323,7 @@ button.sub-menu-toggle.active svg {
 /* Menu Bottom ------------------------------- */
 
 .menu-bottom {
+	flex-shrink: 0;
 	padding: 4rem 0;
 }
 
@@ -3354,7 +3356,7 @@ body.woocommerce .entry-content {
 	.menu-bottom {
 		display: flex;
 		justify-content: space-between;
-		padding-bottom: 4.4rem;
+		padding: 4.4rem 0;
 	}
 
 	.menu-copyright {
@@ -3731,7 +3733,7 @@ body.woocommerce .entry-content {
 	}
 
 	.menu-bottom {
-		padding-bottom: 6rem;
+		padding: 6rem 0;
 	}
 
 	/* Sub Page ------------------------------ */
