@@ -499,9 +499,9 @@ select {
 	position: relative;
 }
 
-input::-webkit-input-placeholder { line-height: 1; }
-input:-ms-input-placeholder { line-height: 1; }
-input::-moz-placeholder { line-height: 1; }
+input::-webkit-input-placeholder { line-height: normal; }
+input:-ms-input-placeholder { line-height: normal; }
+input::-moz-placeholder { line-height: normal; }
 
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
@@ -905,7 +905,37 @@ a.faux-image {
 .faux-image.square:after { padding-top: 100%; }
 
 
-/* Social Icons ----------------------------- */
+/* Search Form ------------------------------- */
+
+
+.search-form {
+	align-items: stretch;
+	display: flex;
+	flex-wrap: nowrap;
+	margin: 0 0 -.8rem -.8rem;
+}
+
+.search-form .search-field,
+.search-form .search-submit {
+	margin: 0 0 .8rem .8rem;
+}
+
+.search-form label {
+	align-items: stretch;
+	display: flex;
+	font-size: inherit;
+	margin: 0;
+}
+
+.search-form .search-field {
+	width: 100%;
+}
+
+.search-form .search-submit {
+	flex-shrink: 0;
+}
+
+/* Social Icons ------------------------------ */
 
 ul.social-icons {
 	display: flex;
@@ -2885,6 +2915,23 @@ html.js body:not(.pagination-type-links) .link-pagination {
 
 
 /* --------------------------------------------------------------------------------------------- */
+/*	X. Error 404
+/* --------------------------------------------------------------------------------------------- */
+
+
+.error404 #site-content {
+	align-items: center;
+	display: flex;
+	text-align: center;
+}
+
+.error404 #site-content .search-form {
+	justify-content: center;
+	margin-top: 3rem;
+}
+
+
+/* --------------------------------------------------------------------------------------------- */
 /*	X. WooCommerce
 /* --------------------------------------------------------------------------------------------- */
 
@@ -3602,6 +3649,12 @@ body.woocommerce .entry-content {
 	
 @media ( min-width: 1000px ) {
 
+
+	/* Document Setup ------------------------ */
+
+	#site-content {
+		min-height: calc( 100vh - 53.4rem );
+	}
 
 	/* Helper Classes ------------------------ */
 

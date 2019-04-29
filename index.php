@@ -4,12 +4,15 @@
 
 	<?php
 
-	$page_for_posts_id = get_option( 'page_for_posts' );
+	$archive_title = '';
+	$archive_subtitle = '';
 	
 	if ( is_search() ) {
 		global $wp_query;
 		$archive_title = sprintf( __( 'Search: %s', 'chaplin' ), '&ldquo;' . get_search_query() . '&rdquo;' );
-		$archive_subtitle = sprintf( _n( 'Found %s result for your search.', 'We found %s results for your search.', $wp_query->found_posts, 'chaplin' ), $wp_query->found_posts );
+		if ( $wp_query->found_posts ) {
+			$archive_subtitle = sprintf( _n( 'Found %s result for your search.', 'We found %s results for your search.', $wp_query->found_posts, 'chaplin' ), $wp_query->found_posts );
+		}
 	} else {
 		$archive_title = get_the_archive_title();
 		$archive_subtitle = get_the_archive_description( '<div>', '</div>' ); 
