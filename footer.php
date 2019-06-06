@@ -1,4 +1,28 @@
-        <footer class="mpad-v-20 tpad-v-60 dpad-v-80" id="site-footer" role="contentinfo">
+        <footer class="" id="site-footer" role="contentinfo">
+
+			<?php if ( is_active_sidebar( 'footer-one' ) || is_active_sidebar( 'footer-two' ) ) : ?>
+
+				<div class="footer-widgets-outer-wrapper section-inner">
+				
+					<div class="footer-widgets-wrapper grid tcols-2">
+
+						<?php if ( is_active_sidebar( 'footer-one' ) ) : ?>
+							<div class="footer-widgets column-one grid-item">
+								<?php dynamic_sidebar( 'footer-one' ); ?>
+							</div>
+						<?php endif; ?>
+
+						<?php if ( is_active_sidebar( 'footer-two' ) ) : ?>
+							<div class="footer-widgets column-two grid-item">
+								<?php dynamic_sidebar( 'footer-two' ); ?>
+							</div>
+						<?php endif; ?>
+
+					</div><!-- .footer-widgets-wrapper -->
+					
+				</div><!-- .footer-widgets-outer-wrapper -->
+
+			<?php endif; ?>
 
 			<div class="footer-inner section-inner">
 

@@ -303,6 +303,66 @@ if ( ! function_exists( 'chaplin_get_custom_logo' ) ) :
 endif;
 
 
+/* ---------------------------------------------------------------------------------------------
+   REGISTER SIDEBAR
+   --------------------------------------------------------------------------------------------- */
+
+
+if ( ! function_exists( 'chaplin_sidebar_registration' ) ) :
+	function chaplin_sidebar_registration() {
+
+		// Arguments used in all register_sidebar() calls
+		$shared_args = array(
+			'before_title' 	=> '<h3 class="widget-title subheading">',
+			'after_title' 	=> '</h3>',
+			'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
+			'after_widget' 	=> '</div></div>',
+		);
+
+		// Footer #1
+		register_sidebar( array_merge( $shared_args, array(
+			'name' 			=> __( 'Footer #1', 'chaplin' ),
+			'id' 			=> 'footer-one',
+			'description' 	=> __( 'Widgets in this area will be displayed in the first column in the footer.', 'chaplin' ),
+		) ) );
+
+		// Footer #2
+		register_sidebar( array_merge( $shared_args, array(
+			'name' 			=> __( 'Footer #2', 'chaplin' ),
+			'id' 			=> 'footer-two',
+			'description' 	=> __( 'Widgets in this area will be displayed in the second column in the footer.', 'chaplin' ),
+		) ) );
+
+	}
+	add_action( 'widgets_init', 'chaplin_sidebar_registration' );
+endif;
+
+
+/* ---------------------------------------------------------------------------------------------
+   INCLUDE THEME WIDGETS
+   --------------------------------------------------------------------------------------------- */
+
+
+require_once( get_template_directory() . '/parts/widgets/recent-comments.php' );
+require_once( get_template_directory() . '/parts/widgets/recent-posts.php' );
+
+
+/* ---------------------------------------------------------------------------------------------
+   REGISTER THEME WIDGETS
+   --------------------------------------------------------------------------------------------- */
+
+
+if ( ! function_exists( 'chaplin_register_widgets' ) ) :
+	function chaplin_register_widgets() {
+
+		register_widget( 'Chaplin_Recent_Comments' );
+		register_widget( 'Chaplin_Recent_Posts' );
+
+	}
+	add_action( 'widgets_init', 'chaplin_register_widgets' );
+endif;
+
+
 /*	-----------------------------------------------------------------------------------------------
 	GET PAGE ID FROM TEMPLATE
 	Get the ID of the first occurance of a page using the specified page template
