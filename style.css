@@ -191,6 +191,7 @@ main {
 }
 
 h1, h2, h3, h4, h5, h6, .faux-heading {
+	font-family: 'Merriweather', Georgia, serif;
 	font-feature-settings: "lnum";
 	font-variant-numeric: lining-nums;
 	font-weight: 700;
@@ -251,7 +252,6 @@ address {
 hr {
 	border: none;
 	border-top: .1rem solid #E1E1E3;
-	color: #E1E1E3;
 	margin: 5rem 0;
 }
 
@@ -1065,7 +1065,7 @@ ul.social-icons li {
 
 #site-header {
 	background: transparent;
-	margin-bottom: 6rem;
+	margin-bottom: 5rem;
 }
 
 .header-inner {
@@ -1660,6 +1660,7 @@ button.sub-menu-toggle.active svg {
 .post-meta li {
 	flex-shrink: 0;
 	margin: 1rem 0 0 2rem;
+	max-width: calc( 100% - 2rem );
 }
 
 .post-meta a {
@@ -2334,6 +2335,9 @@ button.sub-menu-toggle.active svg {
 .wp-block-group.has-background {
 	padding: 3rem 2rem;
 }
+
+.wp-block-group > *:first-child { margin-top: 0; }
+.wp-block-group > *:last-child { margin-bottom: 0; }
 
 /* Block: HTML ------------------------------- */
 /* Block: Image ------------------------------ */
@@ -3199,22 +3203,23 @@ body.woocommerce .entry-content {
 
 
 #site-footer {
-	font-size: 1.4rem;
 	margin-top: 6rem;
+}
+
+
+/* Footer Widgets ---------------------------- */
+
+.footer-widgets-outer-wrapper {
+	margin-bottom: 6rem;
+}
+
+
+/* Footer Inner ------------------------------ */
+
+.footer-inner {
+	font-size: 1.4rem;
 	padding: 0 0 3.5rem 0;
 }
-
-#site-footer a {
-	color: inherit;
-	text-decoration: none;
-}
-
-#site-footer a:hover {
-	text-decoration: underline;
-}
-
-
-/* Footer Menu ------------------------------- */
 
 .footer-menu {
 	margin: 0 0 1.5rem 0;
@@ -3238,6 +3243,15 @@ body.woocommerce .entry-content {
 
 
 /* Footer Credits ---------------------------- */
+
+.footer-inner a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.footer-inner a:hover {
+	text-decoration: underline;
+}
 
 .footer-credits {
 	font-size: 1.2rem;
@@ -3442,8 +3456,8 @@ body.woocommerce .entry-content {
 	}
 
 	.main-menu > li > .ancestor-wrapper > button.sub-menu-toggle svg {
-		height: 1.214rem;
-		width: 2rem;
+		height: 1.1rem;
+		width: 1.8rem;
 	}
 
 	.menu-bottom {
@@ -3514,6 +3528,7 @@ body.woocommerce .entry-content {
 
 	.post-meta li {
 		margin: 1.4rem 0 0 3rem;
+		max-width: calc( 100% - 3rem );
 	}
 
 	.featured-media {
@@ -3870,7 +3885,6 @@ body.woocommerce .entry-content {
 	/* Site Footer --------------------------- */
 
 	#site-footer {
-		font-size: 1.6rem;
 		margin-top: 8rem;
 	}
 
@@ -4125,21 +4139,18 @@ body.woocommerce .entry-content {
 	/* Site Pagination ----------------------- */
 
 	.pagination-wrapper {
-		margin-top: 16rem;
+		margin-top: 12rem;
 	}
 
 	/* Site Footer --------------------------- */
 
-	#site-footer {
-		font-size: 1.6rem;
-		padding: 8rem 0;
-	}
-
 	.footer-inner {
 		align-items: baseline;
 		display: flex;
+		font-size: 1.6rem;
 		flex-direction: row-reverse;
 		justify-content: space-between;
+		padding: 8rem 0;
 	}
 
 	.footer-menu {
