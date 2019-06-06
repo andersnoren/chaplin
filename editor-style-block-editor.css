@@ -2,3 +2,6 @@
 /*	Editor Styles — Block Editor
 /* --------------------------------------------------------------------------------------------- */
 
+.editor-styles-wrapper > * {
+	font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif;
+}

@@ -924,8 +924,21 @@ endif;
 if ( ! function_exists( 'chaplin_block_editor_styles' ) ) :
 	function chaplin_block_editor_styles() {
 
+		$css_dependencies = array();
+
+		// Retrieve and enqueue the URL for Google Fonts
+		$google_fonts_url = Chaplin_Google_Fonts::get_google_fonts_url();
+
+		if ( $google_fonts_url ) {
+			wp_register_style( 'chaplin_google_fonts', $google_fonts_url, false, 1.0, 'all' );
+			$css_dependencies[] = 'chaplin_google_fonts';
+		}
+		
 		// Enqueue the editor styles
-		wp_enqueue_style( 'chaplin-block-editor-styles', get_theme_file_uri( '/editor-style-block-editor.css' ), array(), wp_get_theme()->get( 'Version' ), 'all' );
+		wp_enqueue_style( 'chaplin_block_editor_styles', get_theme_file_uri( '/editor-style-block-editor.css' ), $css_dependencies, wp_get_theme()->get( 'Version' ), 'all' );
+
+		// Add inline style from the Customizer
+		wp_add_inline_style( 'chaplin_block_editor_styles', chaplin_get_customizer_css( 'back-end' ) );
 
 	}
 	add_action( 'enqueue_block_editor_assets', 'chaplin_block_editor_styles', 1 );
@@ -936,7 +949,6 @@ endif;
    BLOCK EDITOR SETTINGS
    Add custom colors and font sizes to the block editor
 ------------------------------------------------------------------------------------------------ */
-
 
 if ( ! function_exists( 'chaplin_block_editor_settings' ) ) :
 	function chaplin_block_editor_settings() {
@@ -1031,10 +1043,12 @@ endif;
 /*	-----------------------------------------------------------------------------------------------
 	GET CSS BUILT FROM CUSTOMIZER OPTIONS
 	Build CSS reflecting colors, fonts and other options set in the Customizer, and return them for output
+
+	@param		$type string	Whether to return CSS for the "front-end" or the "back-end"
 --------------------------------------------------------------------------------------------------- */
 
 if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
-	function chaplin_get_customizer_css() {
+	function chaplin_get_customizer_css( $type = 'front-end' ) {
 
 		/* Get variables --------------------- */
 
@@ -1061,91 +1075,167 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		
 		ob_start();
 
-		/* Colors ---------------------------- */
+		/* FRONT-END STYLES */
 
-		// Background color
-		if ( $background ) : 
-			chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type="button"], input[type="reset"], input[type="submit"]', 'color', $background );
+		if ( $type == 'front-end' ) {
 
-			chaplin_generate_css( '.color-body-background, .color-body-background-hover:hover, .has-background-color', 'color', $background );
-			chaplin_generate_css( '.bg-body-background, .bg-body-background-hover:hover, .has-background-background-color', 'background-color', $background );
-			chaplin_generate_css( '.border-color-body-background, .border-color-body-background-hover:hover', 'border-color', $background );
-			chaplin_generate_css( '.fill-children-body-background, .fill-children-body-background *', 'fill', $background );
-		endif;
+			/* Colors ---------------------------- */
 
-		// Primary color
-		if ( $primary ) : 
-			chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $primary ) . '\');' );
+			// Background color
+			if ( $background ) : 
+				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type="button"], input[type="reset"], input[type="submit"]', 'color', $background );
 
-			chaplin_generate_css( 'body', 'color', $primary );
-			chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type="button"], input[type="reset"], input[type="submit"]', 'background-color', $primary );
+				chaplin_generate_css( '.color-body-background, .color-body-background-hover:hover, .has-background-color', 'color', $background );
+				chaplin_generate_css( '.bg-body-background, .bg-body-background-hover:hover, .has-background-background-color', 'background-color', $background );
+				chaplin_generate_css( '.border-color-body-background, .border-color-body-background-hover:hover', 'border-color', $background );
+				chaplin_generate_css( '.fill-children-body-background, .fill-children-body-background *', 'fill', $background );
+			endif;
 
-			chaplin_generate_css( '.color-primary, .color-primary-hover:hover, .has-primary-color', 'color', $primary );
-			chaplin_generate_css( '.bg-primary, .bg-primary-hover:hover, .has-primary-background-color', 'background-color', $primary );
-			chaplin_generate_css( '.border-color-primary, .border-color-primary-hover:hover', 'border-color', $primary );
-			chaplin_generate_css( '.fill-children-primary, .fill-children-primary *', 'fill', $primary );
-		endif;
+			// Primary color
+			if ( $primary ) : 
+				chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $primary ) . '\');' );
 
-		// Secondary color
-		if ( $secondary ) :
-			chaplin_generate_css( '.color-secondary, .color-secondary-hover:hover, .has-secondary-color', 'color', $secondary );
-			chaplin_generate_css( '.bg-secondary, .bg-secondary-hover:hover, .has-secondary-background-color', 'background-color', $secondary );
-			chaplin_generate_css( '.border-color-secondary, .border-color-secondary-hover:hover', 'border-color', $secondary );
-			chaplin_generate_css( '.fill-children-secondary, .fill-children-secondary *', 'fill', $secondary );
-		endif;
+				chaplin_generate_css( 'body', 'color', $primary );
+				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type="button"], input[type="reset"], input[type="submit"]', 'background-color', $primary );
 
-		// Accent color
-		if ( $accent ) : 
-			chaplin_generate_css( 'a', 'color', $accent );
-			chaplin_generate_css( 'blockquote', 'border-color', $accent );
+				chaplin_generate_css( '.color-primary, .color-primary-hover:hover, .has-primary-color', 'color', $primary );
+				chaplin_generate_css( '.bg-primary, .bg-primary-hover:hover, .has-primary-background-color', 'background-color', $primary );
+				chaplin_generate_css( '.border-color-primary, .border-color-primary-hover:hover', 'border-color', $primary );
+				chaplin_generate_css( '.fill-children-primary, .fill-children-primary *', 'fill', $primary );
+			endif;
 
-			chaplin_generate_css( '.color-accent, .color-accent-hover:hover, .has-accent-color', 'color', $accent );
-			chaplin_generate_css( '.bg-accent, .bg-accent-hover:hover, .has-accent-background-color', 'background-color', $accent );
-			chaplin_generate_css( '.border-color-accent, .border-color-accent-hover:hover', 'border-color', $accent );
-			chaplin_generate_css( '.fill-children-accent, .fill-children-accent *', 'fill', $accent );
-		endif;
-		
-		// Border color
-		if ( $border ) : 
-			chaplin_generate_css( 'hr', 'color', $border );
-			chaplin_generate_css( 'hr, pre, th, td, input, textarea, select', 'border-color', $border );
-			chaplin_generate_css( 'caption', 'background', $border );
+			// Secondary color
+			if ( $secondary ) :
+				chaplin_generate_css( '.color-secondary, .color-secondary-hover:hover, .has-secondary-color', 'color', $secondary );
+				chaplin_generate_css( '.bg-secondary, .bg-secondary-hover:hover, .has-secondary-background-color', 'background-color', $secondary );
+				chaplin_generate_css( '.border-color-secondary, .border-color-secondary-hover:hover', 'border-color', $secondary );
+				chaplin_generate_css( '.fill-children-secondary, .fill-children-secondary *', 'fill', $secondary );
+			endif;
 
-			chaplin_generate_css( '.main-menu li', 'border-color', $border );
-			chaplin_generate_css( 'button.sub-menu-toggle', 'border-color', $border );
-			chaplin_generate_css( '.wp-block-latest-posts.is-grid li', 'border-color', $border );
-			chaplin_generate_css( '.footer-menu li', 'border-color', $border );
-			chaplin_generate_css( '.comment .comment', 'border-color', $border );
-			chaplin_generate_css( '.related-posts', 'border-color', $border );
+			// Accent color
+			if ( $accent ) : 
+				chaplin_generate_css( 'a', 'color', $accent );
+				chaplin_generate_css( 'blockquote', 'border-color', $accent );
 
-			chaplin_generate_css( '.color-border, .color-border-hover:hover, .has-border-color', 'color', $border );
-			chaplin_generate_css( '.bg-border, .bg-border-hover:hover, .has-border-background-color', 'background-color', $border );
-			chaplin_generate_css( '.border-color-border, .border-color-border-hover:hover', 'border-color', $border );
-			chaplin_generate_css( '.fill-children-border, .fill-children-border *', 'fill', $border );
-		endif;
+				chaplin_generate_css( '.color-accent, .color-accent-hover:hover, .has-accent-color', 'color', $accent );
+				chaplin_generate_css( '.bg-accent, .bg-accent-hover:hover, .has-accent-background-color', 'background-color', $accent );
+				chaplin_generate_css( '.border-color-accent, .border-color-accent-hover:hover', 'border-color', $accent );
+				chaplin_generate_css( '.fill-children-accent, .fill-children-accent *', 'fill', $accent );
+			endif;
+			
+			// Border color
+			if ( $border ) : 
+				chaplin_generate_css( 'hr, pre, th, td, input, textarea, select', 'border-color', $border );
+				chaplin_generate_css( 'caption', 'background', $border );
 
-		// Light background color
-		if ( $light_background ) : 
-			chaplin_generate_css( 'code, kbd, samp', 'background-color', $light_background );
-			chaplin_generate_css( 'table.is-style-stripes tr:nth-child( odd )', 'background-color', $light_background );
+				chaplin_generate_css( '.main-menu li', 'border-color', $border );
+				chaplin_generate_css( 'button.sub-menu-toggle', 'border-color', $border );
+				chaplin_generate_css( '.wp-block-latest-posts.is-grid li', 'border-color', $border );
+				chaplin_generate_css( '.footer-menu li', 'border-color', $border );
+				chaplin_generate_css( '.comment .comment', 'border-color', $border );
+				chaplin_generate_css( '.related-posts', 'border-color', $border );
 
-			chaplin_generate_css( '.color-light-background, .color-light-background-hover:hover, .has-light-background-color', 'color', $light_background );
-			chaplin_generate_css( '.bg-light-background, .bg-light-background-hover:hover, .has-light-background-background-color', 'background-color', $light_background );
-			chaplin_generate_css( '.border-color-light-background, .border-color-light-background-hover:hover', 'border-color', $light_background );
-			chaplin_generate_css( '.fill-children-light-background, .fill-children-light-background *', 'fill', $light_background );
-		endif;
+				chaplin_generate_css( '.color-border, .color-border-hover:hover, .has-border-color', 'color', $border );
+				chaplin_generate_css( '.bg-border, .bg-border-hover:hover, .has-border-background-color', 'background-color', $border );
+				chaplin_generate_css( '.border-color-border, .border-color-border-hover:hover', 'border-color', $border );
+				chaplin_generate_css( '.fill-children-border, .fill-children-border *', 'fill', $border );
+			endif;
 
-		/* Fonts ----------------------------- */
+			// Light background color
+			if ( $light_background ) : 
+				chaplin_generate_css( 'code, kbd, samp', 'background-color', $light_background );
+				chaplin_generate_css( 'table.is-style-stripes tr:nth-child( odd )', 'background-color', $light_background );
 
-		// Body font
-		if ( $body_font ) :
-			chaplin_generate_css( 'body', 'font-family', $body_font );
-		endif;
+				chaplin_generate_css( '.color-light-background, .color-light-background-hover:hover, .has-light-background-color', 'color', $light_background );
+				chaplin_generate_css( '.bg-light-background, .bg-light-background-hover:hover, .has-light-background-background-color', 'background-color', $light_background );
+				chaplin_generate_css( '.border-color-light-background, .border-color-light-background-hover:hover', 'border-color', $light_background );
+				chaplin_generate_css( '.fill-children-light-background, .fill-children-light-background *', 'fill', $light_background );
+			endif;
 
-		// Headings font
-		if ( $headings_font ) :
-			chaplin_generate_css( 'h1, h2, h3, h4, h5, h6, .faux-heading', 'font-family', $headings_font );
-		endif;
+			/* Fonts ----------------------------- */
+
+			// Body font
+			if ( $body_font ) :
+				chaplin_generate_css( 'body', 'font-family', $body_font );
+			endif;
+
+			// Headings font
+			if ( $headings_font ) :
+				chaplin_generate_css( 'h1, h2, h3, h4, h5, h6, .faux-heading', 'font-family', $headings_font );
+			endif;
+
+		/* BACK-END STYLES */
+
+		} else if ( $type == 'back-end' ) {
+
+			/* Colors ---------------------------- */
+
+			// Background color
+			if ( $background ) : 
+				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type="button"], input[type="reset"], input[type="submit"]', 'color', $background );
+
+				chaplin_generate_css( '.has-background-color', 'color', $background );
+				chaplin_generate_css( '.has-background-background-color', 'background-color', $background );
+			endif;
+
+			// Primary color
+			if ( $primary ) : 
+				chaplin_generate_css( '.editor-styles-wrapper', 'color', $primary );
+				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type="button"], input[type="reset"], input[type="submit"]', 'background-color', $primary );
+
+				chaplin_generate_css( '.has-primary-color', 'color', $primary );
+				chaplin_generate_css( '.has-primary-background-color', 'background-color', $primary );
+			endif;
+
+			// Secondary color
+			if ( $secondary ) :
+				chaplin_generate_css( '.has-secondary-color', 'color', $secondary );
+				chaplin_generate_css( '.has-secondary-background-color', 'background-color', $secondary );
+			endif;
+
+			// Accent color
+			if ( $accent ) : 
+				chaplin_generate_css( '.editor-styles-wrapper a', 'color', $accent );
+				chaplin_generate_css( 'blockquote', 'border-color', $accent );
+
+				chaplin_generate_css( '.has-accent-color', 'color', $accent );
+				chaplin_generate_css( '.has-accent-background-color', 'background-color', $accent );
+			endif;
+			
+			// Border color
+			if ( $border ) : 
+				chaplin_generate_css( 'hr, pre, th, td, input, textarea, select', 'border-color', $border );
+				chaplin_generate_css( 'caption', 'background', $border );
+
+				chaplin_generate_css( '.wp-block-latest-posts.is-grid li', 'border-color', $border );
+
+				chaplin_generate_css( '.has-border-color', 'color', $border );
+				chaplin_generate_css( '.has-border-background-color', 'background-color', $border );
+			endif;
+
+			// Light background color
+			if ( $light_background ) : 
+				chaplin_generate_css( 'code, kbd, samp', 'background-color', $light_background );
+				chaplin_generate_css( 'table.is-style-stripes tr:nth-child( odd )', 'background-color', $light_background );
+
+				chaplin_generate_css( '.has-light-background-color', 'color', $light_background );
+				chaplin_generate_css( '.has-light-background-background-color', 'background-color', $light_background );
+			endif;
+
+			/* Fonts ----------------------------- */
+
+			// Body font
+			if ( $body_font ) :
+				chaplin_generate_css( '.editor-styles-wrapper', 'font-family', $body_font );
+			endif;
+
+			// Headings font
+			if ( $headings_font ) :
+				chaplin_generate_css( '.editor-styles-wrapper h1, .editor-styles-wrapper h2, .editor-styles-wrapper h3, .editor-styles-wrapper h4, .editor-styles-wrapper h5, .editor-styles-wrapper h6', 'font-family', $headings_font );
+				chaplin_generate_css( '.editor-styles-wrapper .editor-post-title__input', 'font-family', $headings_font );
+			endif;
+
+		}
 
 		/* Return the results ---------------- */
 
@@ -1160,13 +1250,13 @@ endif;
 	Get CSS built from the Customizer settings (fonts and colors), and output them on the front-end
 --------------------------------------------------------------------------------------------------- */
 
-if ( ! function_exists( 'chaplin_customizer_css_output' ) ) :
-	function chaplin_customizer_css_output() {
+if ( ! function_exists( 'chaplin_customizer_css_output_front_end' ) ) :
+	function chaplin_customizer_css_output_front_end() {
 
-		wp_add_inline_style( 'chaplin_style', chaplin_get_customizer_css() );
+		wp_add_inline_style( 'chaplin_style', chaplin_get_customizer_css( 'front-end' ) );
 
 	}
-	add_action( 'wp_enqueue_scripts', 'chaplin_customizer_css_output' );
+	add_action( 'wp_enqueue_scripts', 'chaplin_customizer_css_output_front_end' );
 endif;
 
 
