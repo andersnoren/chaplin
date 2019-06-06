@@ -1956,9 +1956,9 @@ button.sub-menu-toggle.active svg {
 	margin-left: 2rem;
 }
 
-.wp-block-archives li a,
-.wp-block-categories li a,
-.wp-block-latest-posts li a {
+.wp-block-archives li > a,
+.wp-block-categories li > a,
+.wp-block-latest-posts li > a {
 	font-size: 1.25em;
 	font-weight: 700;
 	text-decoration: none;
@@ -2367,7 +2367,7 @@ button.sub-menu-toggle.active svg {
     width: 100%;
 }
 
-.wp-block-latest-posts.is-grid a {
+.wp-block-latest-posts.is-grid li > a {
 	font-size: 1.25em;
 }
 
@@ -2378,6 +2378,12 @@ button.sub-menu-toggle.active svg {
 .wp-block-latest-posts__post-date {
     display: block;
 	margin: .8rem 0 0;
+}
+
+.wp-block-latest-posts__post-excerpt {
+	font-size: .95em;
+	line-height: 1.4;
+	margin-top: 15px;
 }
 
 
@@ -2506,8 +2512,7 @@ p.has-background {
 
 .wp-block-quote[style*="text-align:right"], 
 .wp-block-quote[style*="text-align: right"] {
-	border-left-width: 0;
-	border-right-width: .4rem;
+	border-width: 0 .4rem 0 0;
 	padding-left: 0;
 	padding-right: 2rem;
 }
@@ -3753,7 +3758,7 @@ body.woocommerce .entry-content {
 		width: calc( 50% - 4rem );
 	}
 	
-	.wp-block-latest-posts.is-grid a {
+	.wp-block-latest-posts.is-grid li > a {
 		font-size: 1.33em;
 	}
 
