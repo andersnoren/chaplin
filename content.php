@@ -68,19 +68,16 @@
 
 	<div class="post-inner" id="post-inner">
 
-		<?php if ( get_the_content() ) : ?>
-
-			<div class="entry-content">
-
-				<?php 
-				the_content();
-				wp_link_pages();
-				?>
-
-			</div><!-- .entry-content -->
+		<div class="entry-content">
 
 			<?php 
-		endif;
+			the_content();
+			wp_link_pages();
+			?>
+
+		</div><!-- .entry-content -->
+
+		<?php 
 
 		// Single bottom post meta
 		chaplin_the_post_meta( $post->ID, 'single-bottom' );
