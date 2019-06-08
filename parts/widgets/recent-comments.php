@@ -57,14 +57,14 @@ class Chaplin_Recent_Comments extends WP_Widget {
 						<li>
 
 							<?php /* Translators: %1$s = post title, %2$s = post date */ ?>
-							<a href="<?php echo esc_url( get_permalink( $comment->comment_post_ID ) ); ?>#comment-<?php echo esc_attr( $comment->comment_ID ); ?>" title="<?php printf( _x( 'Comment to %1$s, posted %2$s', 'Translators: %1$s = post title, %2$s = post date', 'chaplin' ), esc_attr( get_the_title( $comment->comment_post_ID ) ), esc_attr( get_the_time( get_option( 'date_format' ) ) ) ); ?>">
+							<a href="<?php echo esc_url( get_permalink( $comment->comment_post_ID ) ); ?>#comment-<?php echo esc_attr( $comment->comment_ID ); ?>">
 
-								<div class="post-image" style="background-image: url( <?php echo esc_url( get_avatar_url( get_comment_author_email( $comment->comment_ID ), '100' ) ); ?> );"></div>
+								<div class="post-image" style="background-image: url( <?php echo esc_url( get_avatar_url( get_comment_author_email( $comment->comment_ID ), array( 'size' => '160' ) ) ); ?> );"></div>
 
 								<div class="inner">
 
-									<h4 class="title"><?php echo wp_kses_post( get_comment_author() ); ?></h4>
-									<p class="meta">&ldquo;<?php echo wp_kses_post( chaplin_get_comment_excerpt( $comment->comment_ID, 10 ) ); ?>&rdquo;</p>
+									<h5 class="title"><?php echo wp_kses_post( get_comment_author() ); ?></h5>
+									<p class="meta"><?php echo wp_kses_post( get_comment_date( get_option( 'date_format' ) ) ); ?></p>
 
 								</div>
 
@@ -119,7 +119,7 @@ class Chaplin_Recent_Comments extends WP_Widget {
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'number_of_comments' ); ?>"><?php _e( 'Number of comments to display', 'chaplin' ); ?>:
-			<input id="<?php echo $this->get_field_id( 'number_of_comments' ); ?>" name="<?php echo $this->get_field_name( 'number_of_comments' ); ?>" type="text" class="widefat" value="<?php echo esc_attr( $number_of_comments ); ?>" /></label>
+			<input id="<?php echo $this->get_field_id( 'number_of_comments' ); ?>" name="<?php echo $this->get_field_name( 'number_of_comments' ); ?>" type="number" class="widefat" value="<?php echo esc_attr( $number_of_comments ); ?>" /></label>
 			<small>(<?php _e( 'Defaults to 3 if empty', 'chaplin' ); ?>)</small>
 		</p>
 
