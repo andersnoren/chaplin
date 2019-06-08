@@ -184,7 +184,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		global $post;
 
 		// Determine type of infinite scroll
-		$pagination_type = get_theme_mod( 'miyazaki_pagination_type' ) ? get_theme_mod( 'miyazaki_pagination_type' ) : 'button';
+		$pagination_type = get_theme_mod( 'chaplin_pagination_type' ) ? get_theme_mod( 'chaplin_pagination_type' ) : 'button';
 		switch ( $pagination_type ) {
 			case 'button' :
 				$classes[] = 'pagination-type-button';
