@@ -107,7 +107,34 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				) );
 			}
 
-			// Languages
+			/* Heading Weight ---------------- */
+
+			$wp_customize->add_setting( 'chaplin_headings_weight', array(
+				'default' 			=> '700',
+				'sanitize_callback' => 'chaplin_sanitize_select',
+			) );
+
+			$wp_customize->add_control( 'chaplin_headings_weight', array(
+				'label' 		=> __( 'Headings Weight', 'chaplin' ),
+				'description'	=> __( 'All fonts do not support all weights.', 'chaplin' ),
+				'section' 		=> 'chaplin_fonts_options',
+				'settings' 		=> 'chaplin_headings_weight',
+				'type' 			=> 'select',
+				'choices' 		=> array(
+					'100' 			=> __( 'Thin (100)', 'chaplin' ),
+					'200' 			=> __( 'Ultra Light (200)', 'chaplin' ),
+					'300' 			=> __( 'Light (300)', 'chaplin' ),
+					'400' 			=> __( 'Normal (400)', 'chaplin' ),
+					'500' 			=> __( 'Medium (500)', 'chaplin' ),
+					'600' 			=> __( 'Semi Bold (600)', 'chaplin' ),
+					'700' 			=> __( 'Bold (700)', 'chaplin' ),
+					'800' 			=> __( 'Extra Bold (800)', 'chaplin' ),
+					'900' 			=> __( 'Black (900)', 'chaplin' ),
+				),
+			) );
+
+			/* Languages --------------------- */
+
 			$wp_customize->add_setting( 'chaplin_font_languages', array(
 				'capability' 		=> 'edit_theme_options',
 				'default'           => array( 'latin' ),
@@ -117,7 +144,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			$wp_customize->add_control( new Chaplin_Customize_Control_Checkbox_Multiple( $wp_customize, 'chaplin_font_languages', array(
 				'section' 		=> 'chaplin_fonts_options',
 				'label'   		=> __( 'Languages', 'chaplin' ),
-				'description'	=> __( 'All fonts do not support all languages. Check your font on Google Fonts to make sure.', 'chaplin' ),
+				'description'	=> __( 'All fonts do not support all languages. Check Google Fonts to make sure.', 'chaplin' ),
 				'choices' 		=> apply_filters( 'chaplin_font_languages', array(
 					'latin'			=> __( 'Latin', 'chaplin' ),
 					'latin-ext'		=> __( 'Latin Extended', 'chaplin' ),

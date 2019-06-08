@@ -67,7 +67,7 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 				}
 				$google_fonts_url = rtrim( $google_fonts_url, '|' );
 
-				// If font languages are set, and they're not "empty" or "latin" (= default in Google Fonts), add them
+				// If font languages are set, and they're not "empty", add them
 				if ( $font_languages && ! in_array( $font_languages[0], array( 'empty', 'latin' ) ) ) {
 					$font_languages_str = implode( ',', $font_languages );
 					$google_fonts_url = add_query_arg( 'subset', $font_languages_str, $google_fonts_url );
@@ -91,8 +91,18 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 			// Different styles for body and headings
 			if ( $font_option == 'body' ) {
 				$styles = apply_filters( 'chaplin_google_font_body_styles', ':400,500,600,700,400italic,700italic' );
-			} else {
-				$styles = apply_filters( 'chaplin_google_font_headings_styles', ':400,700,400italic,700italic' );
+			} else if ( $font_option == 'headings' ) {
+				$styles = ':400,700,400italic,700italic';
+
+				// If the headings weight is set to a different weight than the default ones, add the weight to the styles
+				$extra_weights = array( '100', '200', '300', '500', '600', '800', '900' );
+				$headings_weight = get_theme_mod( 'chaplin_headings_weight' );
+
+				if ( $headings_weight && in_array( $headings_weight, $extra_weights ) ) {
+					$styles .=  ',' . $headings_weight . ',' . $headings_weight . 'italic';
+				}
+
+				$styles = apply_filters( 'chaplin_google_font_headings_styles', $styles );
 			}
 
 			return $font_name . $styles;
