@@ -307,7 +307,6 @@ endif;
    REGISTER SIDEBAR
    --------------------------------------------------------------------------------------------- */
 
-
 if ( ! function_exists( 'chaplin_sidebar_registration' ) ) :
 	function chaplin_sidebar_registration() {
 
@@ -342,7 +341,6 @@ endif;
    INCLUDE THEME WIDGETS
    --------------------------------------------------------------------------------------------- */
 
-
 require_once( get_template_directory() . '/parts/widgets/recent-comments.php' );
 require_once( get_template_directory() . '/parts/widgets/recent-posts.php' );
 
@@ -350,7 +348,6 @@ require_once( get_template_directory() . '/parts/widgets/recent-posts.php' );
 /* ---------------------------------------------------------------------------------------------
    REGISTER THEME WIDGETS
    --------------------------------------------------------------------------------------------- */
-
 
 if ( ! function_exists( 'chaplin_register_widgets' ) ) :
 	function chaplin_register_widgets() {
@@ -361,6 +358,22 @@ if ( ! function_exists( 'chaplin_register_widgets' ) ) :
 	}
 	add_action( 'widgets_init', 'chaplin_register_widgets' );
 endif;
+
+
+/* ---------------------------------------------------------------------------------------------
+	DELIST DEFAULT WIDGETS REPLACE BY THEME ONES
+	--------------------------------------------------------------------------------------------- */
+
+
+if ( ! function_exists( 'chaplin_unregister_default_widgets' ) ) {
+	function chaplin_unregister_default_widgets() {
+
+		unregister_widget( 'WP_Widget_Recent_Comments' );
+		unregister_widget( 'WP_Widget_Recent_Posts' );
+
+	}
+	add_action( 'widgets_init', 'chaplin_unregister_default_widgets', 11 );
+}
 
 
 /*	-----------------------------------------------------------------------------------------------
