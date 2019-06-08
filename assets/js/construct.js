@@ -1095,6 +1095,11 @@ chaplin.loadMore = {
 		var newUrl,
 			currentUrl = document.location.href;
 
+		// If currentUrl doesn't end with a slash, append one
+		if ( currentUrl.substr( currentUrl.length - 1 ) !== '/' ) {
+			currentUrl += '/';
+		}
+
 		var hasPaginationRegexp = new RegExp( '^(.*/page)/[0-9]*/(.*$)' );
 
 		if ( hasPaginationRegexp.test( currentUrl ) ) {

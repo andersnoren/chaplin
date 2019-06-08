@@ -2,7 +2,7 @@
 
 			<?php if ( is_active_sidebar( 'footer-one' ) || is_active_sidebar( 'footer-two' ) ) : ?>
 
-				<div class="footer-widgets-outer-wrapper section-inner">
+				<div class="footer-widgets-outer-wrapper border-color-border section-inner">
 				
 					<div class="footer-widgets-wrapper grid tcols-2">
 

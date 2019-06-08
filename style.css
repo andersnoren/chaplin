@@ -191,7 +191,6 @@ main {
 }
 
 h1, h2, h3, h4, h5, h6, .faux-heading {
-	font-family: 'Merriweather', Georgia, serif;
 	font-feature-settings: "lnum";
 	font-variant-numeric: lining-nums;
 	font-weight: 700;
@@ -277,6 +276,7 @@ ol ol { list-style: lower-alpha; }
 ol ol ol { list-style: lower-roman; }
 
 li {
+	line-height: 1.5;
 	margin: 1rem 0;
 }
 
@@ -1104,7 +1104,6 @@ ul.social-icons li {
 
 .site-title {
 	font-size: 2.1rem;
-	font-weight: 700;
 	line-height: 1;
 }
 
@@ -1814,11 +1813,6 @@ button.sub-menu-toggle.active svg {
 
 .entry-content .has-small-font-size { font-size: .842em; }
 .entry-content .has-regular-font-size { font-size: 1em; }
-
-.entry-content .has-large-font-size,
-.entry-content .has-larger-font-size {
-	line-height: 1.4;
-}
 
 .entry-content .has-large-font-size { font-size: 1.25em; }
 .entry-content .has-larger-font-size { font-size: 1.5em; }
@@ -2983,11 +2977,6 @@ body.woocommerce .entry-content {
 	margin-top: 0;
 }
 
-.widget-content > ul,
-.widget-content > ol {
-	margin-left: 0;
-}
-
 
 /* Base List Widget ------------------------------- */
 
@@ -3028,8 +3017,12 @@ body.woocommerce .entry-content {
 
 /* Chaplin Widget List --------------------------------------- */
 
+.chaplin-widget-list {
+	margin-left: 0;
+}
+
 .chaplin-widget-list li {
-	margin-bottom: 2rem;
+	margin: 0 0 2rem;
 }
 
 .chaplin-widget-list li:last-child {
@@ -3047,8 +3040,8 @@ body.woocommerce .entry-content {
 	background: #fff no-repeat center;
 	background-size: cover;
 	flex-shrink: 0;
-	height: 8rem;
-	width: 8rem;
+	height: 7rem;
+	width: 7rem;
 }
 
 .chaplin-widget-list .inner { 
@@ -3188,7 +3181,7 @@ body.woocommerce .entry-content {
 }
 
 
-/* Widget: Tag Cloud ------------------------------- */
+/* Widget: Tag Cloud ------------------------- */
 
 .widget_tag_cloud a {
 	font-weight: 600;
@@ -3199,6 +3192,13 @@ body.woocommerce .entry-content {
 
 .widget_tag_cloud .tag-link-count {
 	color: #F9423A;
+}
+
+
+/* Widget: Text ------------------------------ */
+
+.widget_text .widget-content {
+	max-width: 50rem;
 }
 
 
@@ -3334,8 +3334,12 @@ body.woocommerce .entry-content {
 
 	/* TITLES */
 
-	h1, h2, h3, h4, h5, h6 {
+	h1, h2, h3 {
 		margin: 6rem 0 3.5rem;
+	}
+
+	h4, h5, h6 {
+		margin: 4.5rem 0 2.5rem;
 	}
 
 	h1 { font-size: 4.8rem; }
@@ -3887,6 +3891,13 @@ body.woocommerce .entry-content {
 		margin-bottom: 3rem;
 	}
 
+	/* CHAPLIN WIDGET LIST */
+
+	.chaplin-widget-list .post-image {
+		height: 8rem;
+		width: 8rem;
+	}
+
 	/* Site Footer --------------------------- */
 
 	#site-footer {
@@ -3896,7 +3907,8 @@ body.woocommerce .entry-content {
 	/* FOOTER WIDGETS */
 
 	.footer-widgets-outer-wrapper {
-		border-top: .1rem solid #E1E1E3;
+		border-style: solid;
+		border-width: .1rem 0 0;
 		margin-bottom: 8rem;
 		margin-top: 12rem;
 		padding-top: 7.5rem;
@@ -3904,7 +3916,12 @@ body.woocommerce .entry-content {
 
 	.footer-widgets .widget {
 		border-top: none;
+		margin-top: 5rem;
 		padding-top: 0;
+	}
+
+	.footer-widgets .widget:first-child {
+		margin-top: 0;
 	}
 
 	/* FOOTER INNER */

@@ -19,6 +19,10 @@
 	max-width: 610px;
 }
 
+.editor-block-list__block[data-align="wide"] .wp-block-group .wp-block {
+	max-width: calc( 100% - 40px );
+}
+
 *[data-align=right] .editor-block-list__block-edit,
 *[data-align=left] .editor-block-list__block-edit {
 	max-width: 50%;
