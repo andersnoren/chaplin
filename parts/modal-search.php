@@ -14,7 +14,7 @@
 				<button type="submit" class="search-submit"><?php echo _x( 'Search', 'Submit button', 'chaplin' ); ?></button>
 			</form><!-- .search-form -->
 
-			<a href="#" class="toggle search-untoggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field">
+			<a href="#" class="toggle search-untoggle fill-children-primary" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field">
 				<span class="screen-reader-text"><?php _e( 'Close search', 'chaplin' ); ?></span>
 				<?php chaplin_the_theme_svg( 'cross' ); ?>
 			</a><!-- .search-toggle -->
