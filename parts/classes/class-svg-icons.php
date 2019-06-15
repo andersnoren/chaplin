@@ -29,7 +29,7 @@ if ( ! class_exists( 'Chaplin_SVG_Icons' ) ) :
 		}
 
 		/* --------------------------------------------------------------------
-		   ICON STORAGe
+		   ICON STORAGE
 		   Store the code for all SVGs in an array
 		   -------------------------------------------------------------------- */
 		

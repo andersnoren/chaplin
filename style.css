@@ -3,7 +3,7 @@
 	Theme Name: Chaplin
     Text Domain: chaplin
 	Version: 1.0.0
-	Description: 
+	Description: Tested with CoBlocks.
 	Tags: three-columns, grid-layout, custom-background, custom-logo, editor-style, featured-images, sticky-post, theme-options, threaded-comments, translation-ready, blog, photography, portfolio, footer-widgets
 	Author: Anders Norén
 	Author URI: https://www.andersnoren.se
@@ -305,9 +305,8 @@ dt {
 	font-weight: 700;
 }
 
-dd + dt {
-	margin-top: 1.5rem;
-}
+dt + dd { margin-top: 0.5rem; }
+dd + dt { margin-top: 1.5rem; }
 
 
 /* Quotes ------------------------------------ */
@@ -424,6 +423,17 @@ figcaption,
 
 /* Inputs ------------------------------------ */
 
+fieldset {
+	border: .2rem solid #e1e1e3;
+	padding: 2rem;
+}
+
+legend {
+	font-size: .85em;
+	font-weight: 700;
+	padding: 0 1rem;
+}
+
 label {
 	display: block;
 	font-size: 1.5rem;
@@ -477,11 +487,11 @@ textarea {
 	box-shadow: none;
 	color: inherit;
 	display: block;
-	font-size: inherit;
+	font-size: 1.6rem;
 	margin: 0;
 	max-width: 100%;
 	outline: none;
-	padding: 1.35rem 1.8rem;
+	padding: 1.5rem 1.8rem;
 	width: 100%;
 }
 
@@ -492,10 +502,10 @@ textarea {
 }
 
 select {
-	background: transparent url( ./assets/images/icons/chevron-down.svg ) no-repeat;
+	background: transparent no-repeat;
 	background-position: calc( 100% - 2rem ) center;
 	background-size: 1.4rem .85rem;
-	padding-right: 4rem;
+	padding: 1.6rem 4rem 1.6rem 1.8rem;
 	position: relative;
 }
 
@@ -520,14 +530,14 @@ input[type="reset"],
 input[type="submit"] {
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	background: #1A1B1F;
+	background: #007C89;
 	border: none;
 	border-radius: .3rem;
 	color: #fff;
 	cursor: pointer;
 	display: inline-block;
 	font-size: .8888em;
-	font-weight: 500;
+	font-weight: 600;
 	line-height: 1;
 	margin: 0;
 	padding: 1.25em 1.75em;
@@ -1860,12 +1870,12 @@ button.sub-menu-toggle.active svg {
 
 .alignleft {
 	float: left;
-	margin: 0 2rem 2rem 0;
+	margin: .3rem 2rem 2rem 0;
 }
 
 .alignright {
 	float: right;
-	margin: 0 0 2rem 2rem;
+	margin: .3rem 0 2rem 2rem;
 }
 
 
@@ -2589,6 +2599,29 @@ table.is-style-stripes tr:nth-child( odd ) {
 /* Block: Tag Cloud -------------------------- */
 /* Block: Verse ------------------------------ */
 /* Block: Video ------------------------------ */
+
+/* CoBlock: Features ------------------------- */
+
+@media ( max-width: 600px ) {
+	.wp-block-coblocks-features .wp-block-coblocks-feature__inner.has-no-padding {
+		padding: 0;
+	}
+}
+
+/* CoBlock: Buttons -------------------------- */
+
+.wp-block-coblocks-buttons {
+	margin: 3rem 0;
+}
+
+.wp-block-coblocks-buttons .wp-block-coblocks-buttons__inner {
+	flex-wrap: wrap;
+	margin: -1rem 0 0 -2rem;
+}
+
+.wp-block-coblocks-buttons .wp-block-coblocks-buttons__inner .wp-block-button {
+	margin: 1rem 0 0 2rem !important;
+}
 
 
 /* -------------------------------------------------------------------------------- */
@@ -3348,6 +3381,16 @@ body.woocommerce .entry-content {
 	h4 { font-size: 2.4rem; }
 	h5 { font-size: 2.1rem; }
 
+	/* INPUTS */
+
+	fieldset {
+		padding: 3rem;
+	}
+
+	legend {
+		padding: 0 1.5rem;
+	}
+
 
 	/* Helper Classes ------------------------- */
 
@@ -3596,10 +3639,20 @@ body.woocommerce .entry-content {
 
 	/* ALIGNMENTS */
 
+	.alignnone, 
+	.aligncenter,
 	.alignwide,
 	.alignfull {
 		margin-bottom: 6rem;
 		margin-top: 6rem;
+	}
+
+	.alignleft {
+		margin: .5rem 2.5rem 2.5rem 0;
+	}
+
+	.alignright {
+		margin: .5rem 0 2.5rem 2.5rem;
 	}
 
 	.alignfull {
@@ -3627,10 +3680,16 @@ body.woocommerce .entry-content {
 		margin-top: 4rem;
 	}
 
+	/* COBLOCK: BUTTONS */
+
+	.wp-block-coblocks-buttons {
+		margin: 4rem 0;
+	}
+
 	/* BLOCK: COLUMNS */
 
 	.wp-block-column {
-        flex-basis: calc(50% - 2rem);
+        flex-basis: calc( 50% - 2rem );
         flex-grow: 0;
 		margin-bottom: 4rem;
     }

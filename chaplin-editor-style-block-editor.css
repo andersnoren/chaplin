@@ -1,5 +1,5 @@
 /* --------------------------------------------------------------------------------------------- */
-/*	Editor Styles — Block Editor
+/*	Chaplin Editor Styles — Block Editor
 /* --------------------------------------------------------------------------------------------- */
 
 .editor-styles-wrapper {
@@ -66,7 +66,6 @@
 
 
 /* Typography -------------------------------- */
-
 
 .editor-styles-wrapper a {
 	color: #007C89;
@@ -169,7 +168,21 @@ figure {
 }
 
 
-/* Block: _Shared Lists ------------------- */
+/* Forms ------------------------------------- */
+
+fieldset {
+	border: 2px solid #e1e1e3;
+	padding: 20px;
+}
+
+legend {
+	font-size: .85em;
+	font-weight: 700;
+	padding: 0 10px;
+}
+
+
+/* Block: _Shared Lists ---------------------- */
 
 .editor-styles-wrapper ul.wp-block-archives,
 .editor-styles-wrapper ul.wp-block-categories,
@@ -417,9 +430,15 @@ pre.wp-block-verse {
 	color: #fff;
 }
 
-.wp-block-button .wp-block-button__link,
-.wp-block-file .wp-block-file__button {
-	background: #1A1B1F;
+button,
+.button,
+.faux-button,
+.wp-block-button__link,
+.wp-block-file__button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	background: #007C89;
 	border-radius: 3px;
 	color: #fff;
 	font-size: 16px;
@@ -521,6 +540,16 @@ pre.wp-block-verse {
 	.editor-styles-wrapper .wp-block h3 { font-size: 32px; }
 	.editor-styles-wrapper .wp-block h4 { font-size: 24px; }
 	.editor-styles-wrapper .wp-block h5 { font-size: 21px; }
+
+	/* INPITS  */
+
+	fieldset {
+		padding: 30px;
+	}
+
+	legend {
+		padding: 0 15px;
+	}
 
 	/* BLOCK: PULLQUOTE */
 
