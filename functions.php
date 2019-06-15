@@ -1184,7 +1184,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 			// Secondary color
 			if ( $secondary ) :
-				// This space intentionally left blank
+				chaplin_generate_css( '.wp-block-latest-comments time, .wp-block-latest-posts time', 'color', $secondary );
 			endif;
 
 			// Accent color
@@ -1294,7 +1294,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Background color
 			if ( $background ) : 
 				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button:not(.is-style-outline) .wp-block-button__link, .wp-block-file .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'color', $background );
-				chaplin_generate_css( '.editor-styles-wrapper', 'background-color', $background );
+				chaplin_generate_css( '.editor-styles-wrapper, .editor-block-list__layout', 'background-color', $background );
 			endif;
 
 			// Primary color
@@ -1302,12 +1302,12 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.editor-styles-wrapper > *', 'color', $primary );
 				chaplin_generate_css( '.editor-styles-wrapper .editor-post-title__input', 'color', $primary );
 				chaplin_generate_css( '.is-style-outline .wp-block-button__link', 'color', $primary );
-				chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $primary ) . '\');' );
+				chaplin_generate_css( '.editor-styles-wrapper select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $primary ) . '\');' );
 			endif;
 
 			// Secondary color
 			if ( $secondary ) :
-				// This space intentionally left blank
+				chaplin_generate_css( '.wp-block-latest-comments time, .wp-block-latest-posts time', 'color', $secondary );
 			endif;
 
 			// Accent color
@@ -1322,7 +1322,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			
 			// Border color
 			if ( $border ) : 
-				chaplin_generate_css( 'hr, pre, th, td, input, textarea, select', 'border-color, fieldset', $border );
+				chaplin_generate_css( 'hr, pre, th, td, .editor-styles-wrapper input, .editor-styles-wrapper textarea, .editor-styles-wrapper select, .editor-styles-wrapper fieldset', 'border-color', $border );
 				chaplin_generate_css( 'caption', 'background', $border );
 				chaplin_generate_css( '.wp-block-latest-posts.is-grid li, table.wp-block-table, hr.wp-block-separator', 'border-color', $border );
 			endif;
@@ -1331,6 +1331,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			if ( $light_background ) : 
 				chaplin_generate_css( 'code, kbd, samp', 'background-color', $light_background );
 				chaplin_generate_css( '.wp-block-table.is-style-stripes tbody tr:nth-child(odd)', 'background-color', $light_background );
+				chaplin_generate_css( '.wp-block-shortcode', 'background-color', $light_background );
 			endif;
 
 			/* HELPER CLASSES */

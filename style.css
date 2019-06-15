@@ -1943,13 +1943,23 @@ button.sub-menu-toggle.active svg {
 
 .wp-block-archives,
 .wp-block-categories,
-.wp-block-latest-posts {
+.wp-block-latest-posts,
+.wp-block-latest-comments {
+	list-style: none;
+	margin: 4rem 0;
+}
+
+.wp-block-archives ul,
+.wp-block-categories ul,
+.wp-block-latest-posts ul,
+.wp-block-latest-comments ul {
 	list-style: none;
 }
 
 .wp-block-archives li,
 .wp-block-categories li,
-.wp-block-latest-posts li {
+.wp-block-latest-posts li,
+.wp-block-latest-comments li {
 	line-height: 1.2;
 	margin: 2rem 0 0 0;
 }
@@ -1962,7 +1972,8 @@ button.sub-menu-toggle.active svg {
 
 .wp-block-archives li > a,
 .wp-block-categories li > a,
-.wp-block-latest-posts li > a {
+.wp-block-latest-posts li > a,
+.wp-block-latest-comments li > a {
 	font-size: 1.25em;
 	font-weight: 700;
 	text-decoration: none;
@@ -2353,6 +2364,48 @@ button.sub-menu-toggle.active svg {
 
 
 /* Block: Latest Comments -------------------- */
+
+.wp-block-latest-comments__comment-meta {
+	font-weight: 700;
+}
+
+.wp-block-latest-comments__comment-meta a {
+	text-decoration: none;
+}
+
+/* HAS AVATAR */
+
+.wp-block-latest-comments.has-avatars .wp-block-latest-comments__comment {
+	display: flex;
+}
+
+.wp-block-latest-comments.has-avatars img.avatar {
+	flex-shrink: 0;
+	height: 6rem;
+	margin-right: 1.5rem;
+	width: 6rem;
+}
+
+/* HAS EXCERPT */
+
+.wp-block-latest-comments__comment-excerpt {
+	font-size: .9em;
+	margin-top: 1rem;
+}
+
+.wp-block-latest-comments__comment-excerpt p:last-child {
+	margin-bottom: 0;
+}
+
+/* HAS TIME */
+
+.wp-block-latest-comments time {
+	display: block;
+	font-weight: 400;
+	margin-top: .6rem;
+}
+
+
 /* Block: Latest Posts ----------------------- */
 
 /* STYLE: GRID */
