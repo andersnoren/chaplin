@@ -65,7 +65,7 @@ class Chaplin_Recent_Posts extends WP_Widget {
 							<div class="inner">
 
 								<h5 class="title"><?php the_title(); ?></h5>
-								<p class="meta"><?php the_time( get_option( 'date_format' ) ); ?></p>
+								<p class="meta color-secondary"><?php the_time( get_option( 'date_format' ) ); ?></p>
 
 							</div>
 
