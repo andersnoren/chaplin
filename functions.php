@@ -631,7 +631,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 		$page_template = get_page_template_slug( $post_id );
 
 		// Check that the post type should be able to output post meta
-		$allowed_post_types = apply_filters( 'chaplin_allowed_post_types_for_meta_output', array( 'post' ) );
+		$allowed_post_types = apply_filters( 'chaplin_allowed_post_types_for_meta_output', array( 'post', 'jetpack-portfolio' ) );
 		if ( ! in_array( get_post_type( $post_id ), $allowed_post_types ) ) {
 			return;
 		}
@@ -706,6 +706,9 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 
 					<?php
 
+					// Allow output of additional meta items to be added by child themes and plugins
+					do_action( 'chaplin_start_of_post_meta_list', $post_meta, $post_id );
+
 					// Post date
 					if ( in_array( 'post-date', $post_meta ) ) : 
 						$has_meta = true;
@@ -755,6 +758,22 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 						<?php
 					endif;
 
+					// Jetpack Portfolio Type
+					if ( in_array( 'jetpack-portfolio-type', $post_meta ) && has_term( '', 'jetpack-portfolio-type', $post_id ) ) : 
+						$has_meta = true;
+						?>
+						<li class="post-jetpack-portfolio-type meta-wrapper">
+							<span class="meta-icon">
+								<span class="screen-reader-text"><?php _e( 'Portfolio types', 'chaplin' ); ?></span>
+								<?php chaplin_the_theme_svg( 'folder' ); ?>
+							</span>
+							<span class="meta-text">
+								<?php the_terms( $post_id, 'jetpack-portfolio-type', __( 'In', 'chaplin' ) . ' ', ', ' ); ?>
+							</span>
+						</li>
+						<?php
+					endif;
+
 					// Tags
 					if ( in_array( 'tags', $post_meta ) && has_tag() ) : 
 						$has_meta = true;
@@ -766,6 +785,22 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 							</span>
 							<span class="meta-text">
 								<?php the_tags( '', ', ', '' ); ?>
+							</span>
+						</li>
+						<?php
+					endif;
+
+					// Jetpack Portfolio Tags
+					if ( in_array( 'jetpack-portfolio-tag', $post_meta ) && has_term( '', 'jetpack-portfolio-tag', $post_id ) ) : 
+						$has_meta = true;
+						?>
+						<li class="post-jetpack-portfolio-tag meta-wrapper">
+							<span class="meta-icon">
+								<span class="screen-reader-text"><?php _e( 'Portfolio tags', 'chaplin' ); ?></span>
+								<?php chaplin_the_theme_svg( 'tag' ); ?>
+							</span>
+							<span class="meta-text">
+								<?php the_terms( $post_id, 'jetpack-portfolio-tag', '', ', ' ); ?>
 							</span>
 						</li>
 						<?php
@@ -801,7 +836,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 					<?php endif;
 
 					// Edit link
-					if ( in_array( 'edit-link', $post_meta ) && current_user_can( 'edit_post', get_the_ID() ) ) : 
+					if ( in_array( 'edit-link', $post_meta ) && current_user_can( 'edit_post', $post_id ) ) : 
 						$has_meta = true; 
 						?>
 						<li class="post-edit">
@@ -829,7 +864,12 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 							<?php endif; ?>
 
 						</li>
-					<?php endif; ?>
+						<?php 
+
+						// Allow output of additional post meta types to be added by child themes and plugins
+						do_action( 'chaplin_end_of_post_meta_list', $post_meta, $post_id );
+
+					endif; ?>
 
 				</ul><!-- .post-meta -->
 

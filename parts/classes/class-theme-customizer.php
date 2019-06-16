@@ -116,7 +116,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$wp_customize->add_control( 'chaplin_headings_weight', array(
 				'label' 		=> __( 'Headings Weight', 'chaplin' ),
-				'description'	=> __( 'All fonts do not support all weights.', 'chaplin' ),
+				'description'	=> __( 'Note: All fonts do not support all weights.', 'chaplin' ),
 				'section' 		=> 'chaplin_fonts_options',
 				'settings' 		=> 'chaplin_headings_weight',
 				'type' 			=> 'select',
@@ -144,7 +144,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			$wp_customize->add_control( new Chaplin_Customize_Control_Checkbox_Multiple( $wp_customize, 'chaplin_font_languages', array(
 				'section' 		=> 'chaplin_fonts_options',
 				'label'   		=> __( 'Languages', 'chaplin' ),
-				'description'	=> __( 'All fonts do not support all languages. Check Google Fonts to make sure.', 'chaplin' ),
+				'description'	=> __( 'Note: All fonts do not support all languages. Check Google Fonts to make sure.', 'chaplin' ),
 				'choices' 		=> apply_filters( 'chaplin_font_languages', array(
 					'latin'			=> __( 'Latin', 'chaplin' ),
 					'latin-ext'		=> __( 'Latin Extended', 'chaplin' ),
@@ -263,7 +263,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			/* Post Meta Setting ------------- */
 
-			$post_meta_choices = apply_filters( 'chaplin_post_meta_choices_in_the_customizer', array(
+			$post_meta_choices = array(
 				'author'		=> __( 'Author', 'chaplin' ),
 				'categories'	=> __( 'Categories', 'chaplin' ),
 				'comments'		=> __( 'Comments', 'chaplin' ),
@@ -271,7 +271,18 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'post-date'		=> __( 'Post date', 'chaplin' ),
 				'sticky'		=> __( 'Sticky status', 'chaplin' ),
 				'tags'			=> __( 'Tags', 'chaplin' ),
-			) );
+			);
+
+			if ( post_type_exists( 'jetpack-portfolio' ) ) {
+				if ( taxonomy_exists( 'jetpack-portfolio-type' ) ) {
+					$post_meta_choices['jetpack-portfolio-type'] = __( 'Portfolio types', 'chaplin' );
+				}
+				if ( taxonomy_exists( 'jetpack-portfolio-tag' ) ) {
+					$post_meta_choices['jetpack-portfolio-tag'] = __( 'Project tags', 'chaplin' );
+				}
+			}
+
+			$post_meta_choices = apply_filters( 'chaplin_post_meta_choices_in_the_customizer', $post_meta_choices );
 
 			// Post Meta Single Top Setting
 			$wp_customize->add_setting( 'chaplin_post_meta_single_top', array(

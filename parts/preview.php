@@ -29,11 +29,7 @@
 
 		<?php 
 		the_title( '<h3 class="preview-title"><a href="' . get_the_permalink() . '">', '</a></h3>' ); 
-		
-		if ( $post->post_type == 'post' ) {
-			// Archive post meta
-			chaplin_the_post_meta( $post->ID, 'archive' );
-		}
+		chaplin_the_post_meta( $post->ID, 'archive' );
 		?>
 
 	</header><!-- .preview-header -->
