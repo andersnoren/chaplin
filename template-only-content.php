@@ -25,6 +25,7 @@ get_header(); ?>
 						<?php 
 						the_content();
 						wp_link_pages();
+						edit_post_link();
 						?>
 
 					</div><!-- .entry-content -->
