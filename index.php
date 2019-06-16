@@ -11,7 +11,9 @@
 		global $wp_query;
 		$archive_title = sprintf( __( 'Search: %s', 'chaplin' ), '&ldquo;' . get_search_query() . '&rdquo;' );
 		if ( $wp_query->found_posts ) {
-			$archive_subtitle = sprintf( _n( 'Found %s result for your search.', 'We found %s results for your search.', $wp_query->found_posts, 'chaplin' ), $wp_query->found_posts );
+			$archive_subtitle = sprintf( _n( 'We found %s result for your search.', 'We found %s results for your search.', $wp_query->found_posts, 'chaplin' ), $wp_query->found_posts );
+		} else {
+			$archive_subtitle = __( 'We could not find any results for your search. You can give it another try through the search form below.', 'chaplin' );
 		}
 	} else {
 		$archive_title = get_the_archive_title();
@@ -59,9 +61,7 @@
 
 		<?php elseif ( is_search() ) : ?>
 
-			<div class="no-search-results">
-
-				<p><?php _e( 'We could not find any results for your search. Try again with different search terms.', 'chaplin' ); ?></p>
+			<div class="no-search-results-form">
 
 				<?php get_search_form(); ?>
 
