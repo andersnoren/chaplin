@@ -25,17 +25,13 @@
 		
 		<header class="archive-header section-inner">
 
-			<div class="section-inner thin max-percentage no-margin">
+			<?php if ( $archive_title ) : ?>
+				<h1 class="archive-title"><?php echo $archive_title; ?></h1>
+			<?php endif; ?>
 
-				<?php if ( $archive_title ) : ?>
-					<h1 class="archive-title"><?php echo $archive_title; ?></h1>
-				<?php endif; ?>
-
-				<?php if ( $archive_subtitle ) : ?>
-					<div class="archive-subtitle intro-text"><?php echo wpautop( $archive_subtitle ); ?></div>
-				<?php endif; ?>
-
-			</div><!-- .section-inner -->
+			<?php if ( $archive_subtitle ) : ?>
+				<div class="archive-subtitle section-inner thin max-percentage intro-text"><?php echo wpautop( $archive_subtitle ); ?></div>
+			<?php endif; ?>
 			
 		</header><!-- .archive-header -->
 
