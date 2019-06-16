@@ -3,7 +3,7 @@
 	Theme Name: Chaplin
     Text Domain: chaplin
 	Version: 1.0.0
-	Description: Tested with CoBlocks.
+	Description: Chaplin has also been tested with CoBlocks, supports Jetpack Portfolio, .
 	Tags: three-columns, grid-layout, custom-background, custom-logo, editor-style, featured-images, sticky-post, theme-options, threaded-comments, translation-ready, blog, photography, portfolio, footer-widgets
 	Author: Anders Norén
 	Author URI: https://www.andersnoren.se
@@ -1661,7 +1661,7 @@ button.sub-menu-toggle.active svg {
 }
 
 .intro-text {
-	margin-top: 2rem;
+	margin: 2rem 0 0;
 }
 
 /* POST META */
@@ -2546,11 +2546,6 @@ p.has-background {
 	margin-top: 4rem;
 }
 
-.wp-block-pullquote.alignwide,
-.wp-block-pullquote.alignfull {
-	padding: 5rem 0;
-}
-
 .wp-block-pullquote blockquote {
 	border: none;
 	margin: 0;
@@ -2668,6 +2663,19 @@ table.is-style-stripes tr:nth-child( odd ) {
 /* Block: Video ------------------------------ */
 
 /* CoBlock: Features ------------------------- */
+
+.wp-block-coblocks-features .wp-block-coblocks-feature .wp-block-coblocks-icon {
+	margin-bottom: 2.3rem;
+}
+
+.wp-block-coblocks-features .wp-block-coblocks-feature h1, 
+.wp-block-coblocks-features .wp-block-coblocks-feature h2, 
+.wp-block-coblocks-features .wp-block-coblocks-feature h3, 
+.wp-block-coblocks-features .wp-block-coblocks-feature h4, 
+.wp-block-coblocks-features .wp-block-coblocks-feature h5, 
+.wp-block-coblocks-features .wp-block-coblocks-feature h6 {
+	margin-bottom: 2rem !important;
+}
 
 @media ( max-width: 600px ) {
 	.wp-block-coblocks-features .wp-block-coblocks-feature__inner.has-no-padding {
@@ -2888,13 +2896,12 @@ div.comment:first-of-type {
 	display: block;
 }
 
-.comment-respond .logged-in-as a {
-	color: inherit;
-	text-decoration: none;
+.comment-respond .logged-in-as {
+	margin: -2rem 0 3rem 0;
 }
 
-.comment-respond .logged-in-as a:last-child {
-	text-decoration: underline;
+.comment-respond .logged-in-as a {
+	color: inherit;
 }
 
 .comment-form p {
@@ -3942,6 +3949,10 @@ body.woocommerce .entry-content {
 		margin-bottom: 4.6rem;
 	}
 
+	.comment-respond .logged-in-as {
+		margin: -3.1rem 0 4.6rem 0;
+	}
+
 	.comments .comment,
 	.comments .pingback,
 	.comments .trackback,
@@ -4295,6 +4306,21 @@ body.woocommerce .entry-content {
 		width: calc( 100vw - 10rem );
 	}
 
+	/* COBLOCK: FEATURES */
+
+	.wp-block-coblocks-features .wp-block-coblocks-feature .wp-block-coblocks-icon {
+		margin-bottom: 3rem;
+	}
+
+	.wp-block-coblocks-features .wp-block-coblocks-feature h1, 
+	.wp-block-coblocks-features .wp-block-coblocks-feature h2, 
+	.wp-block-coblocks-features .wp-block-coblocks-feature h3, 
+	.wp-block-coblocks-features .wp-block-coblocks-feature h4, 
+	.wp-block-coblocks-features .wp-block-coblocks-feature h5, 
+	.wp-block-coblocks-features .wp-block-coblocks-feature h6 {
+		margin-bottom: 2.5rem !important;
+	}
+
 	/* Comments ------------------------------ */
 	/* Site Pagination ----------------------- */
 
@@ -4349,10 +4375,6 @@ body.woocommerce .entry-content {
 
 @media ( min-width: 1220px ) {
 
-
-	body {
-		font-size: 1.9rem;
-	}
 
 	/* Helper Classes ------------------------ */
 
@@ -4415,5 +4437,14 @@ body.woocommerce .entry-content {
 	/* Comments ------------------------------ */
 	/* Site Pagination ----------------------- */
 	/* Site Footer --------------------------- */
+
+}
+
+
+@media ( min-width: 1300px ) {
+
+	body {
+		font-size: 1.9rem;
+	}
 
 }

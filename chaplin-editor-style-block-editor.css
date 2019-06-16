@@ -12,6 +12,11 @@
 	font-size: 17px;
 }
 
+.block-editor-default-block-appender textarea.block-editor-default-block-appender__content {
+	font-family: inherit;
+	font-size: inherit;
+}
+
 
 /* Structure --------------------------------- */
 
@@ -668,7 +673,7 @@
 }
 
 
-@media ( min-width: 1220px ) {
+@media ( min-width: 1300px ) {
 
 	/* STRUCTURE */
 
