@@ -1596,6 +1596,20 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
+/*	X. Template: Only Content
+/* --------------------------------------------------------------------------------------------- */
+
+
+.template-only-content #site-header {
+	margin-bottom: 0;
+}
+
+.template-only-content .post-inner {
+	padding: 0;
+}
+
+
+/* --------------------------------------------------------------------------------------------- */
 /*	X. Post: Archive
 /* --------------------------------------------------------------------------------------------- */
 
@@ -2011,6 +2025,7 @@ button.sub-menu-toggle.active svg {
     background-color: transparent;
     border: .2rem solid currentColor;
 	color: currentColor;
+	padding: calc( 1.25em - .2rem ) calc( 1.75em - .2rem );
 }
 
 /* Block: Calendar --------------------------- */
@@ -2702,9 +2717,10 @@ table.is-style-stripes tr:nth-child( odd ) {
 
 /* COMMENT HEADER */
 
-.comment,
-.pingback,
-.trackback { 
+.comments .comment,
+.comments .pingback,
+.comments .trackback,
+.comments .review { 
 	padding-top: 3.5rem;
 }
 
@@ -2713,7 +2729,7 @@ div.comment:first-of-type {
 	padding-top: 0;
 }
 
-.comments-header + div {
+.comments .comments-header + div {
 	margin-top: 0;
 	padding-top: 0;
 }
@@ -3926,9 +3942,10 @@ body.woocommerce .entry-content {
 		margin-bottom: 4.6rem;
 	}
 
-	.comment,
-	.pingback,
-	.trackback {
+	.comments .comment,
+	.comments .pingback,
+	.comments .trackback,
+	.comments .review { 
 		padding-top: 5rem;
 	}
 
