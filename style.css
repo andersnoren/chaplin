@@ -4350,6 +4350,10 @@ body.woocommerce .entry-content {
 @media ( min-width: 1220px ) {
 
 
+	body {
+		font-size: 1.9rem;
+	}
+
 	/* Helper Classes ------------------------ */
 
 	/* GRID STRUCTURE */
