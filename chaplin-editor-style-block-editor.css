@@ -158,7 +158,7 @@
 .editor-styles-wrapper figcaption {
 	color: inherit;
 	font-size: 14px;
-	font-weight: 400;
+	font-weight: 500;
 	margin-top: 10px;
 	text-align: left;
 }
@@ -351,6 +351,11 @@
 	margin: 0 0 20px 0;
 }
 
+.editor-styles-wrapper .wp-block-quote.is-style-large {
+	border: none;
+	padding: 0;
+}
+
 .editor-styles-wrapper .wp-block-quote.is-style-large p {
 	font-size: 1.75em;
 	font-style: italic;
@@ -369,8 +374,15 @@
 }
 
 .editor-styles-wrapper .wp-block-cover-image .wp-block,
-.editor-styles-wrapper .wp-block-cover .wp-block {
+.editor-styles-wrapper .wp-block-cover .wp-block,
+.wp-block-cover-image .wp-block-cover-image-text, 
+.wp-block-cover-image .wp-block-cover-text, 
+.wp-block-cover-image h2, 
+.wp-block-cover .wp-block-cover-image-text, 
+.wp-block-cover .wp-block-cover-text, 
+.wp-block-cover h2 {
 	max-width: 100%;
+	padding: 0;
 }
 
 .editor-styles-wrapper .wp-block-cover {
@@ -652,5 +664,16 @@
 		width: calc( 100% - 10rem );
 	}
 
+
+}
+
+
+@media ( min-width: 1220px ) {
+
+	/* STRUCTURE */
+
+	.editor-styles-wrapper > * {
+		font-size: 19px;
+	}
 
 }
