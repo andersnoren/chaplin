@@ -1312,38 +1312,37 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 			// Background color
 			if ( $background ) : 
-				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button:not(.is-style-outline) .wp-block-button__link, .wp-block-file .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'color', $background );
-				chaplin_generate_css( '.editor-styles-wrapper, .editor-block-list__layout', 'background-color', $background );
+				chaplin_generate_css( '.editor-styles-wrapper .faux-button, .editor-styles-wrapper .wp-block-button:not(.is-style-outline) .wp-block-button__link, .editor-styles-wrapper .wp-block-file .wp-block-file__button', 'color', $background );
+				chaplin_generate_css( '.editor-styles-wrapper, .editor-styles-wrapper > .editor-writing-flow, .editor-styles-wrapper > .editor-writing-flow > div', 'background-color', $background );
 			endif;
 
 			// Primary color
 			if ( $primary ) : 
 				chaplin_generate_css( '.editor-styles-wrapper > *', 'color', $primary );
 				chaplin_generate_css( '.editor-styles-wrapper .editor-post-title__input', 'color', $primary );
-				chaplin_generate_css( '.is-style-outline .wp-block-button__link', 'color', $primary );
-				chaplin_generate_css( '.editor-styles-wrapper select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $primary ) . '\');' );
+				chaplin_generate_css( '.editor-styles-wrapper .is-style-outline .wp-block-button__link', 'color', $primary );
 			endif;
 
 			// Secondary color
 			if ( $secondary ) :
-				chaplin_generate_css( '.wp-block-latest-comments time, .wp-block-latest-posts time', 'color', $secondary );
+				chaplin_generate_css( '.editor-styles-wrapper .wp-block-latest-comments time, .editor-styles-wrapper .wp-block-latest-posts time', 'color', $secondary );
 			endif;
 
 			// Accent color
 			if ( $accent ) : 
 				chaplin_generate_css( '.editor-styles-wrapper a', 'color', $accent );
-				chaplin_generate_css( 'blockquote, .wp-block-quote', 'border-color', $accent, '', ' !important' );
-				chaplin_generate_css( '.wp-block-file .wp-block-file__textlink', 'color', $accent );
-				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button:not(.is-style-outline) .wp-block-button__link, .wp-block-file .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'background-color', $accent );
-				chaplin_generate_css( '.wp-block-button.is-style-outline .wp-block-button__link', 'border-color', $accent );
-				chaplin_generate_css( '.wp-block-button.is-style-outline .wp-block-button__link', 'color', $accent );
+				chaplin_generate_css( '.editor-styles-wrapper blockquote, .editor-styles-wrapper .wp-block-quote', 'border-color', $accent, '', ' !important' );
+				chaplin_generate_css( '.editor-styles-wrapper .wp-block-file .wp-block-file__textlink', 'color', $accent );
+				chaplin_generate_css( '.editor-styles-wrapper .faux-button, .editor-styles-wrapper .wp-block-button:not(.is-style-outline) .wp-block-button__link, .editor-styles-wrapper .wp-block-file .wp-block-file__button', 'background', $accent );
+				chaplin_generate_css( '.editor-styles-wrapper .wp-block-button.is-style-outline .wp-block-button__link', 'border-color', $accent );
+				chaplin_generate_css( '.editor-styles-wrapper .wp-block-button.is-style-outline .wp-block-button__link', 'color', $accent );
 			endif;
 			
 			// Border color
 			if ( $border ) : 
-				chaplin_generate_css( 'hr, pre, th, td, .editor-styles-wrapper input, .editor-styles-wrapper textarea, .editor-styles-wrapper select, .editor-styles-wrapper fieldset', 'border-color', $border );
-				chaplin_generate_css( 'caption', 'background', $border );
-				chaplin_generate_css( '.wp-block-latest-posts.is-grid li, table.wp-block-table, hr.wp-block-separator', 'border-color', $border );
+				chaplin_generate_css( '.editor-styles-wrapper hr, .editor-styles-wrapper pre, .editor-styles-wrapper th, .editor-styles-wrapper td, .editor-styles-wrapper fieldset', 'border-color', $border );
+				chaplin_generate_css( '.editor-styles-wrapper caption', 'background', $border );
+				chaplin_generate_css( '.editor-styles-wrapper .wp-block-latest-posts.is-grid li, .editor-styles-wrapper table.wp-block-table, .editor-styles-wrapper hr.wp-block-separator', 'border-color', $border );
 			endif;
 
 			// Light background color
