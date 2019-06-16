@@ -632,10 +632,23 @@ chaplin.smoothScroll = {
 				if ( $target.length ) {
 					// Only prevent default if animation is actually gonna happen
 					event.preventDefault();
-					var scrollOffset = $target.offset().top;
+
+					// Get options
+					var additionalOffset 	= $( this ).data( 'additional-offset' ),
+						scrollSpeed 		= $( this ).data( 'scroll-speed' ) ? $( this ).data( 'scroll-speed' ) : 500;
+
+					// Determine offset
+					var originalOffset = $target.offset().top,
+						scrollOffset = additionalOffset ? originalOffset + additionalOffset : originalOffset;
+
+					// Special case for sticky header
+					if ( $( 'body' ).hasClass( 'has-sticky-header' ) ) {
+						var scrollOffset = scrollOffset - $( '.header-inner.stick-me' ).outerHeight();
+					}
+
 					$( 'html, body' ).animate({
 						scrollTop: scrollOffset,
-					}, 500 );
+					}, scrollSpeed );
 				}
 			}
 		} );
@@ -662,6 +675,11 @@ chaplin.smoothScroll = {
 				// Determine offset
 				var originalOffset = $target.offset().top,
 					scrollOffset = additionalOffset ? originalOffset + additionalOffset : originalOffset;
+
+				// Special case for sticky header
+				if ( $( 'body' ).hasClass( 'has-sticky-header' ) ) {
+					var scrollOffset = scrollOffset - $( '.header-inner.stick-me' ).outerHeight();
+				}
 
 				$( 'html, body' ).animate( {
 					scrollTop: scrollOffset,
