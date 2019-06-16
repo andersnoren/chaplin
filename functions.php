@@ -658,6 +658,25 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 			$post_meta = get_theme_mod( 'chaplin_post_meta_single_bottom' );
 			$post_meta_wrapper_classes = ' post-meta-single post-meta-single-bottom';
 
+			// Empty = use a fallback
+			if ( ! $post_meta ) {
+				$post_meta = array(
+					'tags',
+				);
+			}
+
+		} elseif ( 'archive' === $location ) {
+
+			$post_meta = get_theme_mod( 'chaplin_post_meta_archive' );
+			$post_meta_wrapper_classes = ' post-meta-archive';
+
+			// Empty = use a fallback
+			if ( ! $post_meta ) {
+				$post_meta = array(
+					'post-date',
+				);
+			}
+
 		}
 
 		// If the post meta setting has the value 'empty', it's explicitly empty and the default post meta shouldn't be output

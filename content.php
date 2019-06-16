@@ -50,11 +50,11 @@
 	<?php 
 	
 	// On all other pages, output the regular page header
-	else : ?>
-
-		<?php get_template_part( 'parts/page-header' ); ?>
-
-		<?php if ( has_post_thumbnail() ) : ?>
+	else : 
+	
+		get_template_part( 'parts/page-header' );
+		
+		if ( has_post_thumbnail() ) : ?>
 
 			<div class="featured-media">
 

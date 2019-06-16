@@ -301,6 +301,20 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'choices' 		=> $post_meta_choices,
 			) ) );
 
+			// Post Meta Archive Setting
+			$wp_customize->add_setting( 'chaplin_post_meta_archive', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'           => array( 'post-date' ),
+				'sanitize_callback' => 'chaplin_sanitize_multiple_checkboxes',
+			) );
+
+			$wp_customize->add_control( new Chaplin_Customize_Control_Checkbox_Multiple( $wp_customize, 'chaplin_post_meta_archive', array(
+				'section' 		=> 'chaplin_single_post_options',
+				'label'   		=> __( 'Archive Post Meta:', 'chaplin' ),
+				'description'	=> __( 'Select post meta to display on archive pages.', 'chaplin' ),
+				'choices' 		=> $post_meta_choices,
+			) ) );
+
 			/* Disable Related Posts Setting - */
 
 			$wp_customize->add_setting( 'chaplin_disable_related_posts', array(

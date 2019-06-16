@@ -1613,11 +1613,6 @@ button.sub-menu-toggle.active svg {
 
 /* Preview Post ------------------------------ */
 
-.preview-wrapper {
-	color: inherit;
-	text-decoration: none;
-}
-
 .preview-media + .preview-header {
 	margin-top: 1.5rem;
 }
@@ -1626,13 +1621,17 @@ button.sub-menu-toggle.active svg {
 	margin: 0;
 }
 
-.preview-wrapper:hover .preview-title {
+.preview-title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.preview-title a:hover {
 	text-decoration: underline;
 }
 
-.preview-timestamp {
-	display: block;
-	margin: .8rem 0 0;
+.preview-header .post-meta-wrapper {
+	margin-top: 1rem;
 }
 
 
@@ -3614,6 +3613,16 @@ body.woocommerce .entry-content {
 		margin-bottom: 8rem;
 	}
 
+	/* PREVIEW POST */
+
+	.preview-media + .preview-header {
+		margin-top: 2rem;
+	}
+
+	.preview-header .post-meta-wrapper {
+		margin-top: 1.5rem;
+	}
+
 	/* Post: Single -------------------------- */
 
 	/* POST HEADER */
@@ -4200,11 +4209,11 @@ body.woocommerce .entry-content {
 	/* Post: Archive ------------------------- */
 
 	.preview-media + .preview-header {
-		margin-top: 2rem;
+		margin-top: 2.5rem;
 	}
 
-	.preview-timestamp {
-		margin: 1.2rem 0 0;
+	.preview-header .post-meta-wrapper {
+		margin-top: 1.8rem;
 	}
 
 	/* Post: Single -------------------------- */
