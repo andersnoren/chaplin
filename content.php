@@ -56,11 +56,21 @@
 		
 		if ( has_post_thumbnail() ) : ?>
 
-			<div class="featured-media">
+			<figure class="featured-media">
 
-				<?php the_post_thumbnail(); ?>
+				<?php 
+				
+				the_post_thumbnail();
 
-			</div><!-- .featured-media -->
+				$caption = get_the_post_thumbnail_caption();
+				
+				if ( $caption ) : ?>
+
+					<figcaption class="wp-caption-text"><?php echo $caption; ?></figcaption>
+
+				<?php endif; ?>
+
+			</figure><!-- .featured-media -->
 
 		<?php endif; ?>
 

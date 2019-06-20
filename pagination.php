@@ -59,7 +59,6 @@ if ( ( $query_args['max_num_pages'] > $query_args['paged'] ) ) : ?>
 			<?php endif;
 
 			// The pagination links also work as a no-js fallback, so they always need to be output
-
 			$has_previous_link = get_previous_posts_link();
 			$has_next_link = get_next_posts_link();
 
@@ -78,11 +77,11 @@ if ( ( $query_args['max_num_pages'] > $query_args['paged'] ) ) : ?>
 				<nav class="link-pagination<?php echo $pagination_class; ?>">
 
 					<?php if ( get_previous_posts_link() ) : ?>
-						<?php previous_posts_link( __( 'Föregående sida', 'chaplin' ) ); ?>
+						<?php previous_posts_link( __( 'Previous page', 'chaplin' ) ); ?>
 					<?php endif; ?>
 
 					<?php if ( get_next_posts_link() ) : ?>
-						<?php next_posts_link( __( 'Nästa sida', 'chaplin' ) ); ?>
+						<?php next_posts_link( __( 'Next page', 'chaplin' ) ); ?>
 					<?php endif; ?>
 
 				</nav><!-- .posts-pagination -->
