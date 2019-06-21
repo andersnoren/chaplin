@@ -1476,7 +1476,7 @@ button.sub-menu-toggle.active svg {
 
 .modal-search-form .search-field::-webkit-input-placeholder { color: inherit; }
 .modal-search-form .search-field:-ms-input-placeholder { color: inherit; }
-.modal-search-form .search-field::-moz-placeholder { color: inherit; }
+.modal-search-form .search-field::-moz-placeholder { color: inherit; line-height: 8rem; }
 
 .modal-search-form .search-submit {
 	position: absolute;
@@ -3627,6 +3627,9 @@ body.woocommerce .entry-content {
 	body.header-is-sticky .modal-search-form .search-field {
 		height: 9rem;
 	}
+
+	.modal-search-form .search-field::-moz-placeholder { line-height: 18.3rem; }
+	body.header-is-sticky .modal-search-form .search-field::-moz-placeholder { line-height: 9rem; }
 
 	/* Sub Page ------------------------------ */
 
