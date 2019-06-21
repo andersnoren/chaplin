@@ -4456,7 +4456,7 @@ body.woocommerce .entry-content {
 
 	.alignfull {
 		margin-bottom: 10rem;
-		margin-left: calc( ( ( 100vw - 112rem ) / 2 ) * -1 );
+		margin-left: calc( ( 100vw - 112rem ) / -2 );
 		margin-top: 10rem;
 	}
 	

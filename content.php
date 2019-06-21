@@ -17,7 +17,7 @@
 			// Get the color used for the color overlay
 			$color_overlay_color = get_theme_mod( 'chaplin_cover_template_overlay_color' );
 			if ( $color_overlay_color ) {
-				$color_overlay_style = ' style="color: ' . $color_overlay_color . '"';
+				$color_overlay_style = ' style="color: ' . $color_overlay_color . ';"';
 			} else {
 				$color_overlay_style = '';
 			}

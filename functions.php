@@ -1161,6 +1161,64 @@ endif;
 
 
 /*	-----------------------------------------------------------------------------------------------
+	HEX TO RGB
+	Convert hex colors to RGB colors
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_hex_to_rgb' ) ) :
+	function chaplin_hex_to_rgb( $hex_color ) {
+
+		$values = str_replace( '#', '', $hex_color );
+		$rgb_color = array();
+		switch ( strlen( $values ) ) {
+			case 3 :
+				list( $r, $g, $b ) = sscanf( $values, "%1s%1s%1s" );
+				return [ hexdec( "$r$r" ), hexdec( "$g$g" ), hexdec( "$b$b" ) ];
+			case 6 :
+				return array_map( 'hexdec', sscanf( $values, "%2s%2s%2s" ) );
+			default :
+				return false;
+		}
+
+	}
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
+	HEX TO P3
+	Convert hex colors to the P3 color gamut
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_hex_to_p3' ) ) :
+	function chaplin_hex_to_p3( $hex_color ) {
+
+		$rgb_color = chaplin_hex_to_rgb( $hex_color );
+
+		return array(
+			'red'	=> round( $rgb_color[0] / 255, 3 ),
+			'green'	=> round( $rgb_color[1] / 255, 3 ),
+			'blue'	=> round( $rgb_color[2] / 255, 3 ),
+		);
+
+	}
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
+	FORMAT P3 OUTPUT
+	Format an array of P3 color gamut values to a CSS friendly property
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_format_p3' ) ) :
+	function chaplin_format_p3( $p3_colors ) {
+
+		return 'color( display-p3 ' . $p3_colors['red'] . ' ' . $p3_colors['green'] . ' ' . $p3_colors['blue'] . ' / 1 )';
+
+	}
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
 	GET CSS BUILT FROM CUSTOMIZER OPTIONS
 	Build CSS reflecting colors, fonts and other options set in the Customizer, and return them for output
 
@@ -1178,6 +1236,14 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		$accent = 				get_theme_mod( 'chaplin_accent_color' );
 		$border = 				get_theme_mod( 'chaplin_border_color' );
 		$light_background = 	get_theme_mod( 'chaplin_light_background_color' );
+
+		// P3 colors
+		$p3_background = 		chaplin_format_p3( chaplin_hex_to_p3( $background ) );
+		$p3_primary = 			chaplin_format_p3( chaplin_hex_to_p3( $primary ) );
+		$p3_secondary = 		chaplin_format_p3( chaplin_hex_to_p3( $secondary ) );
+		$p3_accent = 			chaplin_format_p3( chaplin_hex_to_p3( $accent ) );
+		$p3_border = 			chaplin_format_p3( chaplin_hex_to_p3( $border ) );
+		$p3_light_background = 	chaplin_format_p3( chaplin_hex_to_p3( $light_background ) );
 
 		$body_font = 			get_theme_mod( 'chaplin_body_font', Chaplin_Google_Fonts::$default_body_font );
 		$headings_font = 		get_theme_mod( 'chaplin_headings_font', Chaplin_Google_Fonts::$default_headings_font );
@@ -1233,17 +1299,33 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Background color
 			if ( $background ) : 
 				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'color', $background );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'color', $p3_background );
+				echo '}';
 			endif;
 
 			// Primary color
 			if ( $primary ) : 
 				chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $primary ) . '\');' );
 				chaplin_generate_css( 'body', 'color', $primary );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $p3_primary ) . '\');' );
+				chaplin_generate_css( 'body', 'color', $p3_primary );
+				echo '}';
 			endif;
 
 			// Secondary color
 			if ( $secondary ) :
 				chaplin_generate_css( '.wp-block-latest-comments time, .wp-block-latest-posts time', 'color', $secondary );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( '.wp-block-latest-comments time, .wp-block-latest-posts time', 'color', $p3_secondary );
+				echo '}';
 			endif;
 
 			// Accent color
@@ -1251,24 +1333,39 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( 'a, .wp-block-button.is-style-outline', 'color', $accent );
 				chaplin_generate_css( 'blockquote, .wp-block-button.is-style-outline', 'border-color', $accent );
 				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'background-color', $accent );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( 'a, .wp-block-button.is-style-outline', 'color', $p3_accent );
+				chaplin_generate_css( 'blockquote, .wp-block-button.is-style-outline', 'border-color', $p3_accent );
+				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'background-color', $p3_accent );
+				echo '}';
 			endif;
 			
 			// Border color
 			if ( $border ) : 
 				chaplin_generate_css( 'hr, pre, th, td, input, textarea, select, fieldset', 'border-color', $border );
+				chaplin_generate_css( '.main-menu li, button.sub-menu-toggle, .wp-block-latest-posts.is-grid li, .footer-menu li, .comment .comment, .related-posts, .widget', 'border-color', $border );
 				chaplin_generate_css( 'caption', 'background', $border );
-				chaplin_generate_css( '.main-menu li', 'border-color', $border );
-				chaplin_generate_css( 'button.sub-menu-toggle', 'border-color', $border );
-				chaplin_generate_css( '.wp-block-latest-posts.is-grid li', 'border-color', $border );
-				chaplin_generate_css( '.footer-menu li', 'border-color', $border );
-				chaplin_generate_css( '.comment .comment', 'border-color', $border );
-				chaplin_generate_css( '.related-posts', 'border-color', $border );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( 'hr, pre, th, td, input, textarea, select, fieldset', 'border-color', $p3_border );
+				chaplin_generate_css( '.main-menu li, button.sub-menu-toggle, .wp-block-latest-posts.is-grid li, .footer-menu li, .comment .comment, .related-posts, .widget', 'border-color', $p3_border );
+				chaplin_generate_css( 'caption', 'background', $p3_border );
+				echo '}';
 			endif;
 
 			// Light background color
 			if ( $light_background ) : 
 				chaplin_generate_css( 'code, kbd, samp', 'background-color', $light_background );
 				chaplin_generate_css( 'table.is-style-stripes tr:nth-child( odd )', 'background-color', $light_background );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( 'code, kbd, samp', 'background-color', $p3_light_background );
+				chaplin_generate_css( 'table.is-style-stripes tr:nth-child( odd )', 'background-color', $p3_light_background );
+				echo '}';
 			endif;
 
 			/* HELPER CLASSES */
@@ -1279,6 +1376,14 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.bg-body-background, .bg-body-background-hover:hover, .has-background-background-color', 'background-color', $background );
 				chaplin_generate_css( '.border-color-body-background, .border-color-body-background-hover:hover', 'border-color', $background );
 				chaplin_generate_css( '.fill-children-body-background, .fill-children-body-background *', 'fill', $background );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( '.color-body-background, .color-body-background-hover:hover, .has-background-color', 'color', $p3_background );
+				chaplin_generate_css( '.bg-body-background, .bg-body-background-hover:hover, .has-background-background-color', 'background-color', $p3_background );
+				chaplin_generate_css( '.border-color-body-background, .border-color-body-background-hover:hover', 'border-color', $p3_background );
+				chaplin_generate_css( '.fill-children-body-background, .fill-children-body-background *', 'fill', $p3_background );
+				echo '}';
 			endif;
 
 			// Primary color
@@ -1287,6 +1392,14 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.bg-primary, .bg-primary-hover:hover, .has-primary-background-color', 'background-color', $primary );
 				chaplin_generate_css( '.border-color-primary, .border-color-primary-hover:hover', 'border-color', $primary );
 				chaplin_generate_css( '.fill-children-primary, .fill-children-primary *', 'fill', $primary );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( '.color-primary, .color-primary-hover:hover, .has-primary-color', 'color', $p3_primary );
+				chaplin_generate_css( '.bg-primary, .bg-primary-hover:hover, .has-primary-background-color', 'background-color', $p3_primary );
+				chaplin_generate_css( '.border-color-primary, .border-color-primary-hover:hover', 'border-color', $p3_primary );
+				chaplin_generate_css( '.fill-children-primary, .fill-children-primary *', 'fill', $p3_primary );
+				echo '}';
 			endif;
 
 			// Secondary color
@@ -1295,6 +1408,14 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.bg-secondary, .bg-secondary-hover:hover, .has-secondary-background-color', 'background-color', $secondary );
 				chaplin_generate_css( '.border-color-secondary, .border-color-secondary-hover:hover', 'border-color', $secondary );
 				chaplin_generate_css( '.fill-children-secondary, .fill-children-secondary *', 'fill', $secondary );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( '.color-secondary, .color-secondary-hover:hover, .has-secondary-color', 'color', $p3_secondary );
+				chaplin_generate_css( '.bg-secondary, .bg-secondary-hover:hover, .has-secondary-background-color', 'background-color', $p3_secondary );
+				chaplin_generate_css( '.border-color-secondary, .border-color-secondary-hover:hover', 'border-color', $p3_secondary );
+				chaplin_generate_css( '.fill-children-secondary, .fill-children-secondary *', 'fill', $p3_secondary );
+				echo '}';
 			endif;
 
 			// Accent color
@@ -1303,16 +1424,30 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.bg-accent, .bg-accent-hover:hover, .has-accent-background-color', 'background-color', $accent );
 				chaplin_generate_css( '.border-color-accent, .border-color-accent-hover:hover', 'border-color', $accent );
 				chaplin_generate_css( '.fill-children-accent, .fill-children-accent *', 'fill', $accent );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( '.color-accent, .color-accent-hover:hover, .has-accent-color', 'color', $p3_accent );
+				chaplin_generate_css( '.bg-accent, .bg-accent-hover:hover, .has-accent-background-color', 'background-color', $p3_accent );
+				chaplin_generate_css( '.border-color-accent, .border-color-accent-hover:hover', 'border-color', $p3_accent );
+				chaplin_generate_css( '.fill-children-accent, .fill-children-accent *', 'fill', $p3_accent );
+				echo '}';
 			endif;
 			
 			// Border color
 			if ( $border ) : 
-				chaplin_generate_css( '.widget', 'border-color', $border );
-
 				chaplin_generate_css( '.color-border, .color-border-hover:hover, .has-border-color', 'color', $border );
 				chaplin_generate_css( '.bg-border, .bg-border-hover:hover, .has-border-background-color', 'background-color', $border );
 				chaplin_generate_css( '.border-color-border, .border-color-border-hover:hover', 'border-color', $border );
 				chaplin_generate_css( '.fill-children-border, .fill-children-border *', 'fill', $border );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( '.color-border, .color-border-hover:hover, .has-border-color', 'color', $p3_border );
+				chaplin_generate_css( '.bg-border, .bg-border-hover:hover, .has-border-background-color', 'background-color', $p3_border );
+				chaplin_generate_css( '.border-color-border, .border-color-border-hover:hover', 'border-color', $p3_border );
+				chaplin_generate_css( '.fill-children-border, .fill-children-border *', 'fill', $p3_border );
+				echo '}';
 			endif;
 
 			// Light background color
@@ -1321,6 +1456,14 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.bg-light-background, .bg-light-background-hover:hover, .has-light-background-background-color', 'background-color', $light_background );
 				chaplin_generate_css( '.border-color-light-background, .border-color-light-background-hover:hover', 'border-color', $light_background );
 				chaplin_generate_css( '.fill-children-light-background, .fill-children-light-background *', 'fill', $light_background );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( '.color-light-background, .color-light-background-hover:hover, .has-light-background-color', 'color', $p3_light_background );
+				chaplin_generate_css( '.bg-light-background, .bg-light-background-hover:hover, .has-light-background-background-color', 'background-color', $p3_light_background );
+				chaplin_generate_css( '.border-color-light-background, .border-color-light-background-hover:hover', 'border-color', $p3_light_background );
+				chaplin_generate_css( '.fill-children-light-background, .fill-children-light-background *', 'fill', $p3_light_background );
+				echo '}';
 			endif;
 
 		/* BLOCK EDITOR STYLES */
