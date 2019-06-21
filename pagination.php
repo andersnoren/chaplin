@@ -46,13 +46,13 @@ if ( ( $query_args['max_num_pages'] > $query_args['paged'] ) ) : ?>
 
 			<?php if ( $pagination_type == 'button' ) : ?>
 
-				<button id="load-more"><?php _e( 'Load More', 'chaplin' ); ?></button>
+				<button id="load-more"><?php esc_html_e( 'Load More', 'chaplin' ); ?></button>
 
 			<?php endif; ?>
 
 			<?php if ( in_array( $pagination_type, array( 'button', 'scroll' ) ) ) : ?>
 
-				<p class="out-of-posts"><?php _e( 'Nothing left to load.', 'chaplin' ); ?></p>
+				<p class="out-of-posts"><?php esc_html_e( 'Nothing left to load.', 'chaplin' ); ?></p>
 
 				<div class="loading-icon"><?php chaplin_loading_indicator(); ?></div>
 

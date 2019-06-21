@@ -10,7 +10,7 @@
 
 		<div class="comments-header">
 
-			<h3 class="comment-reply-title"><?php echo $comments_title; ?></h3>
+			<h3 class="comment-reply-title"><?php echo esc_html( $comments_title ); ?></h3>
 
 		</div><!-- .comments-header -->
 
@@ -40,8 +40,8 @@
 			}
 			?>
 
-			<nav class="comments-pagination pagination<?php echo $pagination_classes; ?>">
-				<?php echo $comment_pagination; ?>
+			<nav class="comments-pagination pagination<?php echo esc_attr( $pagination_classes ); ?>">
+				<?php echo esc_html( $comment_pagination ); ?>
 			</nav>
 
 		<?php endif; ?>
@@ -63,7 +63,7 @@ elseif ( is_single() ) : ?>
 
 	<div class="comment-respond" id="respond">
 
-		<p class="comments-closed"><?php _e( 'Comments are closed.', 'chaplin' ); ?></p>
+		<p class="comments-closed"><?php esc_html_e( 'Comments are closed.', 'chaplin' ); ?></p>
 
 	</div><!-- #respond -->
 

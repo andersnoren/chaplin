@@ -77,7 +77,7 @@
 						
 							<a href="#" class="toggle search-toggle hide-no-js" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field">
 								<div class="toggle-text">
-									<?php _e( 'Search', 'chaplin' ); ?>
+									<?php esc_html_e( 'Search', 'chaplin' ); ?>
 								</div>
 								<?php chaplin_the_theme_svg( 'search' ); ?>
 							</a><!-- .search-toggle -->
@@ -86,8 +86,8 @@
 
 						<a href="#" class="toggle nav-toggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal">
 							<div class="toggle-text">
-								<span class="show"><?php _e( 'Menu', 'chaplin' ); ?></span>
-								<span class="hide"><?php _e( 'Close', 'chaplin' ); ?></span>
+								<span class="show"><?php esc_html_e( 'Menu', 'chaplin' ); ?></span>
+								<span class="hide"><?php esc_html_e( 'Close', 'chaplin' ); ?></span>
 							</div>
 							<div class="bars">
 								<div class="bar"></div>

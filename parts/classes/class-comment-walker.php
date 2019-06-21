@@ -73,7 +73,7 @@ if ( ! class_exists( 'Chaplin_Walker_Comment' ) ) :
 						comment_text();
 
 						if ( '0' == $comment->comment_approved ) : ?>
-							<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'chaplin' ); ?></p>
+							<p class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.', 'chaplin' ); ?></p>
 						<?php endif; ?>
 
 					</div><!-- .comment-content -->

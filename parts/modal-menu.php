@@ -27,7 +27,7 @@
 
 			<div class="menu-bottom">
 
-				<p class="menu-copyright">&copy; <?php echo date( 'Y' ); ?> <a href="<?php echo esc_url( home_url() ); ?>"><?php echo bloginfo( 'name' ); ?></a></p>
+				<p class="menu-copyright">&copy; <?php echo esc_html( date( 'Y' ) ); ?> <a href="<?php echo esc_url( home_url() ); ?>"><?php echo bloginfo( 'name' ); ?></a></p>
 
 				<?php if ( has_nav_menu( 'social-menu' ) ) : ?>
 

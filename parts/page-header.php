@@ -21,7 +21,7 @@
 
 			<a href="#post-inner" class="to-the-content">
 				<div class="icon bg-body-background fill-children-primary"><?php chaplin_the_theme_svg( 'arrow-down' ); ?></div>
-				<div class="text"><?php _e( 'Scroll Down', 'chaplin' ); ?></div>
+				<div class="text"><?php esc_html_e( 'Scroll Down', 'chaplin' ); ?></div>
 			</a><!-- .to-the-content -->
 
 		</div><!-- .to-the-content-wrapper -->

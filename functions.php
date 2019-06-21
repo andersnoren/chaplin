@@ -255,7 +255,7 @@ endif;
 if ( ! function_exists( 'chaplin_the_custom_logo' ) ) :
 	function chaplin_the_custom_logo( $logo_theme_mod = 'custom_logo' ) {
 
-		echo chaplin_get_custom_logo( $logo_theme_mod );
+		echo esc_html( chaplin_get_custom_logo( $logo_theme_mod ) );
 
 	}
 endif;
@@ -290,7 +290,7 @@ if ( ! function_exists( 'chaplin_get_custom_logo' ) ) :
 
 		?>
 
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php bloginfo( 'name' ); ?>" class="custom-logo-link <?php echo $logo_theme_mod_class; ?>">
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php bloginfo( 'name' ); ?>" class="custom-logo-link <?php echo esc_attr( $logo_theme_mod_class ); ?>">
 			<img src="<?php echo esc_url( $logo_url ); ?>" width="<?php echo esc_attr( $logo_width ); ?>" height="<?php echo esc_attr( $logo_height ); ?>" />
 		</a>
 
@@ -503,7 +503,7 @@ if ( ! function_exists( 'chaplin_the_fallback_image' ) ) :
 			return;
 		}
 
-		echo '<img src="' . $fallback_image_url . '" class="fallback-featured-image" />';
+		echo '<img src="' . esc_attr( $fallback_image_url ) . '" class="fallback-featured-image" />';
 
 	}
 endif;
@@ -546,7 +546,27 @@ endif;
 if ( ! function_exists( 'chaplin_the_theme_svg' ) ) :
 	function chaplin_the_theme_svg( $svg_name, $color = '' ) {
 
-		echo chaplin_get_theme_svg( $svg_name, $color );
+		echo wp_kses( chaplin_get_theme_svg( $svg_name, $color ), array(
+			'svg' => array(
+				'class' 	=> true,
+				'xmlns' 	=> true,
+				'width' 	=> true,
+				'height' 	=> true,
+				'viewbox' 	=> true,
+			),
+			'path' => array(
+				'fill' 		=> true,
+				'fill-rule' => true,
+				'd' 		=> true,
+				'transform' => true,
+			),
+			'polygon' => array(
+				'fill' 		=> true,
+				'fill-rule' => true,
+				'points'	=> true,
+				'transform' => true,
+			),
+		) );
 
 	}
 endif;
@@ -716,7 +736,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 						<li class="post-date">
 							<a class="meta-wrapper" href="<?php the_permalink(); ?>">
 								<span class="meta-icon">
-									<span class="screen-reader-text"><?php _e( 'Post date', 'chaplin' ); ?></span>
+									<span class="screen-reader-text"><?php esc_html_e( 'Post date', 'chaplin' ); ?></span>
 									<?php chaplin_the_theme_svg( 'calendar' ); ?>
 								</span>
 								<span class="meta-text">
@@ -732,7 +752,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 						?>
 						<li class="post-author meta-wrapper">
 							<span class="meta-icon">
-								<span class="screen-reader-text"><?php _e( 'Post author', 'chaplin' ); ?></span>
+								<span class="screen-reader-text"><?php esc_html_e( 'Post author', 'chaplin' ); ?></span>
 								<?php chaplin_the_theme_svg( 'user' ); ?>
 							</span>
 							<span class="meta-text">
@@ -748,11 +768,11 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 						?>
 						<li class="post-categories meta-wrapper">
 							<span class="meta-icon">
-								<span class="screen-reader-text"><?php _e( 'Post categories', 'chaplin' ); ?></span>
+								<span class="screen-reader-text"><?php esc_html_e( 'Post categories', 'chaplin' ); ?></span>
 								<?php chaplin_the_theme_svg( 'folder' ); ?>
 							</span>
 							<span class="meta-text">
-								<?php _e( 'In', 'chaplin' ); ?> <?php the_category( ', ' ); ?>
+								<?php esc_html_e( 'In', 'chaplin' ); ?> <?php the_category( ', ' ); ?>
 							</span>
 						</li>
 						<?php
@@ -764,7 +784,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 						?>
 						<li class="post-jetpack-portfolio-type meta-wrapper">
 							<span class="meta-icon">
-								<span class="screen-reader-text"><?php _e( 'Portfolio types', 'chaplin' ); ?></span>
+								<span class="screen-reader-text"><?php esc_html_e( 'Portfolio types', 'chaplin' ); ?></span>
 								<?php chaplin_the_theme_svg( 'folder' ); ?>
 							</span>
 							<span class="meta-text">
@@ -780,7 +800,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 						?>
 						<li class="post-tags meta-wrapper">
 							<span class="meta-icon">
-								<span class="screen-reader-text"><?php _e( 'Tags', 'chaplin' ); ?></span>
+								<span class="screen-reader-text"><?php esc_html_e( 'Tags', 'chaplin' ); ?></span>
 								<?php chaplin_the_theme_svg( 'tag' ); ?>
 							</span>
 							<span class="meta-text">
@@ -796,7 +816,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 						?>
 						<li class="post-jetpack-portfolio-tag meta-wrapper">
 							<span class="meta-icon">
-								<span class="screen-reader-text"><?php _e( 'Portfolio tags', 'chaplin' ); ?></span>
+								<span class="screen-reader-text"><?php esc_html_e( 'Portfolio tags', 'chaplin' ); ?></span>
 								<?php chaplin_the_theme_svg( 'tag' ); ?>
 							</span>
 							<span class="meta-text">
@@ -830,7 +850,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 								<?php chaplin_the_theme_svg( 'bookmark' ); ?>
 							</span>
 							<span class="meta-text">
-								<?php _e( 'Sticky post', 'chaplin' ); ?>
+								<?php esc_html_e( 'Sticky post', 'chaplin' ); ?>
 							</span>
 						</li>
 					<?php endif;
@@ -849,7 +869,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 										<?php chaplin_the_theme_svg( 'edit' ); ?>
 									</span>
 									<span class="meta-text">
-										<?php _e( 'Edit', 'chaplin' ); ?>
+										<?php esc_html_e( 'Edit', 'chaplin' ); ?>
 									</span>
 								</a>
 							<?php else : ?>
@@ -858,7 +878,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 										<?php chaplin_the_theme_svg( 'edit' ); ?>
 									</span>
 									<span class="meta-text">
-										<?php _e( 'Edit', 'chaplin' ); ?>
+										<?php esc_html_e( 'Edit', 'chaplin' ); ?>
 									</span>
 								</a>
 							<?php endif; ?>
@@ -1094,7 +1114,8 @@ if ( ! function_exists( 'chaplin_block_editor_settings' ) ) :
 		// Add the background option
 		$background_color = get_theme_mod( 'background_color' );
 		if ( ! $background_color ) {
-			$background_color = get_theme_support( 'custom-background' )[0]['default-color'];
+			$background_color_arr = get_theme_support( 'custom-background' );
+			$background_color = $background_color_arr[0]['default-color'];
 		}
 		$editor_color_palette[] = array(
 			'name' 	=> __( 'Background Color', 'chaplin' ),

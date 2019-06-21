@@ -15,7 +15,7 @@
 			</form><!-- .search-form -->
 
 			<a href="#" class="toggle search-untoggle fill-children-primary" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field">
-				<span class="screen-reader-text"><?php _e( 'Close search', 'chaplin' ); ?></span>
+				<span class="screen-reader-text"><?php esc_html_e( 'Close search', 'chaplin' ); ?></span>
 				<?php chaplin_the_theme_svg( 'cross' ); ?>
 			</a><!-- .search-toggle -->
 

@@ -529,5 +529,3 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 	add_action( 'customize_controls_init', array( 'Chaplin_Customize', 'chaplin_customize_controls' ) );
 
 endif;
-
-?>

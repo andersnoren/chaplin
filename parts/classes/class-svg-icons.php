@@ -71,5 +71,3 @@ if ( ! class_exists( 'Chaplin_SVG_Icons' ) ) :
 
 	}
 endif;
-
-?>

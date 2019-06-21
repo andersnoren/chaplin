@@ -43,12 +43,12 @@
 
 				<div class="footer-credits">
 
-					<p class="footer-copyright">&copy; <?php echo date( 'Y' ); ?> <a href="<?php echo esc_url( home_url() ); ?>"><?php echo bloginfo( 'name' ); ?></a></p>
+					<p class="footer-copyright">&copy; <?php echo esc_html( date( 'Y' ) ); ?> <a href="<?php echo esc_url( home_url() ); ?>"><?php echo bloginfo( 'name' ); ?></a></p>
 
 					<p class="theme-credits color-secondary">
 						<?php
 						/* Translators: $s = name of the theme developer */
-						printf( _x( 'Theme by %s', 'Translators: $s = name of the theme developer', 'chaplin' ), '<a href="https://www.andersnoren.se">' . __( 'Anders Norén', 'chaplin' ) . '</a>' ); ?>
+						printf( esc_html_x( 'Theme by %s', 'Translators: $s = name of the theme developer', 'chaplin' ), '<a href="https://www.andersnoren.se">' . esc_html__( 'Anders Norén', 'chaplin' ) . '</a>' ); ?>
 					</p><!-- .theme-credits -->
 
 				</div><!-- .footer-credits -->

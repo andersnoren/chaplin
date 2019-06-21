@@ -216,5 +216,3 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 
 	}
 endif;
-
-?>

@@ -113,14 +113,14 @@ class Chaplin_Recent_Comments extends WP_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'widget_title' ) ); ?>"><?php  _e( 'Title', 'chaplin' ); ?>:
+			<label for="<?php echo esc_attr( $this->get_field_id( 'widget_title' ) ); ?>"><?php  esc_html_e( 'Title', 'chaplin' ); ?>:
 			<input id="<?php echo esc_attr( $this->get_field_id( 'widget_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'widget_title' ) ); ?>" type="text" class="widefat" value="<?php echo esc_attr( $widget_title ); ?>" /></label>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'number_of_comments' ); ?>"><?php _e( 'Number of comments to display', 'chaplin' ); ?>:
+			<label for="<?php echo $this->get_field_id( 'number_of_comments' ); ?>"><?php esc_html_e( 'Number of comments to display', 'chaplin' ); ?>:
 			<input id="<?php echo $this->get_field_id( 'number_of_comments' ); ?>" name="<?php echo $this->get_field_name( 'number_of_comments' ); ?>" type="number" class="widefat" value="<?php echo esc_attr( $number_of_comments ); ?>" /></label>
-			<small>(<?php _e( 'Defaults to 3 if empty', 'chaplin' ); ?>)</small>
+			<small>(<?php esc_html_e( 'Defaults to 3 if empty', 'chaplin' ); ?>)</small>
 		</p>
 
 		<?php
