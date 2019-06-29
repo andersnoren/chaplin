@@ -1272,6 +1272,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		$accent = 				get_theme_mod( 'chaplin_accent_color' );
 		$border = 				get_theme_mod( 'chaplin_border_color' );
 		$light_background = 	get_theme_mod( 'chaplin_light_background_color' );
+		$overlay_text = 		get_theme_mod( 'chaplin_cover_template_overlay_text_color' );
 
 		// P3 colors
 		$p3_background = 		chaplin_format_p3( chaplin_hex_to_p3( $background ) );
@@ -1280,6 +1281,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		$p3_accent = 			chaplin_format_p3( chaplin_hex_to_p3( $accent ) );
 		$p3_border = 			chaplin_format_p3( chaplin_hex_to_p3( $border ) );
 		$p3_light_background = 	chaplin_format_p3( chaplin_hex_to_p3( $light_background ) );
+		$p3_overlay_text = 		chaplin_format_p3( chaplin_hex_to_p3( $overlay_text ) );
 
 		$body_font = 			get_theme_mod( 'chaplin_body_font', Chaplin_Google_Fonts::$default_body_font );
 		$headings_font = 		get_theme_mod( 'chaplin_headings_font', Chaplin_Google_Fonts::$default_headings_font );
@@ -1401,7 +1403,16 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				// P3 Colors
 				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
 				chaplin_generate_css( 'code, kbd, samp, .main-menu-alt ul, table.is-style-stripes tr:nth-child( odd )', 'background-color', $p3_light_background );
-				chaplin_generate_css( '', 'background-color', $p3_light_background );
+				echo '}';
+			endif;
+
+			// Cover Template overlay text color
+			if ( $overlay_text ) : 
+				chaplin_generate_css( '.overlay-header:not(.showing-menu-modal) .header-inner:not(.is-sticky), .cover-header .entry-header', 'color', $overlay_text );
+
+				// P3 Colors
+				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				chaplin_generate_css( '.overlay-header:not(.showing-menu-modal) .header-inner:not(.is-sticky), .cover-header .entry-header', 'color', $p3_overlay_text );
 				echo '}';
 			endif;
 

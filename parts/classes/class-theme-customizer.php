@@ -397,21 +397,86 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'description' 	=> __( 'Settings for the "Cover Template" page template.', 'chaplin' ),
 			) );
 
-			/* Overlay Color Setting ---------- */
+			/* Overlay Background Color ------ */
 
-			$wp_customize->add_setting( 'chaplin_cover_template_overlay_color', array(
+			$wp_customize->add_setting( 'chaplin_cover_template_overlay_background_color', array(
 				'default' 			=> get_theme_mod( 'chaplin_accent_color', '#007C89' ),
 				'type' 				=> 'theme_mod',
 				'sanitize_callback' => 'sanitize_hex_color',
 			) );
 
-			$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'chaplin_cover_template_overlay_color', array(
-				'label' 		=> __( 'Image Overlay Color', 'chaplin' ),
+			$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'chaplin_cover_template_overlay_background_color', array(
+				'label' 		=> __( 'Image Overlay Background Color', 'chaplin' ),
 				'description'	=> __( 'The color used for the featured image overlay. Defaults to the accent color.', 'chaplin' ),
 				'section' 		=> 'chaplin_cover_template_options',
-				'settings' 		=> 'chaplin_cover_template_overlay_color',
+				'settings' 		=> 'chaplin_cover_template_overlay_background_color',
 				'priority' 		=> 10,
 			) ) );
+
+			/* Overlay Text Color ------------ */
+
+			$wp_customize->add_setting( 'chaplin_cover_template_overlay_text_color', array(
+				'default' 			=> '#fff',
+				'type' 				=> 'theme_mod',
+				'sanitize_callback' => 'sanitize_hex_color',
+			) );
+
+			$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'chaplin_cover_template_overlay_text_color', array(
+				'label' 		=> __( 'Image Overlay Text Color', 'chaplin' ),
+				'description'	=> __( 'The color used for the text in the featured image overlay.', 'chaplin' ),
+				'section' 		=> 'chaplin_cover_template_options',
+				'settings' 		=> 'chaplin_cover_template_overlay_text_color',
+				'priority' 		=> 20,
+			) ) );
+
+			/* Overlay Fixed Background ------ */
+
+			$wp_customize->add_setting( 'chaplin_cover_template_fixed_background', array(
+				'capability' 		=> 'edit_theme_options',
+				'sanitize_callback' => 'chaplin_sanitize_checkbox',
+			) );
+
+			$wp_customize->add_control( 'chaplin_cover_template_fixed_background', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_cover_template_options',
+				'priority'		=> 30,
+				'label' 		=> __( 'Fixed Background Image', 'chaplin' ),
+				'description' 	=> __( 'Creates a parallax effect when the visitor scrolls.', 'chaplin' ),
+			) );
+
+			/* Overlay Blend Mode ------------ */
+
+			$wp_customize->add_setting( 'chaplin_cover_template_overlay_blend_mode', array(
+				'default' 			=> 'multiply',
+				'sanitize_callback' => 'chaplin_sanitize_select',
+			) );
+
+			$wp_customize->add_control( 'chaplin_cover_template_overlay_blend_mode', array(
+				'label' 		=> __( 'Image Overlay Blend Mode', 'chaplin' ),
+				'description'	=> __( 'How the overlay color will blend with the image. Some browsers, like Internet Explorer and Edge, only support the "Normal" mode.', 'chaplin' ),
+				'section' 		=> 'chaplin_cover_template_options',
+				'settings' 		=> 'chaplin_cover_template_overlay_blend_mode',
+				'type' 			=> 'select',
+				'priority' 		=> 30,
+				'choices' 		=> array(
+					'normal' 			=> __( 'Normal', 'chaplin' ),
+					'multiply' 			=> __( 'Multiply', 'chaplin' ),
+					'screen' 			=> __( 'Screen', 'chaplin' ),
+					'overlay' 			=> __( 'Overlay', 'chaplin' ),
+					'darken' 			=> __( 'Darken', 'chaplin' ),
+					'lighten' 			=> __( 'Lighten', 'chaplin' ),
+					'color-dodge' 		=> __( 'Color Dodge', 'chaplin' ),
+					'color-burn' 		=> __( 'Color Burn', 'chaplin' ),
+					'hard-light' 		=> __( 'Hard Light', 'chaplin' ),
+					'soft-light' 		=> __( 'Soft Light', 'chaplin' ),
+					'difference' 		=> __( 'Difference', 'chaplin' ),
+					'exclusion' 		=> __( 'Exclusion', 'chaplin' ),
+					'hue' 				=> __( 'Hue', 'chaplin' ),
+					'saturation' 		=> __( 'Saturation', 'chaplin' ),
+					'color' 			=> __( 'Color', 'chaplin' ),
+					'luminosity' 		=> __( 'Luminosity', 'chaplin' ),
+				),
+			) );
 
 			/* Overlay Color Opacity --------- */
 
@@ -426,7 +491,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'section' 		=> 'chaplin_cover_template_options',
 				'settings' 		=> 'chaplin_cover_template_overlay_opacity',
 				'type' 			=> 'select',
-				'priority' 		=> 20,
+				'priority' 		=> 30,
 				'choices' 		=> array(
 					'0' 			=> __( '0%', 'chaplin' ),
 					'10' 			=> __( '10%', 'chaplin' ),
@@ -442,20 +507,6 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				),
 			) );
 
-			/* Fixed Background -------------- */
-
-			$wp_customize->add_setting( 'chaplin_cover_template_fixed_background', array(
-				'capability' 		=> 'edit_theme_options',
-				'sanitize_callback' => 'chaplin_sanitize_checkbox',
-			) );
-
-			$wp_customize->add_control( 'chaplin_cover_template_fixed_background', array(
-				'type' 			=> 'checkbox',
-				'section' 		=> 'chaplin_cover_template_options',
-				'priority'		=> 30,
-				'label' 		=> __( 'Fixed Background Image', 'chaplin' ),
-				'description' 	=> __( 'Creates a parallax effect when the visitor scrolls.', 'chaplin' ),
-			) );
 
 			/* Sanitation functions ----------------------------- */
 

@@ -805,6 +805,11 @@ button.toggle {
 .bg-light-background,
 .bg-light-background-hover:hover { background: #F1F1F3; }
 
+.bg-current-color,
+.bg-current-color-hover:hover {
+	background: currentColor;
+}
+
 /* BORDER COLOR */
 
 .border-body-background,
@@ -861,6 +866,42 @@ button.toggle {
 .fill-children-current-color * {
 	fill: currentColor;
 }
+
+
+/* Opacity ----------------------------------- */
+
+.opacity-0 { 	opacity: 0.0; }
+.opacity-10 { 	opacity: 0.1; }
+.opacity-20 { 	opacity: 0.2; }
+.opacity-30 { 	opacity: 0.3; }
+.opacity-40 { 	opacity: 0.4; }
+.opacity-50 { 	opacity: 0.5; }
+.opacity-60 { 	opacity: 0.6; }
+.opacity-70 { 	opacity: 0.7; }
+.opacity-80 { 	opacity: 0.8; }
+.opacity-90 { 	opacity: 0.9; }
+.opacity-100 { 	opacity: 1.0; }
+
+
+/* Blend Mode -------------------------------- */
+
+
+.blend-mode-normal { 		mix-blend-mode: normal; }
+.blend-mode-multiply { 		mix-blend-mode: multiply; }
+.blend-mode-screen { 		mix-blend-mode: screen; }
+.blend-mode-overlay { 		mix-blend-mode: overlay; }
+.blend-mode-darken { 		mix-blend-mode: darken; }
+.blend-mode-lighten { 		mix-blend-mode: lighten; }
+.blend-mode-color-dodge { 	mix-blend-mode: color-dodge; }
+.blend-mode-color-burn { 	mix-blend-mode: color-burn; }
+.blend-mode-hard-light { 	mix-blend-mode: hard-light; }
+.blend-mode-soft-light { 	mix-blend-mode: soft-light; }
+.blend-mode-difference { 	mix-blend-mode: difference; }
+.blend-mode-exclusion { 	mix-blend-mode: exclusion; }
+.blend-mode-hue { 			mix-blend-mode: hue; }
+.blend-mode-saturation { 	mix-blend-mode: saturation; }
+.blend-mode-color { 		mix-blend-mode: color; }
+.blend-mode-luminosity { 	mix-blend-mode: luminosity; }
 
 
 /* Image Classes ----------------------------- */
@@ -1684,21 +1725,7 @@ button.sub-menu-toggle.active svg {
 	background: currentColor;
 	content: "";
 	display: block;
-	mix-blend-mode: multiply;
-	opacity: 1;
 }
-
-.cover-color-overlay.opacity-0:before { 		opacity: 0.0; }
-.cover-color-overlay.opacity-10:before { 	opacity: 0.1; }
-.cover-color-overlay.opacity-20:before { 	opacity: 0.2; }
-.cover-color-overlay.opacity-30:before { 	opacity: 0.3; }
-.cover-color-overlay.opacity-40:before { 	opacity: 0.4; }
-.cover-color-overlay.opacity-50:before { 	opacity: 0.5; }
-.cover-color-overlay.opacity-60:before { 	opacity: 0.6; }
-.cover-color-overlay.opacity-70:before { 	opacity: 0.7; }
-.cover-color-overlay.opacity-80:before { 	opacity: 0.8; }
-.cover-color-overlay.opacity-90:before { 	opacity: 0.9; }
-.cover-color-overlay.opacity-100:before { 	opacity: 1.0; }
 
 .cover-header .entry-header {
 	color: #fff;
@@ -1724,18 +1751,12 @@ button.sub-menu-toggle.active svg {
 }
 
 .to-the-content .icon {
-	align-items: center;
-	border-radius: 50%;
-	display: flex;
-	justify-content: center;
-	height: 3.2rem;
 	transition: transform .1s linear;
-	width: 3.2rem;
 }
 
 .to-the-content .icon svg {
-	height: 1.6rem;
-	width: 1.393rem;
+	height: 3.2rem;
+	width: 3.2rem;
 }
 
 .to-the-content .text {

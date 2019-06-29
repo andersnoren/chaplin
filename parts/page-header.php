@@ -20,7 +20,7 @@
 		<div class="to-the-content-wrapper">
 
 			<a href="#post-inner" class="to-the-content">
-				<div class="icon bg-body-background fill-children-primary"><?php chaplin_the_theme_svg( 'arrow-down' ); ?></div>
+				<div class="icon fill-children-current-color"><?php chaplin_the_theme_svg( 'arrow-down-circled' ); ?></div>
 				<div class="text"><?php esc_html_e( 'Scroll Down', 'chaplin' ); ?></div>
 			</a><!-- .to-the-content -->
 

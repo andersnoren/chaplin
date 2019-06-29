@@ -8,6 +8,9 @@
 		$cover_header_style = '';
 		$cover_header_classes = '';
 
+		$color_overlay_style = '';
+		$color_overlay_classes = '';
+
 		if ( has_post_thumbnail() ) {
 			$image_url = get_the_post_thumbnail_url( $post->ID, 'chaplin_fullscreen' );
 
@@ -15,12 +18,14 @@
 			$cover_header_classes 	= ' bg-image';
 
 			// Get the color used for the color overlay
-			$color_overlay_color = get_theme_mod( 'chaplin_cover_template_overlay_color' );
+			$color_overlay_color = get_theme_mod( 'chaplin_cover_template_overlay_background_color' );
 			if ( $color_overlay_color ) {
 				$color_overlay_style = ' style="color: ' . esc_attr( $color_overlay_color ) . ';"';
 			} else {
 				$color_overlay_style = '';
 			}
+
+			// Note: The text color is applied by chaplin_get_customizer_css(), in functions.php
 
 			// Get the fixed background attachment option
 			if ( get_theme_mod( 'chaplin_cover_template_fixed_background' ) ) {
@@ -29,7 +34,11 @@
 
 			// Get the opacity of the color overlay
 			$color_overlay_opacity = get_theme_mod( 'chaplin_cover_template_overlay_opacity' ) ?: '80';
-			$color_overlay_classes = ' opacity-' . $color_overlay_opacity;
+			$color_overlay_classes .= ' opacity-' . $color_overlay_opacity;
+
+			// Get the blend mode of the color overlay
+			$color_overlay_opacity = get_theme_mod( 'chaplin_cover_template_overlay_blend_mode' ) ?: 'multiply';
+			$color_overlay_classes .= ' blend-mode-' . $color_overlay_opacity;
 		}
 	
 		?>
