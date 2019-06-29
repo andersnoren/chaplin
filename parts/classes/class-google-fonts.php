@@ -115,13 +115,33 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 		   Get the font fallback stack
 		   -------------------------------------------------------------------- */
 
-		public static function get_font_fallbacks() {
+		public static function get_font_fallbacks( $font ) {
 
-			$sans_serif = '-apple-system, BlinkMacSystemFont, \'Helvetica Neue\', Helvetica, sans-serif';
-			$serif = 'Georgia, "Times New Roman", Times, serif';
-			$mono = 'Menlo, monospace';
+			$sans_serif_stack = '-apple-system, BlinkMacSystemFont, \'Helvetica Neue\', Helvetica, sans-serif';
+			$serif_stack = 'Georgia, "Times New Roman", Times, serif';
+			$mono_stack = 'Menlo, monospace';
 
-			return $sans_serif;
+			// Start with the simple checks
+			if ( strpos( $font, ' Mono' ) !== false ) {
+				return $mono_stack;
+			} else if ( strpos( $font, ' Sans' ) !== false ) {
+				return $sans_serif_stack;
+			} else if ( strpos( $font, ' Serif' ) !== false || strpos( $font, ' Slab' ) !== false ) {
+				return $serif_stack;
+			}
+
+			// Continue with font-specific checks for common serif/mono font families without serif/mono in their name
+			$serif_fonts = array( 'Merriweather', 'Literata', 'Slabo 27px', 'Playfair Display', 'Lora', 'Crimson Text', 'Libre Baskerville', 'Bitter', 'Arvo', 'EB Garamond', 'Domine', 'Amiri', 'Vollkorn', 'Noticia Text', 'Alegreya', 'Martel', 'Cardo', 'Neuton', 'Gentium Book Basic' );
+			$mono_fonts = array( 'Inconsolata', 'Source Code Pro', 'Cousine', 'Nanum Gothic Coding', 'Anonymous Pro' );
+
+			if ( in_array( $font, $serif_fonts ) ) {
+				return $serif_stack;
+			} else if ( in_array( $font, $mono_fonts ) ) {
+				return $mono_stack;
+			}
+
+			// Finally, default to sans-serif
+			return $sans_serif_stack;
 
 		}
 		
