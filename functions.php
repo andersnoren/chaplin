@@ -203,8 +203,13 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		}
 
 		// Check for sticky header
-		if ( true === true ) {
+		if ( get_theme_mod( 'chaplin_sticky_header' ) ) {
 			$classes[] = 'has-sticky-header';
+		}
+
+		// Check for disabled menu modal on desktop
+		if ( get_theme_mod( 'chaplin_disable_menu_modal_on_desktop' ) ) {
+			$classes[] = 'disable-menu-modal-on-desktop';
 		}
 
 		// Check for post thumbnail
@@ -922,7 +927,8 @@ endif;
 if ( ! function_exists( 'chaplin_add_sub_toggles_to_main_menu' ) ) :
 	function chaplin_add_sub_toggles_to_main_menu( $args, $item, $depth ) {
 
-		if ( $args->theme_location == 'main-menu' ) {
+		// Add sub menu toggles to the main menu with toggles
+		if ( $args->theme_location == 'main-menu' && isset( $args->show_toggles ) ) {
 
 			// Wrap the menu item link contents in a div, used for positioning
 			$args->before = '<div class="ancestor-wrapper">';
@@ -941,6 +947,15 @@ if ( ! function_exists( 'chaplin_add_sub_toggles_to_main_menu' ) ) :
 			// Close the wrapper
 			$args->after .= '</div><!-- .ancestor-wrapper -->';
 
+		// Add sub menu icons to the main menu without toggles (the fallback menu)
+		} elseif ( $args->theme_location == 'main-menu' ) {
+			if ( in_array( 'menu-item-has-children', $item->classes ) ) {
+				$args->before = '<div class="link-icon-wrapper fill-children-current-color">';
+				$args->after = chaplin_get_theme_svg( 'chevron-down' ) . '</div>';
+			} else {
+				$args->before = '';
+				$args->after = '';
+			}
 		}
 
 		return $args;
@@ -1330,11 +1345,13 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Primary color
 			if ( $primary ) : 
 				chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $primary ) . '\');' );
+				chaplin_generate_css( '.main-menu-alt ul li', 'color', $primary );
 				chaplin_generate_css( 'body', 'color', $primary );
 
 				// P3 Colors
 				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
 				chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $p3_primary ) . '\');' );
+				chaplin_generate_css( '.main-menu-alt ul li', 'color', $p3_primary );
 				chaplin_generate_css( 'body', 'color', $p3_primary );
 				echo '}';
 			endif;
@@ -1379,13 +1396,12 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 			// Light background color
 			if ( $light_background ) : 
-				chaplin_generate_css( 'code, kbd, samp', 'background-color', $light_background );
-				chaplin_generate_css( 'table.is-style-stripes tr:nth-child( odd )', 'background-color', $light_background );
+				chaplin_generate_css( 'code, kbd, samp, .main-menu-alt ul, table.is-style-stripes tr:nth-child( odd )', 'background-color', $light_background );
 
 				// P3 Colors
 				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
-				chaplin_generate_css( 'code, kbd, samp', 'background-color', $p3_light_background );
-				chaplin_generate_css( 'table.is-style-stripes tr:nth-child( odd )', 'background-color', $p3_light_background );
+				chaplin_generate_css( 'code, kbd, samp, .main-menu-alt ul, table.is-style-stripes tr:nth-child( odd )', 'background-color', $p3_light_background );
+				chaplin_generate_css( '', 'background-color', $p3_light_background );
 				echo '}';
 			endif;
 

@@ -741,8 +741,8 @@ button.toggle {
 
 /* Hiding and Showing ------------------------ */
 
-.js .hide-js { display: none !important; }
 .js .show-js { display: block !important; }
+.js .hide-js { display: none !important; }
 
 .no-js .show-no-js { display: block !important; }
 .no-js .hide-no-js { display: none !important; }
@@ -1079,7 +1079,9 @@ ul.social-icons li {
 }
 
 .header-inner {
-	overflow: hidden;
+	align-items: center;
+	display: flex;
+	min-height: 8rem;
 	position: relative;
 	transition: none;
 	z-index: 100;
@@ -1254,6 +1256,157 @@ ul.social-icons li {
 	transform: rotate( -45deg );
 }
 
+/* Main Menu Alt ----------------------------- */
+
+.main-menu-alt-container {
+	display: none;
+	margin-left: 6rem;
+}
+
+ul.main-menu-alt {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	margin: -1.5rem 0 0 -3rem;
+}
+
+.main-menu-alt li {
+	font-size: inherit;
+	line-height: 1.25;
+	position: relative;
+}
+
+.main-menu-alt > li {
+	margin: 1.5rem 0 0 3rem;
+}
+
+.main-menu-alt > li.menu-item-has-children > .link-icon-wrapper {
+	align-items: center;
+	display: flex;
+	white-space: nowrap;
+}
+
+.main-menu-alt .link-icon-wrapper svg {
+	content: "↓";
+	display: block;
+	height: .8rem;
+	margin-left: 1rem;
+	width: 1.3rem;
+}
+
+.main-menu-alt a {
+	color: inherit;
+	display: block;
+	line-height: 1;
+	text-decoration: none;
+}
+
+.main-menu-alt a:hover,
+.main-menu-alt li.current-menu-item > a,
+.main-menu-alt li.current-menu-item > .link-icon-wrapper > a {
+	text-decoration: underline;
+}
+
+/* SUB MENU */
+
+.main-menu-alt ul {
+	background: currentColor;
+	border-radius: .4rem;
+	color: #f1f1f3;
+	font-size: 1.7rem;
+	opacity: 0;
+	padding: 1rem 0;
+	position: absolute;
+		right: 9999rem;
+		top: calc( 100% + 2rem );
+	transition: opacity .15s linear, transform .15s linear, right 0s .15s;
+	transform: translateY( .6rem );
+	width: 26rem;
+	z-index: 1;
+}
+
+.main-menu-alt ul li {
+	color: #1A1B1F;
+}
+
+.main-menu-alt li.menu-item-has-children:hover > ul {
+	right: -2rem;
+	opacity: 1;
+	transform: translateY( 0 );
+	transition: opacity .15s linear, transform .15s linear;
+}
+
+.main-menu-alt ul:before,
+.main-menu-alt ul:after {
+	content: "";
+	display: block;
+	position: absolute;
+	bottom: 100%;
+}
+
+.main-menu-alt ul:before {
+	height: 2rem;
+	left: 0;
+	right: 0;
+}
+
+.main-menu-alt ul:after {
+	border: .8rem solid transparent;
+	border-bottom-color: currentColor;
+	right: 2rem;
+}
+
+.main-menu-alt ul li + li {
+	margin-top: 1rem;
+}
+
+.main-menu-alt ul a {
+	background: transparent;
+	border: none;
+	display: block;
+	padding: 1rem 2rem;
+	transition: background-color .15s linear;
+	width: 100%;
+}
+
+.main-menu-alt ul li.menu-item-has-children > .link-icon-wrapper > a {
+	padding-right: 4.5rem;
+}
+
+.main-menu-alt ul li.menu-item-has-children > .link-icon-wrapper svg {
+	position: absolute;
+		right: 2rem;
+		top: 50%;
+	transform: translateY( -50% );
+}
+
+/* DEEP DOWN */
+
+.main-menu-alt ul ul {
+	top: -1rem;
+}
+
+.main-menu-alt ul li.menu-item-has-children:hover > ul {
+	right: calc( 100% + 2rem );
+}
+
+.main-menu-alt ul ul:before {
+	bottom: 0;
+	height: auto;
+	left: auto;
+	right: -2rem;
+	top: 0;
+	width: 2rem;
+}
+
+.main-menu-alt ul ul:after {
+	border-bottom-color: transparent;
+	border-left-color: currentcolor;
+	bottom: auto;
+	right: -1.6rem;
+	top: 2rem;
+}
+
 
 /* --------------------------------------------------------------------------------------------- */
 /*	X. Menu Modal
@@ -1359,13 +1512,13 @@ button.sub-menu-toggle.active svg {
 	transform: rotate( 180deg );
 }
 
-.sub-menu {
+.main-menu .sub-menu {
 	display: none;
 	margin: 0;
 	width: 100%;
 }
 
-.sub-menu li {
+.main-menu .sub-menu li {
 	border-left-width: 1rem;
 }
 
@@ -3527,6 +3680,10 @@ body.woocommerce .entry-content {
 		padding: 4.5rem 0;
 	}
 
+	.header-inner {
+		min-height: 9rem;
+	}
+
 	.site-title {
 		font-size: 3.2rem;
 	}
@@ -3578,14 +3735,14 @@ body.woocommerce .entry-content {
 		font-weight: 500;
 	}
 
-	.sub-menu li {
+	.main-menu .sub-menu li {
 		border-left-width: 0;
 	}
 
-	.sub-menu a { padding-left: 2.5rem; }
-	.sub-menu ul a { padding-left: 5rem; }
-	.sub-menu ul ul a { padding-left: 7.5rem; }
-	.sub-menu ul ul ul a { padding-left: 10rem; }
+	.main-menu .sub-menu a { padding-left: 2.5rem; }
+	.main-menu .sub-menu ul a { padding-left: 5rem; }
+	.main-menu .sub-menu ul ul a { padding-left: 7.5rem; }
+	.main-menu .sub-menu ul ul ul a { padding-left: 10rem; }
 
 	.main-menu > li > .ancestor-wrapper > button.sub-menu-toggle {
 		padding: 0 3rem;
@@ -4205,8 +4362,21 @@ body.woocommerce .entry-content {
 		box-shadow: 0 0 1rem rgba( 0, 0, 0, 0.10 );
 	}
 
+	.header-titles {
+		flex-shrink: 0;
+	}
+
 	.site-description {
 		display: block;
+	}
+
+	.no-js .main-menu-alt-container,
+	.disable-menu-modal-on-desktop .main-menu-alt-container {
+		display: block !important;
+	}
+
+	.disable-menu-modal-on-desktop .header-toggles {
+		display: none !important;
 	}
 
 	/* Menu Modal ---------------------------- */

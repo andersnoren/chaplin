@@ -54,28 +54,47 @@
 							<h1 class="<?php echo $site_title_class; ?>"><?php echo $home_link_contents; ?></h1>
 						<?php else : ?>
 							<div class="<?php echo $site_title_class; ?> faux-heading"><?php echo $home_link_contents; ?></div>
-						<?php endif; 
+						<?php endif; ?>
 
-						if ( $site_description ) : ?>
+						<?php if ( $site_description ) : ?>
 
 							<div class="site-description"><?php echo $site_description; ?></div><!-- .site-description -->
 
-							<?php 
-						endif; 
-						?>
+						<?php endif; ?>
 
 					</div><!-- .header-titles -->
 
-					<div class="header-toggles">
+					<div class="main-menu-alt-container hide-js">
+
+						<ul class="main-menu-alt reset-list-style">
+							<?php
+							if ( has_nav_menu( 'main-menu' ) ) {
+								wp_nav_menu( array(
+									'container' 		=> '',
+									'items_wrap' 		=> '%3$s',
+									'theme_location' 	=> 'main-menu',
+								) );
+							} else {
+								wp_list_pages( array(
+									'container' => '',
+									'title_li' 	=> '',
+								) );
+							}
+							?>
+						</ul><!-- .main-menu-alt -->
+
+					</div><!-- .main-menu-alt-container -->
+
+					<div class="header-toggles hide-no-js">
 
 						<?php 
 						
 						// Check whether the header search is deactivated in the customizer
-						$disable_header_search = get_theme_mod( 'chaplin_header_search' ) ?: false; 
+						$disable_header_search = get_theme_mod( 'chaplin_disable_header_search' ) ?: false; 
 						
 						if ( ! $disable_header_search ) : ?>
 						
-							<a href="#" class="toggle search-toggle hide-no-js" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field">
+							<a href="#" class="toggle search-toggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field">
 								<div class="toggle-text">
 									<?php esc_html_e( 'Search', 'chaplin' ); ?>
 								</div>

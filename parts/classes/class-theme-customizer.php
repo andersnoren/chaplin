@@ -232,22 +232,37 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'section' 		=> 'chaplin_site_header_options',
 				'priority'		=> 10,
 				'label' 		=> __( 'Sticky Header', 'chaplin' ),
-				'description' 	=> __( 'Stick the header to the top of the window on scroll.', 'chaplin' ),
+				'description' 	=> __( 'Stick the header to the top of the window when the visitor scrolls.', 'chaplin' ),
 			) );
 
-			/* Header Search ------------------- */
+			/* Disable Header Search --------- */
 
-			$wp_customize->add_setting( 'chaplin_header_search', array(
+			$wp_customize->add_setting( 'chaplin_disable_header_search', array(
 				'capability' 		=> 'edit_theme_options',
 				'sanitize_callback' => 'chaplin_sanitize_checkbox',
 			) );
 
-			$wp_customize->add_control( 'chaplin_header_search', array(
+			$wp_customize->add_control( 'chaplin_disable_header_search', array(
 				'type' 			=> 'checkbox',
 				'section' 		=> 'chaplin_site_header_options',
 				'priority'		=> 10,
 				'label' 		=> __( 'Disable Search Button', 'chaplin' ),
 				'description' 	=> __( 'Check to disable the search button in the header.', 'chaplin' ),
+			) );
+
+			/* Disable Menu Modal on Desktop - */
+
+			$wp_customize->add_setting( 'chaplin_disable_menu_modal_on_desktop', array(
+				'capability' 		=> 'edit_theme_options',
+				'sanitize_callback' => 'chaplin_sanitize_checkbox',
+			) );
+
+			$wp_customize->add_control( 'chaplin_disable_menu_modal_on_desktop', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_site_header_options',
+				'priority'		=> 10,
+				'label' 		=> __( 'Disable Menu Modal on Desktop', 'chaplin' ),
+				'description' 	=> __( 'Check to display a regular menu on desktop screens, instead of the search and menu toggles.', 'chaplin' ),
 			) );
 
 			/* ------------------------------------------------------------------------
