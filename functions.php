@@ -446,6 +446,7 @@ if ( ! function_exists( 'chaplin_filter_archive_title' ) ) :
 	add_filter( 'get_the_archive_title', 'chaplin_filter_archive_title' );
 endif;
 
+
 /*	-----------------------------------------------------------------------------------------------
 	FILTER ARCHIVE DESCRIPTION
 
@@ -628,6 +629,39 @@ if ( ! function_exists( 'chaplin_filter_comment_reply_link' ) ) :
 
 	}
 	add_filter( 'comment_reply_link', 'chaplin_filter_comment_reply_link' );
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
+	FILTER CLASSES OF WP_LIST_PAGES ITEMS TO MATCH MENU ITEMS
+	Filter the class applied to wp_list_pages() items with children to match the menu class, to simplify 
+	styling of sub levels in the fallback. Only applied if the match_menu_classes argument is set.
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_filter_wp_list_pages_item_classes' ) ) :
+	function chaplin_filter_wp_list_pages_item_classes( $css_class, $item, $depth, $args, $current_page ) {
+
+		// Only apply to wp_list_pages() calls with match_menu_classes set to true
+		$match_menu_classes = isset( $args['match_menu_classes'] ) ?: false;
+
+		if ( ! $match_menu_classes ) {
+			return $css_class;
+		}
+
+		// Add current menu item class
+		if ( in_array( 'current_page_item', $css_class ) ) {
+			$css_class[] = 'current-menu-item';
+		}
+
+		// Add menu item has children class
+		if ( in_array( 'page_item_has_children', $css_class ) ) {
+			$css_class[] = 'menu-item-has-children';
+		}
+
+		return $css_class;
+
+	}
+	add_filter( 'page_css_class', 'chaplin_filter_wp_list_pages_item_classes', 10, 5 );
 endif;
 
 

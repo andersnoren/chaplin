@@ -16,9 +16,9 @@
 							'theme_location' 	=> 'main-menu',
 						) );
 					} else {
-						wp_list_pages( array(
-							'container' => '',
-							'title_li' 	=> '',
+						wp_list_pages( array( 
+							'match_menu_classes' 	=> true,
+							'title_li' 				=> false, 
 						) );
 					}
 					?>

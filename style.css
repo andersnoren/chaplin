@@ -1553,10 +1553,17 @@ button.sub-menu-toggle.active svg {
 	transform: rotate( 180deg );
 }
 
-.main-menu .sub-menu {
-	display: none;
+.main-menu ul {
 	margin: 0;
 	width: 100%;
+}
+
+.main-menu .children { /* wp_list_pages() output */
+	margin-left: 5%;
+}
+
+.main-menu .sub-menu {
+	display: none;
 }
 
 .main-menu .sub-menu li {
