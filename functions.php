@@ -551,7 +551,17 @@ endif;
 if ( ! function_exists( 'chaplin_the_theme_svg' ) ) :
 	function chaplin_the_theme_svg( $svg_name, $color = '' ) {
 
-		echo wp_kses( chaplin_get_theme_svg( $svg_name, $color ), array(
+		// Escaped in chaplin_get_theme_svg();
+		echo chaplin_get_theme_svg( $svg_name, $color );
+
+	}
+endif;
+
+if ( ! function_exists( 'chaplin_get_theme_svg' ) ) :
+	function chaplin_get_theme_svg( $svg_name, $color = '' ) {
+
+		// Make sure that only our allowed tags and attributes are included
+		$svg = wp_kses( Chaplin_SVG_Icons::get_svg( $svg_name, $color ), array(
 			'svg' => array(
 				'class' 	=> true,
 				'xmlns' 	=> true,
@@ -572,14 +582,6 @@ if ( ! function_exists( 'chaplin_the_theme_svg' ) ) :
 				'transform' => true,
 			),
 		) );
-
-	}
-endif;
-
-if ( ! function_exists( 'chaplin_get_theme_svg' ) ) :
-	function chaplin_get_theme_svg( $svg_name, $color = '' ) {
-
-		$svg = Chaplin_SVG_Icons::get_svg( $svg_name, $color );
 
 		if ( ! $svg ) {
 			return false;
@@ -646,7 +648,7 @@ if ( ! function_exists( 'chaplin_the_post_meta' ) ) :
 endif;
 
 if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
-	function chaplin_get_post_meta( $post_id = null, $location = 'single' ) {
+	function chaplin_get_post_meta( $post_id = null, $location = 'single-top' ) {
 
 		// Require post ID
 		if ( ! $post_id ) {
