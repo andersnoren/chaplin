@@ -23,7 +23,7 @@ if ( ! class_exists( 'Chaplin_Walker_Comment' ) ) :
 			$tag = ( 'div' === $args['style'] ) ? 'div' : 'li';
 
 			?>
-			<<?php echo $tag; ?> id="comment-<?php comment_ID(); ?>" <?php comment_class( $this->has_children ? 'parent' : '', $comment ); ?>>
+			<<?php echo esc_html( $tag ); ?> id="comment-<?php comment_ID(); ?>" <?php comment_class( $this->has_children ? 'parent' : '', $comment ); ?>>
 				<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
 					<footer class="comment-meta">
 						<div class="comment-author vcard">
@@ -41,7 +41,7 @@ if ( ! class_exists( 'Chaplin_Walker_Comment' ) ) :
 							}
 
 							printf(
-								/* translators: %s: comment author link */
+								/* Translators: %s = comment author link */
 								__( '%s <span class="screen-reader-text says">says:</span>', 'chaplin' ),
 								sprintf( '<span class="fn">%s</span>', $comment_author )
 							);
@@ -55,7 +55,7 @@ if ( ! class_exists( 'Chaplin_Walker_Comment' ) ) :
 						<div class="comment-metadata color-secondary">
 							<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
 								<?php
-								/* translators: 1: comment date, 2: comment time */
+								/* Translators: 1 = comment date, 2 = comment time */
 								$comment_timestamp = sprintf( __( '%1$s at %2$s', 'chaplin' ), get_comment_date( '', $comment ), get_comment_time() );
 								?>
 								<time datetime="<?php comment_time( 'c' ); ?>" title="<?php echo $comment_timestamp; ?>">

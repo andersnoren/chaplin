@@ -17,7 +17,7 @@
 			}
 			?>
 
-			<a href="<?php the_permalink(); ?>" class="faux-image" style="background-image: url( <?php echo $image_url; ?> );"></a>
+			<a href="<?php the_permalink(); ?>" class="faux-image" style="background-image: url( <?php echo esc_attr( $image_url ); ?> );"></a>
 			
 		</figure><!-- .preview-media -->
 

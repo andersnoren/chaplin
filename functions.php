@@ -642,7 +642,7 @@ if ( ! function_exists( 'chaplin_filter_wp_list_pages_item_classes' ) ) :
 	function chaplin_filter_wp_list_pages_item_classes( $css_class, $item, $depth, $args, $current_page ) {
 
 		// Only apply to wp_list_pages() calls with match_menu_classes set to true
-		$match_menu_classes = isset( $args['match_menu_classes'] ) ?: false;
+		$match_menu_classes = isset( $args['match_menu_classes'] );
 
 		if ( ! $match_menu_classes ) {
 			return $css_class;
@@ -676,6 +676,7 @@ endif;
 if ( ! function_exists( 'chaplin_the_post_meta' ) ) :
 	function chaplin_the_post_meta( $post_id = null, $location = 'single-top' ) {
 
+		// Escaped in chaplin_get_post_meta()
 		echo chaplin_get_post_meta( $post_id, $location );
 
 	}
@@ -761,9 +762,9 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 
 			?>
 
-			<div class="post-meta-wrapper<?php echo $post_meta_wrapper_classes; ?>">
+			<div class="post-meta-wrapper<?php echo esc_attr( $post_meta_wrapper_classes ); ?>">
 
-				<ul class="post-meta<?php echo $post_meta_classes; ?>">
+				<ul class="post-meta<?php echo esc_attr( $post_meta_classes ); ?>">
 
 					<?php
 
@@ -797,7 +798,9 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 								<?php chaplin_the_theme_svg( 'user' ); ?>
 							</span>
 							<span class="meta-text">
-								<?php printf( _x( 'By %s', '%s = author name', 'chaplin' ), '<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . get_the_author_meta( 'nickname' ) . '</a>' ); ?>
+								<?php 
+								// Translators: %s = the author name
+								printf( esc_html_x( 'By %s', '%s = author name', 'chaplin' ), '<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author_meta( 'nickname' ) ) . '</a>' ); ?>
 							</span>
 						</li>
 						<?php
@@ -1225,7 +1228,7 @@ if ( ! function_exists( 'chaplin_generate_css' ) ) :
 		}
 		$return = sprintf( '%s { %s: %s; }', $selector, $style, $prefix . $value . $suffix );
 		if ( $echo ) {
-			echo $return;
+			echo wp_kses_post( $return );
 		}
 		return $return;
 	}
@@ -1691,11 +1694,6 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Primary color
 			if ( $primary ) : 
 				chaplin_generate_css( 'body#tinymce.wp-editor', 'color', $primary );
-			endif;
-
-			// Secondary color
-			if ( $secondary ) :
-				// This space intentionally left blank
 			endif;
 
 			// Accent color

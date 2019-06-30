@@ -25,7 +25,7 @@ class Chaplin_Recent_Comments extends WP_Widget {
 
 		if ( ! empty( $widget_title ) ) {
 
-			echo $before_title . $widget_title . $after_title;
+			echo $before_title . wp_kses_post( $widget_title ) . $after_title;
 
 		} ?>
 
@@ -119,7 +119,7 @@ class Chaplin_Recent_Comments extends WP_Widget {
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'number_of_comments' ); ?>"><?php esc_html_e( 'Number of comments to display', 'chaplin' ); ?>:
-			<input id="<?php echo $this->get_field_id( 'number_of_comments' ); ?>" name="<?php echo $this->get_field_name( 'number_of_comments' ); ?>" type="number" class="widefat" value="<?php echo esc_attr( $number_of_comments ); ?>" /></label>
+			<input id="<?php echo $this->get_field_id( 'number_of_comments' ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number_of_comments' ) ); ?>" type="number" class="widefat" value="<?php echo esc_attr( $number_of_comments ); ?>" /></label>
 			<small>(<?php esc_html_e( 'Defaults to 3 if empty', 'chaplin' ); ?>)</small>
 		</p>
 

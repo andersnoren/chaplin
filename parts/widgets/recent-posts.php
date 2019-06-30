@@ -24,7 +24,7 @@ class Chaplin_Recent_Posts extends WP_Widget {
 		echo $before_widget;
 
 		if ( ! empty( $widget_title ) ) {
-			echo $before_title . $widget_title . $after_title;
+			echo $before_title . wp_kses_post( $widget_title ) . $after_title;
 		}
 
 		if ( $number_of_posts == 0 ) {
@@ -117,12 +117,12 @@ class Chaplin_Recent_Posts extends WP_Widget {
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'widget_title' ); ?>"><?php  esc_html_e( 'Title', 'chaplin' ); ?>:
-			<input id="<?php echo $this->get_field_id( 'widget_title' ); ?>" name="<?php echo $this->get_field_name( 'widget_title' ); ?>" type="text" class="widefat" value="<?php echo wp_kses_post( $widget_title ); ?>" /></label>
+			<input id="<?php echo $this->get_field_id( 'widget_title' ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'widget_title' ) ); ?>" type="text" class="widefat" value="<?php echo wp_kses_post( $widget_title ); ?>" /></label>
 		</p>
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'number_of_posts' ); ?>"><?php esc_html_e( 'Number of posts to display', 'chaplin' ); ?>:
-			<input id="<?php echo $this->get_field_id( 'number_of_posts' ); ?>" name="<?php echo $this->get_field_name( 'number_of_posts' ); ?>" type="number" class="widefat" value="<?php echo esc_attr( $number_of_posts ); ?>" /></label>
+			<input id="<?php echo $this->get_field_id( 'number_of_posts' ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'number_of_posts' ) ); ?>" type="number" class="widefat" value="<?php echo esc_attr( $number_of_posts ); ?>" /></label>
 			<small>(<?php esc_html_e( 'Defaults to 3 if empty', 'chaplin' ); ?>)</small>
 		</p>
 

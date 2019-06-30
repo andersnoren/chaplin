@@ -38,7 +38,7 @@
 			$color_overlay_classes .= ' opacity-' . $color_overlay_opacity;
 
 			// Get the blend mode of the color overlay
-			$color_overlay_opacity = get_theme_mod( 'chaplin_cover_template_overlay_blend_mode' ) ?: 'multiply';
+			$color_overlay_opacity = get_theme_mod( 'chaplin_cover_template_overlay_blend_mode' ) ? get_theme_mod( 'chaplin_cover_template_overlay_blend_mode' ) : 'multiply';
 			$color_overlay_classes .= ' blend-mode-' . $color_overlay_opacity;
 		}
 	

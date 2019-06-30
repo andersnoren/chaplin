@@ -40,9 +40,9 @@ if ( ! ( $query_args['max_num_pages'] > $query_args['paged'] ) ) {
 
 if ( ( $query_args['max_num_pages'] > $query_args['paged'] ) ) : ?>
 
-	<div class="pagination-wrapper section-inner <?php echo $wrapper_class; ?>">
+	<div class="pagination-wrapper section-inner <?php echo esc_attr( $wrapper_class ); ?>">
 
-		<div id="pagination" class="pagination-type-<?php echo $pagination_type; ?>" data-query-args="<?php echo esc_attr( $json_query_args ); ?>" data-pagination-type="<?php echo $pagination_type; ?>" data-load-more-target=".load-more-target">
+		<div id="pagination" class="pagination-type-<?php echo esc_attr( $pagination_type ); ?>" data-query-args="<?php echo esc_attr( $json_query_args ); ?>" data-pagination-type="<?php echo esc_attr( $pagination_type ); ?>" data-load-more-target=".load-more-target">
 
 			<?php if ( $pagination_type == 'button' ) : ?>
 
@@ -74,7 +74,7 @@ if ( ( $query_args['max_num_pages'] > $query_args['paged'] ) ) : ?>
 
 				?>
 
-				<nav class="link-pagination<?php echo $pagination_class; ?>">
+				<nav class="link-pagination<?php echo esc_attr( $pagination_class ); ?>">
 
 					<?php if ( get_previous_posts_link() ) : ?>
 						<?php previous_posts_link( __( 'Previous page', 'chaplin' ) ); ?>

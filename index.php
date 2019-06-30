@@ -9,9 +9,11 @@
 	
 	if ( is_search() ) {
 		global $wp_query;
-		$archive_title = sprintf( __( 'Search: %s', 'chaplin' ), '&ldquo;' . get_search_query() . '&rdquo;' );
+		/* Translators: %s = The search query */
+		$archive_title = sprintf( _x( 'Search: %s', '%s = The search query', 'chaplin' ), '&ldquo;' . get_search_query() . '&rdquo;' );
 		if ( $wp_query->found_posts ) {
-			$archive_subtitle = sprintf( _n( 'We found %s result for your search.', 'We found %s results for your search.', $wp_query->found_posts, 'chaplin' ), $wp_query->found_posts );
+			/* Translators: %s = Number of results */
+			$archive_subtitle = sprintf( _nx( 'We found %s result for your search.', 'We found %s results for your search.',  $wp_query->found_posts, '%s = Number of results', 'chaplin' ), $wp_query->found_posts );
 		} else {
 			$archive_subtitle = __( 'We could not find any results for your search. You can give it another try through the search form below.', 'chaplin' );
 		}
@@ -26,11 +28,11 @@
 		<header class="archive-header section-inner">
 
 			<?php if ( $archive_title ) : ?>
-				<h1 class="archive-title"><?php echo $archive_title; ?></h1>
+				<h1 class="archive-title"><?php echo wp_kses_post( $archive_title ); ?></h1>
 			<?php endif; ?>
 
 			<?php if ( $archive_subtitle ) : ?>
-				<div class="archive-subtitle section-inner thin max-percentage intro-text"><?php echo wpautop( $archive_subtitle ); ?></div>
+				<div class="archive-subtitle section-inner thin max-percentage intro-text"><?php echo wp_kses_post( wpautop( $archive_subtitle ) ); ?></div>
 			<?php endif; ?>
 			
 		</header><!-- .archive-header -->

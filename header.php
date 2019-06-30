@@ -30,7 +30,7 @@
 
 		<header id="site-header">
 
-			<div class="header-inner<?php echo $header_inner_classes; ?>">
+			<div class="header-inner<?php echo esc_attr( $header_inner_classes ); ?>">
 
 				<div class="section-inner">
 
@@ -43,22 +43,22 @@
 						$site_description = get_bloginfo( 'description' );
 
 						if ( $logo ) {
-							$home_link_contents = $logo . '<span class="screen-reader-text">' . $site_title . '</span>';
+							$home_link_contents = $logo . '<span class="screen-reader-text">' . esc_html( $site_title ) . '</span>';
 							$site_title_class = 'site-logo';
 						} else {
 							$site_title_class = 'site-title';
-							$home_link_contents = '<a href="' . esc_url( home_url( '/' ) ) . '">' . $site_title . '</a>';
+							$home_link_contents = '<a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html( $site_title ) . '</a>';
 						}
 
 						if ( is_front_page() ) : ?>
-							<h1 class="<?php echo $site_title_class; ?>"><?php echo $home_link_contents; ?></h1>
+							<h1 class="<?php echo esc_attr( $site_title_class ); ?>"><?php echo $home_link_contents; ?></h1>
 						<?php else : ?>
-							<div class="<?php echo $site_title_class; ?> faux-heading"><?php echo $home_link_contents; ?></div>
+							<div class="<?php echo esc_attr( $site_title_class ); ?> faux-heading"><?php echo $home_link_contents; ?></div>
 						<?php endif; ?>
 
 						<?php if ( $site_description ) : ?>
 
-							<div class="site-description"><?php echo $site_description; ?></div><!-- .site-description -->
+							<div class="site-description"><?php echo esc_html( $site_description ); ?></div><!-- .site-description -->
 
 						<?php endif; ?>
 
@@ -90,7 +90,7 @@
 						<?php 
 						
 						// Check whether the header search is deactivated in the customizer
-						$disable_header_search = get_theme_mod( 'chaplin_disable_header_search' ) ?: false; 
+						$disable_header_search = get_theme_mod( 'chaplin_disable_header_search' ) ? get_theme_mod( 'chaplin_disable_header_search' ) : false; 
 						
 						if ( ! $disable_header_search ) : ?>
 						
