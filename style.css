@@ -1227,6 +1227,7 @@ ul.social-icons li {
 	display: flex;
 	flex-shrink: 0;
 	margin: 0 -1.25rem 0 2rem;
+	overflow: hidden;
 }
 
 .header-toggles .toggle {
