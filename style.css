@@ -3,8 +3,8 @@
 	Theme Name: Chaplin
     Text Domain: chaplin
 	Version: 1.0.0
-	Description: Chaplin has also been tested with CoBlocks, supports Jetpack Portfolio, .
-	Tags: three-columns, grid-layout, custom-background, custom-logo, editor-style, featured-images, sticky-post, theme-options, threaded-comments, translation-ready, blog, photography, portfolio, footer-widgets
+	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. The fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported. Any changes you make to the fonts and colors are reflected in the Block Editor and in the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, a sticky header option, a social menu with icons, a responsive design, and a lightweight construction to ensure quick load times on your site. Chaplin has also been tested with CoBlocks, and supports the Jetpack Portfolio post type and taxonomies.
+	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 	Author: Anders Norén
 	Author URI: https://www.andersnoren.se
 	License: GNU General Public License version 2.0
@@ -15,25 +15,32 @@
 
 -----------------------------------------------------------------------------------
 
-	0.	CSS Reset
-	1.	Document Setup
-	2.  Structure
-	3.	Site Header
-	4.	Archive
-	5.	Singular
-	6.  Entry Content
-	X.  Blocks
-	X.	Comments
-	X.	Page Templates
-	X.	Site Pagination
-	X.	Site Footer
-	X.  Media Queries
+	0. 	CSS Reset
+	1. 	Document Setup
+	2. 	Element Base
+	3. 	Helper Classes
+	4. 	Site Header
+	5. 	Menu Modal
+	6. 	Search Modal
+	7. 	Template: Cover Template
+	8. 	Template: Only Content
+	9. 	Post: Archive
+	10. Post: Single
+	11. Entry Content
+	12. Blocks
+	13. Comments
+	14. Site Pagination
+	15. Error 404
+	16. WooCommerce
+	17. Widgets
+	18. Site Footer
+	19. Media Queries
 
 ----------------------------------------------------------------------------------- */
 
 
 /* -------------------------------------------------------------------------------- */
-/*	X. CSS Reset
+/*	0. CSS Reset
 /* -------------------------------------------------------------------------------- */
 
 
@@ -1110,7 +1117,7 @@ ul.social-icons li {
 
 
 /* -------------------------------------------------------------------------------- */
-/*	X.	Site Header
+/*	4.	Site Header
 /* -------------------------------------------------------------------------------- */
 
 
@@ -1450,7 +1457,7 @@ ul.main-menu-alt {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Menu Modal
+/*	5. Menu Modal
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -1595,7 +1602,7 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Search Modal
+/*	6. Search Modal
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -1692,12 +1699,7 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Sub Page
-/* --------------------------------------------------------------------------------------------- */
-
-
-/* --------------------------------------------------------------------------------------------- */
-/*	X. Template: Cover Template
+/*	7. Template: Cover Template
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -1782,7 +1784,7 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Template: Only Content
+/*	8. Template: Only Content
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -1796,7 +1798,7 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Post: Archive
+/*	9. Post: Archive
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -1836,7 +1838,7 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Post: Single
+/*	10. Post: Single
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -1989,7 +1991,7 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Entry Content
+/*	11. Entry Content
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -2094,7 +2096,7 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Blocks
+/*	12. Blocks
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -2890,7 +2892,7 @@ table.is-style-stripes tr:nth-child( odd ) {
 
 
 /* -------------------------------------------------------------------------------- */
-/*	X.	Comments
+/*	13. Comments
 /* -------------------------------------------------------------------------------- */
 
 
@@ -3132,7 +3134,7 @@ div.comment:first-of-type {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Site Pagination
+/*	14. Site Pagination
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -3216,7 +3218,7 @@ html.js body:not(.pagination-type-links) .link-pagination {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Error 404
+/*	15. Error 404
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -3233,7 +3235,7 @@ html.js body:not(.pagination-type-links) .link-pagination {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. WooCommerce
+/*	16. WooCommerce
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -3243,7 +3245,7 @@ body.woocommerce .entry-content {
 
 
 /* -------------------------------------------------------------------------------- */
-/*	X.	Widgets
+/*	17.	Widgets
 /* -------------------------------------------------------------------------------- */
 
 
@@ -3501,7 +3503,7 @@ body.woocommerce .entry-content {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Site Footer
+/*	18. Site Footer
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -3575,7 +3577,7 @@ body.woocommerce .entry-content {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	X. Media Queries
+/*	19. Media Queries
 /* --------------------------------------------------------------------------------------------- */
 
 
