@@ -137,6 +137,10 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
-Version 1.00 (2019-XX-XX)
+Version 1.0.1 (2019-07-01)
+-------------------------
+- Updated screenshot.png to not contain information about the theme
+
+Version 1.0.0 (2019-06-31)
 -------------------------
 - Initial version
