@@ -137,6 +137,19 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.0.3 (2019-07-XX)
+-------------------------
+- Adjusted the default styling of the cover template, so it doesn't default to the body background if no background image is set
+- Improved desktop handling of footer menu not being set
+- Adjusted the logged in as styling
+- Fixed the comment pagination being ever so slightly borked
+
+Version 1.0.2 (2019-07-01)
+-------------------------
+- Updated the theme description slightly
+- Translated a string in the theme from Swedish to English
+- Updated screenshot.png to display a site title instead of a logo
+
 Version 1.0.1 (2019-07-01)
 -------------------------
 - Updated screenshot.png to not contain information about the theme

@@ -41,7 +41,7 @@
 			?>
 
 			<nav class="comments-pagination pagination<?php echo esc_attr( $pagination_classes ); ?>">
-				<?php echo esc_html( $comment_pagination ); ?>
+				<?php echo wp_kses_post( $comment_pagination ); ?>
 			</nav>
 
 		<?php endif; ?>

@@ -22,11 +22,21 @@
 					
 				</div><!-- .footer-widgets-outer-wrapper -->
 
-			<?php endif; ?>
+			<?php endif; 
 
-			<div class="footer-inner section-inner">
+			$has_footer_menu = has_nav_menu( 'footer-menu' );
 
-				<?php if ( has_nav_menu( 'footer-menu' ) ) : ?>
+			$footer_inner_classes = '';
+
+			if ( $has_footer_menu ) {
+				$footer_inner_classes .= ' has-footer-menu';
+			}
+			
+			?>
+
+			<div class="footer-inner section-inner<?php echo esc_attr( $footer_inner_classes ); ?>">
+
+				<?php if ( $has_footer_menu ) : ?>
 
 					<ul class="footer-menu reset-list-style">
 						<?php

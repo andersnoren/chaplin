@@ -2,8 +2,8 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 1.0.1
-	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. The fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times on your site, support for Jetpack Portfolio and CoBlocks.
+	Version: 1.0.2
+	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. The fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times on your site, support for Jetpack Portfolio and CoBlocks, and much more.
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 	Author: Anders Norén
 	Author URI: https://www.andersnoren.se
@@ -1709,7 +1709,6 @@ button.sub-menu-toggle.active svg {
 
 
 .cover-header {
-	background-color: currentColor;
 	display: flex;
 	overflow: hidden;
 }
@@ -3099,6 +3098,11 @@ div.comment:first-of-type {
 
 .comment-respond .logged-in-as a {
 	color: inherit;
+	text-decoration: none;
+}
+
+.comment-respond .logged-in-as a:hover {
+	text-decoration: underline;
 }
 
 .comment-form p {
@@ -4563,12 +4567,15 @@ body.woocommerce .entry-content {
 	/* Site Footer --------------------------- */
 
 	.footer-inner {
+		font-size: 1.6rem;
+		padding: 8rem 0;
+	}
+
+	.footer-inner.has-footer-menu {
 		align-items: baseline;
 		display: flex;
-		font-size: 1.6rem;
 		flex-direction: row-reverse;
 		justify-content: space-between;
-		padding: 8rem 0;
 	}
 
 	.footer-menu {
