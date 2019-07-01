@@ -1129,7 +1129,6 @@ ul.social-icons li {
 .header-inner {
 	align-items: center;
 	background: transparent;
-	color: currentColor;
 	display: flex;
 	min-height: 8rem;
 	position: relative;
@@ -1143,7 +1142,7 @@ ul.social-icons li {
 }
 
 @media ( max-width: 999px ) {
-	.showing-menu-modal .header-inner {
+	.overlay-header.showing-menu-modal .header-inner {
 		color: #1A1B1F !important;
 	}
 }

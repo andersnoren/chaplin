@@ -137,7 +137,7 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
-Version 1.0.3 (2019-07-XX)
+Version 1.0.3 (2019-07-01)
 -------------------------
 - Adjusted the default styling of the cover template, so it doesn't default to the body background if no background image is set
 - Improved desktop handling of footer menu not being set
@@ -145,6 +145,7 @@ Version 1.0.3 (2019-07-XX)
 - Fixed the comment pagination being ever so slightly borked
 - Fixed issue with template cover text color when the main menu is expanded on desktop
 - Added Dynamic Screen Height, to account for browser chrome (on mobile and tablet, mostly)
+- Tweaked site title size
 
 Version 1.0.2 (2019-07-01)
 -------------------------

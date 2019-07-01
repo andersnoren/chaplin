@@ -1397,9 +1397,9 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( 'body', 'color', $primary );
 				chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $primary ) . '\');' );
 				chaplin_generate_css( '.main-menu-alt ul li,', 'color', $primary );
-				chaplin_generate_css( '.header-inner.is-sticky', 'color', $primary, '', ' !important' );
+				chaplin_generate_css( '.overlay-header .header-inner.is-sticky', 'color', $primary, '', ' !important' );
 				echo '@media( max-width: 999px ) {';
-				chaplin_generate_css( '.showing-menu-modal .header-inner', 'color', $primary, '', ' !important' );
+				chaplin_generate_css( '.overlay-header.showing-menu-modal .header-inner', 'color', $primary, '', ' !important' );
 				echo '}';
 
 				// P3 Colors
