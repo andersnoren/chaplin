@@ -1128,6 +1128,8 @@ ul.social-icons li {
 
 .header-inner {
 	align-items: center;
+	background: transparent;
+	color: currentColor;
 	display: flex;
 	min-height: 8rem;
 	position: relative;
@@ -1135,8 +1137,15 @@ ul.social-icons li {
 	z-index: 100;
 }
 
-.header-inner:not(.is-sticky) {
-	background: transparent;
+.header-inner.is-sticky {
+	background: #fff;
+	color: #1A1B1F !important;
+}
+
+@media ( max-width: 999px ) {
+	.showing-menu-modal .header-inner {
+		color: #1A1B1F !important;
+	}
 }
 
 .header-inner .section-inner {
@@ -1216,7 +1225,7 @@ ul.social-icons li {
 		top: 0;
 }
 
-.overlay-header:not(.showing-menu-modal) .header-inner:not(.is-sticky) {
+.overlay-header:not(.showing-menu-modal):not(.overlay-header-has-text-color) .header-inner:not(.is-sticky) {
 	color: #fff;
 }
 
@@ -4388,7 +4397,7 @@ body.woocommerce .entry-content {
 
 	/* Site Header --------------------------- */
 
-	.overlay-header.showing-menu-modal .header-inner:not(.is-sticky) {
+	.overlay-header.showing-menu-modal:not(.overlay-header-has-text-color) .header-inner:not(.is-sticky) {
 		color: #fff;
 	}
 

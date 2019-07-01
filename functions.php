@@ -200,6 +200,11 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		// Check whether the current page should have an overlay header
 		if ( is_page_template( 'template-cover.php' ) ) {
 			$classes[] = 'overlay-header';
+
+			// Check if it has a custom text color
+			if ( get_theme_mod( 'chaplin_cover_template_overlay_text_color' ) ) {
+				$classes[] = 'overlay-header-has-text-color';
+			}
 		}
 
 		// Check for sticky header
@@ -1326,6 +1331,9 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		$headings_font = 		get_theme_mod( 'chaplin_headings_font', Chaplin_Google_Fonts::$default_headings_font );
 		$headings_weight =		get_theme_mod( 'chaplin_headings_weight' );
 
+		$p3_supports_open =		'@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+		$p3_supports_close =	'}';
+
 		// Output CSS for headings if they aren't the defaults
 		if ( $body_font ) {
 			$body_font_stack = 	Chaplin_Google_Fonts::get_font_fallbacks( $body_font, 'body' );
@@ -1376,25 +1384,30 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Background color
 			if ( $background ) : 
 				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'color', $background );
+				chaplin_generate_css( '.header-inner.is-sticky', 'background-color', $background );
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'color', $p3_background );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 
 			// Primary color
 			if ( $primary ) : 
-				chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $primary ) . '\');' );
-				chaplin_generate_css( '.main-menu-alt ul li', 'color', $primary );
 				chaplin_generate_css( 'body', 'color', $primary );
+				chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $primary ) . '\');' );
+				chaplin_generate_css( '.main-menu-alt ul li,', 'color', $primary );
+				chaplin_generate_css( '.header-inner.is-sticky', 'color', $primary, '', ' !important' );
+				echo '@media( max-width: 999px ) {';
+				chaplin_generate_css( '.showing-menu-modal .header-inner', 'color', $primary, '', ' !important' );
+				echo '}';
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $p3_primary ) . '\');' );
 				chaplin_generate_css( '.main-menu-alt ul li', 'color', $p3_primary );
 				chaplin_generate_css( 'body', 'color', $p3_primary );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 
 			// Secondary color
@@ -1402,9 +1415,9 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.wp-block-latest-comments time, .wp-block-latest-posts time', 'color', $secondary );
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( '.wp-block-latest-comments time, .wp-block-latest-posts time', 'color', $p3_secondary );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 
 			// Accent color
@@ -1414,11 +1427,11 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'background-color', $accent );
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( 'a, .wp-block-button.is-style-outline', 'color', $p3_accent );
 				chaplin_generate_css( 'blockquote, .wp-block-button.is-style-outline', 'border-color', $p3_accent );
 				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'background-color', $p3_accent );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 			
 			// Border color
@@ -1428,11 +1441,11 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( 'caption', 'background', $border );
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( 'hr, pre, th, td, input, textarea, select, fieldset', 'border-color', $p3_border );
 				chaplin_generate_css( '.main-menu li, button.sub-menu-toggle, .wp-block-latest-posts.is-grid li, .footer-menu li, .comment .comment, .related-posts, .widget', 'border-color', $p3_border );
 				chaplin_generate_css( 'caption', 'background', $p3_border );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 
 			// Light background color
@@ -1440,19 +1453,17 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( 'code, kbd, samp, .main-menu-alt ul, table.is-style-stripes tr:nth-child( odd )', 'background-color', $light_background );
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( 'code, kbd, samp, .main-menu-alt ul, table.is-style-stripes tr:nth-child( odd )', 'background-color', $p3_light_background );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 
 			// Cover Template overlay text color
 			if ( $overlay_text ) : 
-				chaplin_generate_css( '.overlay-header:not(.showing-menu-modal) .header-inner:not(.is-sticky), .cover-header .entry-header', 'color', $overlay_text );
 
-				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
-				chaplin_generate_css( '.overlay-header:not(.showing-menu-modal) .header-inner:not(.is-sticky), .cover-header .entry-header', 'color', $p3_overlay_text );
-				echo '}';
+				// Safari has issues with animating the P3 colors, so don't set the overlay header colors to the P3 gamut
+				chaplin_generate_css( '.cover-header .entry-header, .overlay-header .header-inner', 'color', $overlay_text );
+
 			endif;
 
 			/* HELPER CLASSES */
@@ -1465,12 +1476,12 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.fill-children-body-background, .fill-children-body-background *', 'fill', $background );
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( '.color-body-background, .color-body-background-hover:hover, .has-background-color', 'color', $p3_background );
 				chaplin_generate_css( '.bg-body-background, .bg-body-background-hover:hover, .has-background-background-color', 'background-color', $p3_background );
 				chaplin_generate_css( '.border-color-body-background, .border-color-body-background-hover:hover', 'border-color', $p3_background );
 				chaplin_generate_css( '.fill-children-body-background, .fill-children-body-background *', 'fill', $p3_background );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 
 			// Primary color
@@ -1481,12 +1492,12 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.fill-children-primary, .fill-children-primary *', 'fill', $primary );
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( '.color-primary, .color-primary-hover:hover, .has-primary-color', 'color', $p3_primary );
 				chaplin_generate_css( '.bg-primary, .bg-primary-hover:hover, .has-primary-background-color', 'background-color', $p3_primary );
 				chaplin_generate_css( '.border-color-primary, .border-color-primary-hover:hover', 'border-color', $p3_primary );
 				chaplin_generate_css( '.fill-children-primary, .fill-children-primary *', 'fill', $p3_primary );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 
 			// Secondary color
@@ -1497,12 +1508,12 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.fill-children-secondary, .fill-children-secondary *', 'fill', $secondary );
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( '.color-secondary, .color-secondary-hover:hover, .has-secondary-color', 'color', $p3_secondary );
 				chaplin_generate_css( '.bg-secondary, .bg-secondary-hover:hover, .has-secondary-background-color', 'background-color', $p3_secondary );
 				chaplin_generate_css( '.border-color-secondary, .border-color-secondary-hover:hover', 'border-color', $p3_secondary );
 				chaplin_generate_css( '.fill-children-secondary, .fill-children-secondary *', 'fill', $p3_secondary );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 
 			// Accent color
@@ -1513,12 +1524,12 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.fill-children-accent, .fill-children-accent *', 'fill', $accent );
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( '.color-accent, .color-accent-hover:hover, .has-accent-color', 'color', $p3_accent );
 				chaplin_generate_css( '.bg-accent, .bg-accent-hover:hover, .has-accent-background-color', 'background-color', $p3_accent );
 				chaplin_generate_css( '.border-color-accent, .border-color-accent-hover:hover', 'border-color', $p3_accent );
 				chaplin_generate_css( '.fill-children-accent, .fill-children-accent *', 'fill', $p3_accent );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 			
 			// Border color
@@ -1529,12 +1540,12 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.fill-children-border, .fill-children-border *', 'fill', $border );
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( '.color-border, .color-border-hover:hover, .has-border-color', 'color', $p3_border );
 				chaplin_generate_css( '.bg-border, .bg-border-hover:hover, .has-border-background-color', 'background-color', $p3_border );
 				chaplin_generate_css( '.border-color-border, .border-color-border-hover:hover', 'border-color', $p3_border );
 				chaplin_generate_css( '.fill-children-border, .fill-children-border *', 'fill', $p3_border );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 
 			// Light background color
@@ -1545,12 +1556,12 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.fill-children-light-background, .fill-children-light-background *', 'fill', $light_background );
 
 				// P3 Colors
-				echo '@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+				echo $p3_supports_open;
 				chaplin_generate_css( '.color-light-background, .color-light-background-hover:hover, .has-light-background-color', 'color', $p3_light_background );
 				chaplin_generate_css( '.bg-light-background, .bg-light-background-hover:hover, .has-light-background-background-color', 'background-color', $p3_light_background );
 				chaplin_generate_css( '.border-color-light-background, .border-color-light-background-hover:hover', 'border-color', $p3_light_background );
 				chaplin_generate_css( '.fill-children-light-background, .fill-children-light-background *', 'fill', $p3_light_background );
-				echo '}';
+				echo $p3_supports_close;
 			endif;
 
 		/* BLOCK EDITOR STYLES */

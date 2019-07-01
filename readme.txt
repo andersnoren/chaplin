@@ -143,6 +143,8 @@ Version 1.0.3 (2019-07-XX)
 - Improved desktop handling of footer menu not being set
 - Adjusted the logged in as styling
 - Fixed the comment pagination being ever so slightly borked
+- Fixed issue with template cover text color when the main menu is expanded on desktop
+- Added Dynamic Screen Height, to account for browser chrome (on mobile and tablet, mostly)
 
 Version 1.0.2 (2019-07-01)
 -------------------------

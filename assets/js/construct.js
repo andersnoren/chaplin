@@ -942,6 +942,31 @@ chaplin.scrollLock = {
 
 
 /*	-----------------------------------------------------------------------------------------------
+	Dynamic Screen Height
+--------------------------------------------------------------------------------------------------- */
+
+chaplin.dynamicScreenHeight = {
+
+	init: function() {
+
+		var $screenHeight = $( '.screen-height' );
+
+		$screenHeight.css( 'min-height', $win.innerHeight() );
+
+		setTimeout( function() {
+			$screenHeight.css( 'min-height', $win.innerHeight() );
+		}, 500 );
+
+		$win.on( 'resize', function() {
+			$screenHeight.css( 'min-height', $win.innerHeight() );
+		} );
+
+	},
+
+} // chaplin.dynamicScreenHeight
+
+
+/*	-----------------------------------------------------------------------------------------------
 	Load More
 --------------------------------------------------------------------------------------------------- */
 
@@ -1161,6 +1186,8 @@ $doc.ready( function() {
 	chaplin.stickMe.init();						// Stick elements on scroll
 
 	chaplin.scrollLock.init();					// Scroll Lock
+
+	chaplin.dynamicScreenHeight.init();			// Dynamic Screen Height
 
 	chaplin.loadMore.init();					// Load More
 

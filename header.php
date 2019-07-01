@@ -24,7 +24,7 @@
 		$header_inner_classes = '';
 
 		if ( get_theme_mod( 'chaplin_sticky_header' ) ) {
-			$header_inner_classes .= ' stick-me bg-body-background';
+			$header_inner_classes .= ' stick-me';
 		}
 		?>
 
