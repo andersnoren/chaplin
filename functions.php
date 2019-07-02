@@ -27,7 +27,12 @@ if ( ! function_exists( 'chaplin_theme_support' ) ) :
 		add_theme_support( 'post-thumbnails' );
 
 		// Set post thumbnail size
-		set_post_thumbnail_size( 1120, 9999 );
+		$low_res_images = get_theme_mod( 'chaplin_activate_low_resolution_images' );
+		if ( $low_res_images ) {
+			set_post_thumbnail_size( 1120, 9999 );
+		} else {
+			set_post_thumbnail_size( 2240, 9999 );
+		}
 
 		// Add image sizes
 		add_image_size( 'chaplin_preview_image_low_resolution', 540, 9999 );
@@ -526,12 +531,6 @@ endif;
 
 if ( ! function_exists( 'chaplin_get_preview_image_size' ) ) :
 	function chaplin_get_preview_image_size() {
-
-		// If the grid is set to one column, use the post thumbnail size
-		$max_columns = get_theme_mod( 'chaplin_grid_max_columns' ) ? get_theme_mod( 'chaplin_grid_max_columns' ) : 3;
-		if ( $max_columns === 1 ) {
-			return 'post-thumbnail';
-		}
 
 		// Check if low-resolution images are activated in the customizer
 		$low_res_images = get_theme_mod( 'chaplin_activate_low_resolution_images' );
@@ -1233,7 +1232,7 @@ if ( ! function_exists( 'chaplin_generate_css' ) ) :
 		}
 		$return = sprintf( '%s { %s: %s; }', $selector, $style, $prefix . $value . $suffix );
 		if ( $echo ) {
-			echo wp_kses_post( $return );
+			echo $return;
 		}
 		return $return;
 	}
@@ -1327,9 +1326,9 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		$p3_light_background = 	chaplin_format_p3( chaplin_hex_to_p3( $light_background ) );
 		$p3_overlay_text = 		chaplin_format_p3( chaplin_hex_to_p3( $overlay_text ) );
 
-		$body_font = 			get_theme_mod( 'chaplin_body_font', Chaplin_Google_Fonts::$default_body_font );
-		$headings_font = 		get_theme_mod( 'chaplin_headings_font', Chaplin_Google_Fonts::$default_headings_font );
-		$headings_weight =		get_theme_mod( 'chaplin_headings_weight' );
+		$body_font = 			esc_attr( get_theme_mod( 'chaplin_body_font', Chaplin_Google_Fonts::$default_body_font ) );
+		$headings_font = 		esc_attr( get_theme_mod( 'chaplin_headings_font', Chaplin_Google_Fonts::$default_headings_font ) );
+		$headings_weight =		esc_attr( get_theme_mod( 'chaplin_headings_weight' ) );
 
 		$p3_supports_open =		'@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
 		$p3_supports_close =	'}';
@@ -1572,10 +1571,10 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 			// Body font
 			if ( $body_font ) :
-				chaplin_generate_css( '.editor-styles-wrapper > *, .editor-styles-wrapper .editor-post-title__input', 'font-family', $body_font );
+				chaplin_generate_css( '.editor-styles-wrapper > *, .editor-styles-wrapper .editor-post-title__block .editor-post-title__input', 'font-family', $body_font );
 			endif;
 
-			$headings_targets = '.editor-styles-wrapper .wp-block h1, .editor-styles-wrapper .wp-block h2, .editor-styles-wrapper .wp-block h3, .editor-styles-wrapper .wp-block h4, .editor-styles-wrapper .wp-block h5, .editor-styles-wrapper .wp-block h6, .editor-styles-wrapper .editor-post-title__input';
+			$headings_targets = '.editor-styles-wrapper .wp-block h1, .editor-styles-wrapper .wp-block h2, .editor-styles-wrapper .wp-block h3, .editor-styles-wrapper .wp-block h4, .editor-styles-wrapper .wp-block h5, .editor-styles-wrapper .wp-block h6, .editor-styles-wrapper .editor-post-title__block .editor-post-title__input';
 
 			// Headings font
 			if ( $headings_font ) :

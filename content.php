@@ -91,7 +91,9 @@
 			<?php 
 			the_content();
 			wp_link_pages();
-			edit_post_link();
+			if ( get_post_type() !== 'post' ) {
+				edit_post_link();
+			}
 			?>
 
 		</div><!-- .entry-content -->

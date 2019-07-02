@@ -2,11 +2,12 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 1.0.3
-	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. The fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times on your site, support for Jetpack Portfolio and CoBlocks, and much more.
+	Version: 1.0.4
+	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. The fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times on your site, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 	Author: Anders Norén
 	Author URI: https://www.andersnoren.se
+	Theme URI: https://www.andersnoren.se/teman/chaplin-wordpress-theme/
 	License: GNU General Public License version 2.0
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -398,6 +399,7 @@ figcaption,
 	display: block;
 	font-size: 1.5rem;
 	font-weight: 500;
+	line-height: 1.2;
 	margin-top: 1rem;
 }
 
@@ -547,7 +549,7 @@ input[type="submit"] {
 	font-weight: 600;
 	line-height: 1;
 	margin: 0;
-	padding: 1.25em 1.75em;
+	padding: 1.175em 1.75em;
 	text-align: center;
 	text-decoration: none;
 	transition: opacity .15s linear;
@@ -1138,6 +1140,9 @@ ul.social-icons li {
 
 .header-inner.is-sticky {
 	background: #fff;
+}
+
+.overlay-header .header-inner.is-sticky {
 	color: #1A1B1F !important;
 }
 
@@ -2024,6 +2029,10 @@ button.sub-menu-toggle.active svg {
 	line-height: 1.5;
 }
 
+.entry-content p {
+	max-width: 58rem;
+}
+
 .entry-content ul ul,
 .entry-content ol ol,
 .entry-content ul ol,
@@ -2255,7 +2264,7 @@ button.sub-menu-toggle.active svg {
 .wp-block-column > *:first-child { margin-top: 0; }
 .wp-block-column > *:last-child { margin-bottom: 0; }
 
-@media ( max-width: 600px ) {
+@media ( max-width: 700px ) {
 	.wp-block-column:last-child {
 		margin-bottom: 0;
 	}
@@ -2289,13 +2298,19 @@ button.sub-menu-toggle.active svg {
 
 .wp-block-cover-image.has-left-content, 
 .wp-block-cover.has-left-content {
-    justify-content: flex-start
+    justify-content: flex-start;
+}
+
+.wp-block-cover p {
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .wp-block-cover-image.has-left-content .wp-block-cover-image-text,
 .wp-block-cover-image.has-left-content .wp-block-cover-text, .wp-block-cover-image.has-left-content h2,
 .wp-block-cover.has-left-content .wp-block-cover-image-text, .wp-block-cover.has-left-content .wp-block-cover-text,
-.wp-block-cover.has-left-content h2 {
+.wp-block-cover.has-left-content h2,
+.wp-block-cover.has-left-content p {
     margin-left: 0;
     text-align: left;
 }
@@ -2307,7 +2322,8 @@ button.sub-menu-toggle.active svg {
 .wp-block-cover-image.has-right-content .wp-block-cover-image-text,
 .wp-block-cover-image.has-right-content .wp-block-cover-text, .wp-block-cover-image.has-right-content h2,
 .wp-block-cover.has-right-content .wp-block-cover-image-text, .wp-block-cover.has-right-content .wp-block-cover-text,
-.wp-block-cover.has-right-content h2 {
+.wp-block-cover.has-right-content h2,
+.wp-block-cover.has-right-content p {
     margin-right: 0;
     text-align: right;
 }
@@ -2400,6 +2416,7 @@ button.sub-menu-toggle.active svg {
 
 .wp-block-cover-image .wp-block-cover__inner-container, 
 .wp-block-cover .wp-block-cover__inner-container {
+	margin: 0 auto;
 	max-width: 112rem;
     width: calc( 100% - 5rem );
     z-index: 1;
@@ -2459,6 +2476,11 @@ button.sub-menu-toggle.active svg {
     flex-wrap: wrap;
     list-style-type: none;
     padding: 0
+}
+
+.wp-block-gallery.alignwide,
+.wp-block-gallery.alignfull {
+	margin-bottom: 2rem;
 }
 
 .wp-block-gallery .blocks-gallery-image, .wp-block-gallery .blocks-gallery-item {
@@ -2569,8 +2591,15 @@ button.sub-menu-toggle.active svg {
 	padding: 3rem 2rem;
 }
 
-.wp-block-group > *:first-child { margin-top: 0; }
-.wp-block-group > *:last-child { margin-bottom: 0; }
+.wp-block-group > *:first-child,
+.wp-block-group__inner-container > *:first-child { 
+	margin-top: 0; 
+}
+
+.wp-block-group > *:last-child,
+.wp-block-group__inner-container > *:last-child { 
+	margin-bottom: 0; 
+}
 
 /* Block: HTML ------------------------------- */
 /* Block: Image ------------------------------ */
@@ -2922,6 +2951,10 @@ table.is-style-stripes tr:nth-child( odd ) {
 
 .comment-reply-title {
 	margin: 0 0 3rem 0;
+}
+
+.comment-reply-title small {
+	font-size: 1.8rem;
 }
 
 
@@ -3675,6 +3708,13 @@ body.woocommerce .entry-content {
 		padding: 0 1.5rem;
 	}
 
+	/* MEDIA */
+
+	figcaption,
+	.wp-caption-text {
+		margin-top: 1.8rem;
+	}
+
 
 	/* Helper Classes ------------------------- */
 
@@ -3997,9 +4037,24 @@ body.woocommerce .entry-content {
 
 	/* BLOCK: COLUMNS */
 
+	.wp-block-columns.alignwide,
+	.wp-block-columns.alignfull { 
+		margin-bottom: 2rem;
+	}
+
+	.wp-block-columns + .wp-block-columns { 
+		margin-top: 0; 
+	}
+
+	.wp-block-columns.alignwide + .wp-block-columns.alignwide,
+	.wp-block-columns.alignfull + .wp-block-columns.alignfull { 
+		margin-top: -2rem; 
+	}
+
 	.wp-block-column {
         flex-basis: calc( 50% - 2rem );
         flex-grow: 0;
+		font-size: 1.6rem;
 		margin-bottom: 4rem;
     }
 
@@ -4030,6 +4085,11 @@ body.woocommerce .entry-content {
 	}
 
 	/* BLOCK: GALLERY */
+
+	.wp-block-gallery.alignwide,
+	.wp-block-gallery.alignfull {
+		margin-bottom: 5rem;
+	}
 
 	.wp-block-gallery.columns-3 .blocks-gallery-image, .wp-block-gallery.columns-3 .blocks-gallery-item {
         width: calc((100% - 2rem) / 3);
@@ -4324,11 +4384,11 @@ body.woocommerce .entry-content {
 	/* BLOCK: COLUMNS */
 
 	.wp-block-columns {
-        flex-wrap: nowrap
+        flex-wrap: nowrap;
     }
 
     .wp-block-column:not(:first-child) {
-        margin-left: 4rem
+        margin-left: 4rem;
     }
 
 
@@ -4524,11 +4584,34 @@ body.woocommerce .entry-content {
 
 	/* Blocks -------------------------------- */
 
+	/* BLOCK: COLUMNS */
+
+	.wp-block-columns.alignwide,
+	.wp-block-columns.alignfull { 
+		margin-bottom: 6rem;
+	}
+
+	.wp-block-columns.alignwide + .wp-block-columns.alignwide,
+	.wp-block-columns.alignfull + .wp-block-columns.alignfull { 
+		margin-top: -4rem; 
+	}
+
+	.wp-block-column {
+		font-size: 1.8rem;
+	}
+
 	/* BLOCK: COVER */
 
 	.wp-block-cover-image .wp-block-cover__inner-container, 
 	.wp-block-cover .wp-block-cover__inner-container {
 		width: calc( 100% - 10rem );
+	}
+
+	/* BLOCK: GALLERY */
+
+	.wp-block-gallery.alignwide,
+	.wp-block-gallery.alignfull {
+		margin-bottom: 7rem;
 	}
 
 	/* BLOCK: LATEST POSTS */
@@ -4669,18 +4752,42 @@ body.woocommerce .entry-content {
 
 	/* ALIGNMENTS */
 
+	.alignwide,
+	.alignfull {
+		margin-bottom: 10rem;
+		margin-top: 10rem;
+	}
+
 	.alignwide {
 		max-width: 112rem;
 		width: 112rem;
 	}
 
 	.alignfull {
-		margin-bottom: 10rem;
 		margin-left: calc( ( 100vw - 112rem ) / -2 );
-		margin-top: 10rem;
 	}
 	
 	/* Blocks -------------------------------- */
+
+	/* BLOCK: COLUMNS */
+
+	.wp-block-columns.alignwide,
+	.wp-block-columns.alignfull { 
+		margin-bottom: 8rem;
+	}
+
+	.wp-block-columns.alignwide + .wp-block-columns.alignwide,
+	.wp-block-columns.alignfull + .wp-block-columns.alignfull { 
+		margin-top: -6rem; 
+	}
+
+	/* BLOCK: GALLERY */
+
+	.wp-block-gallery.alignwide,
+	.wp-block-gallery.alignfull {
+		margin-bottom: 9rem;
+	}
+
 	/* Comments ------------------------------ */
 	/* Site Pagination ----------------------- */
 	/* Site Footer --------------------------- */
@@ -4690,8 +4797,12 @@ body.woocommerce .entry-content {
 
 @media ( min-width: 1300px ) {
 
-	body {
+
+	/* Entry Content ------------------------- */
+
+	.entry-content {
 		font-size: 1.9rem;
 	}
+
 
 }

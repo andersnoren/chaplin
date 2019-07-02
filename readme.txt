@@ -137,6 +137,22 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.0.4 (2019-07-02)
+-------------------------
+- Better spacing between stacked column blocks
+- Tweaked font-sizes in column blocks
+- Fixed font size classes in the block editor styles
+- Tweaked button sizing
+- Tweaked font sizes on desktop
+- Fixed transition issue with color in `.header-inner`
+- Only show the default `edit_post_link()` on post types other than post, since posts have that as a post meta option
+- Adjusted column sizes
+- Fixed issue with block editor styles
+- Adjusted max-width of paragraphs in blocks
+- Tweaked figcaption margin
+- Extended the `chaplin_activate_low_resolution_images` option to apply to post thumbnails as well
+- Added demo URL to the style.css theme description
+
 Version 1.0.3 (2019-07-01)
 -------------------------
 - Adjusted the default styling of the cover template, so it doesn't default to the body background if no background image is set

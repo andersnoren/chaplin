@@ -139,6 +139,12 @@
 	line-height: 1.4;
 }
 
+.editor-styles-wrapper p.has-small-font-size { font-size: .842em; }
+.editor-styles-wrapper p.has-regular-font-size { font-size: 1em; }
+.editor-styles-wrapper p.has-medium-font-size { font-size: 1.1em; }
+.editor-styles-wrapper p.has-large-font-size { font-size: 1.25em; }
+.editor-styles-wrapper p.has-larger-font-size { font-size: 1.5em; }
+
 
 /* Post Media -------------------------------- */
 
@@ -374,8 +380,8 @@
 .editor-styles-wrapper .wp-block-cover-image .wp-block-cover__inner-container, 
 .editor-styles-wrapper .wp-block-cover .wp-block-cover__inner-container {
 	margin: 0 auto;
-	max-width: 112rem;
-	width: calc( 100% - 5rem );
+	max-width: 1120px;
+	width: calc( 100% - 50px );
 }
 
 .editor-styles-wrapper .wp-block-cover-image .wp-block,
@@ -467,7 +473,7 @@
 	font-size: 16px;
 	font-weight: 600;
 	line-height: 1;
-	padding: 1.25em 1.75em;
+	padding: 1.175em 1.75em;
 }
 
 .editor-styles-wrapper .wp-block-button .wp-block-button__link.mce-content-body {
@@ -530,7 +536,7 @@
 	border-radius: 0;
 	flex-shrink: 0;
 	height: 60px;
-	margin-right: 1.5rem;
+	margin-right: 15px;
 	width: 60px;
 }
 
@@ -642,11 +648,17 @@
 		font-size: 2.5em;
 	}
 
+	/* BLOCK: COLUMNS */
+
+	.wp-block-column {
+		font-size: 16px;
+    }
+
 	/* BLOCK: COVER */
 
 	.editor-styles-wrapper .wp-block-cover-image .wp-block-cover__inner-container, 
 	.editor-styles-wrapper .wp-block-cover .wp-block-cover__inner-container {
-		width: calc( 100% - 8rem );
+		width: calc( 100% - 80px );
 	}
 
 	/* BLOCK: LATEST POSTS */
@@ -662,23 +674,18 @@
 @media ( min-width: 1000px ) {
 
 
+	/* BLOCK: COLUMNS */
+
+	.wp-block-column {
+		font-size: 18px;
+    }
+
 	/* BLOCK: COVER */
 
 	.editor-styles-wrapper .wp-block-cover-image .wp-block-cover__inner-container, 
 	.editor-styles-wrapper .wp-block-cover .wp-block-cover__inner-container {
-		width: calc( 100% - 10rem );
+		width: calc( 100% - 100px );
 	}
 
-
-}
-
-
-@media ( min-width: 1300px ) {
-
-	/* STRUCTURE */
-
-	.editor-styles-wrapper > * {
-		font-size: 19px;
-	}
 
 }
