@@ -137,6 +137,12 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.0.5 (2019-07-03)
+-------------------------
+- Brough the fallback menu (`wp_list_pages()`) closer to the main menu (`wp_nav_menu()`)
+- Fixed width of paragraphs within pullquotes
+- Fixed iframe issue
+
 Version 1.0.4 (2019-07-02)
 -------------------------
 - Better spacing between stacked column blocks

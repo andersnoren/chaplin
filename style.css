@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 1.0.4
+	Version: 1.0.5
 	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. The fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times on your site, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 	Author: Anders Norén
@@ -384,10 +384,14 @@ figure {
 	margin: 0;
 }
 
+iframe {
+	display: block;
+	max-width: 100%;
+}
+
 svg,
 img,
 embed,
-iframe,
 object {
 	display: block;
 	height: auto;
@@ -1583,15 +1587,11 @@ button.sub-menu-toggle.active svg {
 	width: 100%;
 }
 
-.main-menu .children { /* wp_list_pages() output */
-	margin-left: 5%;
-}
-
 .main-menu .sub-menu {
 	display: none;
 }
 
-.main-menu .sub-menu li {
+.main-menu ul li {
 	border-left-width: 1rem;
 }
 
@@ -2791,6 +2791,10 @@ p.has-background {
 	line-height: 1.25;
 }
 
+.entry-content .wp-block-pullquote p {
+	max-width: 100%;
+}
+
 /* STYLE: SOLID */
 
 .wp-block-pullquote.is-style-solid-color {
@@ -2814,6 +2818,10 @@ p.has-background {
 	border-width: 0 .4rem 0 0;
 	padding-left: 0;
 	padding-right: 2rem;
+}
+
+.entry-content .wp-block-quote p {
+	max-width: 100%;
 }
 
 /* STYLE: LARGE */
@@ -3813,6 +3821,7 @@ body.woocommerce .entry-content {
 		width: 100%;
 	}
 
+	.main-menu > li > a,
 	.main-menu > li > .ancestor-wrapper > a {
 		font-size: 2.4rem;
 		padding: 2.5rem 0;
@@ -3822,14 +3831,14 @@ body.woocommerce .entry-content {
 		font-weight: 500;
 	}
 
-	.main-menu .sub-menu li {
+	.main-menu ul li {
 		border-left-width: 0;
 	}
 
-	.main-menu .sub-menu a { padding-left: 2.5rem; }
-	.main-menu .sub-menu ul a { padding-left: 5rem; }
-	.main-menu .sub-menu ul ul a { padding-left: 7.5rem; }
-	.main-menu .sub-menu ul ul ul a { padding-left: 10rem; }
+	.main-menu ul a { padding-left: 2.5rem; }
+	.main-menu ul ul a { padding-left: 5rem; }
+	.main-menu ul ul ul a { padding-left: 7.5rem; }
+	.main-menu ul ul ul ul a { padding-left: 10rem; }
 
 	.main-menu > li > .ancestor-wrapper > button.sub-menu-toggle {
 		padding: 0 3rem;
