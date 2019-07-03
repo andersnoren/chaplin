@@ -107,7 +107,17 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				) );
 			}
 
-			/* Heading Weight ---------------- */
+			/* Separator --------------------- */
+
+			$wp_customize->add_setting( 'chaplin_fonts_separator_1', array(
+				'sanitize_callback' => 'wp_filter_nohtml_kses',
+			) );
+
+			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_fonts_separator_1', array(
+				'section'		=> 'chaplin_fonts_options',
+			) ) );
+
+			/* Headings Weight --------------- */
 
 			$wp_customize->add_setting( 'chaplin_headings_weight', array(
 				'default' 			=> '700',
@@ -132,6 +142,35 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 					'900' 			=> __( 'Black (900)', 'chaplin' ),
 				),
 			) );
+
+			/* Headings Text Case ------------ */
+
+			$wp_customize->add_setting( 'chaplin_headings_letter_case', array(
+				'default' 			=> 'normal',
+				'sanitize_callback' => 'chaplin_sanitize_select',
+			) );
+
+			$wp_customize->add_control( 'chaplin_headings_letter_case', array(
+				'label' 		=> __( 'Headings Case', 'chaplin' ),
+				'section' 		=> 'chaplin_fonts_options',
+				'settings' 		=> 'chaplin_headings_letter_case',
+				'type' 			=> 'select',
+				'choices' 		=> array(
+					'normal' 		=> __( 'Normal', 'chaplin' ),
+					'uppercase' 	=> __( 'Uppercase', 'chaplin' ),
+					'lowercase' 	=> __( 'Lowercase', 'chaplin' ),
+				),
+			) );
+
+			/* Separator --------------------- */
+
+			$wp_customize->add_setting( 'chaplin_fonts_separator_2', array(
+				'sanitize_callback' => 'wp_filter_nohtml_kses',
+			) );
+
+			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_fonts_separator_2', array(
+				'section'		=> 'chaplin_fonts_options',
+			) ) );
 
 			/* Languages --------------------- */
 
@@ -273,10 +312,10 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'title' 		=> __( 'Posts', 'chaplin' ),
 				'priority' 		=> 41,
 				'capability' 	=> 'edit_theme_options',
-				'description' 	=> __( 'Settings for what to display on single posts.', 'chaplin' ),
+				'description' 	=> __( 'Settings for what to display in the blog and on single posts.', 'chaplin' ),
 			) );
 
-			/* Post Meta Setting ------------- */
+			/* Post Meta --------------------- */
 
 			$post_meta_choices = array(
 				'author'		=> __( 'Author', 'chaplin' ),
@@ -341,7 +380,17 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'choices' 		=> $post_meta_choices,
 			) ) );
 
-			/* Disable Related Posts Setting - */
+			/* Separator --------------------- */
+
+			$wp_customize->add_setting( 'chaplin_posts_separator_1', array(
+				'sanitize_callback' => 'wp_filter_nohtml_kses',
+			) );
+
+			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_posts_separator_1', array(
+				'section'		=> 'chaplin_single_post_options',
+			) ) );
+
+			/* Disable Related Posts --------- */
 
 			$wp_customize->add_setting( 'chaplin_disable_related_posts', array(
 				'capability' 		=> 'edit_theme_options',
@@ -508,7 +557,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			) );
 
 
-			/* Sanitation functions ----------------------------- */
+			/* Sanitation Functions ---------- */
 
 			// Sanitize boolean for checkbox
 			function chaplin_sanitize_checkbox( $checked ) {
@@ -595,3 +644,25 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 	add_action( 'customize_controls_init', array( 'Chaplin_Customize', 'chaplin_customize_controls' ) );
 
 endif;
+
+
+/* ---------------------------------------------------------------------------------------------
+   CUSTOM CONTROLS
+   --------------------------------------------------------------------------------------------- */
+
+
+if ( class_exists( 'WP_Customize_Control' ) ) :
+
+	/* Separator Control ------------------------- */
+
+	if ( ! class_exists( 'Chaplin_Separator_Control' ) ) :
+		class Chaplin_Separator_Control extends WP_Customize_Control {
+
+			public function render_content() {
+				echo '<hr/>';
+			}
+
+		}
+	endif;
+
+endif; 

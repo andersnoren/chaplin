@@ -179,6 +179,7 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 				'Lato',
 				'Libre Baskerville',
 				'Libre Franklin',
+				'Literata',
 				'Lora',
 				'Merriweather Sans',
 				'Merriweather',

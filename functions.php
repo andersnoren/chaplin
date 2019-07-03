@@ -1314,6 +1314,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 		/* Get variables --------------------- */
 
+		// Colors
 		$background = 			get_theme_mod( 'background_color' ) ? '#' . get_theme_mod( 'background_color' ) : false;
 		$primary = 				get_theme_mod( 'chaplin_primary_text_color' );
 		$secondary = 			get_theme_mod( 'chaplin_secondary_text_color' );
@@ -1331,14 +1332,17 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		$p3_light_background = 	chaplin_format_p3( chaplin_hex_to_p3( $light_background ) );
 		$p3_overlay_text = 		chaplin_format_p3( chaplin_hex_to_p3( $overlay_text ) );
 
+		// Fonts and font settings
 		$body_font = 			esc_attr( get_theme_mod( 'chaplin_body_font', Chaplin_Google_Fonts::$default_body_font ) );
 		$headings_font = 		esc_attr( get_theme_mod( 'chaplin_headings_font', Chaplin_Google_Fonts::$default_headings_font ) );
 		$headings_weight =		esc_attr( get_theme_mod( 'chaplin_headings_weight' ) );
+		$headings_case =		esc_attr( get_theme_mod( 'chaplin_headings_letter_case' ) );
 
+		// P3 media query opening and closing
 		$p3_supports_open =		'@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
 		$p3_supports_close =	'}';
 
-		// Output CSS for headings if they aren't the defaults
+		// Combine the chosen fonts with the appropriate fallback font stack
 		if ( $body_font ) {
 			$body_font_stack = 	Chaplin_Google_Fonts::get_font_fallbacks( $body_font, 'body' );
 			$body_font = 		$body_font . ', '. $body_font_stack;
@@ -1371,14 +1375,21 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( 'body', 'font-family', $body_font );
 			endif;
 
+			$headings_targets = apply_filters( 'chaplin_headings_targets_front_end', 'h1, h2, h3, h4, h5, h6, .faux-heading' );
+
 			// Headings font
 			if ( $headings_font ) :
-				chaplin_generate_css( 'h1, h2, h3, h4, h5, h6, .faux-heading', 'font-family', $headings_font );
+				chaplin_generate_css( $headings_targets, 'font-family', $headings_font );
 			endif;
 
 			// Headings weight
 			if ( $headings_weight ) {
-				chaplin_generate_css( 'h1, h2, h3, h4, h5, h6, .faux-heading', 'font-weight', $headings_weight );
+				chaplin_generate_css( $headings_targets, 'font-weight', $headings_weight );
+			}
+
+			// Headings case
+			if ( $headings_case !== 'normal' ) {
+				chaplin_generate_css( $headings_targets, 'text-transform', $headings_case );
 			}
 
 			/* Colors ---------------------------- */
@@ -1579,7 +1590,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.editor-styles-wrapper > *, .editor-styles-wrapper .editor-post-title__block .editor-post-title__input', 'font-family', $body_font );
 			endif;
 
-			$headings_targets = '.editor-styles-wrapper .wp-block h1, .editor-styles-wrapper .wp-block h2, .editor-styles-wrapper .wp-block h3, .editor-styles-wrapper .wp-block h4, .editor-styles-wrapper .wp-block h5, .editor-styles-wrapper .wp-block h6, .editor-styles-wrapper .editor-post-title__block .editor-post-title__input';
+			$headings_targets = apply_filters( 'chaplin_headings_targets_block_editor', '.editor-styles-wrapper .wp-block h1, .editor-styles-wrapper .wp-block h2, .editor-styles-wrapper .wp-block h3, .editor-styles-wrapper .wp-block h4, .editor-styles-wrapper .wp-block h5, .editor-styles-wrapper .wp-block h6, .editor-styles-wrapper .editor-post-title__block .editor-post-title__input' );
 
 			// Headings font
 			if ( $headings_font ) :
@@ -1589,6 +1600,11 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Headings weight
 			if ( $headings_weight ) {
 				chaplin_generate_css( $headings_targets, 'font-weight', $headings_weight );
+			}
+
+			// Headings case
+			if ( $headings_case !== 'normal' ) {
+				chaplin_generate_css( $headings_targets, 'text-transform', $headings_case );
 			}
 
 			/* Colors ---------------------------- */
@@ -1684,7 +1700,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( 'body#tinymce.wp-editor', 'font-family', $body_font );
 			endif;
 
-			$headings_targets = 'body#tinymce.wp-editor h1, body#tinymce.wp-editor h2, body#tinymce.wp-editor h3, body#tinymce.wp-editor h4, body#tinymce.wp-editor h5, body#tinymce.wp-editor h6';
+			$headings_targets = apply_filters( 'chaplin_headings_targets_classic_editor', 'body#tinymce.wp-editor h1, body#tinymce.wp-editor h2, body#tinymce.wp-editor h3, body#tinymce.wp-editor h4, body#tinymce.wp-editor h5, body#tinymce.wp-editor h6' );
 
 			// Headings font
 			if ( $headings_font ) :
@@ -1694,6 +1710,11 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Headings weight
 			if ( $headings_weight ) {
 				chaplin_generate_css( $headings_targets, 'font-weight', $headings_weight );
+			}
+
+			// Headings case
+			if ( $headings_case !== 'normal' ) {
+				chaplin_generate_css( $headings_targets, 'text-transform', $headings_case );
 			}
 
 			/* Colors ---------------------------- */

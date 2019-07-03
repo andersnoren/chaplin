@@ -137,6 +137,13 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.0.6 (2019-07-03)
+-------------------------
+- Fixed overflow issue with vw elements in IE/Edge and Firefox on Windows
+- Added Customizer setting for headings case, and a new separator control used to create some space between other controls
+- Made the headings targets in the custom CSS function filterable, in case child themes want to add more
+- Added Literata to the list of suggested fonts in the autocomplete
+
 Version 1.0.5 (2019-07-03)
 -------------------------
 - Brough the fallback menu (`wp_list_pages()`) closer to the main menu (`wp_nav_menu()`)
