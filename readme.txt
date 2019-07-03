@@ -142,6 +142,7 @@ Version 1.0.5 (2019-07-03)
 - Brough the fallback menu (`wp_list_pages()`) closer to the main menu (`wp_nav_menu()`)
 - Fixed width of paragraphs within pullquotes
 - Fixed iframe issue
+- Fixed the attachment image showing up as the custom logo on attachment pages (`wp_get_attachment_image_src()` fallback doing me dirty)
 
 Version 1.0.4 (2019-07-02)
 -------------------------

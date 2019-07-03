@@ -280,6 +280,11 @@ if ( ! function_exists( 'chaplin_get_custom_logo' ) ) :
 
 		// Get the attachment for the specified logo
 		$logo_id = get_theme_mod( $logo_theme_mod );
+		
+		if ( ! $logo_id ) {
+			return;
+		}
+
 		$logo = wp_get_attachment_image_src( $logo_id, 'full' );
 
 		if ( ! $logo ) {
