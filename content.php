@@ -1,6 +1,8 @@
 <article <?php post_class( 'section-inner' ); ?> id="post-<?php the_ID(); ?>">
 
 	<?php 
+
+	$post_type = get_post_type();
 	
 	// On the cover page template, output the cover header
 	if ( is_page_template( 'template-cover.php' ) ) : 
@@ -94,7 +96,7 @@
 				'before'           => '<nav class="post-nav-links bg-light-background"><span class="label">' . __( 'Pages:', 'chaplin' ) . '</span>',
 				'after'            => '</nav>',
 			) );
-			if ( get_post_type() !== 'post' ) {
+			if ( $post_type !== 'post' ) {
 				edit_post_link();
 			}
 			?>
@@ -151,14 +153,17 @@
 			endif;
 
 		endif;
-		
-		?>
 
-		<div class="comments-wrapper">
+		// If it's a post, or it's another post type and comments are open, or there is at least one comment already, output comments
+		if ( $post_type == 'post' || comments_open() || get_comments_number() ) : ?>
 
-			<?php comments_template(); ?>
+			<div class="comments-wrapper">
 
-		</div><!-- .comments-wrapper -->
+				<?php comments_template(); ?>
+
+			</div><!-- .comments-wrapper -->
+
+		<?php endif; ?>
 
 	</div><!-- .post-inner -->
 

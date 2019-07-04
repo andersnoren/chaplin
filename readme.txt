@@ -145,6 +145,11 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.0.8 (2019-07-04)
+-------------------------
+- Fixed the comments-wrapper being output when it shouldn't be
+- Make sure the main menu is always expanded to the current level
+
 Version 1.0.7 (2019-07-04)
 -------------------------
 - Fixed the pagination clipping the load more button

@@ -967,6 +967,35 @@ chaplin.dynamicScreenHeight = {
 
 
 /*	-----------------------------------------------------------------------------------------------
+	Main Menu
+--------------------------------------------------------------------------------------------------- */
+
+chaplin.mainMenu = {
+
+	init: function() {
+
+		// If the current menu item is in a sub level, expand all the levels higher up on load
+		chaplin.mainMenu.expandLevel();
+
+	},
+
+	expandLevel: function() {
+		var $activeMenuItem = $( '.main-menu' ).find( '.current-menu-item' );
+
+		if ( $activeMenuItem.length ) {
+			$activeMenuItem.parents( 'li' ).each( function() {
+				$subMenuToggle = $( this ).find( '.sub-menu-toggle' ).first();
+				if ( $subMenuToggle.length ) {
+					$subMenuToggle.trigger( 'click' );
+				}
+			} )
+		}
+	}
+
+} // chaplin.mainMenu
+
+
+/*	-----------------------------------------------------------------------------------------------
 	Load More
 --------------------------------------------------------------------------------------------------- */
 
@@ -1186,6 +1215,8 @@ $doc.ready( function() {
 	chaplin.stickMe.init();						// Stick elements on scroll
 
 	chaplin.scrollLock.init();					// Scroll Lock
+
+	chaplin.mainMenu.init();					// Main Menu
 
 	chaplin.dynamicScreenHeight.init();			// Dynamic Screen Height
 
