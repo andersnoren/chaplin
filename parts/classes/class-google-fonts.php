@@ -29,7 +29,7 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 			$body_font = get_theme_mod( 'chaplin_body_font', self::$default_body_font );
 
 			// Get the languages set in the customizer
-			$font_languages = get_theme_mod( 'chaplin_font_languages' );
+			$font_languages = get_theme_mod( 'chaplin_font_languages', array( 'latin' ) );
 
 			// Check for web safe fonts, since they don't require enqueues
 			$web_safe_fonts = array( 'web-safe-sans-serif', 'web-safe-serif' );

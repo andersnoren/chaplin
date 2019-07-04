@@ -27,7 +27,7 @@ if ( ! function_exists( 'chaplin_theme_support' ) ) :
 		add_theme_support( 'post-thumbnails' );
 
 		// Set post thumbnail size
-		$low_res_images = get_theme_mod( 'chaplin_activate_low_resolution_images' );
+		$low_res_images = get_theme_mod( 'chaplin_activate_low_resolution_images', false );
 		if ( $low_res_images ) {
 			set_post_thumbnail_size( 1120, 9999 );
 		} else {
@@ -189,7 +189,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		global $post;
 
 		// Determine type of infinite scroll
-		$pagination_type = get_theme_mod( 'chaplin_pagination_type' ) ? get_theme_mod( 'chaplin_pagination_type' ) : 'button';
+		$pagination_type = get_theme_mod( 'chaplin_pagination_type', 'button' );
 		switch ( $pagination_type ) {
 			case 'button' :
 				$classes[] = 'pagination-type-button';
@@ -218,7 +218,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		}
 
 		// Check for disabled menu modal on desktop
-		if ( get_theme_mod( 'chaplin_disable_menu_modal_on_desktop' ) ) {
+		if ( get_theme_mod( 'chaplin_disable_menu_modal_on_desktop', false ) ) {
 			$classes[] = 'disable-menu-modal-on-desktop';
 		}
 
@@ -297,7 +297,7 @@ if ( ! function_exists( 'chaplin_get_custom_logo' ) ) :
 		$logo_height = esc_attr( $logo[2] );
 
 		// If the retina logo setting is active, reduce the width/height by half
-		if ( get_theme_mod( 'chaplin_retina_logo' ) ) {
+		if ( get_theme_mod( 'chaplin_retina_logo', false ) ) {
 			$logo_width = floor( $logo_width / 2 );
 			$logo_height = floor( $logo_height / 2 );
 		}
@@ -491,7 +491,7 @@ endif;
 if ( ! function_exists( 'chaplin_get_fallback_image_url' ) ) :
 	function chaplin_get_fallback_image_url() {
 
-		$disable_fallback_image = get_theme_mod( 'chaplin_disable_fallback_image' );
+		$disable_fallback_image = get_theme_mod( 'chaplin_disable_fallback_image', false );
 
 		if ( $disable_fallback_image ) {
 			return '';
@@ -538,7 +538,7 @@ if ( ! function_exists( 'chaplin_get_preview_image_size' ) ) :
 	function chaplin_get_preview_image_size() {
 
 		// Check if low-resolution images are activated in the customizer
-		$low_res_images = get_theme_mod( 'chaplin_activate_low_resolution_images' );
+		$low_res_images = get_theme_mod( 'chaplin_activate_low_resolution_images', false );
 
 		// If they are, we're using the low resolution image size
 		if ( $low_res_images ) {
@@ -1010,6 +1010,36 @@ if ( ! function_exists( 'chaplin_add_sub_toggles_to_main_menu' ) ) :
 
 	}
 	add_filter( 'nav_menu_item_args', 'chaplin_add_sub_toggles_to_main_menu', 10, 3 );
+endif;
+
+
+/* 	-----------------------------------------------------------------------------------------------
+	FILTER THE EXCERPT LENGTH
+	Modify the length of automated excerpts to better fit the Chaplin previews
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_excerpt_length' ) ) :
+	function chaplin_excerpt_length() {
+
+		return 28;
+
+	}
+	add_filter( 'excerpt_length', 'chaplin_excerpt_length' );
+endif;
+
+
+/* 	-----------------------------------------------------------------------------------------------
+	FILTER THE EXCERPT SUFFIX
+	Replaces the default [...] with a &hellip; (three dots)
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_excerpt_more' ) ) :
+	function chaplin_excerpt_more() {
+
+		return '&hellip;';
+
+	}
+	add_filter( 'excerpt_more', 'chaplin_excerpt_more' );
 endif;
 
 

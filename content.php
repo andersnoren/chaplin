@@ -29,7 +29,7 @@
 		// Note: The text color is applied by chaplin_get_customizer_css(), in functions.php
 
 		// Get the fixed background attachment option
-		if ( get_theme_mod( 'chaplin_cover_template_fixed_background' ) ) {
+		if ( get_theme_mod( 'chaplin_cover_template_fixed_background', true ) ) {
 			$cover_header_classes .= ' bg-attachment-fixed';
 		}
 
@@ -38,8 +38,8 @@
 		$color_overlay_opacity = ( $color_overlay_opacity === false ) ? 80 : $color_overlay_opacity;
 		$color_overlay_classes .= ' opacity-' . $color_overlay_opacity;
 
-		// Get the blend mode of the color overlay
-		$color_overlay_opacity = get_theme_mod( 'chaplin_cover_template_overlay_blend_mode' ) ? get_theme_mod( 'chaplin_cover_template_overlay_blend_mode' ) : 'multiply';
+		// Get the blend mode of the color overlay (default = multiply)
+		$color_overlay_opacity = get_theme_mod( 'chaplin_cover_template_overlay_blend_mode', 'multiply' );
 		$color_overlay_classes .= ' blend-mode-' . $color_overlay_opacity;
 	
 		?>
@@ -90,7 +90,10 @@
 
 			<?php 
 			the_content();
-			wp_link_pages();
+			wp_link_pages( array(
+				'before'           => '<nav class="post-nav-links bg-light-background"><span class="label">' . __( 'Pages:', 'chaplin' ) . '</span>',
+				'after'            => '</nav>',
+			) );
 			if ( get_post_type() !== 'post' ) {
 				edit_post_link();
 			}

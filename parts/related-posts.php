@@ -1,8 +1,8 @@
 <?php
 
-$disable_related_posts = get_theme_mod( 'chaplin_disable_related_posts', false );
+$enable_related_posts = get_theme_mod( 'chaplin_enable_related_posts', true );
 
-if ( is_single() && ! $disable_related_posts ) :
+if ( is_single() && $enable_related_posts ) :
 
 	$related_post_ids = array();
 

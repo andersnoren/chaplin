@@ -210,6 +210,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			// Activate low-resolution images setting
 			$wp_customize->add_setting( 'chaplin_activate_low_resolution_images', array(
 				'capability' 		=> 'edit_theme_options',
+				'default'			=> false,
 				'sanitize_callback' => 'chaplin_sanitize_checkbox'
 			) );
 
@@ -238,6 +239,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			// Disable fallback image setting
 			$wp_customize->add_setting( 'chaplin_disable_fallback_image', array(
 				'capability' 		=> 'edit_theme_options',
+				'default'			=> false,
 				'sanitize_callback' => 'chaplin_sanitize_checkbox'
 			) );
 
@@ -263,6 +265,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$wp_customize->add_setting( 'chaplin_sticky_header', array(
 				'capability' 		=> 'edit_theme_options',
+				'default'			=> false,
 				'sanitize_callback' => 'chaplin_sanitize_checkbox',
 			) );
 
@@ -278,6 +281,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$wp_customize->add_setting( 'chaplin_disable_header_search', array(
 				'capability' 		=> 'edit_theme_options',
+				'default'			=> false,
 				'sanitize_callback' => 'chaplin_sanitize_checkbox',
 			) );
 
@@ -293,6 +297,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$wp_customize->add_setting( 'chaplin_disable_menu_modal_on_desktop', array(
 				'capability' 		=> 'edit_theme_options',
+				'default'			=> false,
 				'sanitize_callback' => 'chaplin_sanitize_checkbox',
 			) );
 
@@ -314,6 +319,46 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'capability' 	=> 'edit_theme_options',
 				'description' 	=> __( 'Settings for what to display in the blog and on single posts.', 'chaplin' ),
 			) );
+
+			/* Enable Related Posts --------- */
+
+			$wp_customize->add_setting( 'chaplin_enable_related_posts', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'			=> true,
+				'sanitize_callback' => 'chaplin_sanitize_checkbox',
+			) );
+
+			$wp_customize->add_control( 'chaplin_enable_related_posts', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_single_post_options',
+				'label' 		=> __( 'Display Related Posts', 'chaplin' ),
+				'description' 	=> __( 'Check to show related posts on single posts.', 'chaplin' ),
+			) );
+
+			/* Enable Excerpts --------------- */
+
+			$wp_customize->add_setting( 'chaplin_display_excerpts', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'			=> false,
+				'sanitize_callback' => 'chaplin_sanitize_checkbox',
+			) );
+
+			$wp_customize->add_control( 'chaplin_display_excerpts', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_single_post_options',
+				'label' 		=> __( 'Display Excerpts', 'chaplin' ),
+				'description' 	=> __( 'Check to display excerpts in post previews.', 'chaplin' ),
+			) );
+
+			/* Separator --------------------- */
+
+			$wp_customize->add_setting( 'chaplin_posts_separator_1', array(
+				'sanitize_callback' => 'wp_filter_nohtml_kses',
+			) );
+
+			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_posts_separator_1', array(
+				'section'		=> 'chaplin_single_post_options',
+			) ) );
 
 			/* Post Meta --------------------- */
 
@@ -379,31 +424,6 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'description'	=> __( 'Select post meta to display on archive pages.', 'chaplin' ),
 				'choices' 		=> $post_meta_choices,
 			) ) );
-
-			/* Separator --------------------- */
-
-			$wp_customize->add_setting( 'chaplin_posts_separator_1', array(
-				'sanitize_callback' => 'wp_filter_nohtml_kses',
-			) );
-
-			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_posts_separator_1', array(
-				'section'		=> 'chaplin_single_post_options',
-			) ) );
-
-			/* Disable Related Posts --------- */
-
-			$wp_customize->add_setting( 'chaplin_disable_related_posts', array(
-				'capability' 		=> 'edit_theme_options',
-				'sanitize_callback' => 'chaplin_sanitize_checkbox',
-			) );
-
-			$wp_customize->add_control( 'chaplin_disable_related_posts', array(
-				'type' 			=> 'checkbox',
-				'section' 		=> 'chaplin_single_post_options',
-				'priority'		=> 10,
-				'label' 		=> __( 'Disable Related Posts', 'chaplin' ),
-				'description' 	=> __( 'Check to hide the related posts section.', 'chaplin' ),
-			) );
 
 			/* ------------------------------------------------------------------------
 			 * Pagination Options
@@ -482,6 +502,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$wp_customize->add_setting( 'chaplin_cover_template_fixed_background', array(
 				'capability' 		=> 'edit_theme_options',
+				'default'			=> true,
 				'sanitize_callback' => 'chaplin_sanitize_checkbox',
 			) );
 

@@ -23,7 +23,7 @@
 		// Add conditional sticky class to .header-inner
 		$header_inner_classes = '';
 
-		if ( get_theme_mod( 'chaplin_sticky_header' ) ) {
+		if ( get_theme_mod( 'chaplin_sticky_header', false ) ) {
 			$header_inner_classes .= ' stick-me';
 		}
 		?>
@@ -90,7 +90,7 @@
 						<?php 
 						
 						// Check whether the header search is deactivated in the customizer
-						$disable_header_search = get_theme_mod( 'chaplin_disable_header_search' ) ? get_theme_mod( 'chaplin_disable_header_search' ) : false; 
+						$disable_header_search = get_theme_mod( 'chaplin_disable_header_search', false ); 
 						
 						if ( ! $disable_header_search ) : ?>
 						

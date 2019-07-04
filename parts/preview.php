@@ -21,17 +21,31 @@
 			
 		</figure><!-- .preview-media -->
 
-		<?php 
-	endif;
-	?>
+	<?php endif; ?>
 
 	<header class="preview-header">
 
 		<?php 
 		the_title( '<h3 class="preview-title"><a href="' . get_the_permalink() . '">', '</a></h3>' ); 
+
+		if ( get_theme_mod( 'chaplin_display_excerpts', false ) ) :
+
+			$excerpt = get_the_excerpt();
+
+			if ( $excerpt ) : 
+				?>
+
+				<div class="preview-excerpt">
+					<?php echo apply_filters( 'the_excerpt', $excerpt ); ?>
+				</div><!-- .preview-excerpt -->
+
+				<?php 
+			endif;
+		endif;
+
 		chaplin_the_post_meta( $post->ID, 'archive' );
 		?>
 
 	</header><!-- .preview-header -->
 
-</article>
+</article><!-- .preview -->

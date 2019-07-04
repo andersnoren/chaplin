@@ -137,6 +137,17 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.0.7 (2019-07-04)
+-------------------------
+- Fixed the pagination clipping the load more button
+- Added filters for excerpt length (30) and excerpt suffix (&hellip;)
+- Added an option for displaying the excerpt in previews
+- Reordered the "Posts" tab in the Customizer to make the non-post meta options easier to find
+- Adjusted the spacing between grid items on mobile
+- Cleaned up default values in get_theme_mod() calls
+- Cleaned up default values in parts/classes/class-theme-customizer.php
+- Changed related posts option from "disable" to "enable", with default checked, to make the settings more consistent
+
 Version 1.0.6 (2019-07-03)
 -------------------------
 - Fixed overflow issue with vw elements in IE/Edge and Firefox on Windows
@@ -146,7 +157,7 @@ Version 1.0.6 (2019-07-03)
 
 Version 1.0.5 (2019-07-03)
 -------------------------
-- Brough the fallback menu (`wp_list_pages()`) closer to the main menu (`wp_nav_menu()`)
+- Brought the fallback menu (`wp_list_pages()`) closer to the main menu (`wp_nav_menu()`)
 - Fixed width of paragraphs within pullquotes
 - Fixed iframe issue
 - Fixed the attachment image showing up as the custom logo on attachment pages (`wp_get_attachment_image_src()` fallback doing me dirty)
