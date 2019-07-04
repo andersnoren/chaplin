@@ -331,7 +331,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			$wp_customize->add_control( 'chaplin_enable_related_posts', array(
 				'type' 			=> 'checkbox',
 				'section' 		=> 'chaplin_single_post_options',
-				'label' 		=> __( 'Display Related Posts', 'chaplin' ),
+				'label' 		=> __( 'Show Related Posts', 'chaplin' ),
 				'description' 	=> __( 'Check to show related posts on single posts.', 'chaplin' ),
 			) );
 
@@ -346,7 +346,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			$wp_customize->add_control( 'chaplin_display_excerpts', array(
 				'type' 			=> 'checkbox',
 				'section' 		=> 'chaplin_single_post_options',
-				'label' 		=> __( 'Display Excerpts', 'chaplin' ),
+				'label' 		=> __( 'Show Excerpts', 'chaplin' ),
 				'description' 	=> __( 'Check to display excerpts in post previews.', 'chaplin' ),
 			) );
 

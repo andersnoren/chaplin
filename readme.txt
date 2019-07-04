@@ -92,6 +92,22 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 5. Select the type you want to use, and click the blue "Publish" button to save your changes.
 
 
+== Hide Related Posts ==
+
+1. Log in to the administration panel of your site.
+2. Go to Appearance → Customize.
+3. Click the "Posts" panel.
+4. Uncheck the "Show Related Posts" checkbox, and click the blue "Publish" button to save your changes.
+
+
+== Show Excerpts In Previews ==
+
+1. Log in to the administration panel of your site.
+2. Go to Appearance → Customize.
+3. Click the "Posts" panel.
+4. Check the "Show Excerpts" checkbox, and click the blue "Publish" button to save your changes.
+
+
 == Select Which Post Meta to Display ==
 
 1. Log in to the administration panel of your site.
@@ -102,14 +118,6 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 	b. "Bottom Post Meta": Displayed below the content, and above the comments, when viewing a single post.
 	c. "Archive Post Meta": Displayed below the title of post previews on archive pages.
 5. Select the post meta you want to display in each locations, and click the blue "Publish" button to save your changes.
-
-
-== Disable Related Posts ==
-
-1. Log in to the administration panel of your site.
-2. Go to Appearance → Customize.
-3. Click the "Posts" panel.
-4. Scroll to the bottom of the panel, check the "Disable Related Posts" checkbox, and click the blue "Publish" button to save your changes.
 
 
 == Licenses ==
@@ -147,6 +155,7 @@ Version 1.0.7 (2019-07-04)
 - Cleaned up default values in get_theme_mod() calls
 - Cleaned up default values in parts/classes/class-theme-customizer.php
 - Changed related posts option from "disable" to "enable", with default checked, to make the settings more consistent
+- Updated documentation in readme.txt
 - Adjusted markup of and added styling to post nav links
 
 Version 1.0.6 (2019-07-03)
