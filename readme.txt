@@ -147,6 +147,7 @@ Version 1.0.7 (2019-07-04)
 - Cleaned up default values in get_theme_mod() calls
 - Cleaned up default values in parts/classes/class-theme-customizer.php
 - Changed related posts option from "disable" to "enable", with default checked, to make the settings more consistent
+- Adjusted markup of and added styling to post nav links
 
 Version 1.0.6 (2019-07-03)
 -------------------------
