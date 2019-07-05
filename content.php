@@ -154,7 +154,7 @@
 
 		endif;
 
-		// If it's a post, or it's another post type and comments are open, or there is at least one comment already, output comments
+		// Output comments wrapper if it's a post, or if comments are open, or if there's a comment number
 		if ( $post_type == 'post' || comments_open() || get_comments_number() ) : ?>
 
 			<div class="comments-wrapper">

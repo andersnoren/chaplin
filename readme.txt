@@ -145,6 +145,17 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.0.9 (2019-07-05)
+-------------------------
+- Fixed low select line-height clipping some characters
+- Added color setting for headings
+- Added letterspacing setting for headings
+- Added text-align helper classes
+- Better handling of paragraphs in cover elements
+- Better handling of links on top of cover elements
+- Block Editor styles: Fixed headings font-family when not heading font is explicitly set
+- Post Meta: Only output categories if there are categories to output (prevents incorrect output on CPTs)
+
 Version 1.0.8 (2019-07-04)
 -------------------------
 - Fixed the comments-wrapper being output when it shouldn't be

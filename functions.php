@@ -816,7 +816,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 					endif;
 
 					// Categories
-					if ( in_array( 'categories', $post_meta ) ) : 
+					if ( in_array( 'categories', $post_meta ) && has_category() ) : 
 						$has_meta = true;
 						?>
 						<li class="post-categories meta-wrapper">
@@ -880,7 +880,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 					endif;
 
 					// Comments link
-					if ( in_array( 'comments', $post_meta ) && comments_open() ) : 
+					if ( in_array( 'comments', $post_meta ) && comments_open() || get_comments_number() ) : 
 						$has_meta = true; 
 						?>
 						<li class="post-comment-link meta-wrapper">
@@ -1347,6 +1347,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		// Colors
 		$background = 			get_theme_mod( 'background_color' ) ? '#' . get_theme_mod( 'background_color' ) : false;
 		$primary = 				get_theme_mod( 'chaplin_primary_text_color' );
+		$headings = 			get_theme_mod( 'chaplin_headings_text_color' );
 		$secondary = 			get_theme_mod( 'chaplin_secondary_text_color' );
 		$accent = 				get_theme_mod( 'chaplin_accent_color' );
 		$border = 				get_theme_mod( 'chaplin_border_color' );
@@ -1356,6 +1357,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		// P3 colors
 		$p3_background = 		chaplin_format_p3( chaplin_hex_to_p3( $background ) );
 		$p3_primary = 			chaplin_format_p3( chaplin_hex_to_p3( $primary ) );
+		$p3_headings = 			chaplin_format_p3( chaplin_hex_to_p3( $headings ) );
 		$p3_secondary = 		chaplin_format_p3( chaplin_hex_to_p3( $secondary ) );
 		$p3_accent = 			chaplin_format_p3( chaplin_hex_to_p3( $accent ) );
 		$p3_border = 			chaplin_format_p3( chaplin_hex_to_p3( $border ) );
@@ -1367,6 +1369,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		$headings_font = 		esc_attr( get_theme_mod( 'chaplin_headings_font', Chaplin_Google_Fonts::$default_headings_font ) );
 		$headings_weight =		esc_attr( get_theme_mod( 'chaplin_headings_weight' ) );
 		$headings_case =		esc_attr( get_theme_mod( 'chaplin_headings_letter_case' ) );
+		$headings_spacing =		get_theme_mod( 'chaplin_headings_letterspacing' ) ? str_replace( '_', '.', esc_attr( get_theme_mod( 'chaplin_headings_letterspacing' ) ) ) : ''; // Replace underscores with dots
 
 		// P3 media query opening and closing
 		$p3_supports_open =		'@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
@@ -1422,6 +1425,11 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( $headings_targets, 'text-transform', $headings_case );
 			}
 
+			// Headings letterspacking
+			if ( $headings_spacing !== 'normal' ) {
+				chaplin_generate_css( $headings_targets, 'letter-spacing', $headings_spacing . 'em' );
+			}
+
 			/* Colors ---------------------------- */
 
 			/* ELEMENT SPECIFIC */
@@ -1452,6 +1460,16 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( 'select', 'background-image', 'url( \'data:image/svg+xml;utf8,' . chaplin_get_theme_svg( 'chevron-down', $p3_primary ) . '\');' );
 				chaplin_generate_css( '.main-menu-alt ul li', 'color', $p3_primary );
 				chaplin_generate_css( 'body', 'color', $p3_primary );
+				echo $p3_supports_close;
+			endif;
+
+			// Headings color (only if different than primary)
+			if ( $headings && $headings !== $primary ) : 
+				chaplin_generate_css( $headings_targets, 'color', $headings );
+
+				// P3 Colors
+				echo $p3_supports_open;
+				chaplin_generate_css( $headings_targets, 'color', $headings_p3 );
 				echo $p3_supports_close;
 			endif;
 
@@ -1637,6 +1655,11 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( $headings_targets, 'text-transform', $headings_case );
 			}
 
+			// Headings letterspacking
+			if ( $headings_spacing !== 'normal' ) {
+				chaplin_generate_css( $headings_targets, 'letter-spacing', $headings_spacing . 'em' );
+			}
+
 			/* Colors ---------------------------- */
 
 			/* ELEMENT SPECIFIC */
@@ -1652,6 +1675,11 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.editor-styles-wrapper > *', 'color', $primary );
 				chaplin_generate_css( '.editor-styles-wrapper .editor-post-title__input', 'color', $primary );
 				chaplin_generate_css( '.editor-styles-wrapper .is-style-outline .wp-block-button__link', 'color', $primary );
+			endif;
+
+			// Headings color (only if different than primary)
+			if ( $headings && $headings !== $primary ) : 
+				chaplin_generate_css( $headings_targets, 'color', $headings );
 			endif;
 
 			// Secondary color
@@ -1747,6 +1775,11 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( $headings_targets, 'text-transform', $headings_case );
 			}
 
+			// Headings letterspacking
+			if ( $headings_spacing !== 'normal' ) {
+				chaplin_generate_css( $headings_targets, 'letter-spacing', $headings_spacing . 'em' );
+			}
+
 			/* Colors ---------------------------- */
 
 			/* ELEMENT SPECIFIC */
@@ -1760,6 +1793,11 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Primary color
 			if ( $primary ) : 
 				chaplin_generate_css( 'body#tinymce.wp-editor', 'color', $primary );
+			endif;
+
+			// Headings color (only if different than primary)
+			if ( $headings && $headings !== $primary ) : 
+				chaplin_generate_css( $headings_targets, 'color', $headings );
 			endif;
 
 			// Accent color

@@ -84,6 +84,7 @@
 .editor-styles-wrapper .wp-block h5, 
 .editor-styles-wrapper .wp-block h6, 
 .editor-post-title__block .editor-post-title__input {
+	font-family: inherit;
 	font-feature-settings: "lnum";
 	font-variant-numeric: lining-nums;
 	font-weight: 700;

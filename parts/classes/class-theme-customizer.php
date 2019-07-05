@@ -162,6 +162,43 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				),
 			) );
 
+			/* Headings Letter Spacing ------- */
+
+			$wp_customize->add_setting( 'chaplin_headings_letterspacing', array(
+				'default' 			=> 'normal',
+				'sanitize_callback' => 'chaplin_sanitize_select',
+			) );
+
+			$wp_customize->add_control( 'chaplin_headings_letterspacing', array(
+				'label' 		=> __( 'Headings Letterspacing', 'chaplin' ),
+				'section' 		=> 'chaplin_fonts_options',
+				'settings' 		=> 'chaplin_headings_letterspacing',
+				'type' 			=> 'select',
+				'choices' 		=> array(
+					'-0_3125' 		=> __( '-50%', 'chaplin' ),
+					'-0_28125' 		=> __( '-45%', 'chaplin' ),
+					'-0_25' 		=> __( '-40%', 'chaplin' ),
+					'-0_21875' 		=> __( '-35%', 'chaplin' ),
+					'-0_1875' 		=> __( '-30%', 'chaplin' ),
+					'-0_15625' 		=> __( '-25%', 'chaplin' ),
+					'-0_125' 		=> __( '-20%', 'chaplin' ),
+					'-0_09375' 		=> __( '-15%', 'chaplin' ),
+					'-0_0625' 		=> __( '-10%', 'chaplin' ),
+					'-0_03125' 		=> __( '-5%', 'chaplin' ),
+					'normal' 		=> __( 'Normal', 'chaplin' ),
+					'0_03125' 		=> __( '5%', 'chaplin' ),
+					'0_0625' 		=> __( '10%', 'chaplin' ),
+					'0_09375' 		=> __( '15%', 'chaplin' ),
+					'0_125' 		=> __( '20%', 'chaplin' ),
+					'0_15625' 		=> __( '25%', 'chaplin' ),
+					'0_1875' 		=> __( '30%', 'chaplin' ),
+					'0_21875' 		=> __( '35%', 'chaplin' ),
+					'0_25' 			=> __( '40%', 'chaplin' ),
+					'0_28125' 		=> __( '45%', 'chaplin' ),
+					'0_3125' 		=> __( '50%', 'chaplin' ),
+				),
+			) );
+
 			/* Separator --------------------- */
 
 			$wp_customize->add_setting( 'chaplin_fonts_separator_2', array(
@@ -632,6 +669,11 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 					'default'	=> '#1A1B1F',
 					'label'		=> __( 'Primary Text Color', 'chaplin' ),
 					'slug'		=> 'primary',
+				),
+				'chaplin_headings_text_color' => array(
+					'default'	=> '#1A1B1F',
+					'label'		=> __( 'Headings Text Color', 'chaplin' ),
+					'slug'		=> 'headings',
 				),
 				'chaplin_secondary_text_color' => array(
 					'default'	=> '#747579',
