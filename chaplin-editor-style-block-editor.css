@@ -55,6 +55,8 @@
 
 /* Colors ------------------------------------ */
 
+/* CUSTOM COLORS */
+
 .has-accent-color { color: #1A1B1F; }
 .has-primary-color { color: #747579; }
 .has-secondary-color { color: #007C89; }
@@ -68,6 +70,14 @@
 .has-border-background-color { background-color: #E1E1E3; }
 .has-light-background-background-color { background-color: #F1F1F3; }
 .has-background-background-color { background-color: #FFF; }
+
+/* GENERAL COLORS */
+
+.has-black-background-color { background-color: #000; }
+.has-white-background-color { background-color: #fff; }
+
+.has-black-color { color: #000; }
+.has-white-color { color: #fff; }
 
 
 /* Typography -------------------------------- */
@@ -312,7 +322,7 @@
 
 .editor-styles-wrapper .wp-block-separator:not(.is-style-wide):not(.is-style-dots) {
 	margin-left: 0;
-	width: 50%;
+	width: 100%;
 }
 
 .editor-styles-wrapper .wp-block-separator:not(.is-style-wide):not(.is-style-dots),
@@ -376,7 +386,7 @@
 } 
 
 
-/* Block: Cover Image ------------------------ */
+/* Block: Cover ------------------------------ */
 
 .editor-styles-wrapper .wp-block-cover-image .wp-block-cover__inner-container, 
 .editor-styles-wrapper .wp-block-cover .wp-block-cover__inner-container {
@@ -403,6 +413,10 @@
 
 .editor-styles-wrapper .wp-block-cover p {
 	font-weight: 500;
+}
+
+.editor-styles-wrapper .wp-block-cover a {
+	color: inherit;
 }
 
 

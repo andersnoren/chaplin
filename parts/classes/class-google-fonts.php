@@ -168,6 +168,7 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 				'Arial',
 				'Cabin',
 				'Catamaran',
+				'DM Sans',
 				'EB Garamond',
 				'Exo 2',
 				'Fira Sans',

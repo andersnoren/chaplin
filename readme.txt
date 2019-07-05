@@ -145,6 +145,18 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.0.10 (2019-07-05)
+-------------------------
+- Added Block: Embed margin
+- Added Block Editor color classes for white and black
+- Fixed some Block Editor color helper classes being overwritten by element specific targeting in the CSS inline style output
+- Added a minifying function for the inline CSS, to reduce the size of the output
+- Updated the Custom CSS function to only output the settings that differ from the defaults, reducing size of the inline styles
+- Fixed an error in the default custom color/background color classes, resulting in secondary-background-color getting the accent color
+- Better handling of long social menus in the menu modal
+- Added DM Sans to the list of suggested fonts
+- Tweaks to Block Editor styles
+
 Version 1.0.9 (2019-07-05)
 -------------------------
 - Fixed low select line-height clipping some characters

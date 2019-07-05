@@ -522,7 +522,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			/* Overlay Text Color ------------ */
 
 			$wp_customize->add_setting( 'chaplin_cover_template_overlay_text_color', array(
-				'default' 			=> '#fff',
+				'default' 			=> '#FFFFFF',
 				'type' 				=> 'theme_mod',
 				'sanitize_callback' => 'sanitize_hex_color',
 			) );

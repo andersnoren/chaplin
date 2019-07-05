@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 1.0.9
+	Version: 1.0.10
 	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. The fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times on your site, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 	Author: Anders Norén
@@ -2165,42 +2165,50 @@ button.sub-menu-toggle.active svg {
 
 /* DEFAULT COLORS */
 
-.has-pale-pink-background-color.has-pale-pink-background-color { background-color: #f78da7; }
-.has-vivid-red-background-color.has-vivid-red-background-color { background-color: #cf2e2e; }
-.has-luminous-vivid-orange-background-color.has-luminous-vivid-orange-background-color { background-color: #ff6900; }
-.has-luminous-vivid-amber-background-color.has-luminous-vivid-amber-background-color { background-color: #fcb900; }
-.has-light-green-cyan-background-color.has-light-green-cyan-background-color { background-color: #7bdcb5; }
-.has-vivid-green-cyan-background-color.has-vivid-green-cyan-background-color { background-color: #00d084; }
-.has-pale-cyan-blue-background-color.has-pale-cyan-blue-background-color { background-color: #8ed1fc; }
-.has-vivid-cyan-blue-background-color.has-vivid-cyan-blue-background-color { background-color: #0693e3; }
-.has-very-light-gray-background-color.has-very-light-gray-background-color { background-color: #eee; }
-.has-cyan-bluish-gray-background-color.has-cyan-bluish-gray-background-color { background-color: #abb8c3; }
-.has-very-dark-gray-background-color.has-very-dark-gray-background-color { background-color: #313131; }
+.has-pale-pink-background-color { background-color: #f78da7; }
+.has-vivid-red-background-color { background-color: #cf2e2e; }
+.has-luminous-vivid-orange-background-color { background-color: #ff6900; }
+.has-luminous-vivid-amber-background-color { background-color: #fcb900; }
+.has-light-green-cyan-background-color { background-color: #7bdcb5; }
+.has-vivid-green-cyan-background-color { background-color: #00d084; }
+.has-pale-cyan-blue-background-color { background-color: #8ed1fc; }
+.has-vivid-cyan-blue-background-color { background-color: #0693e3; }
+.has-very-light-gray-background-color { background-color: #eee; }
+.has-cyan-bluish-gray-background-color { background-color: #abb8c3; }
+.has-very-dark-gray-background-color { background-color: #313131; }
+.has-black-background-color { background-color: #000; }
+.has-white-background-color { background-color: #fff; }
 
-.has-pale-pink-color.has-pale-pink-color { color: #f78da7; }
-.has-vivid-red-color.has-vivid-red-color { color: #cf2e2e; }
-.has-luminous-vivid-orange-color.has-luminous-vivid-orange-color { color: #ff6900; }
-.has-luminous-vivid-amber-color.has-luminous-vivid-amber-color { color: #fcb900; }
-.has-light-green-cyan-color.has-light-green-cyan-color { color: #7bdcb5; }
-.has-vivid-green-cyan-color.has-vivid-green-cyan-color { color: #00d084; }
-.has-pale-cyan-blue-color.has-pale-cyan-blue-color { color: #8ed1fc; }
-.has-vivid-cyan-blue-color.has-vivid-cyan-blue-color { color: #0693e3; }
-.has-very-light-gray-color.has-very-light-gray-color { color: #eee; }
-.has-cyan-bluish-gray-color.has-cyan-bluish-gray-color { color: #abb8c3; }
-.has-very-dark-gray-color.has-very-dark-gray-color { color: #313131; }
+.has-pale-pink-color { color: #f78da7; }
+.has-vivid-red-color { color: #cf2e2e; }
+.has-luminous-vivid-orange-color { color: #ff6900; }
+.has-luminous-vivid-amber-color { color: #fcb900; }
+.has-light-green-cyan-color { color: #7bdcb5; }
+.has-vivid-green-cyan-color { color: #00d084; }
+.has-pale-cyan-blue-color { color: #8ed1fc; }
+.has-vivid-cyan-blue-color { color: #0693e3; }
+.has-very-light-gray-color { color: #eee; }
+.has-cyan-bluish-gray-color { color: #abb8c3; }
+.has-very-dark-gray-color { color: #313131; }
+.has-black-color { color: #000; }
+.has-white-color { color: #fff; }
+
+.has-text-color a {
+	color: inherit;
+}
 
 /* CUSTOM COLORS */
 
-.has-accent-color { color: #1A1B1F; }
-.has-primary-color { color: #747579; }
-.has-secondary-color { color: #007C89; }
+.has-accent-color { color: #007C89; }
+.has-primary-color { color: #1A1B1F; }
+.has-secondary-color { color: #747579; }
 .has-border-color { color: #E1E1E3; }
 .has-light-background-color { color: #F1F1F3; }
 .has-background-color { color: #FFF; }
 
-.has-accent-background-color { background-color: #1A1B1F; }
-.has-primary-background-color { background-color: #747579; }
-.has-secondary-background-color { background-color: #007C89; }
+.has-accent-background-color { background-color: #007C89; }
+.has-primary-background-color { background-color: #1A1B1F; }
+.has-secondary-background-color { background-color: #747579; }
 .has-border-background-color { background-color: #E1E1E3; }
 .has-light-background-background-color { background-color: #F1F1F3; }
 .has-background-background-color { background-color: #FFF; }
@@ -2340,6 +2348,8 @@ button.sub-menu-toggle.active svg {
     display: flex;
 	height: 80vh;
     justify-content: center;
+	margin-bottom: 3rem;
+	margin-top: 3rem;
     min-height: 43rem;
     overflow: hidden;
     position: relative;
@@ -2495,24 +2505,18 @@ button.sub-menu-toggle.active svg {
     z-index: 0;
 }
 
-.wp-block-cover p a,
-.wp-block-cover-image p a,
-.wp-block-cover h1 a,
-.wp-block-cover-image h1 a,
-.wp-block-cover h2 a,
-.wp-block-cover-image h2 a,
-.wp-block-cover h3 a,
-.wp-block-cover-image h3 a,
-.wp-block-cover h4 a,
-.wp-block-cover-image h4 a,
-.wp-block-cover h5 a,
-.wp-block-cover-image h5 a,
-.wp-block-cover h6 a,
-.wp-block-cover-image h6 a {
+.wp-block-cover a,
+.wp-block-cover-image a {
 	color: inherit;
 }
 
 /* Block: Embed ------------------------------ */
+
+.wp-block-embed {
+	margin-bottom: 3rem;
+	margin-top: 3rem;
+}
+
 /* Block: File ------------------------------- */
 
 .wp-block-file {
@@ -2907,7 +2911,6 @@ p.has-background {
 .wp-block-quote.is-style-large {
 	border: none;
 	font-size: 1.75em;
-	font-style: italic;
 	font-weight: 700;
 	padding: 0;
 }
@@ -3924,6 +3927,7 @@ body.woocommerce .entry-content {
 	}
 
 	.menu-bottom {
+		align-items: center;
 		display: flex;
 		justify-content: space-between;
 		padding: 4.4rem 0;
@@ -3931,6 +3935,12 @@ body.woocommerce .entry-content {
 
 	.menu-copyright {
 		display: block;
+		flex-shrink: 0;
+		margin-right: 4rem;
+	}
+
+	.menu-bottom .social-menu {
+		justify-content: flex-end;
 	}
 
 	/* Modal Search Form ------------------------- */
@@ -4146,6 +4156,12 @@ body.woocommerce .entry-content {
     }
 
 	/* BLOCK: COVER */
+
+	.wp-block-cover, 
+	.wp-block-cover-image {
+		margin-bottom: 6rem;
+		margin-top: 6rem;
+	}
 
 	.wp-block-cover-image .wp-block-cover__inner-container, 
 	.wp-block-cover .wp-block-cover__inner-container {
