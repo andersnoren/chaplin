@@ -2,7 +2,7 @@
 
 // Set the type of pagination to use
 // Available types: button/links/scroll
-$pagination_type = 'button';
+$pagination_type = get_theme_mod( 'chaplin_pagination_type', 'button' );
 
 // Get the global $wp_query
 global $wp_query;
@@ -77,11 +77,11 @@ if ( ( $query_args['max_num_pages'] > $query_args['paged'] ) ) : ?>
 				<nav class="link-pagination<?php echo esc_attr( $pagination_class ); ?>">
 
 					<?php if ( get_previous_posts_link() ) : ?>
-						<?php previous_posts_link( __( 'Previous page', 'chaplin' ) ); ?>
+						<?php previous_posts_link( '← ' . __( 'Previous page', 'chaplin' ) ); ?>
 					<?php endif; ?>
 
 					<?php if ( get_next_posts_link() ) : ?>
-						<?php next_posts_link( __( 'Next page', 'chaplin' ) ); ?>
+						<?php next_posts_link( __( 'Next page', 'chaplin' ) . ' →' ); ?>
 					<?php endif; ?>
 
 				</nav><!-- .posts-pagination -->

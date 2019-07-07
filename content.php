@@ -13,6 +13,8 @@
 		$color_overlay_style = '';
 		$color_overlay_classes = '';
 
+		$section_inner_classes = '';
+
 		$image_url = get_the_post_thumbnail_url( $post->ID, 'chaplin_fullscreen' );
 
 		if ( $image_url ) {
@@ -43,6 +45,10 @@
 		// Get the blend mode of the color overlay (default = multiply)
 		$color_overlay_opacity = get_theme_mod( 'chaplin_cover_template_overlay_blend_mode', 'multiply' );
 		$color_overlay_classes .= ' blend-mode-' . $color_overlay_opacity;
+
+		// Check whether we're fading the text
+		$overlay_fade_text = get_theme_mod( 'chaplin_cover_template_fade_text', true );
+		$section_inner_classes = $overlay_fade_text ? ' fade-block' : '';
 	
 		?>
 
@@ -50,7 +56,7 @@
 			<div class="cover-header-inner-wrapper">
 				<div class="cover-header-inner">
 					<div class="cover-color-overlay color-accent<?php echo esc_attr( $color_overlay_classes ); ?>"<?php echo $color_overlay_style; ?>></div>
-					<div class="section-inner fade-block">
+					<div class="section-inner<?php echo esc_attr( $section_inner_classes ); ?>">
 						<?php get_template_part( 'parts/page-header' ); ?>
 					</div><!-- .section-inner -->
 				</div><!-- .cover-header-inner -->

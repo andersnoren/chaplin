@@ -145,6 +145,22 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.0.12 (2019-07-07)
+-------------------------
+- Fixed wp-block-gallery targeting to prevent issues with alignwide/alignfull
+- Removed default margin for <figure/> – too difficult to ensure it doesn't unintentionally overwrite other styles
+- Increased base figure caption top margin
+
+Version 1.0.11 (2019-07-05)
+-------------------------
+- Fixed wp-block-gallery without alignment class having a lefthand margin from `<ul/>` styling
+- Fixed select element missing a default chevron when the primary color setting isn't output
+- Added a default vertical margin to entry content `<figure/>` without alignment classes
+- Updated Block Editor styles for alignwide/-full
+- Added a Cover Template Customizer option for fading the text on scroll (default = true)
+- Reordered the Cover Template Customizer options, and added a separator
+- Fixed pagination issue with the "Previous and next page links" option
+
 Version 1.0.10 (2019-07-05)
 -------------------------
 - Added Block: Embed margin

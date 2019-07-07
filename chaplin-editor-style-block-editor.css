@@ -689,6 +689,14 @@
 @media ( min-width: 1000px ) {
 
 
+	/* STRUCTURE */
+
+	.editor-block-list__block[data-align="wide"],
+	.editor-block-list__block[data-align="full"] {
+		margin-bottom: 80px;
+		margin-top: 80px;
+	}
+
 	/* BLOCK: COLUMNS */
 
 	.wp-block-column {

@@ -206,6 +206,11 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		if ( is_page_template( 'template-cover.php' ) ) {
 			$classes[] = 'overlay-header';
 
+			// Check if we're fading
+			if ( get_theme_mod( 'chaplin_cover_template_fade_text', true ) ) {
+				$classes[] = 'overlay-header-fade-text';
+			}
+
 			// Check if it has a custom text color
 			if ( get_theme_mod( 'chaplin_cover_template_overlay_text_color' ) ) {
 				$classes[] = 'overlay-header-has-text-color';

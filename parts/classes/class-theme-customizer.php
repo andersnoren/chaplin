@@ -498,10 +498,49 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$wp_customize->add_section( 'chaplin_cover_template_options', array(
 				'title' 		=> __( 'Cover Template', 'chaplin' ),
-				'priority' 		=> 45,
 				'capability' 	=> 'edit_theme_options',
 				'description' 	=> __( 'Settings for the "Cover Template" page template.', 'chaplin' ),
 			) );
+
+			/* Overlay Fixed Background ------ */
+
+			$wp_customize->add_setting( 'chaplin_cover_template_fixed_background', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'			=> true,
+				'sanitize_callback' => 'chaplin_sanitize_checkbox',
+			) );
+
+			$wp_customize->add_control( 'chaplin_cover_template_fixed_background', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_cover_template_options',
+				'label' 		=> __( 'Fixed Background Image', 'chaplin' ),
+				'description' 	=> __( 'Creates a parallax effect when the visitor scrolls.', 'chaplin' ),
+			) );
+
+			/* Overlay Fade Text ------------- */
+
+			$wp_customize->add_setting( 'chaplin_cover_template_fade_text', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'			=> true,
+				'sanitize_callback' => 'chaplin_sanitize_checkbox',
+			) );
+
+			$wp_customize->add_control( 'chaplin_cover_template_fade_text', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_cover_template_options',
+				'label' 		=> __( 'Fade Text On Scroll', 'chaplin' ),
+				'description' 	=> __( 'Fade out the text in the header as the visitor scrolls down the page.', 'chaplin' ),
+			) );
+
+			/* Separator --------------------- */
+
+			$wp_customize->add_setting( 'chaplin_cover_template_separator_1', array(
+				'sanitize_callback' => 'wp_filter_nohtml_kses',
+			) );
+
+			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_cover_template_separator_1', array(
+				'section'		=> 'chaplin_cover_template_options',
+			) ) );
 
 			/* Overlay Background Color ------ */
 
@@ -516,7 +555,6 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'description'	=> __( 'The color used for the featured image overlay. Defaults to the accent color.', 'chaplin' ),
 				'section' 		=> 'chaplin_cover_template_options',
 				'settings' 		=> 'chaplin_cover_template_overlay_background_color',
-				'priority' 		=> 10,
 			) ) );
 
 			/* Overlay Text Color ------------ */
@@ -532,24 +570,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'description'	=> __( 'The color used for the text in the featured image overlay.', 'chaplin' ),
 				'section' 		=> 'chaplin_cover_template_options',
 				'settings' 		=> 'chaplin_cover_template_overlay_text_color',
-				'priority' 		=> 20,
 			) ) );
-
-			/* Overlay Fixed Background ------ */
-
-			$wp_customize->add_setting( 'chaplin_cover_template_fixed_background', array(
-				'capability' 		=> 'edit_theme_options',
-				'default'			=> true,
-				'sanitize_callback' => 'chaplin_sanitize_checkbox',
-			) );
-
-			$wp_customize->add_control( 'chaplin_cover_template_fixed_background', array(
-				'type' 			=> 'checkbox',
-				'section' 		=> 'chaplin_cover_template_options',
-				'priority'		=> 30,
-				'label' 		=> __( 'Fixed Background Image', 'chaplin' ),
-				'description' 	=> __( 'Creates a parallax effect when the visitor scrolls.', 'chaplin' ),
-			) );
 
 			/* Overlay Blend Mode ------------ */
 
@@ -564,7 +585,6 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'section' 		=> 'chaplin_cover_template_options',
 				'settings' 		=> 'chaplin_cover_template_overlay_blend_mode',
 				'type' 			=> 'select',
-				'priority' 		=> 30,
 				'choices' 		=> array(
 					'normal' 			=> __( 'Normal', 'chaplin' ),
 					'multiply' 			=> __( 'Multiply', 'chaplin' ),
@@ -598,7 +618,6 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'section' 		=> 'chaplin_cover_template_options',
 				'settings' 		=> 'chaplin_cover_template_overlay_opacity',
 				'type' 			=> 'select',
-				'priority' 		=> 30,
 				'choices' 		=> array(
 					'0' 			=> __( '0%', 'chaplin' ),
 					'10' 			=> __( '10%', 'chaplin' ),
