@@ -973,6 +973,40 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 endif;
 
 
+/* ------------------------------------------------------------------------------------------------
+   GET POST GRID COLUMN CLASSES
+   Gets the number of columns set in the Customizer, and returns the classes that should be used to
+   set the post grid to the number of columns specified
+   --------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_get_post_grid_column_classes' ) ) :
+	function chaplin_get_post_grid_column_classes() {
+
+		$number_of_columns = get_theme_mod( 'chaplin_post_grid_columns', '2' );
+
+		switch ( $number_of_columns ) {
+			case '1' :
+				$classes = 'mcols-1';
+				break;
+			case '2' :
+				$classes = 'mcols-1 tcols-2';
+				break;
+			case '3' :
+				$classes = 'mcols-1 tcols-2 tlcols-3';
+				break;
+			case '4' :
+				$classes = 'mcols-1 tcols-2 tlcols-3 dcols-4';
+				break;
+			default :
+				$classes = 'mcols-1 tcols-2';
+		}
+
+		return apply_filters( 'chaplin_post_grid_column_classes', $classes );
+
+	}
+endif;
+
+
 /* 	-----------------------------------------------------------------------------------------------
 	ADD A SUB NAV TOGGLE TO THE MAIN MENU
 --------------------------------------------------------------------------------------------------- */

@@ -350,14 +350,35 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			 * Posts
 			 * ------------------------------------------------------------------------ */
 
-			$wp_customize->add_section( 'chaplin_single_post_options', array(
-				'title' 		=> __( 'Posts', 'chaplin' ),
-				'priority' 		=> 41,
-				'capability' 	=> 'edit_theme_options',
-				'description' 	=> __( 'Settings for what to display in the blog and on single posts.', 'chaplin' ),
+			$wp_customize->add_panel( 'chaplin_post_options', array(
+				'priority'       => 41,
+				'capability'     => 'edit_theme_options',
+				'theme_supports' => '',
+				'title'          => __( 'Posts', 'chaplin' ),
+				'description'    => '',
 			) );
 
-			/* Enable Related Posts --------- */
+			$wp_customize->add_section( 'chaplin_single_post_options', array(
+				'title' 		=> __( 'Single Post', 'chaplin' ),
+				'priority' 		=> 10,
+				'capability' 	=> 'edit_theme_options',
+				'description' 	=> __( 'Settings for single posts.', 'chaplin' ),
+				'panel'			=> 'chaplin_post_options',
+			) );
+
+			$wp_customize->add_section( 'chaplin_post_archive_options', array(
+				'title' 		=> __( 'Post Archive', 'chaplin' ),
+				'priority' 		=> 20,
+				'capability' 	=> 'edit_theme_options',
+				'description' 	=> __( 'Settings for post archives.', 'chaplin' ),
+				'panel'			=> 'chaplin_post_options',
+			) );
+
+			/* ------------------------------------------------------------------------
+			 * Posts > Single Post
+			 * ------------------------------------------------------------------------ */
+
+			/* Enable Related Posts ---------- */
 
 			$wp_customize->add_setting( 'chaplin_enable_related_posts', array(
 				'capability' 		=> 'edit_theme_options',
@@ -372,32 +393,17 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'description' 	=> __( 'Check to show related posts on single posts.', 'chaplin' ),
 			) );
 
-			/* Enable Excerpts --------------- */
-
-			$wp_customize->add_setting( 'chaplin_display_excerpts', array(
-				'capability' 		=> 'edit_theme_options',
-				'default'			=> false,
-				'sanitize_callback' => 'chaplin_sanitize_checkbox',
-			) );
-
-			$wp_customize->add_control( 'chaplin_display_excerpts', array(
-				'type' 			=> 'checkbox',
-				'section' 		=> 'chaplin_single_post_options',
-				'label' 		=> __( 'Show Excerpts', 'chaplin' ),
-				'description' 	=> __( 'Check to display excerpts in post previews.', 'chaplin' ),
-			) );
-
 			/* Separator --------------------- */
 
-			$wp_customize->add_setting( 'chaplin_posts_separator_1', array(
+			$wp_customize->add_setting( 'chaplin_single_post_separator_1', array(
 				'sanitize_callback' => 'wp_filter_nohtml_kses',
 			) );
 
-			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_posts_separator_1', array(
+			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_single_post_separator_1', array(
 				'section'		=> 'chaplin_single_post_options',
 			) ) );
 
-			/* Post Meta --------------------- */
+			/* Post Meta Single -------------- */
 
 			$post_meta_choices = array(
 				'author'		=> __( 'Author', 'chaplin' ),
@@ -429,7 +435,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$wp_customize->add_control( new Chaplin_Customize_Control_Checkbox_Multiple( $wp_customize, 'chaplin_post_meta_single_top', array(
 				'section' 		=> 'chaplin_single_post_options',
-				'label'   		=> __( 'Top Post Meta:', 'chaplin' ),
+				'label'   		=> __( 'Top Post Meta', 'chaplin' ),
 				'description'	=> __( 'Select post meta to display above the content.', 'chaplin' ),
 				'choices' 		=> $post_meta_choices,
 			) ) );
@@ -443,37 +449,16 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$wp_customize->add_control( new Chaplin_Customize_Control_Checkbox_Multiple( $wp_customize, 'chaplin_post_meta_single_bottom', array(
 				'section' 		=> 'chaplin_single_post_options',
-				'label'   		=> __( 'Bottom Post Meta:', 'chaplin' ),
+				'label'   		=> __( 'Bottom Post Meta', 'chaplin' ),
 				'description'	=> __( 'Select post meta to display below the content.', 'chaplin' ),
 				'choices' 		=> $post_meta_choices,
 			) ) );
 
-			// Post Meta Archive Setting
-			$wp_customize->add_setting( 'chaplin_post_meta_archive', array(
-				'capability' 		=> 'edit_theme_options',
-				'default'           => array( 'post-date' ),
-				'sanitize_callback' => 'chaplin_sanitize_multiple_checkboxes',
-			) );
-
-			$wp_customize->add_control( new Chaplin_Customize_Control_Checkbox_Multiple( $wp_customize, 'chaplin_post_meta_archive', array(
-				'section' 		=> 'chaplin_single_post_options',
-				'label'   		=> __( 'Archive Post Meta:', 'chaplin' ),
-				'description'	=> __( 'Select post meta to display on archive pages.', 'chaplin' ),
-				'choices' 		=> $post_meta_choices,
-			) ) );
-
 			/* ------------------------------------------------------------------------
-			 * Pagination Options
+			 * Posts > Archive Posts
 			 * ------------------------------------------------------------------------ */
 
-			$wp_customize->add_section( 'chaplin_pagination_options', array(
-				'title' 		=> __( 'Archive Pagination', 'chaplin' ),
-				'priority' 		=> 45,
-				'capability' 	=> 'edit_theme_options',
-				'description' 	=> __( 'Choose which type of pagination to use on archive pages.', 'chaplin' ),
-			) );
-
-			/* Pagination Type Setting ----------------------------- */
+			/* Pagination Type --------------- */
 
 			$wp_customize->add_setting( 'chaplin_pagination_type', array(
 				'capability' 		=> 'edit_theme_options',
@@ -483,14 +468,95 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$wp_customize->add_control( 'chaplin_pagination_type', array(
 				'type'			=> 'radio',
-				'section' 		=> 'chaplin_pagination_options',
-				'label'   		=> __( 'Pagination Type:', 'chaplin' ),
+				'section' 		=> 'chaplin_post_archive_options',
+				'label'   		=> __( 'Pagination Type', 'chaplin' ),
 				'choices' 		=> array(
 					'button'		=> __( 'Load more on button click', 'chaplin' ),
 					'scroll'		=> __( 'Load more on scroll', 'chaplin' ),
 					'links'			=> __( 'Previous and next page links', 'chaplin' ),
 				),
 			) );
+
+			/* Separator --------------------- */
+
+			$wp_customize->add_setting( 'chaplin_post_archive_separator_1', array(
+				'sanitize_callback' => 'wp_filter_nohtml_kses',
+			) );
+
+			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_post_archive_separator_1', array(
+				'section'		=> 'chaplin_post_archive_options',
+			) ) );
+
+			/* Number of Post Columns -------- */
+
+			$wp_customize->add_setting( 'chaplin_post_grid_columns', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'           => '2',
+				'sanitize_callback' => 'chaplin_sanitize_radio',
+			) );
+
+			$wp_customize->add_control( 'chaplin_post_grid_columns', array(
+				'type'			=> 'radio',
+				'section' 		=> 'chaplin_post_archive_options',
+				'label'   		=> __( 'Number of Columns', 'chaplin' ),
+				'description'	=> __( 'The maximum number of columns to use in the post grid.', 'chaplin' ),
+				'choices' 		=> array(
+					'1'				=> __( 'One', 'chaplin' ),
+					'2'				=> __( 'Two', 'chaplin' ),
+					'3'				=> __( 'Three', 'chaplin' ),
+					'4'				=> __( 'Four', 'chaplin' ),
+				),
+			) );
+
+			/* Separator --------------------- */
+
+			$wp_customize->add_setting( 'chaplin_post_archive_separator_2', array(
+				'sanitize_callback' => 'wp_filter_nohtml_kses',
+			) );
+
+			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_post_archive_separator_2', array(
+				'section'		=> 'chaplin_post_archive_options',
+			) ) );
+
+			/* Enable Excerpts --------------- */
+
+			$wp_customize->add_setting( 'chaplin_display_excerpts', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'			=> false,
+				'sanitize_callback' => 'chaplin_sanitize_checkbox',
+			) );
+
+			$wp_customize->add_control( 'chaplin_display_excerpts', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_post_archive_options',
+				'label' 		=> __( 'Show Excerpts', 'chaplin' ),
+				'description' 	=> __( 'Check to display excerpts in post previews.', 'chaplin' ),
+			) );
+
+			/* Separator --------------------- */
+
+			$wp_customize->add_setting( 'chaplin_post_archive_separator_3', array(
+				'sanitize_callback' => 'wp_filter_nohtml_kses',
+			) );
+
+			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_post_archive_separator_3', array(
+				'section'		=> 'chaplin_post_archive_options',
+			) ) );
+
+			/* Post Meta Archive ------------- */
+
+			$wp_customize->add_setting( 'chaplin_post_meta_archive', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'           => array( 'post-date' ),
+				'sanitize_callback' => 'chaplin_sanitize_multiple_checkboxes',
+			) );
+
+			$wp_customize->add_control( new Chaplin_Customize_Control_Checkbox_Multiple( $wp_customize, 'chaplin_post_meta_archive', array(
+				'section' 		=> 'chaplin_post_archive_options',
+				'label'   		=> __( 'Archive Post Meta', 'chaplin' ),
+				'description'	=> __( 'Select post meta to display on archive pages.', 'chaplin' ),
+				'choices' 		=> $post_meta_choices,
+			) ) );
 
 			/* ------------------------------------------------------------------------
 			 * Template: Cover Template
@@ -500,6 +566,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'title' 		=> __( 'Cover Template', 'chaplin' ),
 				'capability' 	=> 'edit_theme_options',
 				'description' 	=> __( 'Settings for the "Cover Template" page template.', 'chaplin' ),
+				'priority'       => 42,
 			) );
 
 			/* Overlay Fixed Background ------ */

@@ -2,8 +2,8 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 1.0.12
-	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. The fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times on your site, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
+	Version: 1.0.13
+	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. The fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure short load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 	Author: Anders Norén
 	Author URI: https://www.andersnoren.se
@@ -4670,12 +4670,46 @@ body.woocommerce .entry-content {
 		margin-top: 1.8rem;
 	}
 
+	/* COLUMN SPECIFIC */
+
+	.posts-grid.tlcols-3 {
+		margin-left: -3rem;
+	}
+
+	.posts-grid.tlcols-3 .grid-item {
+		margin-left: 3rem;
+		width: calc( 33.33% - 3rem );
+	}
+
+	.posts-grid.tlcols-3 .preview-title {
+		font-size: 2.8rem;
+	}
+
+	.posts-grid.tlcols-3 .preview-excerpt {
+		font-size: .95em;
+	}
+
+	.posts-grid.tlcols-3 .post-meta {
+		font-size: 1.4rem;
+		margin: -1rem 0 0 -2rem;
+	}
+
+	.posts-grid.tlcols-3 .post-meta li {
+		margin: 1rem 0 0 2rem
+	}
+
 
 	/* Post: Single -------------------------- */
 
 	.featured-media {
 		left: auto;
 		width: 100%;
+	}
+
+	/* RELATED POSTS */
+
+	.related-posts-grid .grid-item:nth-child(4) {
+		display: none;
 	}
 
 	/* Entry Content ------------------------- */
@@ -4870,7 +4904,34 @@ body.woocommerce .entry-content {
 	}
 
 	/* Post: Archive ------------------------- */
+
+	/* COLUMN SPECIFIC */
+
+	.posts-grid.dcols-4 {
+		margin-left: -3rem;
+	}
+
+	.posts-grid.dcols-4 .grid-item {
+		margin-left: 3rem;
+		width: calc( 25% - 3rem );
+	}
+
+	.posts-grid.dcols-4 .preview-title {
+		font-size: 2.6rem;
+	}
+
+	.posts-grid.dcols-4 .preview-excerpt {
+		font-size: .9em;
+	}
+
 	/* Post: Single -------------------------- */
+
+	/* RELATED POSTS */
+
+	.related-posts-grid.dcols-4 .grid-item:nth-child(4) {
+		display: block;
+	}
+
 	/* Entry Content ------------------------- */
 
 	/* ALIGNMENTS */

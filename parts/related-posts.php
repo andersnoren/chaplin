@@ -6,6 +6,12 @@ if ( is_single() && $enable_related_posts ) :
 
 	$related_post_ids = array();
 
+	// Determine how many posts to load depending on the post grid columns setting
+	$posts_per_page = absint( get_theme_mod( 'chaplin_post_grid_columns', 2 ) );
+
+	// If we have more than two, we want to load 4 so the second row is full on portrait tablet
+	$posts_per_page = $posts_per_page > 2 ? 4 : $posts_per_page;
+
 	// Exclude sticky posts and the current post
 	$exclude = get_option( 'sticky_posts' );
 	$exclude[] = $post->ID;
@@ -18,7 +24,7 @@ if ( is_single() && $enable_related_posts ) :
 		'orderby' 			=> 'rand',
 		'post__not_in' 		=> $exclude,
 		'post_status' 		=> 'publish',
-		'posts_per_page' 	=> 2,
+		'posts_per_page' 	=> $posts_per_page,
 	);
 
 	// Check categories first
@@ -56,7 +62,11 @@ if ( is_single() && $enable_related_posts ) :
 
 	$related_posts = get_posts( $related_posts_args );
 
-	if ( $related_posts ) : ?>
+	if ( $related_posts ) : 
+	
+		$post_grid_column_classes = chaplin_get_post_grid_column_classes();
+		
+		?>
 
 		<div class="related-posts section-inner">
 
@@ -64,7 +74,7 @@ if ( is_single() && $enable_related_posts ) :
 
 			<div class="posts">
 
-				<div class="posts-grid grid tcols-2">
+				<div class="posts-grid related-posts-grid grid <?php echo $post_grid_column_classes; ?>">
 
 					<?php
 

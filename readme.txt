@@ -84,7 +84,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Pagination" panel.
+3. Click the "Posts" panel, and then the "Post Archive" panel.
 4. There are three options for the pagination:
 	a. "Load more on button click": Displays a button that, when clicked, loads more posts without a hard reload.
 	b. "Load more on scroll": When the visitor has reached the bottom of the page, more posts are loaded without a hard reload.
@@ -96,7 +96,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Posts" panel.
+3. Click the "Posts" panel, and then the "Single Post" panel.
 4. Uncheck the "Show Related Posts" checkbox, and click the blue "Publish" button to save your changes.
 
 
@@ -104,16 +104,25 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Posts" panel.
+3. Click the "Posts" panel, and then the "Post Archive" panel.
 4. Check the "Show Excerpts" checkbox, and click the blue "Publish" button to save your changes.
+
+
+== Change the Number of Columns in the Post Archive ==
+
+1. Log in to the administration panel of your site.
+2. Go to Appearance → Customize.
+3. Click the "Posts" panel, and then the "Post Archive" panel.
+4. Locate the "Number of Columns" setting in the list, and select the number of columns you want displayed.
+5. Click the blue "Publish" button to save your changes.
 
 
 == Select Which Post Meta to Display ==
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Posts" panel.
-4. In the list, you select which post meta to display in three different locations
+3. Click the "Posts" panel. If you want to modify the post meta on single posts, click "Single Post". If you want to modify the post meta on the post archive, click "Post Archive".
+4. There are three different post meta locations that you can modify:
 	a. "Top Post Meta": Displayed above the content, and below the titles, when viewing a single post.
 	b. "Bottom Post Meta": Displayed below the content, and above the comments, when viewing a single post.
 	c. "Archive Post Meta": Displayed below the title of post previews on archive pages.
@@ -144,6 +153,15 @@ Icons in screenshot.png by Feather Icons
 
 
 == Changelog ==
+
+Version 1.0.13 (2019-07-08)
+-------------------------
+- Customizer: Changed Posts into a "Posts" panel with two sections, "Single Post" and "Post Archive", and restructured the code accordingly
+- Added a "Post Grid Columns" setting, which can be used to change the number of columns used on archive pages
+- Added documentation in the readme for the "Number of Columns" settings
+- Moved the "Pagination Type" setting into "Posts → Post Archive", and updated the documentation accordingly
+- Moved up the "Cover Template" panel in the Customizer panel list
+- Adjusted the theme description slightly
 
 Version 1.0.12 (2019-07-07)
 -------------------------

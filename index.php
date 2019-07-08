@@ -41,9 +41,13 @@
 
 	<div class="posts section-inner">
 
-		<?php if ( have_posts() ) : ?>
+		<?php if ( have_posts() ) : 
 
-			<div class="posts-grid grid tcols-2 load-more-target">
+			$post_grid_column_classes = chaplin_get_post_grid_column_classes();
+		
+			?>
+
+			<div class="posts-grid grid load-more-target <?php echo $post_grid_column_classes; ?>">
 			
 				<?php while ( have_posts() ) : the_post(); ?>
 
