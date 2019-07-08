@@ -154,6 +154,18 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.0.16 (2019-07-XX)
+-------------------------
+- Test solution for centered aligned embed content
+
+Version 1.0.15 (2019-07-09)
+-------------------------
+- Added base margin to wp-block-image and wp-block-embed (without alignment classes)
+
+Version 1.0.14 (2019-07-08)
+-------------------------
+- Adjusted handling of centered paragraphs inside group blocks that are either alignwide or alignfull
+
 Version 1.0.13 (2019-07-08)
 -------------------------
 - Customizer: Changed Posts into a "Posts" panel with two sections, "Single Post" and "Post Archive", and restructured the code accordingly
