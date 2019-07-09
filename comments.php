@@ -4,9 +4,19 @@
 
 		<?php
 
+		$post_type = get_post_type();
 		$comments_number = absint( get_comments_number() );
-		// Translators: %s = the number of comments
-		$comments_title = sprintf( _nx( '%s Comment', '%s Comments', $comments_number, 'Translators: %s = the number of comments', 'chaplin' ), $comments_number ); ?>
+		$review_post_types = apply_filters( 'chaplin_post_types_with_reviews_instead_of_comments', array( 'product' ) );
+		
+		if ( in_array( $post_type, $review_post_types ) ) {
+			// Translators: %s = the number of review
+			$comments_title = sprintf( _nx( '%s Review', '%s Reviews', $comments_number, 'Translators: %s = the number of reviews', 'chaplin' ), $comments_number );
+		} else {
+			// Translators: %s = the number of comments
+			$comments_title = sprintf( _nx( '%s Comment', '%s Comments', $comments_number, 'Translators: %s = the number of comments', 'chaplin' ), $comments_number );
+		}
+		
+		?>
 
 		<div class="comments-header">
 

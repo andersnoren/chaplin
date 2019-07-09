@@ -1,7 +1,8 @@
 <?php
 
 /* 
-Template Name: Only Content 
+Template Name: Only Content Template
+Template Post Type: post, page
 */
 
 get_header(); ?>

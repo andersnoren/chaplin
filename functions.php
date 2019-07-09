@@ -217,6 +217,16 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 			}
 		}
 
+		// Check whether the current page should have an overlay header
+		if ( is_page_template( array( 'template-full-width-only-content.php', 'template-only-content.php' ) ) ) {
+			$classes[] = 'has-only-content';
+		}
+
+		// Check whether the current page should have an overlay header
+		if ( is_page_template( array( 'template-full-width-only-content.php', 'template-only-content.php' ) ) ) {
+			$classes[] = 'has-full-width-content';
+		}
+
 		// Check for sticky header
 		if ( get_theme_mod( 'chaplin_sticky_header' ) ) {
 			$classes[] = 'has-sticky-header';
@@ -1607,13 +1617,13 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Border color
 			if ( $border && $border !== $border_default ) : 
 				chaplin_generate_css( 'hr, pre, th, td, input, textarea, select, fieldset', 'border-color', $border );
-				chaplin_generate_css( '.main-menu li, button.sub-menu-toggle, .wp-block-latest-posts.is-grid li, .footer-menu li, .comment .comment, .related-posts, .widget', 'border-color', $border );
+				chaplin_generate_css( '.main-menu li, button.sub-menu-toggle, .wp-block-latest-posts.is-grid li, .footer-menu li, .comment .comment, .related-posts, .widget, .select2-container .select2-selection--single', 'border-color', $border );
 				chaplin_generate_css( 'caption', 'background', $border );
 
 				// P3 Colors
 				echo $p3_supports_open;
 				chaplin_generate_css( 'hr, pre, th, td, input, textarea, select, fieldset', 'border-color', $p3_border );
-				chaplin_generate_css( '.main-menu li, button.sub-menu-toggle, .wp-block-latest-posts.is-grid li, .footer-menu li, .comment .comment, .related-posts, .widget', 'border-color', $p3_border );
+				chaplin_generate_css( '.main-menu li, button.sub-menu-toggle, .wp-block-latest-posts.is-grid li, .footer-menu li, .comment .comment, .related-posts, .widget, .select2-container .select2-selection--single', 'border-color', $p3_border );
 				chaplin_generate_css( 'caption', 'background', $p3_border );
 				echo $p3_supports_close;
 			endif;

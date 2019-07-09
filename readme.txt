@@ -154,9 +154,23 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
-Version 1.0.16 (2019-07-XX)
+Version 1.0.17 (2019-07-09)
+-------------------------
+- Set the site title and description to use partial refresh in the Customizer
+- Added the Full Width Template, and restructured the CSS chapter numbers to easily allow for more templates
+- Updated the Only Content Template to work with posts as well
+- Updated the Only Content Template to not output the header and footer markup – might add a post meta checkbox for this later on
+- Added the Full Width and Only Content Template (that's a mouthful), which combines the Full Width Template and Only Content Template
+- Filtered the `body_class` on these page templates to add shared classes and simplify styling
+
+Version 1.0.16 (2019-07-09)
 -------------------------
 - Test solution for centered aligned embed content
+- Updated block editor styles to better reflect how paragraphs in alignfull groups are displayed
+- Added wide entry-content for `.woocommerce-page` pages
+- Added styling for Select2 element, and added targeting of its border-color to the Customizer CSS output
+- For product pages, set the comments title to "Reviews" instead of "Comments", and make the list of CPTs checked for this filterable
+- Adjusted readme.txt
 
 Version 1.0.15 (2019-07-09)
 -------------------------

@@ -20,117 +20,122 @@
 			wp_body_open(); 
 		}
 
-		// Add conditional sticky class to .header-inner
-		$header_inner_classes = '';
+		// Don't output the markup of the header on the only content templates
+		if ( ! is_page_template( array( 'template-only-content.php', 'template-full-width-only-content.php' ) ) ) : 
 
-		if ( get_theme_mod( 'chaplin_sticky_header', false ) ) {
-			$header_inner_classes .= ' stick-me';
-		}
-		?>
+			// Add conditional sticky class to .header-inner
+			$header_inner_classes = '';
 
-		<header id="site-header">
-
-			<div class="header-inner<?php echo esc_attr( $header_inner_classes ); ?>">
-
-				<div class="section-inner">
-
-					<div class="header-titles">
-
-						<?php
-
-						$logo = chaplin_get_custom_logo();
-						$site_title = get_bloginfo( 'name' );
-						$site_description = get_bloginfo( 'description' );
-
-						if ( $logo ) {
-							$home_link_contents = $logo . '<span class="screen-reader-text">' . esc_html( $site_title ) . '</span>';
-							$site_title_class = 'site-logo';
-						} else {
-							$site_title_class = 'site-title';
-							$home_link_contents = '<a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html( $site_title ) . '</a>';
-						}
-
-						if ( is_front_page() ) : ?>
-							<h1 class="<?php echo esc_attr( $site_title_class ); ?>"><?php echo $home_link_contents; ?></h1>
-						<?php else : ?>
-							<div class="<?php echo esc_attr( $site_title_class ); ?> faux-heading"><?php echo $home_link_contents; ?></div>
-						<?php endif; ?>
-
-						<?php if ( $site_description ) : ?>
-
-							<div class="site-description"><?php echo esc_html( $site_description ); ?></div><!-- .site-description -->
-
-						<?php endif; ?>
-
-					</div><!-- .header-titles -->
-
-					<div class="main-menu-alt-container hide-js">
-
-						<ul class="main-menu-alt reset-list-style">
-							<?php
-							if ( has_nav_menu( 'main-menu' ) ) {
-								wp_nav_menu( array(
-									'container' 		=> '',
-									'items_wrap' 		=> '%3$s',
-									'theme_location' 	=> 'main-menu',
-								) );
-							} else {
-								wp_list_pages( array( 
-									'match_menu_classes' 	=> true,
-									'title_li' 				=> false, 
-								) );
-							}
-							?>
-						</ul><!-- .main-menu-alt -->
-
-					</div><!-- .main-menu-alt-container -->
-
-					<div class="header-toggles hide-no-js">
-
-						<?php 
-						
-						// Check whether the header search is deactivated in the customizer
-						$disable_header_search = get_theme_mod( 'chaplin_disable_header_search', false ); 
-						
-						if ( ! $disable_header_search ) : ?>
-						
-							<a href="#" class="toggle search-toggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field">
-								<div class="toggle-text">
-									<?php esc_html_e( 'Search', 'chaplin' ); ?>
-								</div>
-								<?php chaplin_the_theme_svg( 'search' ); ?>
-							</a><!-- .search-toggle -->
-
-						<?php endif; ?>
-
-						<a href="#" class="toggle nav-toggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal">
-							<div class="toggle-text">
-								<span class="show"><?php esc_html_e( 'Menu', 'chaplin' ); ?></span>
-								<span class="hide"><?php esc_html_e( 'Close', 'chaplin' ); ?></span>
-							</div>
-							<div class="bars">
-								<div class="bar"></div>
-								<div class="bar"></div>
-								<div class="bar"></div>
-							</div><!-- .bars -->
-						</a><!-- .nav-toggle -->
-
-					</div><!-- .header-toggles -->
-
-				</div><!-- .section-inner -->
-
-			</div><!-- .header-inner -->
-
-			<?php 
-			// Output the search modal (if it isn't deactivated in the customizer)
-			if ( ! $disable_header_search ) {
-				get_template_part( 'parts/modal-search' );
+			if ( get_theme_mod( 'chaplin_sticky_header', false ) ) {
+				$header_inner_classes .= ' stick-me';
 			}
 			?>
 
-		</header><!-- #site-header -->
+			<header id="site-header">
 
-		<?php 
-		// Output the menu modal
-		get_template_part( 'parts/modal-menu' ); 
+				<div class="header-inner<?php echo esc_attr( $header_inner_classes ); ?>">
+
+					<div class="section-inner">
+
+						<div class="header-titles">
+
+							<?php
+
+							$logo = chaplin_get_custom_logo();
+							$site_title = get_bloginfo( 'name' );
+							$site_description = get_bloginfo( 'description' );
+
+							if ( $logo ) {
+								$home_link_contents = $logo . '<span class="screen-reader-text">' . esc_html( $site_title ) . '</span>';
+								$site_title_class = 'site-logo';
+							} else {
+								$site_title_class = 'site-title';
+								$home_link_contents = '<a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html( $site_title ) . '</a>';
+							}
+
+							if ( is_front_page() ) : ?>
+								<h1 class="<?php echo esc_attr( $site_title_class ); ?>"><?php echo $home_link_contents; ?></h1>
+							<?php else : ?>
+								<div class="<?php echo esc_attr( $site_title_class ); ?> faux-heading"><?php echo $home_link_contents; ?></div>
+							<?php endif; ?>
+
+							<?php if ( $site_description ) : ?>
+
+								<div class="site-description"><?php echo esc_html( $site_description ); ?></div><!-- .site-description -->
+
+							<?php endif; ?>
+
+						</div><!-- .header-titles -->
+
+						<div class="main-menu-alt-container hide-js">
+
+							<ul class="main-menu-alt reset-list-style">
+								<?php
+								if ( has_nav_menu( 'main-menu' ) ) {
+									wp_nav_menu( array(
+										'container' 		=> '',
+										'items_wrap' 		=> '%3$s',
+										'theme_location' 	=> 'main-menu',
+									) );
+								} else {
+									wp_list_pages( array( 
+										'match_menu_classes' 	=> true,
+										'title_li' 				=> false, 
+									) );
+								}
+								?>
+							</ul><!-- .main-menu-alt -->
+
+						</div><!-- .main-menu-alt-container -->
+
+						<div class="header-toggles hide-no-js">
+
+							<?php 
+							
+							// Check whether the header search is deactivated in the customizer
+							$disable_header_search = get_theme_mod( 'chaplin_disable_header_search', false ); 
+							
+							if ( ! $disable_header_search ) : ?>
+							
+								<a href="#" class="toggle search-toggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field">
+									<div class="toggle-text">
+										<?php esc_html_e( 'Search', 'chaplin' ); ?>
+									</div>
+									<?php chaplin_the_theme_svg( 'search' ); ?>
+								</a><!-- .search-toggle -->
+
+							<?php endif; ?>
+
+							<a href="#" class="toggle nav-toggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal">
+								<div class="toggle-text">
+									<span class="show"><?php esc_html_e( 'Menu', 'chaplin' ); ?></span>
+									<span class="hide"><?php esc_html_e( 'Close', 'chaplin' ); ?></span>
+								</div>
+								<div class="bars">
+									<div class="bar"></div>
+									<div class="bar"></div>
+									<div class="bar"></div>
+								</div><!-- .bars -->
+							</a><!-- .nav-toggle -->
+
+						</div><!-- .header-toggles -->
+
+					</div><!-- .section-inner -->
+
+				</div><!-- .header-inner -->
+
+				<?php 
+				// Output the search modal (if it isn't deactivated in the customizer)
+				if ( ! $disable_header_search ) {
+					get_template_part( 'parts/modal-search' );
+				}
+				?>
+
+			</header><!-- #site-header -->
+
+			<?php 
+			// Output the menu modal
+			get_template_part( 'parts/modal-menu' ); 
+
+		endif; // is_page_template()
 		?>

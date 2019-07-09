@@ -2,9 +2,9 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 1.0.15
-	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. The fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure short load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
-	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
+	Version: 1.0.17
+	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. This flexibility makes Chaplin suitable for pretty much any type of website, including business sites and portfolios. All of the fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure short load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
+	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, full-width-template
 	Author: Anders Norén
 	Author URI: https://www.andersnoren.se
 	Theme URI: https://www.andersnoren.se/teman/chaplin-wordpress-theme/
@@ -23,19 +23,22 @@
 	4. 	Site Header
 	5. 	Menu Modal
 	6. 	Search Modal
-	7. 	Template: Cover Template
-	8. 	Template: Only Content
-	9. 	Post: Archive
-	10. Post: Single
-	11. Entry Content
-	12. Blocks
-	13. Comments
-	14. Site Pagination
-	15. Error 404
-	16. WooCommerce
-	17. Widgets
-	18. Site Footer
-	19. Media Queries
+	7. 	Page Templates
+		a. 	Template: Cover Template
+		b. 	Template: Only Content
+		c. 	Template: Full Width
+		d.	Template: Full Width with Only Content
+	8. Post: Archive
+	9. Post: Single
+	10. Entry Content
+	11. Blocks
+	12. Comments
+	13. Site Pagination
+	14. Error 404
+	15. WooCommerce
+	16. Widgets
+	17. Site Footer
+	18. Media Queries
 
 ----------------------------------------------------------------------------------- */
 
@@ -467,14 +470,16 @@ input[type="checkbox"] + label {
 input,
 textarea,
 select,
-button {
+button,
+.select2-container .select2-selection--single {
 	font-family: inherit;
 	line-height: 1;
 }
 
 input,
 textarea,
-select {
+select,
+.select2-container .select2-selection--single {
 	border-color: #E1E1E3;
 }
 
@@ -581,6 +586,30 @@ input[type="button"]:focus,
 input[type="reset"]:focus,
 input[type="submit"]:focus {
 	text-decoration: underline;
+}
+
+/* SELECT2 */
+
+.select2-container--default .select2-selection--single {
+	background: transparent;
+}
+
+.select2-container .select2-selection--single {
+	font-size: 1.6rem;
+	height: 50px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+	color: inherit;
+	font-size: 1.6rem;
+	line-height: 50px;
+	padding-left: 18px;
+	padding-right: 40px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+	height: 48px;
+	width: 40px;
 }
 
 
@@ -1726,7 +1755,7 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	7. Template: Cover Template
+/*	7a. Template: Cover Template
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -1814,21 +1843,40 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	8. Template: Only Content
+/*	7b. Template: Only Content
 /* --------------------------------------------------------------------------------------------- */
 
-
-.template-only-content #site-header {
-	margin-bottom: 0;
-}
-
-.template-only-content .post-inner {
+.has-only-content .post-inner {
 	padding: 0;
 }
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	9. Post: Archive
+/*	7c. Template: Full Width
+/* --------------------------------------------------------------------------------------------- */
+
+
+.has-full-width-content .entry-content,
+.has-full-width-content .entry-content .alignwide,
+.has-full-width-content .entry-content p {
+	max-width: 100%;
+	width: 100%;
+}
+
+.has-full-width-content .entry-content .alignfull {
+	margin-left: calc( 50% - 50vw );
+	max-width: 100vw;
+	width: 100vw;
+}
+
+
+/* --------------------------------------------------------------------------------------------- */
+/*	7d. Template: Full Width with Only Content
+/* --------------------------------------------------------------------------------------------- */
+
+
+/* --------------------------------------------------------------------------------------------- */
+/*	8. Post: Archive
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -1880,7 +1928,7 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	10. Post: Single
+/*	9. Post: Single
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -2049,7 +2097,7 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	11. Entry Content
+/*	10. Entry Content
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -2158,7 +2206,7 @@ button.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	12. Blocks
+/*	11. Blocks
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -3048,7 +3096,7 @@ table.is-style-stripes tr:nth-child( odd ) {
 
 
 /* -------------------------------------------------------------------------------- */
-/*	13. Comments
+/*	12. Comments
 /* -------------------------------------------------------------------------------- */
 
 
@@ -3299,7 +3347,7 @@ div.comment:first-of-type {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	14. Site Pagination
+/*	13. Site Pagination
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -3389,7 +3437,7 @@ html.js body:not(.pagination-type-links) .link-pagination {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	15. Error 404
+/*	14. Error 404
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -3406,17 +3454,18 @@ html.js body:not(.pagination-type-links) .link-pagination {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	16. WooCommerce
+/*	15. WooCommerce
 /* --------------------------------------------------------------------------------------------- */
 
 
-body.woocommerce .entry-content {
+body.woocommerce .entry-content,
+body.woocommerce-page .entry-content {
 	max-width: 100%;
 }
 
 
 /* -------------------------------------------------------------------------------- */
-/*	17.	Widgets
+/*	16.	Widgets
 /* -------------------------------------------------------------------------------- */
 
 
@@ -3674,7 +3723,7 @@ body.woocommerce .entry-content {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	18. Site Footer
+/*	17. Site Footer
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -3748,7 +3797,7 @@ body.woocommerce .entry-content {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	19. Media Queries
+/*	18. Media Queries
 /* --------------------------------------------------------------------------------------------- */
 
 

@@ -10,6 +10,28 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 		public static function chaplin_register( $wp_customize ) {
 
 			/* ------------------------------------------------------------------------
+			 * Site Title & Description
+			 * ------------------------------------------------------------------------ */
+
+			$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
+			$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
+
+			$wp_customize->selective_refresh->add_partial(
+				'blogname',
+				array(
+					'selector'        => '.site-title a',
+					'render_callback' => 'chaplin_customize_partial_blogname',
+				)
+			);
+			$wp_customize->selective_refresh->add_partial(
+				'blogdescription',
+				array(
+					'selector'        => '.site-description',
+					'render_callback' => 'chaplin_customize_partial_blogdescription',
+				)
+			);
+
+			/* ------------------------------------------------------------------------
 			 * Site Identity
 			 * ------------------------------------------------------------------------ */
 
@@ -802,7 +824,7 @@ endif;
 
 if ( class_exists( 'WP_Customize_Control' ) ) :
 
-	/* Separator Control ------------------------- */
+	/* Separator Control --------------------- */
 
 	if ( ! class_exists( 'Chaplin_Separator_Control' ) ) :
 		class Chaplin_Separator_Control extends WP_Customize_Control {
@@ -815,3 +837,21 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 	endif;
 
 endif; 
+
+
+/* ---------------------------------------------------------------------------------------------
+   HELPER FUNCTIONS
+   --------------------------------------------------------------------------------------------- */
+
+
+/* Render the site title for the selective refresh partial */
+
+function chaplin_customize_partial_blogname() {
+	bloginfo( 'name' );
+}
+
+/* Render the site description for the selective refresh partial */
+
+function chaplin_customize_partial_blogdescription() {
+	bloginfo( 'description' );
+}

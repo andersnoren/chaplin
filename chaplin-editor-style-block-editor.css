@@ -28,6 +28,10 @@
 	max-width: calc( 100% - 40px );
 }
 
+.editor-block-list__block[data-align="full"] .wp-block-group .wp-block {
+	max-width: 100%;
+}
+
 *[data-align=right] .editor-block-list__block-edit,
 *[data-align=left] .editor-block-list__block-edit {
 	max-width: 50%;
@@ -35,8 +39,8 @@
 
 .editor-block-list__block[data-align="wide"],
 .editor-block-list__block[data-align="full"] {
-	margin-bottom: 50px;
-	margin-top: 50px;
+	margin-bottom: 30px;
+	margin-top: 30px;
 }
 
 .editor-block-list__block[data-align="wide"] {
@@ -420,6 +424,7 @@
 }
 
 
+/* Block: Paragraph -------------------------- */
 /* Block: Pullquote -------------------------- */
 
 .editor-styles-wrapper .wp-block-pullquote {
@@ -595,6 +600,18 @@
 	margin-top: 15px;
 }
 
+/* Block: Embed ------------------------------ */
+
+.editor-styles-wrapper .wp-block-embed {
+	margin-bottom: 3rem;
+	margin-top: 3rem;
+}
+
+.editor-styles-wrapper .editor-block-list__block[data-type*="core-embed"][data-align=center] * {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 /* Block: File ------------------------------- */
 
 .editor-styles-wrapper .wp-block-file {
@@ -619,6 +636,32 @@
 	padding: 1em 1.25em;
 }
 
+/* Block: Image ------------------------------ */
+
+.editor-styles-wrapper .wp-block-image {
+	margin-bottom: 3rem;
+	margin-top: 3rem;
+}
+
+/* Block: Group ------------------------------ */
+
+.wp-block-group p[style*="text-align: center"],
+.wp-block-group p[style*="text-align:center"] {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wp-block-group p[style*="text-align: right"],
+.wp-block-group p[style*="text-align:right"] {
+	margin-left: auto;
+}
+
+/* Block: Paragraph -------------------------- */
+
+.wp-block[data-type="core/paragraph"] p {
+	max-width: 580px;
+}
+
 
 /* -------------------------------------------------------------------------------- */
 /*	X.	Media Queries
@@ -631,6 +674,12 @@
 
 	.editor-styles-wrapper > * {
 		font-size: 18px;
+	}
+
+	.editor-block-list__block[data-align="wide"],
+	.editor-block-list__block[data-align="full"] {
+		margin-bottom: 60px;
+		margin-top: 60px;
 	}
 
 	/* TYPOGRAPHY */
@@ -710,5 +759,19 @@
 		width: calc( 100% - 100px );
 	}
 
+
+}
+
+
+@media ( min-width: 1220px ) {
+
+
+	/* STRUCTURE */
+
+	.editor-block-list__block[data-align="wide"],
+	.editor-block-list__block[data-align="full"] {
+		margin-bottom: 80px;
+		margin-top: 80px;
+	}
 
 }

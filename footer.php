@@ -1,73 +1,83 @@
-        <footer class="" id="site-footer" role="contentinfo">
+        <?php
 
-			<?php if ( is_active_sidebar( 'footer-one' ) || is_active_sidebar( 'footer-two' ) ) : ?>
+		// Don't output the markup of the header on the only content templates
+		if ( ! is_page_template( array( 'template-only-content.php', 'template-full-width-only-content.php' ) ) ) : ?>
+		
+			<footer class="" id="site-footer" role="contentinfo">
 
-				<div class="footer-widgets-outer-wrapper border-color-border section-inner">
-				
-					<div class="footer-widgets-wrapper grid tcols-2">
+				<?php if ( is_active_sidebar( 'footer-one' ) || is_active_sidebar( 'footer-two' ) ) : ?>
 
-						<?php if ( is_active_sidebar( 'footer-one' ) ) : ?>
-							<div class="footer-widgets column-one grid-item">
-								<?php dynamic_sidebar( 'footer-one' ); ?>
-							</div>
-						<?php endif; ?>
-
-						<?php if ( is_active_sidebar( 'footer-two' ) ) : ?>
-							<div class="footer-widgets column-two grid-item">
-								<?php dynamic_sidebar( 'footer-two' ); ?>
-							</div>
-						<?php endif; ?>
-
-					</div><!-- .footer-widgets-wrapper -->
+					<div class="footer-widgets-outer-wrapper border-color-border section-inner">
 					
-				</div><!-- .footer-widgets-outer-wrapper -->
+						<div class="footer-widgets-wrapper grid tcols-2">
 
-			<?php endif; 
+							<?php if ( is_active_sidebar( 'footer-one' ) ) : ?>
+								<div class="footer-widgets column-one grid-item">
+									<?php dynamic_sidebar( 'footer-one' ); ?>
+								</div>
+							<?php endif; ?>
 
-			$has_footer_menu = has_nav_menu( 'footer-menu' );
+							<?php if ( is_active_sidebar( 'footer-two' ) ) : ?>
+								<div class="footer-widgets column-two grid-item">
+									<?php dynamic_sidebar( 'footer-two' ); ?>
+								</div>
+							<?php endif; ?>
 
-			$footer_inner_classes = '';
+						</div><!-- .footer-widgets-wrapper -->
+						
+					</div><!-- .footer-widgets-outer-wrapper -->
 
-			if ( $has_footer_menu ) {
-				$footer_inner_classes .= ' has-footer-menu';
-			}
-			
-			?>
+				<?php endif; 
 
-			<div class="footer-inner section-inner<?php echo esc_attr( $footer_inner_classes ); ?>">
+				$has_footer_menu = has_nav_menu( 'footer-menu' );
 
-				<?php if ( $has_footer_menu ) : ?>
+				$footer_inner_classes = '';
 
-					<ul class="footer-menu reset-list-style">
-						<?php
-						wp_nav_menu( array(
-							'container' 		=> '',
-							'depth'				=> 1,
-							'items_wrap' 		=> '%3$s',
-							'theme_location' 	=> 'footer-menu',
-						) );
-						?>
-					</ul><!-- .site-nav -->
+				if ( $has_footer_menu ) {
+					$footer_inner_classes .= ' has-footer-menu';
+				}
+				
+				?>
 
-				<?php endif; ?>
+				<div class="footer-inner section-inner<?php echo esc_attr( $footer_inner_classes ); ?>">
 
-				<div class="footer-credits">
+					<?php if ( $has_footer_menu ) : ?>
 
-					<p class="footer-copyright">&copy; <?php echo esc_html( date_i18n( __( 'Y', 'chaplin' ) ) ); ?> <a href="<?php echo esc_url( home_url() ); ?>"><?php echo bloginfo( 'name' ); ?></a></p>
+						<ul class="footer-menu reset-list-style">
+							<?php
+							wp_nav_menu( array(
+								'container' 		=> '',
+								'depth'				=> 1,
+								'items_wrap' 		=> '%3$s',
+								'theme_location' 	=> 'footer-menu',
+							) );
+							?>
+						</ul><!-- .site-nav -->
 
-					<p class="theme-credits color-secondary">
-						<?php
-						/* Translators: $s = name of the theme developer */
-						printf( esc_html_x( 'Theme by %s', 'Translators: $s = name of the theme developer', 'chaplin' ), '<a href="https://www.andersnoren.se">' . esc_html__( 'Anders Norén', 'chaplin' ) . '</a>' ); ?>
-					</p><!-- .theme-credits -->
+					<?php endif; ?>
 
-				</div><!-- .footer-credits -->
+					<div class="footer-credits">
 
-			</div><!-- .footer-bottom -->
+						<p class="footer-copyright">&copy; <?php echo esc_html( date_i18n( __( 'Y', 'chaplin' ) ) ); ?> <a href="<?php echo esc_url( home_url() ); ?>"><?php echo bloginfo( 'name' ); ?></a></p>
 
-        </footer><!-- #site-footer -->
+						<p class="theme-credits color-secondary">
+							<?php
+							/* Translators: $s = name of the theme developer */
+							printf( esc_html_x( 'Theme by %s', 'Translators: $s = name of the theme developer', 'chaplin' ), '<a href="https://www.andersnoren.se">' . esc_html__( 'Anders Norén', 'chaplin' ) . '</a>' ); ?>
+						</p><!-- .theme-credits -->
 
-        <?php wp_footer(); ?>
+					</div><!-- .footer-credits -->
+
+				</div><!-- .footer-bottom -->
+
+			</footer><!-- #site-footer -->
+
+			<?php 
+		endif;
+		
+		wp_footer(); 
+		
+		?>
 
     </body>
 </html>
