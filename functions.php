@@ -1555,6 +1555,9 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			if ( $background && $background !== $background_default ) : 
 				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'color', $background );
 				chaplin_generate_css( '.header-inner.is-sticky', 'background-color', $background );
+				echo '@media( max-width: 999px ) {';
+				chaplin_generate_css( '.menu-modal', 'background-color', $background, '', ' !important' );
+				echo '}';
 
 				// P3 Colors
 				echo $p3_supports_open;
@@ -1586,7 +1589,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 				// P3 Colors
 				echo $p3_supports_open;
-				chaplin_generate_css( $headings_targets, 'color', $headings_p3 );
+				chaplin_generate_css( $headings_targets, 'color', $p3_headings );
 				echo $p3_supports_close;
 			endif;
 
@@ -1643,6 +1646,12 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 				// Safari has issues with animating the P3 colors, so don't set the overlay header colors to the P3 gamut
 				chaplin_generate_css( '.cover-header .entry-header, .overlay-header .header-inner', 'color', $overlay_text );
+				echo '@media( max-width: 999px ) {';
+				chaplin_generate_css( '.overlay-header:not(.showing-menu-modal) .header-inner:not(.is-sticky) .site-title', 'color', $overlay_text );
+				echo '}';
+				echo '@media( min-width: 999px ) {';
+				chaplin_generate_css( '.header-inner:not(.is-sticky) .site-title', 'color', $overlay_text );
+				echo '}';
 
 			endif;
 

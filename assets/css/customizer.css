@@ -1,0 +1,46 @@
+/* ==========================================================================
+   Image Radio Buttons
+   ========================================================================== */
+
+
+.chaplin-image-radio-button-control .radio-button-labels {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	margin: -10px 0 0 -10px;
+	padding-top: 10px;
+}
+
+.chaplin-image-radio-button-control .radio-button-label {
+	display: block;
+	line-height: 1;
+	margin: 10px 0 0 10px;
+	width: calc( 50% - 10px );
+}
+
+.chaplin-image-radio-button-control .radio-button-label > input {
+	position: absolute;
+		left: -9999px;
+}
+
+.chaplin-image-radio-button-control .radio-button-label > img {
+	border: 2px solid #e1e1e3;
+	border-radius: 5px;
+	box-sizing: border-box;
+	cursor: pointer;
+	display: block;
+	margin: 0;
+	transition: border-color .15s linear;
+}
+
+.chaplin-image-radio-button-control .radio-button-label-text {
+	display: block;
+	font-weight: 500;
+	margin-top: 6px;
+}
+
+.chaplin-image-radio-button-control .radio-button-label:hover > img,
+.chaplin-image-radio-button-control .radio-button-label > input:focus ~ img,
+.chaplin-image-radio-button-control .radio-button-label > input:checked + img {
+	border-color: #2885bb;
+}

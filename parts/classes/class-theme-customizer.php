@@ -16,20 +16,15 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 			$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 
-			$wp_customize->selective_refresh->add_partial(
-				'blogname',
-				array(
-					'selector'        => '.site-title a',
-					'render_callback' => 'chaplin_customize_partial_blogname',
-				)
-			);
-			$wp_customize->selective_refresh->add_partial(
-				'blogdescription',
-				array(
-					'selector'        => '.site-description',
-					'render_callback' => 'chaplin_customize_partial_blogdescription',
-				)
-			);
+			$wp_customize->selective_refresh->add_partial( 'blogname', array(
+				'selector'        => '.site-title a',
+				'render_callback' => 'chaplin_customize_partial_blogname',
+			) );
+
+			$wp_customize->selective_refresh->add_partial( 'blogdescription', array(
+				'selector'        => '.site-description',
+				'render_callback' => 'chaplin_customize_partial_blogdescription',
+			) );
 
 			/* ------------------------------------------------------------------------
 			 * Site Identity
@@ -50,6 +45,47 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'label' 		=> __( 'Retina logo', 'chaplin' ),
 				'description' 	=> __( 'Scales the logo to half its uploaded size, making it sharp on high-res screens.', 'chaplin' ),
 			) );
+
+			/* ------------------------------------------------------------------------
+			 * Color Schemes
+			 * ------------------------------------------------------------------------ */
+
+			$wp_customize->add_section( 'chaplin_color_schemes', array(
+				'title' 		=> __( 'Color Schemes', 'chaplin' ),
+				'priority' 		=> 40,
+				'capability' 	=> 'edit_theme_options',
+				'description' 	=> __( 'Select which color scheme to use.', 'chaplin' ),
+			) );
+
+			/* Color Scheme Selector --------- */
+
+			$color_schemes = chaplin_get_color_schemes();
+			$color_scheme_choices = array();
+			foreach ( $color_schemes as $color_scheme_name => $color_scheme_attributes ) {
+				$color_scheme_choices[$color_scheme_name] = array(
+					'name'		=> $color_scheme_attributes['name'],
+					'image_url'	=> $color_scheme_attributes['image_url'],
+				);
+			}
+
+			if ( $color_scheme_choices ) {
+
+				$wp_customize->add_setting( 'chaplin_color_schemes_selector', array(
+					'default' 			=> 'default',
+					'sanitize_callback' => 'chaplin_sanitize_select',
+					'transport'			=> 'refresh',
+				) );
+
+				$wp_customize->add_control( new Chaplin_Image_Radio_Button_Control( $wp_customize, 'chaplin_color_schemes_selector', array(
+					'label' 		=> __( 'Color Schemes', 'chaplin' ),
+					'description'	=> __( 'Selecting a color scheme will update the settings on the "Colors" Customizer panel.', 'chaplin' ),
+					'section' 		=> 'chaplin_color_schemes',
+					'settings' 		=> 'chaplin_color_schemes_selector',
+					'transport'		=> 'postMessage',
+					'choices' 		=> $color_scheme_choices,
+				) ) );
+
+			}
 
 			/* ------------------------------------------------------------------------
 			 * Colors
@@ -766,6 +802,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			return $list;
 		}
 
+		// Return the sitewide color options included
 		public static function chaplin_get_color_options() {
 			return apply_filters( 'chaplin_accent_color_options', array(
 				'chaplin_accent_color' => array(
@@ -804,6 +841,14 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 		// Initiate the customize controls js
 		public static function chaplin_customize_controls() {
 			wp_enqueue_script( 'chaplin-customize-controls', get_template_directory_uri() . '/assets/js/customize-controls.js', array( 'jquery', 'customize-controls' ), '', true );
+
+			// Setup AJAX
+			$ajax_url = admin_url( 'admin-ajax.php' );
+
+			// AJAX Color Schemes
+			wp_localize_script( 'chaplin-customize-controls', 'chaplin_ajax_get_color_scheme_colors', array(
+				'ajaxurl'   => esc_url( $ajax_url ),
+			) );
 		}
 
 	}
@@ -836,22 +881,157 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 		}
 	endif;
 
+	/* Image Radio Button Control ------------------ */
+	/* Based on a solution by @maddisondesigns: https://github.com/maddisondesigns/customizer-custom-controls */
+
+	if ( ! class_exists( 'Chaplin_Image_Radio_Button_Control' ) ) :
+		class Chaplin_Image_Radio_Button_Control extends WP_Customize_Control {
+
+			// Set the type
+			public $type = 'chaplin_image_radio_button';
+
+			// Enqueue custom styles
+			public function enqueue() {
+				wp_enqueue_style( 'chaplin-customizer-custom-controls-css', get_template_directory_uri() . '/assets/css/customizer.css', array(), '1.0', 'all' );
+			}
+
+			// Render the content
+			public function render_content() {
+				?>
+
+				<div class="chaplin-image-radio-button-control">
+
+					<?php if ( ! empty( $this->label ) ) : ?>
+						<span class="customize-control-title"><?php echo wp_kses_post( $this->label ); ?></span>
+					<?php endif; ?>
+
+					<?php if ( ! empty( $this->description ) ) : ?>
+						<span class="customize-control-description"><?php echo wp_kses_post( $this->description ); ?></span>
+					<?php endif; ?>
+
+					<div class="radio-button-labels">
+
+						<?php foreach ( $this->choices as $key => $value ) : ?>
+							<label class="radio-button-label">
+								<input type="radio" name="<?php echo esc_attr( $this->id ); ?>" value="<?php echo esc_attr( $key ); ?>" <?php $this->link(); ?> <?php checked( $this->value() ); ?>/>
+								<img src="<?php echo esc_url( $value['image_url'] ); ?>" alt="<?php echo esc_attr( $value['name'] ); ?>" />
+								<span class="radio-button-label-text"><?php echo wp_kses_post( $value['name'] ); ?></span>
+							</label>
+						<?php endforeach; ?>
+					
+					</div><!-- .radio-button-labels -->
+
+				</div><!-- .chaplin-image-radio-button-control -->
+
+			<?php
+			}
+
+		}
+	endif;
+
 endif; 
 
 
 /* ---------------------------------------------------------------------------------------------
-   HELPER FUNCTIONS
+   PARTIAL REFRESH FUNCTIONS
    --------------------------------------------------------------------------------------------- */
 
-
 /* Render the site title for the selective refresh partial */
-
-function chaplin_customize_partial_blogname() {
-	bloginfo( 'name' );
-}
+if ( ! function_exists( 'chaplin_customize_partial_blogname' ) ) : 
+	function chaplin_customize_partial_blogname() {
+		bloginfo( 'name' );
+	}
+endif;
 
 /* Render the site description for the selective refresh partial */
+if ( ! function_exists( 'chaplin_customize_partial_blogdescription' ) ) : 
+	function chaplin_customize_partial_blogdescription() {
+		bloginfo( 'description' );
+	}
+endif;
 
-function chaplin_customize_partial_blogdescription() {
-	bloginfo( 'description' );
-}
+
+/* ---------------------------------------------------------------------------------------------
+   GET COLOR SCHEMES
+   Returns a filterable list with all color schemes.
+   --------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_get_color_schemes' ) ) :
+	function chaplin_get_color_schemes() {
+
+		return apply_filters( 'chaplin_color_schemes', array(
+			'default' 			=> array(
+				'image_url'		=> get_template_directory_uri() . '/assets/images/color-schemes/default.png',
+				'name'			=> _x( 'Default', 'Color scheme name', 'chaplin' ),
+				'colors'		=> array(
+					'background_color'									=> 'FFFFFF',
+					'chaplin_primary_text_color'						=> '#1A1B1F',
+					'chaplin_headings_text_color'						=> '#1A1B1F',
+					'chaplin_secondary_text_color'						=> '#747579',
+					'chaplin_accent_color'								=> '#007C89',
+					'chaplin_border_color'								=> '#E1E1E3',
+					'chaplin_light_background_color'					=> '#F1F1F3',
+					'chaplin_cover_template_overlay_text_color' 		=> '#FFFFFF',
+					'chaplin_cover_template_overlay_background_color'	=> '#007C89',
+				),
+			),
+			'macchiato' 			=> array(
+				'image_url'		=> get_template_directory_uri() . '/assets/images/color-schemes/default.png',
+				'name'			=> _x( 'Macchiato', 'Color scheme name', 'chaplin' ),
+				'colors'		=> array(
+					'background_color'									=> 'F6F2F0',
+					'chaplin_primary_text_color'						=> '#1A1A1B',
+					'chaplin_headings_text_color'						=> '#AE9254',
+					'chaplin_secondary_text_color'						=> '#747579',
+					'chaplin_accent_color'								=> '#AE9254',
+					'chaplin_border_color'								=> '#E0DDDB',
+					'chaplin_light_background_color'					=> '#EAE6E4',
+					'chaplin_cover_template_overlay_text_color' 		=> '#FFFFFF',
+					'chaplin_cover_template_overlay_background_color'	=> '#AE9254',
+				),
+			),
+			'naxos' 			=> array(
+				'image_url'		=> get_template_directory_uri() . '/assets/images/color-schemes/default.png',
+				'name'			=> _x( 'Naxos', 'Color scheme name', 'chaplin' ),
+				'colors'		=> array(
+					'background_color'									=> '0C1B31',
+					'chaplin_primary_text_color'						=> '#F6F2F0',
+					'chaplin_headings_text_color'						=> '#E9513D',
+					'chaplin_secondary_text_color'						=> '#F6F2F0',
+					'chaplin_accent_color'								=> '#E9513D',
+					'chaplin_border_color'								=> '#313D4F',
+					'chaplin_light_background_color'					=> '#1F2B40',
+					'chaplin_cover_template_overlay_text_color' 		=> '#F6F2F0',
+					'chaplin_cover_template_overlay_background_color'	=> '#0C1B31',
+				),
+			),
+		) );
+
+	}
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
+	AJAX GET COLOR SCHEME COLORS
+	Returns the colors of the color scheme specified. Used by customize-controls.js to set the values 
+	of the color pickers when a new color scheme is selected.
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_ajax_get_color_scheme_colors' ) ) :
+	function chaplin_ajax_get_color_scheme_colors() {
+
+		$color_scheme = wp_unslash( $_POST['color_scheme'] );
+
+		$color_schemes = chaplin_get_color_schemes();
+		$color_scheme_colors = isset( $color_schemes[$color_scheme]['colors'] ) ? $color_schemes[$color_scheme]['colors'] : array();
+
+		if ( $color_scheme_colors ) {
+			echo json_encode( $color_scheme_colors );
+		}
+
+		wp_die();
+
+	}
+	add_action( 'wp_ajax_nopriv_chaplin_ajax_get_color_scheme_colors', 'chaplin_ajax_get_color_scheme_colors' );
+	add_action( 'wp_ajax_chaplin_ajax_get_color_scheme_colors', 'chaplin_ajax_get_color_scheme_colors' );
+endif;

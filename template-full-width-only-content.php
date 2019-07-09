@@ -1,7 +1,7 @@
 <?php
 
 /* 
-Template Name: Full Width and Only Content Template 
+Template Name: Full Width and Only Content Template
 Template Post Type: post, page
 */
 
