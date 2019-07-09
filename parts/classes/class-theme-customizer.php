@@ -60,15 +60,8 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			/* Color Scheme Selector --------- */
 
 			$color_schemes = chaplin_get_color_schemes();
-			$color_scheme_choices = array();
-			foreach ( $color_schemes as $color_scheme_name => $color_scheme_attributes ) {
-				$color_scheme_choices[$color_scheme_name] = array(
-					'name'		=> $color_scheme_attributes['name'],
-					'image_url'	=> $color_scheme_attributes['image_url'],
-				);
-			}
 
-			if ( $color_scheme_choices ) {
+			if ( $color_schemes ) {
 
 				$wp_customize->add_setting( 'chaplin_color_schemes_selector', array(
 					'default' 			=> 'default',
@@ -76,13 +69,13 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 					'transport'			=> 'refresh',
 				) );
 
-				$wp_customize->add_control( new Chaplin_Image_Radio_Button_Control( $wp_customize, 'chaplin_color_schemes_selector', array(
+				$wp_customize->add_control( new Chaplin_Colour_Scheme_Control( $wp_customize, 'chaplin_color_schemes_selector', array(
 					'label' 		=> __( 'Color Schemes', 'chaplin' ),
 					'description'	=> __( 'Selecting a color scheme will update the settings on the "Colors" Customizer panel.', 'chaplin' ),
 					'section' 		=> 'chaplin_color_schemes',
 					'settings' 		=> 'chaplin_color_schemes_selector',
 					'transport'		=> 'postMessage',
-					'choices' 		=> $color_scheme_choices,
+					'choices' 		=> $color_schemes,
 				) ) );
 
 			}
@@ -884,8 +877,8 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 	/* Image Radio Button Control ------------------ */
 	/* Based on a solution by @maddisondesigns: https://github.com/maddisondesigns/customizer-custom-controls */
 
-	if ( ! class_exists( 'Chaplin_Image_Radio_Button_Control' ) ) :
-		class Chaplin_Image_Radio_Button_Control extends WP_Customize_Control {
+	if ( ! class_exists( 'Chaplin_Colour_Scheme_Control' ) ) :
+		class Chaplin_Colour_Scheme_Control extends WP_Customize_Control {
 
 			// Set the type
 			public $type = 'chaplin_image_radio_button';
@@ -897,9 +890,10 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 
 			// Render the content
 			public function render_content() {
+				error_log( print_r( $this->choices, true ) );
 				?>
 
-				<div class="chaplin-image-radio-button-control">
+				<div class="chaplin-color-scheme-control">
 
 					<?php if ( ! empty( $this->label ) ) : ?>
 						<span class="customize-control-title"><?php echo wp_kses_post( $this->label ); ?></span>
@@ -911,10 +905,30 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 
 					<div class="radio-button-labels">
 
-						<?php foreach ( $this->choices as $key => $value ) : ?>
+						<?php foreach ( $this->choices as $key => $value ) : 
+
+							$accent_color 		= isset( $value['colors']['chaplin_accent_color'] ) ? $value['colors']['chaplin_accent_color'] : '';
+							$primary_color 		= isset( $value['colors']['chaplin_primary_text_color'] ) ? $value['colors']['chaplin_primary_text_color'] : '';
+							$secondary_color 	= isset( $value['colors']['chaplin_secondary_text_color'] ) ? $value['colors']['chaplin_secondary_text_color'] : '';
+							$background_color 	= isset( $value['colors']['background_color'] ) ? '#' . $value['colors']['background_color'] : '';
+						
+							?>
 							<label class="radio-button-label">
 								<input type="radio" name="<?php echo esc_attr( $this->id ); ?>" value="<?php echo esc_attr( $key ); ?>" <?php $this->link(); ?> <?php checked( $this->value() ); ?>/>
-								<img src="<?php echo esc_url( $value['image_url'] ); ?>" alt="<?php echo esc_attr( $value['name'] ); ?>" />
+								<div class="color-scheme-preview">
+									<?php if ( $accent_color ) : ?>
+										<div class="color color-accent" style="background-color: <?php echo $accent_color; ?>"></div>
+									<?php endif; ?>
+									<?php if ( $primary_color ) : ?>
+										<div class="color color-primary" style="background-color: <?php echo $primary_color; ?>"></div>
+									<?php endif; ?>
+									<?php if ( $secondary_color ) : ?>
+										<div class="color color-secondary" style="background-color: <?php echo $secondary_color; ?>"></div>
+									<?php endif; ?>
+									<?php if ( $background_color ) : ?>
+										<div class="color color-background" style="background-color: <?php echo $background_color; ?>"></div>
+									<?php endif; ?>
+								</div><!-- .color-scheme-preview -->
 								<span class="radio-button-label-text"><?php echo wp_kses_post( $value['name'] ); ?></span>
 							</label>
 						<?php endforeach; ?>
@@ -960,8 +974,7 @@ if ( ! function_exists( 'chaplin_get_color_schemes' ) ) :
 	function chaplin_get_color_schemes() {
 
 		return apply_filters( 'chaplin_color_schemes', array(
-			'default' 			=> array(
-				'image_url'		=> get_template_directory_uri() . '/assets/images/color-schemes/default.png',
+			'default' 		=> array(
 				'name'			=> _x( 'Default', 'Color scheme name', 'chaplin' ),
 				'colors'		=> array(
 					'background_color'									=> 'FFFFFF',
@@ -975,8 +988,7 @@ if ( ! function_exists( 'chaplin_get_color_schemes' ) ) :
 					'chaplin_cover_template_overlay_background_color'	=> '#007C89',
 				),
 			),
-			'macchiato' 			=> array(
-				'image_url'		=> get_template_directory_uri() . '/assets/images/color-schemes/default.png',
+			'macchiato' 	=> array(
 				'name'			=> _x( 'Macchiato', 'Color scheme name', 'chaplin' ),
 				'colors'		=> array(
 					'background_color'									=> 'F6F2F0',
@@ -990,14 +1002,13 @@ if ( ! function_exists( 'chaplin_get_color_schemes' ) ) :
 					'chaplin_cover_template_overlay_background_color'	=> '#AE9254',
 				),
 			),
-			'naxos' 			=> array(
-				'image_url'		=> get_template_directory_uri() . '/assets/images/color-schemes/default.png',
+			'naxos' 		=> array(
 				'name'			=> _x( 'Naxos', 'Color scheme name', 'chaplin' ),
 				'colors'		=> array(
 					'background_color'									=> '0C1B31',
 					'chaplin_primary_text_color'						=> '#F6F2F0',
 					'chaplin_headings_text_color'						=> '#E9513D',
-					'chaplin_secondary_text_color'						=> '#F6F2F0',
+					'chaplin_secondary_text_color'						=> '#808690',
 					'chaplin_accent_color'								=> '#E9513D',
 					'chaplin_border_color'								=> '#313D4F',
 					'chaplin_light_background_color'					=> '#1F2B40',

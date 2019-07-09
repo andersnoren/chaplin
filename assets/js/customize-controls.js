@@ -55,7 +55,7 @@
 		Update the color pickers when a new color scheme is selected
 	--------------------------------------------------------------------------------------------------- */
 
-	$( '#customize-control-chaplin_color_schemes_selector .chaplin-image-radio-button-control input' ).live( 'change', function() {
+	$( '#customize-control-chaplin_color_schemes_selector .chaplin-color-scheme-control input' ).live( 'change', function() {
 
 		if ( $( this ).is( ':checked' ) ) {
 
