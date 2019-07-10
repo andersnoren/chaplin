@@ -159,6 +159,10 @@ Version 1.1.0 (2019-07-XX)
 - Added color scheme functionality, starting with XXXX color schemes
 - Fixed some issues with overlay colors and the sticky menu
 
+Version 1.0.18 (2019-07-10)
+-------------------------
+- Fixed full width page template
+
 Version 1.0.17 (2019-07-09)
 -------------------------
 - Set the site title and description to use partial refresh in the Customizer
