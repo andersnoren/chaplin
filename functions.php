@@ -223,7 +223,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		}
 
 		// Check whether the current page should have an overlay header
-		if ( is_page_template( array( 'template-full-width-only-content.php', 'template-only-content.php' ) ) ) {
+		if ( is_page_template( array( 'template-full-width-only-content.php', 'template-full-width.php' ) ) ) {
 			$classes[] = 'has-full-width-content';
 		}
 
