@@ -890,7 +890,6 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 
 			// Render the content
 			public function render_content() {
-				error_log( print_r( $this->choices, true ) );
 				?>
 
 				<div class="chaplin-color-scheme-control">
@@ -911,10 +910,38 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 							$primary_color 		= isset( $value['colors']['chaplin_primary_text_color'] ) ? $value['colors']['chaplin_primary_text_color'] : '';
 							$secondary_color 	= isset( $value['colors']['chaplin_secondary_text_color'] ) ? $value['colors']['chaplin_secondary_text_color'] : '';
 							$background_color 	= isset( $value['colors']['background_color'] ) ? '#' . $value['colors']['background_color'] : '';
+
+							$active = false;
+
+							// First, check if the current option is the selected one
+							if ( $this->value() === $key ) {
+
+								// Second, make sure that the user hasn't changed any colors independently
+								foreach ( $value['colors'] as $setting_name => $color_scheme_value  ) {
+									$setting_value = strtoupper( get_theme_mod( $setting_name ) );
+
+									// The colour scheme value matches the colour setting
+									if ( $color_scheme_value == $setting_value ) {
+										$active = true;
+
+									// We have a mismatch between the colour scheme and the color settings, so the scheme is not active
+									} else {
+										$active = false;
+										break;
+									}
+								}
+
+								// If we're not active at this point, the chosen color scheme is no longer valid, so we can unset the color scheme setting
+								if ( ! $active ) {
+									set_theme_mod( 'chaplin_color_schemes_selector', '' );
+								}
+
+
+							}
 						
 							?>
 							<label class="radio-button-label">
-								<input type="radio" name="<?php echo esc_attr( $this->id ); ?>" value="<?php echo esc_attr( $key ); ?>" <?php $this->link(); ?> <?php checked( $this->value() ); ?>/>
+								<input type="radio" name="<?php echo esc_attr( $this->id ); ?>" value="<?php echo esc_attr( $key ); ?>" <?php $this->link(); ?> <?php checked( $active ); ?>/>
 								<div class="color-scheme-preview">
 									<?php if ( $accent_color ) : ?>
 										<div class="color color-accent" style="background-color: <?php echo $accent_color; ?>"></div>

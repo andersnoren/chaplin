@@ -1650,7 +1650,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.overlay-header:not(.showing-menu-modal) .header-inner:not(.is-sticky) .site-title', 'color', $overlay_text );
 				echo '}';
 				echo '@media( min-width: 999px ) {';
-				chaplin_generate_css( '.header-inner:not(.is-sticky) .site-title', 'color', $overlay_text );
+				chaplin_generate_css( '.overlay-header .header-inner:not(.is-sticky) .site-title', 'color', $overlay_text );
 				echo '}';
 
 			endif;
