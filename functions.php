@@ -1573,7 +1573,6 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				// P3 Colors
 				echo $p3_supports_open;
 				chaplin_generate_css( $buttons_targets, 'color', $p3_background );
-				chaplin_generate_css( '.header-inner.is-sticky', 'background-color', $p3_background );
 				chaplin_generate_css( 'body', 'background-color', $p3_background, '', '!important' );
 				echo $p3_supports_close;
 			endif;
@@ -1631,7 +1630,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			endif;
 
 			// Buttons background color
-			if ( $buttons_background && $buttons_background !== $buttons_background_default && $buttons_background !== $accent_color ) : 
+			if ( $buttons_background && $buttons_background !== $buttons_background_default && $buttons_background !== $accent ) : 
 				chaplin_generate_css( $buttons_targets, 'background-color', $buttons_background );
 
 				// P3 Colors
@@ -1641,7 +1640,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			endif;
 
 			// Buttons text color
-			if ( $buttons_text && $buttons_text !== $buttons_text_default && $buttons_text !== $background_color ) : 
+			if ( $buttons_text && $buttons_text !== $buttons_text_default && $buttons_text !== $background ) : 
 				chaplin_generate_css( $buttons_targets, 'color', $buttons_text );
 
 				// P3 Colors
@@ -1877,12 +1876,14 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			endif;
 
 			// Buttons background color
-			if ( $buttons_background && $buttons_background !== $buttons_background_default && $buttons_background !== $accent_color ) : 
+			if ( $buttons_background && $buttons_background !== $buttons_background_default && $buttons_background !== $accent ) : 
 				chaplin_generate_css( $buttons_targets, 'background-color', $buttons_background );
 			endif;
 
+			error_log( $buttons_text );
+
 			// Buttons text color
-			if ( $buttons_text && $buttons_text !== $buttons_text_default && $buttons_text !== $background_color ) : 
+			if ( $buttons_text && $buttons_text !== $buttons_text_default && $buttons_text !== $background ) : 
 				chaplin_generate_css( $buttons_targets, 'color', $buttons_text );
 			endif;
 
@@ -2008,12 +2009,12 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			endif;
 
 			// Buttons background color
-			if ( $buttons_background && $buttons_background !== $buttons_background_default && $buttons_background !== $accent_color ) : 
+			if ( $buttons_background && $buttons_background !== $buttons_background_default && $buttons_background !== $accent ) : 
 				chaplin_generate_css( $buttons_targets, 'background-color', $buttons_background );
 			endif;
 
 			// Buttons text color
-			if ( $buttons_text && $buttons_text !== $buttons_text_default && $buttons_text !== $background_color ) : 
+			if ( $buttons_text && $buttons_text !== $buttons_text_default && $buttons_text !== $background ) : 
 				chaplin_generate_css( $buttons_targets, 'color', $buttons_text );
 			endif;
 

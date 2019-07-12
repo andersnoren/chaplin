@@ -1115,7 +1115,7 @@ if ( ! function_exists( 'chaplin_get_color_schemes' ) ) :
 					'chaplin_headings_text_color'						=> '#062421',
 					'chaplin_secondary_text_color'						=> '#547473',
 					'chaplin_accent_color'								=> '#CD7468',
-					'chaplin_buttons_background_color'					=> '#E48174',
+					'chaplin_buttons_background_color'					=> '#CD7468',
 					'chaplin_buttons_text_color'						=> '#FFFFFF',
 					'chaplin_border_color'								=> '#84A4A5',
 					'chaplin_light_background_color'					=> '#94B5B5',
