@@ -118,7 +118,7 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 		public static function get_font_fallbacks( $font ) {
 
 			$sans_serif_stack = '-apple-system, BlinkMacSystemFont, \'Helvetica Neue\', Helvetica, sans-serif';
-			$serif_stack = 'Georgia, "Times New Roman", Times, serif';
+			$serif_stack = 'Georgia, \'Times New Roman\', Times, serif';
 			$mono_stack = 'Menlo, monospace';
 
 			// Start with the simple checks

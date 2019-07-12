@@ -14,7 +14,7 @@
 	endif;
 
 	// On pages with the cover template, display a "To the content" link
-	if ( is_page() && is_page_template( 'template-cover.php' ) ) {
+	if ( is_page() && is_page_template( array( 'template-cover.php', 'template-full-width-cover.php' ) ) ) {
 		?>
 
 		<div class="to-the-content-wrapper">

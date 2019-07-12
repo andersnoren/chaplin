@@ -154,10 +154,15 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
-Version 1.1.0 (2019-07-XX)
+Version 1.1.0 (2019-07-12)
 -------------------------
-- Added color scheme functionality, starting with XXXX color schemes
+- Added color scheme functionality, starting with 10 color schemes
 - Fixed some issues with overlay colors and the sticky menu
+- Fixed issue with Classic Editor styles when a serif font is set
+- Added template-full-width-cover.php
+- Added color settings for button background and button text color
+- Fixed P3 color issue with some elements
+- Updated theme description
 
 Version 1.0.18 (2019-07-10)
 -------------------------

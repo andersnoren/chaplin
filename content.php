@@ -5,7 +5,7 @@
 	$post_type = get_post_type();
 	
 	// On the cover page template, output the cover header
-	if ( is_page_template( 'template-cover.php' ) ) : 
+	if ( is_page_template( array( 'template-cover.php', 'template-full-width-cover.php' ) ) ) : 
 
 		$cover_header_style = '';
 		$cover_header_classes = '';

@@ -203,7 +203,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		}
 
 		// Check whether the current page should have an overlay header
-		if ( is_page_template( 'template-cover.php' ) ) {
+		if ( is_page_template( array( 'template-cover.php', 'template-full-width-cover.php' ) ) ) {
 			$classes[] = 'overlay-header';
 
 			// Check if we're fading
@@ -223,7 +223,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		}
 
 		// Check whether the current page should have an overlay header
-		if ( is_page_template( array( 'template-full-width-only-content.php', 'template-full-width.php' ) ) ) {
+		if ( is_page_template( array( 'template-full-width-only-content.php', 'template-full-width.php', 'template-full-width-cover.php' ) ) ) {
 			$classes[] = 'has-full-width-content';
 		}
 
@@ -769,7 +769,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 		if ( $post_meta && ! in_array( 'empty', $post_meta ) ) :
 
 			// Make sure the right color is used for the post meta
-			if ( $page_template == 'template-cover.php' && $location == 'single-top' ) {
+			if ( in_array( $page_template, array( 'template-cover.php', 'template-full-width-cover.php' ) ) && $location == 'single-top' ) {
 				$post_meta_classes .= ' color-inherit';
 			} else {
 				$post_meta_classes .= ' color-accent';
@@ -1451,20 +1451,14 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 	function chaplin_get_customizer_css( $type = 'front-end' ) {
 
 		/* Get variables --------------------- */
-		
-		// Default colors
-		$background_default 		= '#ffffff';
-		$primary_default 			= '#1a1b1f';
-		$headings_default 			= '#1a1b1f';
-		$secondary_default 			= '#747579';
-		$accent_default 			= '#007c89';
-		$border_default 			= '#e1e1e3';
-		$light_background_default 	= '#f1f1f3';
+	
 
 		// Colors
 		$background = 			get_theme_mod( 'background_color' ) ? '#' . get_theme_mod( 'background_color' ) : false;
 		$primary = 				get_theme_mod( 'chaplin_primary_text_color' );
 		$headings = 			get_theme_mod( 'chaplin_headings_text_color' );
+		$buttons_background = 	get_theme_mod( 'chaplin_buttons_background_color' );
+		$buttons_text = 		get_theme_mod( 'chaplin_buttons_text_color' );
 		$secondary = 			get_theme_mod( 'chaplin_secondary_text_color' );
 		$accent = 				get_theme_mod( 'chaplin_accent_color' );
 		$border = 				get_theme_mod( 'chaplin_border_color' );
@@ -1472,14 +1466,27 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		$overlay_text = 		get_theme_mod( 'chaplin_cover_template_overlay_text_color' );
 
 		// P3 colors
-		$p3_background = 		chaplin_format_p3( chaplin_hex_to_p3( $background ) );
-		$p3_primary = 			chaplin_format_p3( chaplin_hex_to_p3( $primary ) );
-		$p3_headings = 			chaplin_format_p3( chaplin_hex_to_p3( $headings ) );
-		$p3_secondary = 		chaplin_format_p3( chaplin_hex_to_p3( $secondary ) );
-		$p3_accent = 			chaplin_format_p3( chaplin_hex_to_p3( $accent ) );
-		$p3_border = 			chaplin_format_p3( chaplin_hex_to_p3( $border ) );
-		$p3_light_background = 	chaplin_format_p3( chaplin_hex_to_p3( $light_background ) );
-		$p3_overlay_text = 		chaplin_format_p3( chaplin_hex_to_p3( $overlay_text ) );
+		$p3_background = 			chaplin_format_p3( chaplin_hex_to_p3( $background ) );
+		$p3_primary = 				chaplin_format_p3( chaplin_hex_to_p3( $primary ) );
+		$p3_headings = 				chaplin_format_p3( chaplin_hex_to_p3( $headings ) );
+		$p3_buttons_background =	chaplin_format_p3( chaplin_hex_to_p3( $buttons_background ) );
+		$p3_buttons_text = 			chaplin_format_p3( chaplin_hex_to_p3( $buttons_text ) );
+		$p3_secondary = 			chaplin_format_p3( chaplin_hex_to_p3( $secondary ) );
+		$p3_accent = 				chaplin_format_p3( chaplin_hex_to_p3( $accent ) );
+		$p3_border = 				chaplin_format_p3( chaplin_hex_to_p3( $border ) );
+		$p3_light_background = 		chaplin_format_p3( chaplin_hex_to_p3( $light_background ) );
+		$p3_overlay_text = 			chaplin_format_p3( chaplin_hex_to_p3( $overlay_text ) );
+
+		// Default colors
+		$background_default 		= '#ffffff';
+		$primary_default 			= '#1a1b1f';
+		$headings_default 			= '#1a1b1f';
+		$buttons_background_default = $accent;
+		$buttons_text_default 		= $background;
+		$secondary_default 			= '#747579';
+		$accent_default 			= '#007c89';
+		$border_default 			= '#e1e1e3';
+		$light_background_default 	= '#f1f1f3';
 
 		// Fonts and font settings
 		$body_font = 			esc_attr( get_theme_mod( 'chaplin_body_font', Chaplin_Google_Fonts::$default_body_font ) );
@@ -1518,14 +1525,17 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 		if ( $type == 'front-end' ) {
 
+			/* Helper Variables ------------------ */
+
+			$headings_targets = apply_filters( 'chaplin_headings_targets_front_end', 'h1, h2, h3, h4, h5, h6, .faux-heading' );
+			$buttons_targets = apply_filters( 'chaplin_buttons_targets_front_end', 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']' );
+
 			/* Fonts ----------------------------- */
 
 			// Body font
 			if ( $body_font ) :
 				chaplin_generate_css( 'body', 'font-family', $body_font );
 			endif;
-
-			$headings_targets = apply_filters( 'chaplin_headings_targets_front_end', 'h1, h2, h3, h4, h5, h6, .faux-heading' );
 
 			// Headings font
 			if ( $headings_font ) :
@@ -1553,15 +1563,18 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 			// Background color
 			if ( $background && $background !== $background_default ) : 
-				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'color', $background );
+				chaplin_generate_css( $buttons_targets, 'color', $background );
 				chaplin_generate_css( '.header-inner.is-sticky', 'background-color', $background );
+				chaplin_generate_css( 'body', 'background-color', $background, '', '!important' );
 				echo '@media( max-width: 999px ) {';
 				chaplin_generate_css( '.menu-modal', 'background-color', $background, '', ' !important' );
 				echo '}';
 
 				// P3 Colors
 				echo $p3_supports_open;
-				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'color', $p3_background );
+				chaplin_generate_css( $buttons_targets, 'color', $p3_background );
+				chaplin_generate_css( '.header-inner.is-sticky', 'background-color', $p3_background );
+				chaplin_generate_css( 'body', 'background-color', $p3_background, '', '!important' );
 				echo $p3_supports_close;
 			endif;
 
@@ -1607,13 +1620,33 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			if ( $accent && $accent !== $accent_default ) : 
 				chaplin_generate_css( 'a, .wp-block-button.is-style-outline', 'color', $accent );
 				chaplin_generate_css( 'blockquote, .wp-block-button.is-style-outline', 'border-color', $accent );
-				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'background-color', $accent );
+				chaplin_generate_css( $buttons_targets, 'background-color', $accent );
 
 				// P3 Colors
 				echo $p3_supports_open;
 				chaplin_generate_css( 'a, .wp-block-button.is-style-outline', 'color', $p3_accent );
 				chaplin_generate_css( 'blockquote, .wp-block-button.is-style-outline', 'border-color', $p3_accent );
-				chaplin_generate_css( 'button, .button, .faux-button, .wp-block-button__link, .wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'background-color', $p3_accent );
+				chaplin_generate_css( $buttons_targets, 'background-color', $p3_accent );
+				echo $p3_supports_close;
+			endif;
+
+			// Buttons background color
+			if ( $buttons_background && $buttons_background !== $buttons_background_default && $buttons_background !== $accent_color ) : 
+				chaplin_generate_css( $buttons_targets, 'background-color', $buttons_background );
+
+				// P3 Colors
+				echo $p3_supports_open;
+				chaplin_generate_css( $buttons_targets, 'background-color', $p3_buttons_background );
+				echo $p3_supports_close;
+			endif;
+
+			// Buttons text color
+			if ( $buttons_text && $buttons_text !== $buttons_text_default && $buttons_text !== $background_color ) : 
+				chaplin_generate_css( $buttons_targets, 'color', $buttons_text );
+
+				// P3 Colors
+				echo $p3_supports_open;
+				chaplin_generate_css( $buttons_targets, 'color', $p3_buttons_text );
 				echo $p3_supports_close;
 			endif;
 			
@@ -1789,14 +1822,17 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 		} else if ( $type == 'block-editor' ) {
 
-			/* Fonts ----------------------------- */
+			/* Helper Variables -------------- */
+
+			$headings_targets = apply_filters( 'chaplin_headings_targets_block_editor', '.editor-styles-wrapper .wp-block h1, .editor-styles-wrapper .wp-block h2, .editor-styles-wrapper .wp-block h3, .editor-styles-wrapper .wp-block h4, .editor-styles-wrapper .wp-block h5, .editor-styles-wrapper .wp-block h6, .editor-styles-wrapper .editor-post-title__block .editor-post-title__input' );
+			$buttons_targets = apply_filters( 'chaplin_buttons_targets_block_editor', '.editor-styles-wrapper .faux-button, .editor-styles-wrapper .wp-block-button:not(.is-style-outline) .wp-block-button__link, .editor-styles-wrapper .wp-block-file .wp-block-file__button' );
+
+			/* Fonts ------------------------- */
 
 			// Body font
 			if ( $body_font ) :
 				chaplin_generate_css( '.editor-styles-wrapper > *, .editor-styles-wrapper .editor-post-title__block .editor-post-title__input', 'font-family', $body_font );
 			endif;
-
-			$headings_targets = apply_filters( 'chaplin_headings_targets_block_editor', '.editor-styles-wrapper .wp-block h1, .editor-styles-wrapper .wp-block h2, .editor-styles-wrapper .wp-block h3, .editor-styles-wrapper .wp-block h4, .editor-styles-wrapper .wp-block h5, .editor-styles-wrapper .wp-block h6, .editor-styles-wrapper .editor-post-title__block .editor-post-title__input' );
 
 			// Headings font
 			if ( $headings_font ) :
@@ -1818,13 +1854,13 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( $headings_targets, 'letter-spacing', $headings_spacing . 'em' );
 			}
 
-			/* Colors ---------------------------- */
+			/* Colors ------------------------ */
 
 			/* ELEMENT SPECIFIC */
 
 			// Background color
 			if ( $background && $background !== $background_default ) : 
-				chaplin_generate_css( '.editor-styles-wrapper .faux-button, .editor-styles-wrapper .wp-block-button:not(.is-style-outline) .wp-block-button__link, .editor-styles-wrapper .wp-block-file .wp-block-file__button', 'color', $background );
+				chaplin_generate_css( $buttons_targets, 'color', $background );
 				chaplin_generate_css( '.editor-styles-wrapper, .editor-styles-wrapper > .editor-writing-flow, .editor-styles-wrapper > .editor-writing-flow > div', 'background-color', $background );
 			endif;
 
@@ -1840,6 +1876,16 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( $headings_targets, 'color', $headings );
 			endif;
 
+			// Buttons background color
+			if ( $buttons_background && $buttons_background !== $buttons_background_default && $buttons_background !== $accent_color ) : 
+				chaplin_generate_css( $buttons_targets, 'background-color', $buttons_background );
+			endif;
+
+			// Buttons text color
+			if ( $buttons_text && $buttons_text !== $buttons_text_default && $buttons_text !== $background_color ) : 
+				chaplin_generate_css( $buttons_targets, 'color', $buttons_text );
+			endif;
+
 			// Secondary color
 			if ( $secondary ) :
 				chaplin_generate_css( '.editor-styles-wrapper .wp-block-latest-comments time, .editor-styles-wrapper .wp-block-latest-posts time', 'color', $secondary );
@@ -1850,7 +1896,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.editor-styles-wrapper a', 'color', $accent );
 				chaplin_generate_css( '.editor-styles-wrapper blockquote, .editor-styles-wrapper .wp-block-quote', 'border-color', $accent, '', ' !important' );
 				chaplin_generate_css( '.editor-styles-wrapper .wp-block-file .wp-block-file__textlink', 'color', $accent );
-				chaplin_generate_css( '.editor-styles-wrapper .faux-button, .editor-styles-wrapper .wp-block-button:not(.is-style-outline) .wp-block-button__link, .editor-styles-wrapper .wp-block-file .wp-block-file__button', 'background', $accent );
+				chaplin_generate_css( $buttons_targets, 'background', $accent );
 				chaplin_generate_css( '.editor-styles-wrapper .wp-block-button.is-style-outline .wp-block-button__link', 'border-color', $accent );
 				chaplin_generate_css( '.editor-styles-wrapper .wp-block-button.is-style-outline .wp-block-button__link', 'color', $accent );
 			endif;
@@ -1909,14 +1955,17 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 		} else if ( $type == 'classic-editor' ) {
 
-			/* Fonts ----------------------------- */
+			/* Helper Variables -------------- */
+
+			$headings_targets = apply_filters( 'chaplin_headings_targets_classic_editor', 'body#tinymce.wp-editor h1, body#tinymce.wp-editor h2, body#tinymce.wp-editor h3, body#tinymce.wp-editor h4, body#tinymce.wp-editor h5, body#tinymce.wp-editor h6' );
+			$buttons_targets = apply_filters( 'chaplin_buttons_targets_classic_editor', 'body#tinymce.wp-editor button, body#tinymce.wp-editor .button, body#tinymce.wp-editor .faux-button, body#tinymce.wp-editor input[type=\'button\'], body#tinymce.wp-editor input[type=\'reset\'], body#tinymce.wp-editor input[type=\'submit\']' );
+
+			/* Fonts ------------------------- */
 
 			// Body font
 			if ( $body_font ) :
 				chaplin_generate_css( 'body#tinymce.wp-editor', 'font-family', $body_font );
 			endif;
-
-			$headings_targets = apply_filters( 'chaplin_headings_targets_classic_editor', 'body#tinymce.wp-editor h1, body#tinymce.wp-editor h2, body#tinymce.wp-editor h3, body#tinymce.wp-editor h4, body#tinymce.wp-editor h5, body#tinymce.wp-editor h6' );
 
 			// Headings font
 			if ( $headings_font ) :
@@ -1938,14 +1987,14 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( $headings_targets, 'letter-spacing', $headings_spacing . 'em' );
 			}
 
-			/* Colors ---------------------------- */
+			/* Colors ------------------------ */
 
 			/* ELEMENT SPECIFIC */
 
 			// Background color
 			if ( $background && $background !== $background_default ) : 
 				chaplin_generate_css( 'body#tinymce.wp-editor', 'background-color', $background );
-				chaplin_generate_css( 'button, .button, .faux-button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']', 'color', $background );
+				chaplin_generate_css( $buttons_targets, 'color', $background );
 			endif;
 
 			// Primary color
@@ -1958,11 +2007,21 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( $headings_targets, 'color', $headings );
 			endif;
 
+			// Buttons background color
+			if ( $buttons_background && $buttons_background !== $buttons_background_default && $buttons_background !== $accent_color ) : 
+				chaplin_generate_css( $buttons_targets, 'background-color', $buttons_background );
+			endif;
+
+			// Buttons text color
+			if ( $buttons_text && $buttons_text !== $buttons_text_default && $buttons_text !== $background_color ) : 
+				chaplin_generate_css( $buttons_targets, 'color', $buttons_text );
+			endif;
+
 			// Accent color
 			if ( $accent && $accent !== $accent_default ) : 
 				chaplin_generate_css( 'body#tinymce.wp-editor a', 'color', $accent );
 				chaplin_generate_css( 'body#tinymce.wp-editor blockquote, body#tinymce.wp-editor .wp-block-quote', 'border-color', $accent, '', ' !important' );
-				chaplin_generate_css( 'body#tinymce.wp-editor button, body#tinymce.wp-editor .button, body#tinymce.wp-editor .faux-button, body#tinymce.wp-editor input[type=\'button\'], body#tinymce.wp-editor input[type=\'reset\'], body#tinymce.wp-editor input[type=\'submit\']', 'background-color', $accent );
+				chaplin_generate_css( $buttons_targets, 'background-color', $accent );
 			endif;
 			
 			// Border color
