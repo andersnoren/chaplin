@@ -24,9 +24,9 @@ var viewport = {};
 	Helper functions
 --------------------------------------------------------------------------------------------------- */
 
-/* Output AJAX errors -------------------------------- */
+/* Output AJAX errors ------------------------ */
 
-function ajaxErrors( jqXHR, exception ) {
+function chaplinAJAXErrors( jqXHR, exception ) {
 	var message = '';
 	if ( jqXHR.status === 0 ) {
 		message = 'Not connect.n Verify Network.';
@@ -44,6 +44,20 @@ function ajaxErrors( jqXHR, exception ) {
 		message = 'Uncaught Error.n' + jqXHR.responseText;
 	}
 	console.log( 'AJAX ERROR:' + message );
+}
+
+/* Toggle an attribute ----------------------- */
+
+function chaplinToggleAttribute( $element, attribute, trueVal, falseVal ) {
+
+	if ( typeof trueVal === 'undefined' ) { trueVal = true; }
+	if ( typeof falseVal === 'undefined' ) { falseVal = false; }
+
+	if ( $element.attr( attribute ) !== trueVal ) {
+		$element.attr( attribute, trueVal );
+	} else {
+		$element.attr( attribute, falseVal );
+	}
 }
 
 
@@ -206,56 +220,87 @@ chaplin.toggles = {
 				var $target = $( targetString );
 			}
 
+			// Trigger events on the toggle targets before they are toggled
+			if ( $target.is( '.active' ) ) {
+				$target.trigger( 'toggle-target-before-active' );
+			} else {
+				$target.trigger( 'toggle-target-before-inactive' );
+			}
+
 			// Get the class to toggle, if specified
 			var classToToggle = $toggle.data( 'class-to-toggle' ) ? $toggle.data( 'class-to-toggle' ) : 'active';
 
-			// Toggle the target of the clicked toggle
-			if ( $toggle.data( 'toggle-type' ) == 'slidetoggle' ) {
-				var duration = $toggle.data( 'toggle-duration' ) ? $toggle.data( 'toggle-duration' ) : 250;
-				$target.slideToggle( duration );
-			} else {
-				$target.toggleClass( classToToggle );
+			// For cover modals, set a short timeout duration so the class animations have time to play out
+			var timeOutTime = 0;
+
+			if ( $target.hasClass( 'cover-modal' ) ) {
+				var timeOutTime = 10;
 			}
 
-			// If the toggle target is 'next', only give the clicked toggle the active class
-			if ( targetString == 'next' ) {
-				$toggle.toggleClass( 'active' )
+			setTimeout( function() {
 
-			// If not, toggle all toggles with this toggle target
-			} else {
-				$( '*[data-toggle-target="' + targetString + '"]' ).toggleClass( 'active' );
-			}
+				// Toggle the target of the clicked toggle
+				if ( $toggle.data( 'toggle-type' ) == 'slidetoggle' ) {
+					var duration = $toggle.data( 'toggle-duration' ) ? $toggle.data( 'toggle-duration' ) : 250;
+					$target.slideToggle( duration );
+				} else {
+					$target.toggleClass( classToToggle );
+				}
 
-			// Toggle body class
-			if ( $toggle.data( 'toggle-body-class' ) ) {
-				$( 'body' ).toggleClass( $toggle.data( 'toggle-body-class' ) );
-			}
+				// If the toggle target is 'next', only give the clicked toggle the active class
+				if ( targetString == 'next' ) {
+					$toggle.toggleClass( 'active' )
 
-			// Check whether to lock the screen
-			if ( $toggle.data( 'lock-screen' ) ) {
-				chaplin.scrollLock.setTo( true );
-			} else if ( $toggle.data( 'unlock-screen' ) ) {
-				chaplin.scrollLock.setTo( false );
-			} else if ( $toggle.data( 'toggle-screen-lock' ) ) {
-				chaplin.scrollLock.setTo();
-			}
+				// If not, toggle all toggles with this toggle target
+				} else {
+					$( '*[data-toggle-target="' + targetString + '"]' ).toggleClass( 'active' );
+				}
 
-			// Check whether to set focus
-			if ( $toggle.data( 'set-focus' ) ) {
-				var $focusElement = $( $toggle.data( 'set-focus' ) );
-				if ( $focusElement.length ) {
-					if ( $toggle.is( '.active' ) ) {
-						$focusElement.focus();
-					} else {
-						$focusElement.blur();
+				// Toggle aria-expanded on the target
+				chaplinToggleAttribute( $target, 'aria-expanded', 'true', 'false' );
+
+				// Toggle aria-pressed on the toggle
+				chaplinToggleAttribute( $toggle, 'aria-pressed', 'true', 'false' );
+
+				// Toggle body class
+				if ( $toggle.data( 'toggle-body-class' ) ) {
+					$( 'body' ).toggleClass( $toggle.data( 'toggle-body-class' ) );
+				}
+
+				// Check whether to lock the screen
+				if ( $toggle.data( 'lock-screen' ) ) {
+					chaplin.scrollLock.setTo( true );
+				} else if ( $toggle.data( 'unlock-screen' ) ) {
+					chaplin.scrollLock.setTo( false );
+				} else if ( $toggle.data( 'toggle-screen-lock' ) ) {
+					chaplin.scrollLock.setTo();
+				}
+
+				// Check whether to set focus
+				if ( $toggle.data( 'set-focus' ) ) {
+					var $focusElement = $( $toggle.data( 'set-focus' ) );
+					if ( $focusElement.length ) {
+						if ( $toggle.is( '.active' ) ) {
+							$focusElement.focus();
+						} else {
+							$focusElement.blur();
+						}
 					}
 				}
-			}
 
-			// Trigger the toggled event on the toggle target
-			$target.triggerHandler( 'toggled' );
+				// Trigger the toggled event on the toggle target
+				$target.triggerHandler( 'toggled' );
 
-			return false;
+				// Trigger events on the toggle targets after they are toggled
+				if ( $target.is( '.active' ) ) {
+					$target.trigger( 'toggle-target-after-active' );
+				} else {
+					$target.trigger( 'toggle-target-after-inactive' );
+				}
+
+				return false;
+
+			}, timeOutTime );
 
 		} );
 	},
@@ -346,6 +391,9 @@ chaplin.coverModals = {
 
 			// Show a cover modal on load, if the query string says so
 			chaplin.coverModals.showOnLoadandClick();
+
+			// Hide and show modals before and after their animations have played out
+			chaplin.coverModals.hideAndShowModals();
 
 		}
 
@@ -443,6 +491,26 @@ chaplin.coverModals = {
 				}
 			}
 
+		} );
+
+	},
+
+	// Hide and show modals before and after their animations have played out
+	hideAndShowModals: function() {
+
+		var $modals = $( '.cover-modal' );
+
+		// Show the modal
+		$modals.on( 'toggle-target-before-inactive', function() {
+			$( this ).addClass( 'show-modal' );
+		} );
+
+		// Hide the modal after a delay, so animations have time to play out
+		$modals.on( 'toggle-target-after-inactive', function() {
+			var $modal = $( this );
+			setTimeout( function() {
+				$modal.removeClass( 'show-modal' );
+			}, 500 );
 		} );
 
 	},
@@ -622,6 +690,7 @@ chaplin.smoothScroll = {
 		.not( '[href="#"]' )
 		.not( '[href="#0"]' )
 		.not( '.do-not-scroll' )
+		.not( '.skip-link' )
 		.on( 'click', function( event ) {
 			// On-page links
 			if ( location.pathname.replace(/^\//, '' ) == this.pathname.replace(/^\//, '' ) && location.hostname == this.hostname ) {
@@ -900,13 +969,13 @@ chaplin.scrollLock = {
 		$( 'html' ).css( appliedLock );
 		$win.scrollLeft( 0 ).scrollTop( 0 );
 
-		scrollLocked = true;
+		window.scrollLocked = true;
 	},
 
 	// Unlock the scroll (do not call this directly)
 	unlock: function() {
 
-		if ( ! scrollLocked ) {
+		if ( ! window.scrollLocked ) {
 			return;
 		}
 
@@ -914,7 +983,7 @@ chaplin.scrollLock = {
 		$( 'html' ).attr( 'style', $( '<x>' ).css( prevLockStyles ).attr( 'style' ) || '' );
 		$win.scrollLeft( prevScroll.scrollLeft ).scrollTop( prevScroll.scrollTop );
 
-		scrollLocked = false;
+		window.scrollLocked = false;
 	},
 
 	// Call this to lock or unlock the scroll
@@ -929,7 +998,7 @@ chaplin.scrollLock = {
 			}
 			// If not, toggle to the inverse state
 		} else {
-			if ( scrollLocked ) {
+			if ( window.scrollLocked ) {
 				chaplin.scrollLock.unlock();
 			} else {
 				chaplin.scrollLock.lock();
@@ -964,6 +1033,37 @@ chaplin.dynamicScreenHeight = {
 	},
 
 } // chaplin.dynamicScreenHeight
+
+
+/*	-----------------------------------------------------------------------------------------------
+	Focus Management
+--------------------------------------------------------------------------------------------------- */
+
+chaplin.focusManagement = {
+
+	init: function() {
+
+		// If the visitor tabs out of the main menu, return focus to the navigation toggle
+		// Also, if the visitor tabs into a hidden element, move the focus to the element after the hidden element
+		chaplin.focusManagement.focusLoop();
+
+	},
+
+	focusLoop: function() {
+		$( '*' ).on( 'focus', function() {
+			if ( $( '.menu-modal' ).is( '.active' ) ) {
+				if ( ! $( this ).parents( '.menu-modal' ).length && ! $( this ).parents( '.header-toggles' ).length ) {
+					$( '.nav-toggle' ).focus();
+				}
+			} else if ( $( '.search-modal' ).is( '.active' ) ) {
+				if ( ! $( this ).parents( '.search-modal' ).length ) {
+					$( '.search-modal .search-field' ).focus();
+				}
+			}
+		} );
+	}
+
+} // chaplin.focusManagement
 
 
 /*	-----------------------------------------------------------------------------------------------
@@ -1155,7 +1255,7 @@ chaplin.loadMore = {
 			},
 
 			error: function( jqXHR, exception ) {
-				ajaxErrors( jqXHR, exception );
+				chaplinAJAXErrors( jqXHR, exception );
 			}
 		} );
 
@@ -1217,6 +1317,8 @@ $doc.ready( function() {
 	chaplin.scrollLock.init();					// Scroll Lock
 
 	chaplin.mainMenu.init();					// Main Menu
+
+	chaplin.focusManagement.init();				// Focus Management
 
 	chaplin.dynamicScreenHeight.init();			// Dynamic Screen Height
 

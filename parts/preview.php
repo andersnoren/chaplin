@@ -26,7 +26,7 @@
 	<header class="preview-header">
 
 		<?php 
-		the_title( '<h3 class="preview-title"><a href="' . get_the_permalink() . '">', '</a></h3>' ); 
+		the_title( '<h2 class="preview-title"><a href="' . get_the_permalink() . '">', '</a></h2>' );
 
 		if ( get_theme_mod( 'chaplin_display_excerpts', false ) ) :
 

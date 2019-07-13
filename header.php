@@ -15,6 +15,8 @@
 
 	<body <?php body_class(); ?>>
 
+		<a class="skip-link faux-button" href="#site-content"><?php _e( 'Skip to the content', 'chaplin' ); ?></a>
+
 		<?php 
 		if ( function_exists( 'wp_body_open' ) ) {
 			wp_body_open(); 
@@ -97,7 +99,7 @@
 							
 							if ( ! $disable_header_search ) : ?>
 							
-								<a href="#" class="toggle search-toggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field">
+								<a href="#" class="toggle search-toggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field" aria-pressed="false">
 									<div class="toggle-text">
 										<?php esc_html_e( 'Search', 'chaplin' ); ?>
 									</div>
@@ -106,7 +108,7 @@
 
 							<?php endif; ?>
 
-							<a href="#" class="toggle nav-toggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal">
+							<a href="#" class="toggle nav-toggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal" aria-pressed="false" data-set-focus=".menu-modal">
 								<div class="toggle-text">
 									<span class="show"><?php esc_html_e( 'Menu', 'chaplin' ); ?></span>
 									<span class="hide"><?php esc_html_e( 'Close', 'chaplin' ); ?></span>

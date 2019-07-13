@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 1.1.0
+	Version: 1.1.1
 	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. This flexibility makes Chaplin suitable for pretty much any type of website, including business sites and portfolios. All of the fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported, and you can choose one of the ten included color schemes or build one from scratch. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, full-width templates, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, full-width-template
 	Author: Anders Norén
@@ -157,6 +157,21 @@ path {
 }
 
 
+/* Skip Link --------------------------------- */
+
+.skip-link {
+	position: absolute;
+		left: -9999rem;
+		top: 2.5rem;
+	z-index: 999999999;
+}
+
+.skip-link:focus {
+	left: 2.5rem;
+	text-decoration: none;
+}
+
+
 /* Accessibility Settings -------------------- */
 
 @media ( prefers-reduced-motion: reduce ) {
@@ -213,12 +228,12 @@ h1, h2, h3, h4, h5, h6, .faux-heading {
 	margin: 4rem 0 2.5rem;
 }
 
-h1 { font-size: 3.2rem; }
-h2 { font-size: 2.8rem; }
-h3 { font-size: 2.4rem; }
-h4 { font-size: 2.1rem; }
-h5 { font-size: 1.9rem; }
-h6 { font-size: 1em; }
+h1, .heading-size-1 { font-size: 3.2rem; }
+h2, .heading-size-2 { font-size: 2.8rem; }
+h3, .heading-size-3 { font-size: 2.4rem; }
+h4, .heading-size-4 { font-size: 2.1rem; }
+h5, .heading-size-5 { font-size: 1.9rem; }
+h6, .heading-size-6 { font-size: 1em; }
 
 p {
 	line-height: 1.5;
@@ -1119,6 +1134,17 @@ ul.social-icons li {
 .s-icons a[href*="mailto"]::before { content: '\f0e0'; font-family: 'Font Awesome 5'; }
 
 
+/* Cover Modals ------------------------------ */
+
+.cover-modal {
+	display: none;
+}
+
+.cover-modal.show-modal {
+	display: block;
+}
+
+
 /* Loading Indicator ------------------------- */
 
 .loader {
@@ -1519,7 +1545,7 @@ ul.main-menu-alt {
 
 .menu-modal {
 	background: #fff;
-	display: flex;
+	display: none;
 	opacity: 0;
 	overflow: auto;
 	padding: 8rem 0 0 0;
@@ -1530,6 +1556,10 @@ ul.main-menu-alt {
 		top: 0;
 	transition: opacity .25s ease-in, left 0s .25s, right 0s .25s;
 	z-index: 99;
+}
+
+.menu-modal.show-modal {
+	display: flex;
 }
 
 .menu-modal.active {
@@ -1660,6 +1690,7 @@ button.sub-menu-toggle.active svg {
 
 .search-modal {
 	background: rgba( 0, 0, 0, .2 );
+	display: none;
 	opacity: 0;
 	position: fixed;
 		bottom: 0;
@@ -1930,7 +1961,8 @@ button.sub-menu-toggle.active svg {
 
 /* Post Header ------------------------------- */
 
-.entry-title {
+h1.entry-title,
+.entry-title.faux-heading {
 	margin: 0;
 }
 
@@ -3850,19 +3882,23 @@ body.woocommerce-page .entry-content {
 
 	/* TITLES */
 
-	h1, h2, h3 {
+	h1, .heading-size-1, 
+	h2, .heading-size-2, 
+	h3, .heading-size-3 {
 		margin: 6rem 0 3.5rem;
 	}
 
-	h4, h5, h6 {
+	h4, .heading-size-4, 
+	h5, .heading-size-5, 
+	h6, .heading-size-6 {
 		margin: 4.5rem 0 2.5rem;
 	}
 
-	h1 { font-size: 4.8rem; }
-	h2 { font-size: 4.0rem; }
-	h3 { font-size: 3.2rem; }
-	h4 { font-size: 2.4rem; }
-	h5 { font-size: 2.1rem; }
+	h1, .heading-size-1 { font-size: 4.8rem; }
+	h2, .heading-size-2 { font-size: 4.0rem; }
+	h3, .heading-size-3 { font-size: 3.2rem; }
+	h4, .heading-size-4 { font-size: 2.4rem; }
+	h5, .heading-size-5 { font-size: 2.1rem; }
 
 	/* INPUTS */
 

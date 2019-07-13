@@ -1,8 +1,12 @@
 <header class="entry-header">
 
 	<?php 
-	
-	the_title( '<h1 class="entry-title">', '</h1>' );
+
+	if ( is_front_page() ) {
+		the_title( '<div class="entry-title faux-heading heading-size-1">', '</div>' );
+	} else {
+		the_title( '<h1 class="entry-title">', '</h1>' );
+	}
 
 	if ( has_excerpt() ) : ?>
 

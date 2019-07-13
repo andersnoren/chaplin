@@ -154,6 +154,16 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.1.1 (2019-07-13)
+-------------------------
+- Various a11y improvements:
+	- Better heading hierarchy
+	- Added dynamic aria-expanded and aria-pressed attributes to the toggles and modals
+	- Added a focus loop to the menu modal and search modal
+	- Added skip link
+	- Hide cover modals entirely when they're inactive, preventing focus traps
+	- Fixed wp_kses removing focusable and tabindex output from SVGs
+
 Version 1.1.0 (2019-07-12)
 -------------------------
 - Added color scheme functionality, starting with 10 color schemes

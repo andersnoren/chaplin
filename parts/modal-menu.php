@@ -1,4 +1,4 @@
-<div class="menu-modal cover-modal" data-modal-target-string=".menu-modal">
+<div class="menu-modal cover-modal" data-modal-target-string=".menu-modal" aria-expanded="false">
 
 	<div class="menu-modal-inner modal-inner bg-body-background">
 

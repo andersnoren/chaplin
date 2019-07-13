@@ -1,4 +1,4 @@
-<div class="search-modal cover-modal" data-modal-target-string=".search-modal">
+<div class="search-modal cover-modal" data-modal-target-string=".search-modal" aria-expanded="false">
 
 	<div class="search-modal-inner modal-inner bg-body-background">
 

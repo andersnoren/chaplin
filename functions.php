@@ -347,8 +347,8 @@ if ( ! function_exists( 'chaplin_sidebar_registration' ) ) :
 
 		// Arguments used in all register_sidebar() calls
 		$shared_args = array(
-			'before_title' 	=> '<h3 class="widget-title subheading">',
-			'after_title' 	=> '</h3>',
+			'before_title' 	=> '<h2 class="widget-title subheading heading-size-3">',
+			'after_title' 	=> '</h2>',
 			'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
 			'after_widget' 	=> '</div></div>',
 		);
@@ -588,11 +588,15 @@ if ( ! function_exists( 'chaplin_get_theme_svg' ) ) :
 		// Make sure that only our allowed tags and attributes are included
 		$svg = wp_kses( Chaplin_SVG_Icons::get_svg( $svg_name, $color ), array(
 			'svg' => array(
-				'class' 	=> true,
-				'xmlns' 	=> true,
-				'width' 	=> true,
-				'height' 	=> true,
-				'viewbox' 	=> true,
+				'class' 		=> true,
+				'xmlns' 		=> true,
+				'width' 		=> true,
+				'height' 		=> true,
+				'viewbox' 		=> true,
+				'aria-hidden'	=> true,
+				'role'			=> true,				
+				'focusable'		=> true,				
+				'tabindex'		=> true,
 			),
 			'path' => array(
 				'fill' 		=> true,
@@ -605,6 +609,8 @@ if ( ! function_exists( 'chaplin_get_theme_svg' ) ) :
 				'fill-rule' => true,
 				'points'	=> true,
 				'transform' => true,
+				'focusable'	=> true,				
+				'tabindex'	=> true,
 			),
 		) );
 
