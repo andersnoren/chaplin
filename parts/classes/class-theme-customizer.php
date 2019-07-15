@@ -514,13 +514,14 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			$wp_customize->add_setting( 'chaplin_pagination_type', array(
 				'capability' 		=> 'edit_theme_options',
 				'default'           => 'button',
-				'sanitize_callback' => 'chaplin_sanitize_radio',
+				'sanitize_callback' => 'chaplin_sanitize_select',
 			) );
 
 			$wp_customize->add_control( 'chaplin_pagination_type', array(
-				'type'			=> 'radio',
+				'type'			=> 'select',
 				'section' 		=> 'chaplin_post_archive_options',
 				'label'   		=> __( 'Pagination Type', 'chaplin' ),
+				'description'	=> __( 'Determines how the pagination on archive pages should be displayed.', 'chaplin' ),
 				'choices' 		=> array(
 					'button'		=> __( 'Load more on button click', 'chaplin' ),
 					'scroll'		=> __( 'Load more on scroll', 'chaplin' ),
@@ -528,26 +529,16 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				),
 			) );
 
-			/* Separator --------------------- */
-
-			$wp_customize->add_setting( 'chaplin_post_archive_separator_1', array(
-				'sanitize_callback' => 'wp_filter_nohtml_kses',
-			) );
-
-			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_post_archive_separator_1', array(
-				'section'		=> 'chaplin_post_archive_options',
-			) ) );
-
 			/* Number of Post Columns -------- */
 
 			$wp_customize->add_setting( 'chaplin_post_grid_columns', array(
 				'capability' 		=> 'edit_theme_options',
 				'default'           => '2',
-				'sanitize_callback' => 'chaplin_sanitize_radio',
+				'sanitize_callback' => 'chaplin_sanitize_select',
 			) );
 
 			$wp_customize->add_control( 'chaplin_post_grid_columns', array(
-				'type'			=> 'radio',
+				'type'			=> 'select',
 				'section' 		=> 'chaplin_post_archive_options',
 				'label'   		=> __( 'Number of Columns', 'chaplin' ),
 				'description'	=> __( 'The maximum number of columns to use in the post grid.', 'chaplin' ),
@@ -559,13 +550,38 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				),
 			) );
 
+			/* Preview Image Aspect Ratio ---- */
+
+			$wp_customize->add_setting( 'chaplin_preview_image_aspect_ratio', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'           => '16x10',
+				'sanitize_callback' => 'chaplin_sanitize_select',
+			) );
+
+			$wp_customize->add_control( 'chaplin_preview_image_aspect_ratio', array(
+				'type'			=> 'select',
+				'section' 		=> 'chaplin_post_archive_options',
+				'label'   		=> __( 'Preview Image Aspect Ratio', 'chaplin' ),
+				'description'	=> __( 'Aspect ratio of featured images on archive pages.', 'chaplin' ),
+				'choices' 		=> array(
+					'9x16'			=> __( '9:16', 'chaplin' ),
+					'10x16'			=> __( '10:16', 'chaplin' ),
+					'3x4'			=> __( '3:4', 'chaplin' ),
+					'1x1'			=> __( '1:1', 'chaplin' ),
+					'4x3'			=> __( '4:3', 'chaplin' ),
+					'16x10'			=> __( '16:10', 'chaplin' ),
+					'16x9'			=> __( '16:9', 'chaplin' ),
+					'original'		=> __( 'Original aspect ratio of each image', 'chaplin' ),
+				),
+			) );
+
 			/* Separator --------------------- */
 
-			$wp_customize->add_setting( 'chaplin_post_archive_separator_2', array(
+			$wp_customize->add_setting( 'chaplin_post_archive_separator_1', array(
 				'sanitize_callback' => 'wp_filter_nohtml_kses',
 			) );
 
-			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_post_archive_separator_2', array(
+			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_post_archive_separator_1', array(
 				'section'		=> 'chaplin_post_archive_options',
 			) ) );
 
@@ -586,11 +602,11 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			/* Separator --------------------- */
 
-			$wp_customize->add_setting( 'chaplin_post_archive_separator_3', array(
+			$wp_customize->add_setting( 'chaplin_post_archive_separator_2', array(
 				'sanitize_callback' => 'wp_filter_nohtml_kses',
 			) );
 
-			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_post_archive_separator_3', array(
+			$wp_customize->add_control( new Chaplin_Separator_Control( $wp_customize, 'chaplin_post_archive_separator_2', array(
 				'section'		=> 'chaplin_post_archive_options',
 			) ) );
 

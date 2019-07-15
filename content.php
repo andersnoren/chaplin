@@ -15,7 +15,7 @@
 
 		$section_inner_classes = '';
 
-		$image_url = get_the_post_thumbnail_url( $post->ID, 'chaplin_fullscreen' );
+		$image_url = ! post_password_required() ? get_the_post_thumbnail_url( $post->ID, 'chaplin_fullscreen' ) : '';
 
 		if ( $image_url ) {
 			$cover_header_style 	= ' style="background-image: url( ' . esc_url( $image_url ) . ' );"';
@@ -70,7 +70,7 @@
 	
 		get_template_part( 'parts/page-header' );
 		
-		if ( has_post_thumbnail() ) : ?>
+		if ( has_post_thumbnail() && ! post_password_required() ) : ?>
 
 			<figure class="featured-media">
 
@@ -160,8 +160,8 @@
 
 		endif;
 
-		// Output comments wrapper if it's a post, or if comments are open, or if there's a comment number
-		if ( $post_type == 'post' || comments_open() || get_comments_number() ) : ?>
+		// Output comments wrapper if it's a post, or if comments are open, or if there's a comment number – and check for password
+		if ( ( $post_type == 'post' || comments_open() || get_comments_number() ) && ! post_password_required() ) : ?>
 
 			<div class="comments-wrapper">
 

@@ -22,8 +22,11 @@
 			wp_body_open(); 
 		}
 
-		// Don't output the markup of the header on the only content templates
-		if ( ! is_page_template( array( 'template-only-content.php', 'template-full-width-only-content.php' ) ) ) : 
+		$only_content_templates = array( 'template-only-content.php', 'template-full-width-only-content.php' );
+		$show_header = apply_filters( 'chaplin_show_header_footer_on_only_content_templates', false );
+
+		// Don't output the markup of the header on the only content templates, unless filtered to do so
+		if ( ! is_page_template( $only_content_templates ) || $show_header ) : 
 
 			// Add conditional sticky class to .header-inner
 			$header_inner_classes = '';
@@ -69,58 +72,62 @@
 
 						</div><!-- .header-titles -->
 
-						<div class="main-menu-alt-container hide-js">
+						<div class="header-navigation-wrapper">
 
-							<ul class="main-menu-alt reset-list-style">
-								<?php
-								if ( has_nav_menu( 'main-menu' ) ) {
-									wp_nav_menu( array(
-										'container' 		=> '',
-										'items_wrap' 		=> '%3$s',
-										'theme_location' 	=> 'main-menu',
-									) );
-								} else {
-									wp_list_pages( array( 
-										'match_menu_classes' 	=> true,
-										'title_li' 				=> false, 
-									) );
-								}
-								?>
-							</ul><!-- .main-menu-alt -->
+							<div class="main-menu-alt-container hide-js">
 
-						</div><!-- .main-menu-alt-container -->
+								<ul class="main-menu-alt reset-list-style">
+									<?php
+									if ( has_nav_menu( 'main-menu' ) ) {
+										wp_nav_menu( array(
+											'container' 		=> '',
+											'items_wrap' 		=> '%3$s',
+											'theme_location' 	=> 'main-menu',
+										) );
+									} else {
+										wp_list_pages( array( 
+											'match_menu_classes' 	=> true,
+											'title_li' 				=> false, 
+										) );
+									}
+									?>
+								</ul><!-- .main-menu-alt -->
 
-						<div class="header-toggles hide-no-js">
+							</div><!-- .main-menu-alt-container -->
 
-							<?php 
-							
-							// Check whether the header search is deactivated in the customizer
-							$disable_header_search = get_theme_mod( 'chaplin_disable_header_search', false ); 
-							
-							if ( ! $disable_header_search ) : ?>
-							
-								<a href="#" class="toggle search-toggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field" aria-pressed="false">
+							<div class="header-toggles hide-no-js">
+
+								<?php 
+								
+								// Check whether the header search is deactivated in the customizer
+								$disable_header_search = get_theme_mod( 'chaplin_disable_header_search', false ); 
+								
+								if ( ! $disable_header_search ) : ?>
+								
+									<a href="#" class="toggle search-toggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field" aria-pressed="false">
+										<div class="toggle-text">
+											<?php esc_html_e( 'Search', 'chaplin' ); ?>
+										</div>
+										<?php chaplin_the_theme_svg( 'search' ); ?>
+									</a><!-- .search-toggle -->
+
+								<?php endif; ?>
+
+								<a href="#" class="toggle nav-toggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal" aria-pressed="false" data-set-focus=".menu-modal">
 									<div class="toggle-text">
-										<?php esc_html_e( 'Search', 'chaplin' ); ?>
+										<span class="show"><?php esc_html_e( 'Menu', 'chaplin' ); ?></span>
+										<span class="hide"><?php esc_html_e( 'Close', 'chaplin' ); ?></span>
 									</div>
-									<?php chaplin_the_theme_svg( 'search' ); ?>
-								</a><!-- .search-toggle -->
+									<div class="bars">
+										<div class="bar"></div>
+										<div class="bar"></div>
+										<div class="bar"></div>
+									</div><!-- .bars -->
+								</a><!-- .nav-toggle -->
 
-							<?php endif; ?>
+							</div><!-- .header-toggles -->
 
-							<a href="#" class="toggle nav-toggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal" aria-pressed="false" data-set-focus=".menu-modal">
-								<div class="toggle-text">
-									<span class="show"><?php esc_html_e( 'Menu', 'chaplin' ); ?></span>
-									<span class="hide"><?php esc_html_e( 'Close', 'chaplin' ); ?></span>
-								</div>
-								<div class="bars">
-									<div class="bar"></div>
-									<div class="bar"></div>
-									<div class="bar"></div>
-								</div><!-- .bars -->
-							</a><!-- .nav-toggle -->
-
-						</div><!-- .header-toggles -->
+						</div><!-- .header-navigation-wrapper -->
 
 					</div><!-- .section-inner -->
 

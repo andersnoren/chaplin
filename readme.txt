@@ -117,6 +117,15 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 5. Click the blue "Publish" button to save your changes.
 
 
+== Adjust Image Aspect Ratio On Archive Pages
+
+1. Log in to the administration panel of your site.
+2. Go to Appearance → Customize.
+3. Click the "Posts" panel, and then the "Post Archive" panel.
+4. Locate the "Preview Image Aspect Ratio" setting in the list, and select the aspect ratio you want to use.
+5. Click the blue "Publish" button to save your changes.
+
+
 == Select Which Post Meta to Display ==
 
 1. Log in to the administration panel of your site.
@@ -153,6 +162,36 @@ Icons in screenshot.png by Feather Icons
 
 
 == Changelog ==
+
+Version 1.1.4 (2019-07-14)
+-------------------------
+- We weren't using the is-scrolling classes for anything, so remove the JS function adding them
+- Added body classes to posts with/without single pagination and comments
+- Better display of posts with single pagination, without comments and with related posts
+- Adjusted font size of preview titles
+- Added `post_password_required()` check to comments output
+- Fixed conditional for output of comments in the post meta
+- Don't output comments post meta if the post is password protected
+- Don't show the post thumbnail on password protected posts
+- Added aspect ratio setting for preview images, with instructions in readme
+
+Version 1.1.3 (2019-07-14)
+-------------------------
+- Reduced margin between items in the preview post meta
+- Only output headings spacing if a value is set
+- Added dropcap styling to front-end styles
+- Changed enqueues to use dashes instead of underscores, to be more consistent with core
+- Moved FontAwesome to its own CSS file, so it can be selectively dequeued/enqueued when needed
+- Moved the output of the Customizer front-end style to `chaplin_register_styles()`, for clarity
+- Better default handling of the `.overlay-header .header-inner` color, when custom colors aren't set
+- Made it possible to display both the search toggle and the "regular menu" (non-modal) at the same time
+- Adjusted right margin of the top arrow on the sub menu
+
+Version 1.1.2 (2019-07-13)
+-------------------------
+- Added filter option for whether to show or hide footer and header on only-content templates
+- Fixed a bad bug with the main menu collapsing when a sub menu is toggled (thanks, @acalfieri!)
+- Fixed a bad bug with the main-menu-alt items being hit by the toggles in the menu modal (again, thanks @acalfieri!)
 
 Version 1.1.1 (2019-07-13)
 -------------------------

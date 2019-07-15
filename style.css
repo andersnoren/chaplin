@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 1.1.1
+	Version: 1.1.4
 	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. This flexibility makes Chaplin suitable for pretty much any type of website, including business sites and portfolios. All of the fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported, and you can choose one of the ten included color schemes or build one from scratch. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, full-width templates, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, full-width-template
 	Author: Anders Norén
@@ -179,35 +179,6 @@ path {
 		animation-duration: 0s !important;
 		transition-duration: 0s !important;
 	}
-}
-
-
-/* Fonts ------------------------------------- */
-
-/* FONT AWESOME */
-
-@font-face {
-	font-family: 'Font Awesome 5';
-	font-style: normal;
-	font-weight: normal;
-	src: url( ./assets/fonts/font-awesome/fonts/fa-solid-900.eot );
-	src: url( ./assets/fonts/font-awesome/fonts/fa-solid-900.eot?#iefix ) format( 'embedded-opentype' ), 
-		 url( ./assets/fonts/font-awesome/fonts/fa-solid-900.woff2 ) format( 'woff2' ),
-		 url( ./assets/fonts/font-awesome/fonts/fa-solid-900.woff ) format( 'woff' ),
-		 url( ./assets/fonts/font-awesome/fonts/fa-solid-900.ttf ) format( 'truetype' ),
-		 url( ./assets/fonts/font-awesome/fonts/fa-solid-900.svg#fontawesome ) format( 'svg' )
-}
-
-@font-face {
-	font-family: 'Font Awesome 5 Brands';
-	font-style: normal;
-	font-weight: normal;
-	src: url( ./assets/fonts/font-awesome/fonts/fa-brands-400.eot );
-	src: url( ./assets/fonts/font-awesome/fonts/fa-brands-400.eot?#iefix ) format( 'embedded-opentype' ), 
-		 url( ./assets/fonts/font-awesome/fonts/fa-brands-400.woff2 ) format( 'woff2' ),
-		 url( ./assets/fonts/font-awesome/fonts/fa-brands-400.woff ) format( 'woff' ),
-		 url( ./assets/fonts/font-awesome/fonts/fa-brands-400.ttf ) format( 'truetype' ),
-		 url( ./assets/fonts/font-awesome/fonts/fa-brands-400.svg#fontawesome ) format( 'svg' )
 }
 
 
@@ -1012,10 +983,13 @@ a.faux-image {
 	width: 100%;
 }
 
-.faux-image.half:after { padding-top: 50%; }
-.faux-image.television:after { padding-top: 56.25%; }
-.faux-image.three-quarters:after { padding-top: 75%; }
-.faux-image.square:after { padding-top: 100%; }
+.faux-image.aspect-ratio-16x9:after { padding-top: 56.25%; }
+.faux-image.aspect-ratio-16x10:after { padding-top: 62.5%; }
+.faux-image.aspect-ratio-4x3:after { padding-top: 75%; }
+.faux-image.aspect-ratio-1x1:after { padding-top: 100%; }
+.faux-image.aspect-ratio-3x4:after { padding-top: 133.33%; }
+.faux-image.aspect-ratio-10x16:after { padding-top: 160%; }
+.faux-image.aspect-ratio-9x16:after { padding-top: 177.77%; }
 
 
 /* Search Form ------------------------------- */
@@ -1202,6 +1176,10 @@ ul.social-icons li {
 	z-index: 100;
 }
 
+.overlay-header .header-inner {
+	color: #fff;
+}
+
 .header-inner.is-sticky {
 	background: #fff;
 }
@@ -1297,6 +1275,14 @@ ul.social-icons li {
 	color: #fff;
 }
 
+
+/* Header Navigation ------------------------- */
+
+.header-navigation-wrapper {
+	align-items: center;
+	display: flex;
+	justify-content: flex-end;
+}
 
 /* Header Toggles ---------------------------- */
 
@@ -1483,7 +1469,7 @@ ul.main-menu-alt {
 .main-menu-alt ul:after {
 	border: .8rem solid transparent;
 	border-bottom-color: currentColor;
-	right: 2rem;
+	right: 1.8rem;
 }
 
 .main-menu-alt ul li + li {
@@ -1924,7 +1910,7 @@ button.sub-menu-toggle.active svg {
 	margin-top: 1.5rem;
 }
 
-.preview-title {
+.preview .preview-title {
 	margin: 0;
 }
 
@@ -2119,6 +2105,11 @@ h1.entry-title,
 	padding-top: 5rem;
 }
 
+.has-single-pagination.not-showing-comments .related-posts {
+	border-top: none;
+	padding-top: 0;
+}
+
 .related-posts-title {
 	margin-top: 0;
 }
@@ -2297,6 +2288,23 @@ h1.entry-title,
 .has-text-align-center { text-align: center; }
 .has-text-align-right { text-align: right; }
 .has-text-align-justify { text-align: justify; }
+
+.has-drop-cap:first-letter {
+    float: left;
+    font-size: 8.4em;
+    line-height: .68;
+    font-weight: 100;
+    margin: .05em .1em 0 0;
+    text-transform: uppercase;
+    font-style: normal
+}
+
+.has-drop-cap:after {
+    content: "";
+    display: table;
+    clear: both;
+    padding-top: 14px
+}
 
 
 /* Block: _Shared Lists ---------------------- */
@@ -4120,6 +4128,14 @@ body.woocommerce-page .entry-content {
 		margin-top: 1.5rem;
 	}
 
+	.post-meta-archive .post-meta {
+		margin: -1.2rem 0 0 -2.5rem;
+	}
+
+	.post-meta-archive .post-meta li {
+		margin: 1.2rem 0 0 2.5rem;
+	}
+
 	/* Post: Single -------------------------- */
 
 	/* POST HEADER */
@@ -4722,8 +4738,13 @@ body.woocommerce-page .entry-content {
 		display: block !important;
 	}
 
-	.disable-menu-modal-on-desktop .header-toggles {
+	.disable-search-modal .header-toggles,
+	.disable-menu-modal-on-desktop .nav-toggle {
 		display: none !important;
+	}
+
+	.disable-menu-modal-on-desktop:not(.disable-search-modal) .search-toggle .toggle-text {
+		display: none;
 	}
 
 	/* Menu Modal ---------------------------- */

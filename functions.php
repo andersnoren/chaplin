@@ -98,11 +98,22 @@ if ( ! function_exists( 'chaplin_register_styles' ) ) :
 		$google_fonts_url = Chaplin_Google_Fonts::get_google_fonts_url();
 
 		if ( $google_fonts_url ) {
-			wp_register_style( 'chaplin_google_fonts', $google_fonts_url, false, 1.0, 'all' );
-			$css_dependencies[] = 'chaplin_google_fonts';
+			wp_register_style( 'chaplin-google-fonts', $google_fonts_url, false, 1.0, 'all' );
+			$css_dependencies[] = 'chaplin-google-fonts';
+		}
+
+		// By default, only load the Font Awesome fonts if the social menu is in use
+		$load_font_awesome = apply_filters( 'chaplin_load_font_awesome', has_nav_menu( 'social-menu' ) );
+
+		if ( $load_font_awesome ) {
+			wp_register_style( 'chaplin-font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.css', false, 1.0, 'all' );
+			$css_dependencies[] = 'chaplin-font-awesome';
 		}
 		
-		wp_enqueue_style( 'chaplin_style', get_template_directory_uri() . '/style.css', $css_dependencies, $theme_version );
+		wp_enqueue_style( 'chaplin-style', get_template_directory_uri() . '/style.css', $css_dependencies, $theme_version );
+
+		// Add output of Customizer settings as inline style
+		wp_add_inline_style( 'chaplin-style', chaplin_get_customizer_css( 'front-end' ) );
 
 	}
 	add_action( 'wp_enqueue_scripts', 'chaplin_register_styles' );
@@ -141,13 +152,13 @@ if ( ! function_exists( 'chaplin_register_scripts' ) ) :
 		
 		$js_dependencies = array( 'jquery', 'imagesloaded' );
 
-		wp_enqueue_script( 'chaplin_construct', get_template_directory_uri() . '/assets/js/construct.js', $js_dependencies, $theme_version );
+		wp_enqueue_script( 'chaplin-construct', get_template_directory_uri() . '/assets/js/construct.js', $js_dependencies, $theme_version );
 
 		// Setup AJAX
 		$ajax_url = admin_url( 'admin-ajax.php' );
 
 		// AJAX Load More
-		wp_localize_script( 'chaplin_construct', 'chaplin_ajax_load_more', array(
+		wp_localize_script( 'chaplin-construct', 'chaplin_ajax_load_more', array(
 			'ajaxurl'   => esc_url( $ajax_url ),
 		) );
 
@@ -187,6 +198,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 	function chaplin_body_classes( $classes ) {
 
 		global $post;
+		$post_type = $post->post_type;
 
 		// Determine type of infinite scroll
 		$pagination_type = get_theme_mod( 'chaplin_pagination_type', 'button' );
@@ -232,6 +244,11 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 			$classes[] = 'has-sticky-header';
 		}
 
+		// Check for disabled search
+		if ( get_theme_mod( 'chaplin_disable_header_search', false ) ) {
+			$classes[] = 'disable-search-modal';
+		}
+
 		// Check for disabled menu modal on desktop
 		if ( get_theme_mod( 'chaplin_disable_menu_modal_on_desktop', false ) ) {
 			$classes[] = 'disable-menu-modal-on-desktop';
@@ -247,6 +264,20 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		// Check whether we're in the customizer preview
 		if ( is_customize_preview() ) {
 			$classes[] = 'customizer-preview';
+		}
+
+		// Check if posts have single pagination
+		if ( is_single() && ( get_next_post() || get_previous_post() ) ) {
+			$classes[] = 'has-single-pagination';
+		} else {
+			$classes[] = 'has-no-pagination';
+		}
+
+		// Check if we're showing comments
+		if ( ( $post_type == 'post' || comments_open() || get_comments_number() ) && ! post_password_required() ) {
+			$classes[] = 'showing-comments';
+		} else {
+			$classes[] = 'not-showing-comments';
 		}
 
 		// Slim page template class names (class = name - file suffix)
@@ -901,7 +932,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 					endif;
 
 					// Comments link
-					if ( in_array( 'comments', $post_meta ) && comments_open() || get_comments_number() ) : 
+					if ( in_array( 'comments', $post_meta ) && ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
 						$has_meta = true; 
 						?>
 						<li class="post-comment-link meta-wrapper">
@@ -1040,7 +1071,7 @@ if ( ! function_exists( 'chaplin_add_sub_toggles_to_main_menu' ) ) :
 			// Add a toggle to items with children
 			if ( in_array( 'menu-item-has-children', $item->classes ) ) {
 
-				$toggle_target_string = '.menu-item-' . $item->ID . ' > .sub-menu';
+				$toggle_target_string = '.menu-modal .menu-item-' . $item->ID . ' > .sub-menu';
 
 				// Add the sub menu toggle
 				$args->after .= '<button class="toggle sub-menu-toggle fill-children-current-color" data-toggle-target="' . $toggle_target_string . '" data-toggle-type="slidetoggle" data-toggle-duration="250"><span class="screen-reader-text">' . __( 'Show sub menu', 'chaplin' ) . '</span>' . chaplin_get_theme_svg( 'chevron-down' ) . '</button>';
@@ -1558,8 +1589,8 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( $headings_targets, 'text-transform', $headings_case );
 			}
 
-			// Headings letterspacking
-			if ( $headings_spacing !== 'normal' ) {
+			// Headings letterspacing
+			if ( $headings_spacing && $headings_spacing !== 'normal' ) {
 				chaplin_generate_css( $headings_targets, 'letter-spacing', $headings_spacing . 'em' );
 			}
 
@@ -1672,10 +1703,12 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Light background color
 			if ( $light_background && $light_background !== $light_background_default ) : 
 				chaplin_generate_css( 'code, kbd, samp, .main-menu-alt ul, table.is-style-stripes tr:nth-child( odd )', 'background-color', $light_background );
+				chaplin_generate_css( '.main-menu-alt ul', 'color', $light_background );
 
 				// P3 Colors
 				echo $p3_supports_open;
 				chaplin_generate_css( 'code, kbd, samp, .main-menu-alt ul, table.is-style-stripes tr:nth-child( odd )', 'background-color', $p3_light_background );
+				chaplin_generate_css( '.main-menu-alt ul', 'color', $p3_light_background );
 				echo $p3_supports_close;
 			endif;
 
@@ -1854,8 +1887,8 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( $headings_targets, 'text-transform', $headings_case );
 			}
 
-			// Headings letterspacking
-			if ( $headings_spacing !== 'normal' ) {
+			// Headings letterspacing
+			if ( $headings_spacing && $headings_spacing !== 'normal' ) {
 				chaplin_generate_css( $headings_targets, 'letter-spacing', $headings_spacing . 'em' );
 			}
 
@@ -1885,8 +1918,6 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			if ( $buttons_background && $buttons_background !== $buttons_background_default && $buttons_background !== $accent ) : 
 				chaplin_generate_css( $buttons_targets, 'background-color', $buttons_background );
 			endif;
-
-			error_log( $buttons_text );
 
 			// Buttons text color
 			if ( $buttons_text && $buttons_text !== $buttons_text_default && $buttons_text !== $background ) : 
@@ -1989,8 +2020,8 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( $headings_targets, 'text-transform', $headings_case );
 			}
 
-			// Headings letterspacking
-			if ( $headings_spacing !== 'normal' ) {
+			// Headings letterspacing
+			if ( $headings_spacing && $headings_spacing !== 'normal' ) {
 				chaplin_generate_css( $headings_targets, 'letter-spacing', $headings_spacing . 'em' );
 			}
 
@@ -2057,21 +2088,6 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 		return $css;
 
 	}
-endif;
-
-
-/*	-----------------------------------------------------------------------------------------------
-	OUTPUT CUSTOMIZER CSS ON THE FRONT-END
-	Get CSS built from the Customizer settings (fonts and colors), and output them on the front-end
---------------------------------------------------------------------------------------------------- */
-
-if ( ! function_exists( 'chaplin_customizer_css_output_front_end' ) ) :
-	function chaplin_customizer_css_output_front_end() {
-
-		wp_add_inline_style( 'chaplin_style', chaplin_get_customizer_css( 'front-end' ) );
-
-	}
-	add_action( 'wp_enqueue_scripts', 'chaplin_customizer_css_output_front_end' );
 endif;
 
 

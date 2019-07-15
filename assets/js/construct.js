@@ -122,71 +122,6 @@ chaplin.resizeEnd = {
 
 
 /*	-----------------------------------------------------------------------------------------------
-	Is Scrolling
---------------------------------------------------------------------------------------------------- */
-
-chaplin.isScrolling = {
-
-	init: function() {
-
-		scrollPos = 0;
-
-		// Sensitivity for the scroll direction check (higher = more scroll required to reverse)
-		directionBuffer = 50;
-
-		var $body = $( 'body' );
-
-		$win.on( 'did-interval-scroll', function() {
-
-			var currentScrollPos = $win.scrollTop(),
-				docHeight = $body.outerHeight();
-
-			// Detect scrolling
-			if ( currentScrollPos > 0 || $( 'html' ).css( 'position' ) == 'fixed' ) {
-				$body.addClass( 'is-scrolling' );
-			} else {
-				$body.removeClass( 'is-scrolling' );
-			}
-
-			// Detect whether we're at the bottom
-			if ( currentScrollPos + winHeight >= docHeight ) {
-				$body.addClass( 'scrolled-to-bottom' );
-			} else {
-				$body.removeClass( 'scrolled-to-bottom' );
-			}
-
-			// Detect the scroll direction
-			if ( currentScrollPos > ( $win.outerHeight() / 3 ) ) {
-				
-				if ( Math.abs( scrollPos - currentScrollPos ) >= directionBuffer ) {
-				
-					// Scrolling down
-					if ( currentScrollPos > scrollPos ){
-						$( 'body' ).addClass( 'scrolling-down' ).removeClass( 'scrolling-up' );
-
-					// Scrolling up
-					} else {
-						$( 'body' ).addClass( 'scrolling-up' ).removeClass( 'scrolling-down' );
-					}
-
-				}
-
-			} else {
-
-				$( 'body' ).removeClass( 'scrolling-up scrolling-down' );
-
-			}
-
-			scrollPos = currentScrollPos;
-
-		} );
-
-	}
-
-} // chaplin.isScrolling
-
-
-/*	-----------------------------------------------------------------------------------------------
 	Toggles
 --------------------------------------------------------------------------------------------------- */
 
@@ -501,12 +436,16 @@ chaplin.coverModals = {
 		var $modals = $( '.cover-modal' );
 
 		// Show the modal
-		$modals.on( 'toggle-target-before-inactive', function() {
+		$modals.on( 'toggle-target-before-inactive', function( e ) {
+			if ( e.target != this ) return;
+			
 			$( this ).addClass( 'show-modal' );
 		} );
 
 		// Hide the modal after a delay, so animations have time to play out
-		$modals.on( 'toggle-target-after-inactive', function() {
+		$modals.on( 'toggle-target-after-inactive', function( e ) {
+			if ( e.target != this ) return;
+
 			var $modal = $( this );
 			setTimeout( function() {
 				$modal.removeClass( 'show-modal' );
@@ -1080,9 +1019,9 @@ chaplin.mainMenu = {
 	},
 
 	expandLevel: function() {
-		var $activeMenuItem = $( '.main-menu' ).find( '.current-menu-item' );
+		var $activeMenuItem = $( '.main-menu .current-menu-item' );
 
-		if ( $activeMenuItem.length ) {
+		if ( $activeMenuItem.length !== false ) {
 			$activeMenuItem.parents( 'li' ).each( function() {
 				$subMenuToggle = $( this ).find( '.sub-menu-toggle' ).first();
 				if ( $subMenuToggle.length ) {
@@ -1297,8 +1236,6 @@ $doc.ready( function() {
 	chaplin.intervalScroll.init();				// Check for scroll on an interval
 
 	chaplin.resizeEnd.init();					// Trigger event at end of resize
-
-	chaplin.isScrolling.init();					// Check for scroll direction
 
 	chaplin.toggles.init();						// Handle toggles
 

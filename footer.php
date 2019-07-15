@@ -1,7 +1,10 @@
         <?php
 
-		// Don't output the markup of the header on the only content templates
-		if ( ! is_page_template( array( 'template-only-content.php', 'template-full-width-only-content.php' ) ) ) : ?>
+		$only_content_templates = array( 'template-only-content.php', 'template-full-width-only-content.php' );
+		$show_footer = apply_filters( 'chaplin_show_header_footer_on_only_content_templates', false );
+
+		// Don't output the markup of the footer on the only content templates, unless filtered to do so
+		if ( ! is_page_template( $only_content_templates ) || $show_footer ) : ?>
 		
 			<footer class="" id="site-footer" role="contentinfo">
 

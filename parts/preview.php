@@ -4,20 +4,38 @@
 
 	$fallback_image_url = chaplin_get_fallback_image_url();
 
-	if ( has_post_thumbnail() || $fallback_image_url ) : ?>
+	if ( ( has_post_thumbnail() && ! post_password_required() ) || $fallback_image_url ) : ?>
 
 		<figure class="preview-media">
 
 			<?php
-			if ( has_post_thumbnail() ) {
+
+			$aspect_ratio = get_theme_mod( 'chaplin_preview_image_aspect_ratio', '16x10' );
+
+			if ( has_post_thumbnail() && ! post_password_required() ) {
 				$image_size = chaplin_get_preview_image_size();
 				$image_url = get_the_post_thumbnail_url( $post->ID, $image_size );
 			} else {
 				$image_url = $fallback_image_url;
 			}
-			?>
 
-			<a href="<?php the_permalink(); ?>" class="faux-image" style="background-image: url( <?php echo esc_attr( $image_url ); ?> );"></a>
+			if ( $aspect_ratio !== 'original' ) : ?>
+
+				<a href="<?php the_permalink(); ?>" class="faux-image aspect-ratio-<?php echo $aspect_ratio; ?>" style="background-image: url( <?php echo esc_attr( $image_url ); ?> );"></a>
+
+			<?php else : ?>
+
+				<a href="<?php the_permalink(); ?>">
+					<?php 
+					if ( has_post_thumbnail() && ! post_password_required() ) {
+						the_post_thumbnail( $post->ID, $image_size ); 
+					} else {
+						echo '<img src="' . esc_url( $fallback_image_url ) . '" />';
+					}
+					?>
+				</a>
+
+			<?php endif; ?>
 			
 		</figure><!-- .preview-media -->
 
@@ -26,7 +44,7 @@
 	<header class="preview-header">
 
 		<?php 
-		the_title( '<h2 class="preview-title"><a href="' . get_the_permalink() . '">', '</a></h2>' );
+		the_title( '<h2 class="preview-title heading-size-3"><a href="' . get_the_permalink() . '">', '</a></h2>' );
 
 		if ( get_theme_mod( 'chaplin_display_excerpts', false ) ) :
 
