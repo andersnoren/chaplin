@@ -163,6 +163,10 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.1.5 (2019-07-15)
+-------------------------
+- Fixed the header toggles being hidden entirely when the search modal is disabled
+
 Version 1.1.4 (2019-07-14)
 -------------------------
 - We weren't using the is-scrolling classes for anything, so remove the JS function adding them
