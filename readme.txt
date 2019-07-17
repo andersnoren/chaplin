@@ -163,6 +163,10 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.1.6 (2019-07-17)
+-------------------------
+- Fixed the wrong color sometimes being applied to `.site-title` when displayed on cover-header and accent color is set
+
 Version 1.1.5 (2019-07-15)
 -------------------------
 - Fixed the header toggles being hidden entirely when the search modal is disabled

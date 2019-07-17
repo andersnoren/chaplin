@@ -1489,7 +1489,6 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 
 		/* Get variables --------------------- */
 	
-
 		// Colors
 		$background = 			get_theme_mod( 'background_color' ) ? '#' . get_theme_mod( 'background_color' ) : false;
 		$primary = 				get_theme_mod( 'chaplin_primary_text_color' );
