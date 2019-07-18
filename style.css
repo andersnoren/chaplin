@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 1.1.6
+	Version: 1.1.8
 	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. This flexibility makes Chaplin suitable for pretty much any type of website, including business sites and portfolios. All of the fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported, and you can choose one of the ten included color schemes or build one from scratch. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, full-width templates, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, full-width-template
 	Author: Anders Norén
@@ -1058,6 +1058,14 @@ ul.social-icons li {
 	font-size: 2.4rem;
 }
 
+/* NON-BRAND ICONS */
+
+.s-icons a[href*="mailto"]::before { content: '\f0e0'; }
+.s-icons a[href*="/feed/"]::before,
+.s-icons a[href*="rss"]::before { content: '\f09e'; }
+
+/* BRAND ICONS */
+
 .s-icons a[href*="500px.com"]::before { content: '\f26e'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="amazon.com"]::before { content: '\f270'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="angel.co"]::before { content: '\f209'; font-family: 'Font Awesome 5 Brands'; }
@@ -1085,6 +1093,7 @@ ul.social-icons li {
 .s-icons a[href*="linkedin.com"]::before { content: '\f0e1'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="last.fm"]::before { content: '\f202'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="medium.com"]::before { content: '\f3c7'; font-family: 'Font Awesome 5 Brands'; }
+.s-icons a[href*="meetup.com"]::before { content: '\f2e0'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="mixcloud.com"]::before { content: '\f289'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="patreon.com"]::before { content: '\f3d9'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="pscp.tv"]::before { content: '\f3da'; font-family: 'Font Awesome 5 Brands'; }
@@ -1105,7 +1114,6 @@ ul.social-icons li {
 .s-icons a[href*="wordpress.com"]::before { content: '\f411'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="youtube.com"]::before { content: '\f167'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="unsplash.com"]::before { content: '\f030'; font-family: 'Font Awesome 5'; }
-.s-icons a[href*="mailto"]::before { content: '\f0e0'; font-family: 'Font Awesome 5'; }
 
 
 /* Cover Modals ------------------------------ */
@@ -2273,6 +2281,8 @@ h1.entry-title,
 .has-border-color { color: #E1E1E3; }
 .has-light-background-color { color: #F1F1F3; }
 .has-background-color { color: #FFF; }
+.has-buttons-background-color { color: #007C89; }
+.has-buttons-text-color { color: #fff; }
 
 .has-accent-background-color { background-color: #007C89; }
 .has-primary-background-color { background-color: #1A1B1F; }
@@ -2280,6 +2290,8 @@ h1.entry-title,
 .has-border-background-color { background-color: #E1E1E3; }
 .has-light-background-background-color { background-color: #F1F1F3; }
 .has-background-background-color { background-color: #FFF; }
+.has-buttons-background-background-color { background-color: #007C89; }
+.has-buttons-text-background-color { background-color: #fff; }
 
 
 /* Block Typography Classes ------------------ */
@@ -2681,17 +2693,18 @@ h1.entry-title,
     }
 }
 
-.wp-block-gallery .blocks-gallery-image img, .wp-block-gallery .blocks-gallery-item img {
+.wp-block-gallery .blocks-gallery-image a,
+.wp-block-gallery .blocks-gallery-item a {
+	display: block;
+	width: 100%;
+}
+
+.wp-block-gallery .blocks-gallery-image img,
+.wp-block-gallery .blocks-gallery-item img {
     display: block;
     max-width: 100%;
     height: auto;
     width: 100%
-}
-
-@supports ((position:-webkit-sticky) or (position:sticky)) {
-    .wp-block-gallery .blocks-gallery-image img, .wp-block-gallery .blocks-gallery-item img {
-        width: auto
-    }
 }
 
 .wp-block-gallery .blocks-gallery-image figcaption, .wp-block-gallery .blocks-gallery-item figcaption {
@@ -2709,11 +2722,6 @@ h1.entry-title,
 
 .wp-block-gallery .blocks-gallery-image figcaption img, .wp-block-gallery .blocks-gallery-item figcaption img {
     display: inline;
-}
-
-.wp-block-gallery.is-cropped .blocks-gallery-image a, .wp-block-gallery.is-cropped .blocks-gallery-image img,
-.wp-block-gallery.is-cropped .blocks-gallery-item a, .wp-block-gallery.is-cropped .blocks-gallery-item img {
-    width: 100%;
 }
 
 @supports ((position:-webkit-sticky) or (position:sticky)) {

@@ -15,12 +15,15 @@
 
 	<body <?php body_class(); ?>>
 
-		<a class="skip-link faux-button" href="#site-content"><?php _e( 'Skip to the content', 'chaplin' ); ?></a>
-
 		<?php 
 		if ( function_exists( 'wp_body_open' ) ) {
 			wp_body_open(); 
 		}
+		?>
+
+		<a class="skip-link faux-button" href="#site-content"><?php _e( 'Skip to the content', 'chaplin' ); ?></a>
+
+		<?php
 
 		$only_content_templates = array( 'template-only-content.php', 'template-full-width-only-content.php' );
 		$show_header = apply_filters( 'chaplin_show_header_footer_on_only_content_templates', false );

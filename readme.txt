@@ -163,6 +163,17 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.1.8 (2019-07-18)
+-------------------------
+- Better display of `is-style-outline` buttons in the block editor
+- Added social icons for RSS and for Meetup.com
+
+Version 1.1.7 (2019-07-17)
+-------------------------
+- Fixed the width of images in galleries sometimes not applying correctly (thanks, @mattmedeiros!)
+- Fixed the block editor color classes for button text and button background not existing ¯\_(ツ)_/¯ (again, thanks @mattmedeiros!)
+- Fixed some notices on the Error 404 page (stemming from the `body_class` function)
+
 Version 1.1.6 (2019-07-17)
 -------------------------
 - Fixed the wrong color sometimes being applied to `.site-title` when displayed on cover-header and accent color is set

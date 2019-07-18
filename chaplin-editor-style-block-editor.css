@@ -506,6 +506,7 @@
 	background: none;
 	border-color: currentColor;
 	color: #1A1B1F;
+	padding: calc( 1.175em - 2px ) calc( 1.75em - 2px );
 }
 
 /* BUTTON STYLE: SQUARED */

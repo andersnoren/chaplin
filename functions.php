@@ -198,7 +198,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 	function chaplin_body_classes( $classes ) {
 
 		global $post;
-		$post_type = $post->post_type;
+		$post_type = isset( $post ) ? $post->post_type : false;
 
 		// Determine type of infinite scroll
 		$pagination_type = get_theme_mod( 'chaplin_pagination_type', 'button' );
@@ -274,7 +274,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		}
 
 		// Check if we're showing comments
-		if ( ( $post_type == 'post' || comments_open() || get_comments_number() ) && ! post_password_required() ) {
+		if ( $post && ( ( $post_type == 'post' || comments_open() || get_comments_number() ) && ! post_password_required() ) ) {
 			$classes[] = 'showing-comments';
 		} else {
 			$classes[] = 'not-showing-comments';
@@ -1820,6 +1820,30 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.bg-accent, .bg-accent-hover:hover, .has-accent-background-color', 'background-color', $p3_accent );
 				chaplin_generate_css( '.border-color-accent, .border-color-accent-hover:hover', 'border-color', $p3_accent );
 				chaplin_generate_css( '.fill-children-accent, .fill-children-accent *', 'fill', $p3_accent );
+				echo $p3_supports_close;
+			endif;
+
+			// Buttons background color
+			if ( $buttons_background && $buttons_background !== $buttons_background_default ) : 
+				chaplin_generate_css( '.has-buttons-background-color', 'color', $buttons_background );
+				chaplin_generate_css( '.has-buttons-background-background-color', 'background-color', $buttons_background );
+
+				// P3 Colors
+				echo $p3_supports_open;
+				chaplin_generate_css( '.has-buttons-background-color', 'color', $p3_buttons_background );
+				chaplin_generate_css( '.has-buttons-background-background-color', 'background-color', $p3_buttons_background );
+				echo $p3_supports_close;
+			endif;
+
+			// Buttons text color
+			if ( $buttons_text && $buttons_text !== $buttons_text_default ) : 
+				chaplin_generate_css( '.has-buttons-text-color', 'color', $buttons_text );
+				chaplin_generate_css( '.has-buttons-text-background-color', 'background-color', $buttons_text );
+
+				// P3 Colors
+				echo $p3_supports_open;
+				chaplin_generate_css( '.has-buttons-text-color', 'color', $p3_buttons_text );
+				chaplin_generate_css( '.has-buttons-text-background-color', 'background-color', $p3_buttons_text );
 				echo $p3_supports_close;
 			endif;
 			
