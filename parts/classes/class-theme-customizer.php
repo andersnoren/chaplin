@@ -585,6 +585,21 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'section'		=> 'chaplin_post_archive_options',
 			) ) );
 
+			/* Show Archive Header On Home --- */
+
+			$wp_customize->add_setting( 'chaplin_show_archive_header_on_home', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'			=> true,
+				'sanitize_callback' => 'chaplin_sanitize_checkbox',
+			) );
+
+			$wp_customize->add_control( 'chaplin_show_archive_header_on_home', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_post_archive_options',
+				'label' 		=> __( 'Show Archive Header On The Blog Page', 'chaplin' ),
+				'description' 	=> __( 'Whether to display the archive title and description on the main posts page.', 'chaplin' ),
+			) );
+
 			/* Enable Excerpts --------------- */
 
 			$wp_customize->add_setting( 'chaplin_display_excerpts', array(
@@ -597,7 +612,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'type' 			=> 'checkbox',
 				'section' 		=> 'chaplin_post_archive_options',
 				'label' 		=> __( 'Show Excerpts', 'chaplin' ),
-				'description' 	=> __( 'Check to display excerpts in post previews.', 'chaplin' ),
+				'description' 	=> __( 'Whether to display excerpts in post previews.', 'chaplin' ),
 			) );
 
 			/* Separator --------------------- */

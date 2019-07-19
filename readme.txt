@@ -163,6 +163,10 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.1.9 (2019-07-19)
+-------------------------
+- Added a setting for hiding the archive header on the main posts page (default: false)
+
 Version 1.1.8 (2019-07-18)
 -------------------------
 - Better display of `is-style-outline` buttons in the block editor

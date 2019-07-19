@@ -21,9 +21,11 @@
 		$archive_title = get_the_archive_title();
 		$archive_subtitle = get_the_archive_description( '<div>', '</div>' ); 
 	}
+
+	// Check if we're hiding the archive header on the blog page
+	$show_home_header = get_theme_mod( 'chaplin_show_archive_header_on_home', true );
 	
-	if ( $archive_title || $archive_subtitle ) : 
-		?>
+	if ( ( ! is_home() || is_home() && $show_home_header ) && ( $archive_title || $archive_subtitle ) ) : ?>
 		
 		<header class="archive-header section-inner">
 
