@@ -163,6 +163,11 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.1.10 (2019-07-21)
+-------------------------
+- Fixed a scrollbar appearing for a second when the cover modal is displayed (thanks, Jeroen!)
+- Don't scroll to the top when a toggle is clicked
+
 Version 1.1.9 (2019-07-19)
 -------------------------
 - Added a setting for hiding the archive header on the main posts page (default: false)

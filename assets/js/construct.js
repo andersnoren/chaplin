@@ -233,9 +233,9 @@ chaplin.toggles = {
 					$target.trigger( 'toggle-target-after-inactive' );
 				}
 
-				return false;
-
 			}, timeOutTime );
+
+			return false;
 
 		} );
 	},
