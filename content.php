@@ -64,6 +64,8 @@
 		</div><!-- .cover-header -->
 
 	<?php 
+
+	echo 'Test test';
 	
 	// On all other pages, output the regular page header
 	else : 
