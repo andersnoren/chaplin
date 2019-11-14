@@ -163,6 +163,10 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.1.11 (2019-11-14)
+-------------------------
+- Fixed the display of galleries in WordPress 5.3
+
 Version 1.1.10 (2019-07-21)
 -------------------------
 - Fixed a scrollbar appearing for a second when the cover modal is displayed (thanks, Jeroen!)
