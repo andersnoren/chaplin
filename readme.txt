@@ -163,6 +163,10 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.1.12 (2019-11-20)
+-------------------------
+- Added support for image circle masks in WordPress 5.3
+
 Version 1.1.11 (2019-11-14)
 -------------------------
 - Fixed the display of galleries in WordPress 5.3
