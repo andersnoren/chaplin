@@ -311,7 +311,8 @@
 
 .editor-styles-wrapper hr.wp-block-separator {
 	border: none;
-	border-top: 1px solid #E1E1E3;
+	border-top: 1px solid currentColor;
+	color: #E1E1E3;
 	margin: 2em auto;
 	width: 100%;
 }
@@ -327,6 +328,10 @@
 .editor-styles-wrapper .wp-block-separator:not(.is-style-wide):not(.is-style-dots) {
 	margin-left: 0;
 	width: 100%;
+}
+
+.editor-styles-wrapper .wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots) {
+	height: auto;
 }
 
 .editor-styles-wrapper .wp-block-separator:not(.is-style-wide):not(.is-style-dots),

@@ -163,6 +163,15 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.1.13 (2019-12-07)
+-------------------------
+- Change author name output to use display_name instead of nickname
+- Added support for separator colors in the block editor
+- Fixed clicking on a link without href attribute causing a JavaScript error
+- Restructured the smoothScroll JS function
+- Added support for same page anchor links in the modal menu/mobile menu
+- Improved smoothScroll handling of sticky header
+
 Version 1.1.12 (2019-11-20)
 -------------------------
 - Added support for image circle masks in WordPress 5.3

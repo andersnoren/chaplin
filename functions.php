@@ -861,7 +861,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 							<span class="meta-text">
 								<?php 
 								// Translators: %s = the author name
-								printf( esc_html_x( 'By %s', '%s = author name', 'chaplin' ), '<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author_meta( 'nickname' ) ) . '</a>' ); ?>
+								printf( esc_html_x( 'By %s', '%s = author name', 'chaplin' ), '<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author_meta( 'display_name' ) ) . '</a>' ); ?>
 							</span>
 						</li>
 						<?php
@@ -1687,15 +1687,17 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			
 			// Border color
 			if ( $border && $border !== $border_default ) : 
-				chaplin_generate_css( 'hr, pre, th, td, input, textarea, select, fieldset', 'border-color', $border );
+				chaplin_generate_css( 'pre, th, td, input, textarea, select, fieldset', 'border-color', $border );
+				chaplin_generate_css( 'hr', 'color', $border );
 				chaplin_generate_css( '.main-menu li, button.sub-menu-toggle, .wp-block-latest-posts.is-grid li, .footer-menu li, .comment .comment, .related-posts, .widget, .select2-container .select2-selection--single', 'border-color', $border );
-				chaplin_generate_css( 'caption', 'background', $border );
+				chaplin_generate_css( 'caption', 'background-color', $border );
 
 				// P3 Colors
 				echo $p3_supports_open;
-				chaplin_generate_css( 'hr, pre, th, td, input, textarea, select, fieldset', 'border-color', $p3_border );
+				chaplin_generate_css( 'pre, th, td, input, textarea, select, fieldset', 'border-color', $p3_border );
+				chaplin_generate_css( 'hr', 'color', $p3_border );
 				chaplin_generate_css( '.main-menu li, button.sub-menu-toggle, .wp-block-latest-posts.is-grid li, .footer-menu li, .comment .comment, .related-posts, .widget, .select2-container .select2-selection--single', 'border-color', $p3_border );
-				chaplin_generate_css( 'caption', 'background', $p3_border );
+				chaplin_generate_css( 'caption', 'background-color', $p3_border );
 				echo $p3_supports_close;
 			endif;
 
@@ -1957,7 +1959,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 				chaplin_generate_css( '.editor-styles-wrapper a', 'color', $accent );
 				chaplin_generate_css( '.editor-styles-wrapper blockquote, .editor-styles-wrapper .wp-block-quote', 'border-color', $accent, '', ' !important' );
 				chaplin_generate_css( '.editor-styles-wrapper .wp-block-file .wp-block-file__textlink', 'color', $accent );
-				chaplin_generate_css( $buttons_targets, 'background', $accent );
+				chaplin_generate_css( $buttons_targets, 'background-color', $accent );
 				chaplin_generate_css( '.editor-styles-wrapper .wp-block-button.is-style-outline .wp-block-button__link', 'border-color', $accent );
 				chaplin_generate_css( '.editor-styles-wrapper .wp-block-button.is-style-outline .wp-block-button__link', 'color', $accent );
 			endif;
@@ -1965,8 +1967,9 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Border color
 			if ( $border && $border !== $border_default ) : 
 				chaplin_generate_css( '.editor-styles-wrapper hr, .editor-styles-wrapper pre, .editor-styles-wrapper th, .editor-styles-wrapper td, .editor-styles-wrapper fieldset', 'border-color', $border );
-				chaplin_generate_css( '.editor-styles-wrapper caption', 'background', $border );
-				chaplin_generate_css( '.editor-styles-wrapper .wp-block-latest-posts.is-grid li, .editor-styles-wrapper table.wp-block-table, .editor-styles-wrapper hr.wp-block-separator', 'border-color', $border );
+				chaplin_generate_css( '.editor-styles-wrapper caption', 'background-color', $border );
+				chaplin_generate_css( '.editor-styles-wrapper hr.wp-block-separator', 'color', $border );
+				chaplin_generate_css( '.editor-styles-wrapper .wp-block-latest-posts.is-grid li, .editor-styles-wrapper table.wp-block-table', 'border-color', $border );
 			endif;
 
 			// Light background color
@@ -2088,7 +2091,7 @@ if ( ! function_exists( 'chaplin_get_customizer_css' ) ) :
 			// Border color
 			if ( $border && $border !== $border_default ) : 
 				chaplin_generate_css( 'body#tinymce.wp-editor hr, body#tinymce.wp-editor pre, body#tinymce.wp-editor th, body#tinymce.wp-editor td, body#tinymce.wp-editor input, body#tinymce.wp-editor textarea, body#tinymce.wp-editor select, body#tinymce.wp-editor fieldset', 'border-color', $border );
-				chaplin_generate_css( 'body#tinymce.wp-editor caption', 'background', $border );
+				chaplin_generate_css( 'body#tinymce.wp-editor caption', 'background-color', $border );
 			endif;
 
 			// Light background color

@@ -411,7 +411,7 @@ chaplin.coverModals = {
 		$( 'a' ).live( 'click', function() {
 
 			// Load based on query string
-			if ( $( this ).attr( 'href' ).indexOf( key ) !== -1 ) {
+			if ( $( this ).attr( 'href' ) && $( this ).attr( 'href' ).indexOf( key ) !== -1 ) {
 					
 				var modalTargetString = getQueryStringValue( key, $( this ).attr( 'href' ) ),
 					$modalTarget = $( '#' + modalTargetString );
@@ -613,88 +613,71 @@ chaplin.smoothScroll = {
 
 	init: function() {
 
-		// Scroll to anchor
-		chaplin.smoothScroll.scrollToAnchor();
-
-		// Scroll to element
-		chaplin.smoothScroll.scrollToElement();
-
-	},
-
-	// Scroll to anchor
-	scrollToAnchor: function() {
-		
-		$( 'a[href*="#"]' )
-		// Remove links that don't actually link to anything
-		.not( '[href="#"]' )
-		.not( '[href="#0"]' )
-		.not( '.do-not-scroll' )
-		.not( '.skip-link' )
-		.on( 'click', function( event ) {
-			// On-page links
+		// Scroll to on-page elements by hash
+		$( 'a[href*="#"]' ).not( '[href="#"]' ).not( '[href="#0"]' ).on( 'click', function( event ) {
 			if ( location.pathname.replace(/^\//, '' ) == this.pathname.replace(/^\//, '' ) && location.hostname == this.hostname ) {
-				// Figure out element to scroll to
-				var $target = $( this.hash );
-				$target = $target.length ? $target : $( '[name=' + this.hash.slice(1) + ']' );
-				// Does a scroll target exist?
-				if ( $target.length ) {
-					// Only prevent default if animation is actually gonna happen
-					event.preventDefault();
-
-					// Get options
-					var additionalOffset 	= $( this ).data( 'additional-offset' ),
-						scrollSpeed 		= $( this ).data( 'scroll-speed' ) ? $( this ).data( 'scroll-speed' ) : 500;
-
-					// Determine offset
-					var originalOffset = $target.offset().top,
-						scrollOffset = additionalOffset ? originalOffset + additionalOffset : originalOffset;
-
-					// Special case for sticky header
-					if ( $( 'body' ).hasClass( 'has-sticky-header' ) ) {
-						var scrollOffset = scrollOffset - $( '.header-inner.stick-me' ).outerHeight();
-					}
-
-					$( 'html, body' ).animate({
-						scrollTop: scrollOffset,
-					}, scrollSpeed );
-				}
+				var $target = $( this.hash ).length ? $( this.hash ) : $( '[name=' + this.hash.slice(1) + ']' );
+				chaplin.smoothScroll.scrollToTarget( $target, $( this ) );
 			}
+		} );
+
+		// Scroll to elements specified with a data attribute
+		$( '*[data-scroll-to]' ).on( 'click', function( event ) {
+			var $target = $( $( this ).data( 'scroll-to' ) );
+			chaplin.smoothScroll.scrollToTarget( $target, $( this ) );
 		} );
 
 	},
 
-	// Scroll to element
-	scrollToElement: function() {
-		
-		$( '*[data-scroll-to]' ).on( 'click', function( event ) {
+	// Scroll to target
+	scrollToTarget: function( $target, $clickElem ) {
 
-			// Figure out element to scroll to
-			var $target = $( $( this ).data( 'scroll-to' ) );
+		if ( $target.length ) {
 
-			// Make sure said element exists
-			if ( $target.length ) {
+			event.preventDefault();
 
-				event.preventDefault();
+			var additionalOffset 	= 0,
+				scrollSpeed			= 500;
 
-				// Get options
-				var additionalOffset 	= $( this ).data( 'additional-offset' ),
-					scrollSpeed 		= $( this ).data( 'scroll-speed' ) ? $( this ).data( 'scroll-speed' ) : 500;
-
-				// Determine offset
-				var originalOffset = $target.offset().top,
-					scrollOffset = additionalOffset ? originalOffset + additionalOffset : originalOffset;
-
-				// Special case for sticky header
-				if ( $( 'body' ).hasClass( 'has-sticky-header' ) ) {
-					var scrollOffset = scrollOffset - $( '.header-inner.stick-me' ).outerHeight();
-				}
-
-				$( 'html, body' ).animate( {
-					scrollTop: scrollOffset,
-				}, scrollSpeed );
-
+			// Get options
+			if ( $clickElem && $clickElem.length ) {
+				additionalOffset 	= $clickElem.data( 'additional-offset' ) ? $clickElem.data( 'additional-offset' ) : additionalOffset,
+				scrollSpeed 		= $clickElem.data( 'scroll-speed' ) ? $clickElem.data( 'scroll-speed' ) : scrollSpeed;
 			}
-			
+
+			// Determine offset
+			var originalOffset = $target.offset().top + $win.scrollTop();
+
+			// Special handling of scroll offset when scroll locked
+			if ( $( 'html' ).attr( 'scroll-lock-top' ) ) {
+				var originalOffset = parseInt( $( 'html' ).attr( 'scroll-lock-top' ) ) + $target.offset().top;
+			}
+
+			// If the header is sticky, subtract its height from the offset
+			if ( $( '.header-inner.stick-me' ).length ) {
+				var originalOffset = originalOffset - $( '.header-inner.stick-me' ).outerHeight();
+			}
+
+			// Close any parent modal before scrolling
+			if ( $clickElem.closest( '.cover-modal' ).length ) {
+				chaplin.coverModals.untoggleModal( $clickElem.closest( '.cover-modal' ) );
+			}
+
+			// Add the additional offset
+			var scrollOffset = originalOffset + additionalOffset;
+
+			chaplin.smoothScroll.scrollToPosition( scrollOffset, scrollSpeed );
+
+		}
+
+	},
+
+	scrollToPosition: function( position, speed ) {
+
+		$( 'html, body' ).animate( {
+			scrollTop: position,
+		}, speed, function() {
+			$win.trigger( 'did-interval-scroll' );
 		} );
 
 	}
@@ -906,6 +889,7 @@ chaplin.scrollLock = {
 
 		// Then lock styles and state
 		$( 'html' ).css( appliedLock );
+		$( 'html' ).attr( 'scroll-lock-top', prevScroll.scrollTop );
 		$win.scrollLeft( 0 ).scrollTop( 0 );
 
 		window.scrollLocked = true;
@@ -920,6 +904,7 @@ chaplin.scrollLock = {
 
 		// Revert styles and state
 		$( 'html' ).attr( 'style', $( '<x>' ).css( prevLockStyles ).attr( 'style' ) || '' );
+		$( 'html' ).attr( 'scroll-lock-top', '' );
 		$win.scrollLeft( prevScroll.scrollLeft ).scrollTop( prevScroll.scrollTop );
 
 		window.scrollLocked = false;
@@ -1029,7 +1014,7 @@ chaplin.mainMenu = {
 				}
 			} )
 		}
-	}
+	},
 
 } // chaplin.mainMenu
 
@@ -1234,31 +1219,18 @@ chaplin.loadMore = {
 $doc.ready( function() {
 
 	chaplin.intervalScroll.init();				// Check for scroll on an interval
-
 	chaplin.resizeEnd.init();					// Trigger event at end of resize
-
 	chaplin.toggles.init();						// Handle toggles
-
 	chaplin.coverModals.init();					// Handle cover modals
-
 	chaplin.elementInView.init();				// Check if elements are in view
-
 	chaplin.fadeBlocks.init();					// Fade elements on scroll
-
 	chaplin.instrinsicRatioVideos.init();		// Retain aspect ratio of videos on window resize
-
 	chaplin.smoothScroll.init();				// Smooth scroll to anchor link or a specific element
-
 	chaplin.stickMe.init();						// Stick elements on scroll
-
 	chaplin.scrollLock.init();					// Scroll Lock
-
 	chaplin.mainMenu.init();					// Main Menu
-
 	chaplin.focusManagement.init();				// Focus Management
-
 	chaplin.dynamicScreenHeight.init();			// Dynamic Screen Height
-
 	chaplin.loadMore.init();					// Load More
 
 } );
