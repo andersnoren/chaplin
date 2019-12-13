@@ -646,7 +646,7 @@ chaplin.smoothScroll = {
 			}
 
 			// Determine offset
-			var originalOffset = $target.offset().top + $win.scrollTop();
+			var originalOffset = $target.offset().top;
 
 			// Special handling of scroll offset when scroll locked
 			if ( $( 'html' ).attr( 'scroll-lock-top' ) ) {

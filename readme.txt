@@ -163,6 +163,10 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.1.14 (2019-12-11)
+-------------------------
+- Fixed a miscalculation in the restructured smoothScroll function
+
 Version 1.1.13 (2019-12-07)
 -------------------------
 - Change author name output to use display_name instead of nickname
