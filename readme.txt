@@ -163,6 +163,12 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 1.1.15 (2019-12-11)
+-------------------------
+- [ ] Remove unneccessary Font Awesome styles
+- [ ] Update accent color element structure to match Twenty Twenty
+- [ ] Restructure block styles to use the block editor default block-styles, and adjust as neccessary (2.0 version number)
+
 Version 1.1.14 (2019-12-11)
 -------------------------
 - Fixed a miscalculation in the restructured smoothScroll function
