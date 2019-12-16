@@ -109,6 +109,9 @@ if ( ! function_exists( 'chaplin_register_styles' ) ) :
 			wp_register_style( 'chaplin-font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.css', false, 1.0, 'all' );
 			$css_dependencies[] = 'chaplin-font-awesome';
 		}
+
+		// Filter the list of dependencies used by the chaplin-style CSS enqueue
+		$css_dependencies = apply_filters( 'chaplin_css_dependencies', $css_dependencies );
 		
 		wp_enqueue_style( 'chaplin-style', get_template_directory_uri() . '/style.css', $css_dependencies, $theme_version );
 
@@ -149,8 +152,9 @@ if ( ! function_exists( 'chaplin_register_scripts' ) ) :
 		if ( ( ! is_admin() ) && is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
 		}
-		
-		$js_dependencies = array( 'jquery', 'imagesloaded' );
+
+		// Filter the list of dependencies used by the chaplin-construct JavaScript enqueue		
+		$js_dependencies = apply_filters( 'chaplin_js_dependencies', array( 'jquery', 'imagesloaded' ) );
 
 		wp_enqueue_script( 'chaplin-construct', get_template_directory_uri() . '/assets/js/construct.js', $js_dependencies, $theme_version );
 

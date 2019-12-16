@@ -163,11 +163,12 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
-Version 1.1.15 (2019-12-11)
+Version 2.0.0 (2019-12-11)
 -------------------------
-- [ ] Remove unneccessary Font Awesome styles
-- [ ] Update accent color element structure to match Twenty Twenty
-- [ ] Restructure block styles to use the block editor default block-styles, and adjust as neccessary (2.0 version number)
+- Removed Font Awesome files providing support for old browsers (Internet Explorer 10 and older), greatly reducing the Chaplin file size
+- [ ] Updated the structure of the color customization code, making it more compact and easier to work with
+- [ ] Removed the dequeue of the default block styles, and updated the Chaplin styles to work with them
+- Added filters for CSS enqueues and JS enqueues in functions.php
 
 Version 1.1.14 (2019-12-11)
 -------------------------
