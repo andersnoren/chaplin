@@ -163,6 +163,11 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 2.0.0 (2019-XX-XX)
+-------------------------
+- [ ] Updated the structure of the color customization code, making it more compact and easier to work with
+- [ ] Removed the dequeue of the default block styles, and updated the Chaplin styles to work with them
+
 Version 1.1.15 (2019-12-20)
 -------------------------
 - Removed Font Awesome files providing support for old browsers (Internet Explorer 10 and older), greatly reducing the Chaplin file size
