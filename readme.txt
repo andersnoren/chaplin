@@ -163,6 +163,11 @@ Icons in screenshot.png by Feather Icons
 
 == Changelog ==
 
+Version 2.0.0 (2019-XX-XX)
+-------------------------
+- [ ] Updated the structure of the color customization code, making it more compact and easier to work with
+- [ ] Removed the dequeue of the default block styles, and updated the Chaplin styles to work with them
+
 Version 1.1.16 (2019-12-21)
 -------------------------
 - Fixed CSS bug introduced when removing unnecessary Font Awesome files
