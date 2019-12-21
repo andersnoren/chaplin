@@ -6,6 +6,21 @@
 
 			<div class="menu-top">
 
+				<div class="menu-modal-toggles header-toggles">
+
+					<a href="#" class="toggle nav-toggle nav-untoggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal" aria-pressed="false" data-set-focus="#site-header .nav-toggle">
+						<div class="toggle-text">
+							<?php esc_html_e( 'Close', 'chaplin' ); ?>
+						</div>
+						<div class="bars">
+							<div class="bar"></div>
+							<div class="bar"></div>
+							<div class="bar"></div>
+						</div><!-- .bars -->
+					</a><!-- .nav-toggle -->
+
+				</div><!-- .menu-modal-toggles -->
+
 				<ul class="main-menu reset-list-style">
 					<?php
 					if ( has_nav_menu( 'main-menu' ) ) {

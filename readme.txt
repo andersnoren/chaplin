@@ -169,9 +169,13 @@ Icons in screenshot.png by Feather Icons
 
 Version 2.0.0 (2019-XX-XX)
 -------------------------
-- [ ] Updated the structure of the color customization code, making it more compact and easier to work with
-- [ ] Removed the dequeue of the default block styles, and updated the Chaplin styles to work with them
-- [ ] Added a touch check for background-attachment: fixed support, fixing display issues on recent versions of iPadOS
+- Updated the structure of the color customization code, making it more compact and easier to work with for child themes.
+- Added a touch check for background-attachment: fixed support, fixing display issues on recent versions of iPadOS.
+- Updated the structure of the menu modal, adding a close button on desktop and replacing the main menu on mobile.
+- Fixed SVG elements getting focus when they shouldn't
+- Improved the menu modal focusLoop to work better with the new close modal button
+- Removed the dequeue of the default block styles, and updated the Chaplin styles to work with them enqueued
+- Updated the base block margin structure to be more compact and easier to overwrite
 
 Version 1.1.16 (2019-12-21)
 -------------------------

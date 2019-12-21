@@ -17,10 +17,10 @@ if ( ! class_exists( 'Chaplin_SVG_Icons' ) ) :
 		public static function get_svg( $icon, $color = '#1A1A1B' ) {
 			$arr = apply_filters( 'chaplin_svg_icons', self::$icons );
 			if ( array_key_exists( $icon, $arr ) ) {
-				$repl = '<svg class="svg-icon" aria-hidden="true" role="img" focusable="false" tabindex="-1" ';
+				$repl = '<svg class="svg-icon" aria-hidden="true" role="img" focusable="false" ';
 				$svg  = preg_replace( '/^<svg /', $repl, trim( $arr[ $icon ] ) ); // Add extra attributes to SVG code.
-				$svg  = str_replace( '#1A1A1B', $color, $svg ); // Replace the color
-				$svg  = str_replace( '#', '%23', $svg ); // Urlencode hashes
+				$svg  = str_replace( '#1A1A1B', $color, $svg ); // Replace the color.
+				$svg  = str_replace( '#', '%23', $svg ); // Urlencode hashes.
 				$svg  = preg_replace( "/([\n\t]+)/", ' ', $svg ); // Remove newlines & tabs.
 				$svg  = preg_replace( '/>\s*</', '><', $svg ); // Remove white space between SVG tags.
 				return $svg;

@@ -974,10 +974,10 @@ chaplin.focusManagement = {
 	},
 
 	focusLoop: function() {
-		$( '*' ).on( 'focus', function() {
+		$( 'input, a, button' ).on( 'focus', function() {
 			if ( $( '.menu-modal' ).is( '.active' ) ) {
-				if ( ! $( this ).parents( '.menu-modal' ).length && ! $( this ).parents( '.header-toggles' ).length ) {
-					$( '.nav-toggle' ).focus();
+				if ( ! $( this ).parents( '.menu-modal' ).length ) {
+					$( '.nav-untoggle' ).focus();
 				}
 			} else if ( $( '.search-modal' ).is( '.active' ) ) {
 				if ( ! $( this ).parents( '.search-modal' ).length ) {

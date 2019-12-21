@@ -118,8 +118,7 @@
 
 								<a href="#" class="toggle nav-toggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal" aria-pressed="false" data-set-focus=".menu-modal">
 									<div class="toggle-text">
-										<span class="show"><?php esc_html_e( 'Menu', 'chaplin' ); ?></span>
-										<span class="hide"><?php esc_html_e( 'Close', 'chaplin' ); ?></span>
+										<?php esc_html_e( 'Menu', 'chaplin' ); ?>
 									</div>
 									<div class="bars">
 										<div class="bar"></div>
