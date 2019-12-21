@@ -953,7 +953,8 @@ button.toggle {
 	background-size: contain;
 }
 
-.bg-attachment-fixed {
+/* Only enabled when no touch events are detected */
+.no-touchevents .bg-attachment-fixed {
 	background-attachment: fixed;
 }
 

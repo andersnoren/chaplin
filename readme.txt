@@ -156,6 +156,10 @@ Feather Icons
 License: MIT License, https://opensource.org/licenses/MIT
 Source: https://feathericons.com
 
+Modernizr Code
+License: MIT License, https://opensource.org/licenses/MIT
+Source: https://modernizr.com/
+
 Illustration in screenshot.png by Anders Norén
 License: Public Domain
 Icons in screenshot.png by Feather Icons
@@ -167,6 +171,7 @@ Version 2.0.0 (2019-XX-XX)
 -------------------------
 - [ ] Updated the structure of the color customization code, making it more compact and easier to work with
 - [ ] Removed the dequeue of the default block styles, and updated the Chaplin styles to work with them
+- [ ] Added a touch check for background-attachment: fixed support, fixing display issues on recent versions of iPadOS
 
 Version 1.1.16 (2019-12-21)
 -------------------------

@@ -153,8 +153,15 @@ if ( ! function_exists( 'chaplin_register_scripts' ) ) :
 			wp_enqueue_script( 'comment-reply' );
 		}
 
+		// Built-in JS assets
+		$js_dependencies = array( 'jquery', 'imagesloaded' );
+
+		// Register the Modernizr JS check for touchevents (used to determine whether background-attachment should be active)
+		wp_register_script( 'chaplin-modernizr', get_template_directory_uri() . '/assets/js/modernizr-touchevents.min.js', array(), '3.6.0' );
+		$js_dependencies[] = 'chaplin-modernizr';
+
 		// Filter the list of dependencies used by the chaplin-construct JavaScript enqueue		
-		$js_dependencies = apply_filters( 'chaplin_js_dependencies', array( 'jquery', 'imagesloaded' ) );
+		$js_dependencies = apply_filters( 'chaplin_js_dependencies', $js_dependencies );
 
 		wp_enqueue_script( 'chaplin-construct', get_template_directory_uri() . '/assets/js/construct.js', $js_dependencies, $theme_version );
 
