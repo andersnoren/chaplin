@@ -193,6 +193,8 @@ Version 2.0.0 (2019-12-23)
 - Changed the "Regular" block editor font size slug to "normal", to match naming structure in the editor
 - Updated the block editor font size for "Regular" to match the front-end
 - Reduced alignwide vertical margin on desktop, from 100px to 80px.
+- Added clearfix to inner-container elements (cover block, group block, etc).
+- Improved nesting behaviour for group and cover blocks
 
 Version 1.1.16 (2019-12-21)
 -------------------------
