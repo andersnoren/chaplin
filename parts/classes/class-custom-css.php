@@ -255,28 +255,35 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 				),
 			) );
 
-			/* Helper Variables -------------- */
+			/* P3 Colors --------------------- */
+
+			// Filter for whether to output P3 colors
+			$output_p3 = apply_filters( 'chaplin_output_p3_colors', true );
+
+			// Default value
+			$p3_value = '';
 
 			// P3 media query opening and closing
-			$p3_supports_open =		'@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
-			$p3_supports_close =	'}';
+			$p3_open =	'@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
+			$p3_close = '}';
 
-			/* CSS Elements -------------------- */
+			/* CSS Elements ------------------ */
 
 			$css_elements = self::get_css_elements_array( $type );
 
-			/* Loop over the CSS elements ------ */
+			/* Loop over the CSS elements ---- */
 
 			foreach ( $css_elements as $key => $definitions ) {
 
 				$property = $properties[ $key ];
 
+				// Only proceeed if the value is set and not the default one
 				if ( ! $property['value'] || ( $property['default'] && $property['default'] == $property['value'] ) ) {
 					continue;
 				}
 
-				// For color settings, get the P3 color
-				if ( isset( $property['type'] ) && $property['type'] == 'color' ) {
+				// Get the P3 color, if they're enabled and we're outputting a color property
+				if ( $output_p3 && isset( $property['type'] ) && $property['type'] == 'color' ) {
 					$p3_value = self::format_p3( self::hex_to_p3( $property['value'] ) );
 				}
 
@@ -295,9 +302,9 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 					// Generate CSS for the elements
 					$css .= self::generate_css( $elements, $elements_property, $value );
 
-					// Generate P3 color CSS
-					if ( $property['type'] == 'color' && $p3_value ) {
-						$css .= $p3_supports_open . self::generate_css( $elements, $elements_property, $p3_value ) . $p3_supports_close;
+					// Generate P3 color CSS, if available and enabled
+					if ( $output_p3 && isset( $property['type'] ) && $property['type'] == 'color' && $p3_value ) {
+						$css .= $p3_open . self::generate_css( $elements, $elements_property, $p3_value ) . $p3_close;
 					}
 
 				}
@@ -362,7 +369,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 					),
 					// Colors
 					'background'			=> array(
-						'background-color'		=> '.bg-body-background, .bg-body-background-hover:hover, :root .has-background-background-color, body, .menu-modal, .header-inner.is-sticky',
+						'background-color'		=> '.bg-body-background, .bg-body-background-hover:hover, :root .has-background-background-color, body, :root body.custom-background, .menu-modal, .header-inner.is-sticky',
 						'border-color'			=> '.border-color-body-background, .border-color-body-background-hover:hover',
 						'color'					=> '.color-body-background, .color-body-background-hover:hover, :root .has-background-color, ' . $buttons_targets,
 						'fill'					=> '.fill-children-body-background, .fill-children-body-background *'
