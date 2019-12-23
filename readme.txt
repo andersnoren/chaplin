@@ -187,8 +187,8 @@ Version 2.0.0 (2019-12-23)
 - Remove margin between stacked alignwide/alignfull group blocks with background color.
 - Replaced custom single post navigation with the WordPress default one, reducing code (kudos to @anace).
 - Updated readme.txt with licensing information for Twenty Twenty and Modernizr.
-- Added filter for whether to output P3 colors for the color settings
-- Fixed the P3 color not being applied to the body when a custom background color is set
+- Added filter for whether to output P3 colors for the color settings.
+- Fixed the P3 color not being applied to the body when a custom background color is set.
 
 Version 1.1.16 (2019-12-21)
 -------------------------
