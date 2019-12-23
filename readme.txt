@@ -190,7 +190,8 @@ Version 2.0.0 (2019-12-23)
 - Added filter for whether to output P3 colors for the color settings.
 - Fixed the P3 color not being applied to the body when a custom background color is set.
 - Fixed loading indicator not visibly rotating if primary color and border color have the same value.
-- Changed the "Regular" font size slug to "normal", to match naming structure in the editor
+- Changed the "Regular" block editor font size slug to "normal", to match naming structure in the editor
+- Updated the block editor font size for "Regular" to match the front-end
 
 Version 1.1.16 (2019-12-21)
 -------------------------

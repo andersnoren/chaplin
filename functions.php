@@ -1326,7 +1326,7 @@ if ( ! function_exists( 'chaplin_block_editor_settings' ) ) :
 			array(
 				'name' 		=> _x( 'Regular', 'Name of the regular font size in Gutenberg', 'chaplin' ),
 				'shortName' => _x( 'M', 'Short name of the regular font size in the Gutenberg editor.', 'chaplin' ),
-				'size' 		=> 18,
+				'size' 		=> 19,
 				'slug' 		=> 'normal',
 			),
 			array(
