@@ -2795,7 +2795,8 @@ table.is-style-stripes tbody tr:nth-child( odd ),
 /* Font Sizes -------------------------------- */
 
 .entry-content .has-small-font-size { font-size: .842em; }
-.entry-content .has-regular-font-size { font-size: 1em; }
+.entry-content .has-regular-font-size,
+.entry-content .has-normal-font-size { font-size: 1em; }
 .entry-content .has-medium-font-size { font-size: 1.1em; }
 .entry-content .has-large-font-size { font-size: 1.25em; }
 .entry-content .has-larger-font-size { font-size: 1.5em; }
