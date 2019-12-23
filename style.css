@@ -431,8 +431,21 @@ figcaption,
 
 fieldset {
 	border: .2rem solid #e1e1e3;
+	margin-bottom: 3rem;
+	margin-top: 3rem;
 	padding: 2rem;
 }
+
+fieldset > *:first-child { margin-top: 0; }
+fieldset > *:last-child { margin-bottom: 0; }
+
+form {
+	margin-bottom: 3rem;
+	margin-top: 3rem;
+}
+
+form > *:first-child { margin-top: 0; }
+form > *:last-child { margin-bottom: 0; }
 
 legend {
 	font-size: .85em;
@@ -3632,11 +3645,11 @@ body.woocommerce-page .entry-content {
 	/* TITLES */
 
 	h1, .heading-size-1, 
-	h2, .heading-size-2, 
-	h3, .heading-size-3 {
+	h2, .heading-size-2 {
 		margin: 6rem 0 3.5rem;
 	}
 
+	h3, .heading-size-3,
 	h4, .heading-size-4, 
 	h5, .heading-size-5, 
 	h6, .heading-size-6 {
@@ -4740,26 +4753,22 @@ body.woocommerce-page .entry-content {
 
 	/* BLOCK: COLUMNS */
 
-	.wp-block-columns.alignwide,
 	.wp-block-columns.alignfull { 
 		margin-bottom: 10rem;
 	}
 
-	.wp-block-columns.alignwide + .wp-block-columns.alignwide,
 	.wp-block-columns.alignfull + .wp-block-columns.alignfull { 
 		margin-top: -6rem; 
 	}
 
 	/* BLOCK: GALLERY */
 
-	.wp-block-gallery.alignwide,
 	.wp-block-gallery.alignfull {
 		margin-bottom: 9rem;
 	}
 
 	/* BLOCK: GROUP */
 
-	.wp-block-group.has-background.alignwide + .wp-block-group.has-background.alignwide,
 	.wp-block-group.has-background.alignfull + .wp-block-group.has-background.alignfull {
 		margin-top: -10rem;
 	}
@@ -4768,7 +4777,6 @@ body.woocommerce-page .entry-content {
 
 	/* ALIGNMENTS */
 
-	.alignwide,
 	.alignfull {
 		margin-bottom: 10rem;
 		margin-top: 10rem;

@@ -192,6 +192,7 @@ Version 2.0.0 (2019-12-23)
 - Fixed loading indicator not visibly rotating if primary color and border color have the same value.
 - Changed the "Regular" block editor font size slug to "normal", to match naming structure in the editor
 - Updated the block editor font size for "Regular" to match the front-end
+- Reduced alignwide vertical margin on desktop, from 100px to 80px.
 
 Version 1.1.16 (2019-12-21)
 -------------------------
