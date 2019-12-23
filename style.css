@@ -2199,11 +2199,11 @@ h1.entry-title,
 
 /* Block: Base Margins ----------------------- */
 
-*[class*="_inner-container"] > *:first-child {
+:root *[class*="_inner-container"] > *:first-child {
 	margin-top: 0;
 }
 
-*[class*="_inner-container"] > *:last-child {
+:root *[class*="_inner-container"] > *:last-child {
 	margin-bottom: 0;
 }
 
