@@ -161,16 +161,16 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 
 			/* Color Options ----------------- */
 
-			$background = get_theme_mod( 'background_color' ) ? '#' . get_theme_mod( 'background_color' ) : false;
-			$primary = get_theme_mod( 'chaplin_primary_text_color' );
-			$headings = get_theme_mod( 'chaplin_headings_text_color' );
-			$buttons_background = get_theme_mod( 'chaplin_buttons_background_color' );
-			$buttons_text = get_theme_mod( 'chaplin_buttons_text_color' );
-			$secondary = get_theme_mod( 'chaplin_secondary_text_color' );
-			$accent = get_theme_mod( 'chaplin_accent_color' );
-			$border = get_theme_mod( 'chaplin_border_color' );
-			$light_background = get_theme_mod( 'chaplin_light_background_color' );
-			$overlay_text = get_theme_mod( 'chaplin_cover_template_overlay_text_color' );
+			$background = 			get_theme_mod( 'background_color' ) ? '#' . get_theme_mod( 'background_color' ) : false;
+			$primary = 				get_theme_mod( 'chaplin_primary_text_color' );
+			$headings = 			get_theme_mod( 'chaplin_headings_text_color' );
+			$buttons_background = 	get_theme_mod( 'chaplin_buttons_background_color' );
+			$buttons_text = 		get_theme_mod( 'chaplin_buttons_text_color' );
+			$secondary = 			get_theme_mod( 'chaplin_secondary_text_color' );
+			$accent = 				get_theme_mod( 'chaplin_accent_color' );
+			$border = 				get_theme_mod( 'chaplin_border_color' );
+			$light_background = 	get_theme_mod( 'chaplin_light_background_color' );
+			$overlay_text = 		get_theme_mod( 'chaplin_cover_template_overlay_text_color' );
 
 
 			/* Properties -------------------- */
@@ -371,6 +371,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 					'background'			=> array(
 						'background-color'		=> '.bg-body-background, .bg-body-background-hover:hover, :root .has-background-background-color, body, :root body.custom-background, .menu-modal, .header-inner.is-sticky',
 						'border-color'			=> '.border-color-body-background, .border-color-body-background-hover:hover',
+						'border-top-color'		=> '#pagination .loader.same-primary-border-color',
 						'color'					=> '.color-body-background, .color-body-background-hover:hover, :root .has-background-color, ' . $buttons_targets,
 						'fill'					=> '.fill-children-body-background, .fill-children-body-background *'
 					),

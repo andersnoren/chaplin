@@ -1143,6 +1143,10 @@ ul.social-icons li {
 	border-top-color: currentColor;
 }
 
+#pagination .loader.same-primary-border-color {
+	border-top-color: #fff;
+}
+
 
 /* Animations ------------------------------- */
 

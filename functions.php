@@ -1133,11 +1133,19 @@ endif;
 --------------------------------------------------------------------------------------------------- */
 
 if ( ! function_exists( 'chaplin_loading_indicator' ) ) :
-
 	function chaplin_loading_indicator() {
-		echo '<div class="loader border-color-border"></div>';
-	}
 
+		$extra_loading_classes = '';
+
+		// Check if the primary and border colors are the same
+		$primary_color = 	get_theme_mod( 'chaplin_primary_text_color' );
+		$border_color = 	get_theme_mod( 'chaplin_border_color' );
+
+		$extra_loading_classes .= ( $primary_color == $border_color ) ? ' same-primary-border-color' : '';
+
+		echo '<div class="loader border-color-border' . $extra_loading_classes . '"></div>';
+
+	}
 endif;
 
 
