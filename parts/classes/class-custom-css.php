@@ -398,7 +398,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 					),
 					'border'				=> array(
 						'background-color'		=> '.bg-border, .bg-border-hover:hover, :root .has-border-background-color, caption',
-						'border-color'			=> '.border-color-border, .border-color-border-hover:hover, pre, th, td, input, textarea, select, fieldset, .main-menu li, button.sub-menu-toggle, .wp-block-latest-posts.is-grid li, .footer-menu li, .comment .comment, .related-posts, .widget, .select2-container .select2-selection--single',
+						'border-color'			=> '.border-color-border, .border-color-border-hover:hover, pre, th, td, input, textarea, select, fieldset, .main-menu li, button.sub-menu-toggle, .wp-block-latest-posts.is-grid li, .footer-menu li, .comment .comment, .post-navigation, .related-posts, .widget, .select2-container .select2-selection--single',
 						'color'					=> '.color-border, .color-border-hover:hover, :root .has-border-color, hr',
 						'fill'					=> '.fill-children-border, .fill-children-border *',
 					),
