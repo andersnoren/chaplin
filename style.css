@@ -2428,6 +2428,14 @@ section.wp-block-cover-image > h2 {
 	padding: 3rem 2rem;
 }
 
+.wp-block-group.has-background.alignwide + .wp-block-group.has-background.alignwide {
+	margin-top: -3rem;
+}
+
+.wp-block-group.has-background.alignfull + .wp-block-group.has-background.alignfull {
+	margin-top: -5rem;
+}
+
 .wp-block-group > *:first-child,
 .wp-block-group__inner-container > *:first-child { 
 	margin-top: 0; 
@@ -3939,29 +3947,6 @@ body.woocommerce-page .entry-content {
 
 	/* Blocks -------------------------------- */
 
-	.wp-block-archives,
-	.wp-block-button,
-	.wp-block-categories,
-	.wp-block-code,
-	.wp-block-columns,
-	.wp-block-cover,
-	.wp-block-embed,
-	.wp-block-gallery,
-	.wp-block-group,
-	.wp-block-latest-comments,
-	.wp-block-latest-posts,
-	.wp-block-media-text,
-	.wp-block-preformatted,
-	.wp-block-pullquote,
-	.wp-block-quote,
-	.wp-block-quote.is-large,
-	.wp-block-quote.is-style-large,
-	.wp-block-verse,
-	.wp-block-video {
-		margin-bottom: 5rem;
-		margin-top: 5rem;
-	}
-
 	/* BLOCK: BUTTON */
 
 	/* COBLOCK: BUTTONS */
@@ -4070,6 +4055,11 @@ body.woocommerce-page .entry-content {
 	}
 
 	/* BLOCK: GROUP */
+
+	.wp-block-group.has-background.alignwide + .wp-block-group.has-background.alignwide,
+	.wp-block-group.has-background.alignfull + .wp-block-group.has-background.alignfull {
+		margin-top: -6rem;
+	}
 
 	.wp-block-group.has-background {
 		padding: 4rem 3rem;
@@ -4306,6 +4296,25 @@ body.woocommerce-page .entry-content {
 
 }
 	
+@media ( min-width: 782px ) {
+
+
+	/* Blocks -------------------------------- */
+
+	/* BLOCK: COLUMNS */
+
+	.wp-block-columns.alignwide, 
+	.wp-block-columns.alignfull {
+		margin-bottom: 6rem;
+	}
+
+	.wp-block-column {
+		margin-bottom: 0;
+	}
+
+
+}
+
 @media ( min-width: 1000px ) {
 
 
@@ -4512,7 +4521,7 @@ body.woocommerce-page .entry-content {
 
 	.wp-block-columns.alignwide,
 	.wp-block-columns.alignfull { 
-		margin-bottom: 6rem;
+		margin-bottom: 8rem;
 	}
 
 	.wp-block-columns.alignwide + .wp-block-columns.alignwide,
@@ -4536,6 +4545,13 @@ body.woocommerce-page .entry-content {
 	.wp-block-gallery.alignwide,
 	.wp-block-gallery.alignfull {
 		margin-bottom: 7rem;
+	}
+
+	/* BLOCK: GROUP */
+
+	.wp-block-group.has-background.alignwide + .wp-block-group.has-background.alignwide,
+	.wp-block-group.has-background.alignfull + .wp-block-group.has-background.alignfull {
+		margin-top: -8rem;
 	}
 
 	/* BLOCK: LATEST POSTS */
@@ -4721,7 +4737,7 @@ body.woocommerce-page .entry-content {
 
 	.wp-block-columns.alignwide,
 	.wp-block-columns.alignfull { 
-		margin-bottom: 8rem;
+		margin-bottom: 10rem;
 	}
 
 	.wp-block-columns.alignwide + .wp-block-columns.alignwide,
@@ -4734,6 +4750,13 @@ body.woocommerce-page .entry-content {
 	.wp-block-gallery.alignwide,
 	.wp-block-gallery.alignfull {
 		margin-bottom: 9rem;
+	}
+
+	/* BLOCK: GROUP */
+
+	.wp-block-group.has-background.alignwide + .wp-block-group.has-background.alignwide,
+	.wp-block-group.has-background.alignfull + .wp-block-group.has-background.alignfull {
+		margin-top: -10rem;
 	}
 
 	/* Entry Content ------------------------- */
