@@ -164,18 +164,29 @@ Illustration in screenshot.png by Anders Norén
 License: Public Domain
 Icons in screenshot.png by Feather Icons
 
+Code from Twenty Twenty
+Copyright (c) 2019-2020 WordPress.org
+License: GPLv2
+Source: https://wordpress.org/themes/twentytwenty/
+Included as part of:
+- Chaplin_Custom_CSS (kudos to @aristath)
+- Single post navigation structure (kudos to @anace)
+
 
 == Changelog ==
 
-Version 2.0.0 (2019-XX-XX)
+Version 2.0.0 (2019-12-23)
 -------------------------
 - Updated the structure of the color customization code, making it more compact and easier to work with for child themes.
+- Updated the structure of the menu modal, adding a close button on desktop and hiding the site header on mobile.
+- Removed the dequeue of the default block styles, and updated the Chaplin styles to work with them enqueued.
 - Added a touch check for background-attachment: fixed support, fixing display issues on recent versions of iPadOS.
-- Updated the structure of the menu modal, adding a close button on desktop and replacing the main menu on mobile.
-- Fixed SVG elements getting focus when they shouldn't
-- Improved the menu modal focusLoop to work better with the new close modal button
-- Removed the dequeue of the default block styles, and updated the Chaplin styles to work with them enqueued
-- Updated the base block margin structure to be more compact and easier to overwrite
+- Fixed SVG elements getting focus when they shouldn't.
+- Improved the menu modal focusLoop to work better with the new close modal button.
+- Updated the base block margin structure to be more compact and easier to overwrite.
+- Remove margin between stacked alignwide/alignfull group blocks with background color.
+- Replaced custom single post navigation with the WordPress default one, reducing code (kudos to @anace).
+- Updated readme.txt with licensing information for Twenty Twenty and Modernizr.
 
 Version 1.1.16 (2019-12-21)
 -------------------------
