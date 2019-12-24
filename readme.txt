@@ -175,6 +175,11 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.0.1 (2019-12-24)
+-------------------------
+- Adjustments to base block margins
+- Adjustments to image margins
+
 Version 2.0.0 (2019-12-23)
 -------------------------
 - Updated the structure of the color customization code, making it more compact and easier to work with for child themes.

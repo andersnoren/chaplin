@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 2.0.0
+	Version: 2.0.1
 	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. This flexibility makes Chaplin suitable for pretty much any type of website, including business sites and portfolios. All of the fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported, and you can choose one of the ten included color schemes or build one from scratch. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, full-width templates, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, full-width-template
 	Author: Anders Norén
@@ -2232,9 +2232,11 @@ h1.entry-title,
 .wp-block-code,
 .wp-block-columns,
 .wp-block-cover,
+.wp-block-cover-image,
 .wp-block-embed,
 .wp-block-gallery,
 .wp-block-group,
+.wp-block-image,
 .wp-block-latest-comments,
 .wp-block-latest-posts,
 .wp-block-media-text,
@@ -2485,13 +2487,10 @@ section.wp-block-cover-image > h2 {
 /* Block: HTML ------------------------------- */
 /* Block: Image ------------------------------ */
 
-.wp-block-image {
-	margin-bottom: 3rem;
-	margin-top: 3rem;
-}
-
-.wp-block-image.alignfull img, 
-.wp-block-image.alignwide img {
+.wp-block-image.alignwide img,
+.wp-block-image .alignwide img,
+.wp-block-image.alignfull img,
+.wp-block-image .alignfull img {
 	width: 100%;
 }
 
@@ -3970,6 +3969,33 @@ body.woocommerce-page .entry-content {
 
 	/* Blocks -------------------------------- */
 
+	/* BLOCK: BASE MARGINS */
+
+	.wp-block-archives,
+	.wp-block-button,
+	.wp-block-categories,
+	.wp-block-code,
+	.wp-block-columns,
+	.wp-block-cover,
+	.wp-block-cover-image,
+	.wp-block-embed,
+	.wp-block-gallery,
+	.wp-block-group,
+	.wp-block-image,
+	.wp-block-latest-comments,
+	.wp-block-latest-posts,
+	.wp-block-media-text,
+	.wp-block-preformatted,
+	.wp-block-pullquote,
+	.wp-block-quote,
+	.wp-block-quote.is-large,
+	.wp-block-quote.is-style-large,
+	.wp-block-verse,
+	.wp-block-video {
+		margin-bottom: 4rem;
+		margin-top: 4rem;
+	}
+
 	/* BLOCK: SHARED STACKED BACKGROUND BLOCKS */
 
 	.wp-block-cover.alignwide + .wp-block-cover.alignwide,
@@ -4008,12 +4034,6 @@ body.woocommerce-page .entry-content {
 
 	/* BLOCK: COVER */
 
-	.wp-block-cover, 
-	.wp-block-cover-image {
-		margin-bottom: 6rem;
-		margin-top: 6rem;
-	}
-
 	.wp-block-cover-image .wp-block-cover__inner-container, 
 	.wp-block-cover .wp-block-cover__inner-container {
 		width: calc( 100% - 8rem );
@@ -4051,11 +4071,6 @@ body.woocommerce-page .entry-content {
 	}
 
 	/* BLOCK: IMAGE */
-
-	.wp-block-image {
-		margin-bottom: 6rem;
-		margin-top: 6rem;
-	}
 
 	.wp-block-image .alignleft,
 	.wp-block-image .alignright {
@@ -4138,7 +4153,11 @@ body.woocommerce-page .entry-content {
 	/* ALIGNMENTS */
 
 	.alignnone, 
-	.aligncenter,
+	.aligncenter {
+		margin-bottom: 4rem;
+		margin-top: 4rem;
+	}
+
 	.alignwide,
 	.alignfull {
 		margin-bottom: 6rem;
