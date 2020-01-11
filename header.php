@@ -54,11 +54,17 @@
 							$site_description = get_bloginfo( 'description' );
 
 							if ( $logo ) {
+
+								// On cover templates, append the overlay logo if one is set
+								if ( chaplin_is_cover_template() ) {
+									$logo .= chaplin_get_custom_logo( 'chaplin_overlay_logo' );
+								}
+
 								$home_link_contents = $logo . '<span class="screen-reader-text">' . esc_html( $site_title ) . '</span>';
 								$site_title_class = 'site-logo';
 							} else {
 								$site_title_class = 'site-title';
-								$home_link_contents = '<a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html( $site_title ) . '</a>';
+								$home_link_contents = '<a href="' . esc_url( home_url( '/' ) ) . '" rel="home">' . esc_html( $site_title ) . '</a>';
 							}
 
 							if ( is_front_page() ) : ?>

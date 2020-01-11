@@ -17,8 +17,8 @@
 		<?php 
 	endif;
 
-	// On pages with the cover template, display a "To the content" link
-	if ( is_page() && is_page_template( array( 'template-cover.php', 'template-full-width-cover.php' ) ) ) {
+	// On pages set to one of the cover templates, display a "To the content" link
+	if ( is_page() && chaplin_is_cover_template() ) {
 		?>
 
 		<div class="to-the-content-wrapper">

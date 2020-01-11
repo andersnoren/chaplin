@@ -6,7 +6,7 @@
 		// Don't output the markup of the footer on the only content templates, unless filtered to do so
 		if ( ! is_page_template( $only_content_templates ) || $show_footer ) : ?>
 		
-			<footer class="" id="site-footer" role="contentinfo">
+			<footer id="site-footer" role="contentinfo">
 
 				<?php if ( is_active_sidebar( 'footer-one' ) || is_active_sidebar( 'footer-two' ) ) : ?>
 
@@ -61,7 +61,7 @@
 
 					<div class="footer-credits">
 
-						<p class="footer-copyright">&copy; <?php echo esc_html( date_i18n( __( 'Y', 'chaplin' ) ) ); ?> <a href="<?php echo esc_url( home_url() ); ?>"><?php echo bloginfo( 'name' ); ?></a></p>
+						<p class="footer-copyright">&copy; <?php echo esc_html( date_i18n( __( 'Y', 'chaplin' ) ) ); ?> <a href="<?php echo esc_url( home_url() ); ?>" rel="home"><?php echo bloginfo( 'name' ); ?></a></p>
 
 						<p class="theme-credits color-secondary">
 							<?php

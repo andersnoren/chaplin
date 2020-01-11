@@ -213,7 +213,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		}
 
 		// Check whether the current page should have an overlay header
-		if ( is_page_template( array( 'template-cover.php', 'template-full-width-cover.php' ) ) ) {
+		if ( chaplin_is_cover_template( $post->ID ) ) {
 			$classes[] = 'overlay-header';
 
 			// Check if we're fading
@@ -227,12 +227,12 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 			}
 		}
 
-		// Check whether the current page should have an overlay header
+		// Check whether the current page only has content
 		if ( is_page_template( array( 'template-full-width-only-content.php', 'template-only-content.php' ) ) ) {
 			$classes[] = 'has-only-content';
 		}
 
-		// Check whether the current page should have an overlay header
+		// Check whether the current page is full width
 		if ( is_page_template( array( 'template-full-width-only-content.php', 'template-full-width.php', 'template-full-width-cover.php' ) ) ) {
 			$classes[] = 'has-full-width-content';
 		}
@@ -250,6 +250,11 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		// Check for disabled menu modal on desktop
 		if ( get_theme_mod( 'chaplin_disable_menu_modal_on_desktop', false ) ) {
 			$classes[] = 'disable-menu-modal-on-desktop';
+		}
+
+		// Check if we have an overlay logo
+		if ( get_theme_mod( 'chaplin_overlay_logo' ) ) {
+			$classes[] = 'has-overlay-logo';
 		}
 
 		// Check for post thumbnail
@@ -322,21 +327,18 @@ endif;
 if ( ! function_exists( 'chaplin_get_custom_logo' ) ) :
 	function chaplin_get_custom_logo( $logo_theme_mod = 'custom_logo' ) {
 
-		// Get the attachment for the specified logo
+		// Get the attachment id for the specified logo
 		$logo_id = get_theme_mod( $logo_theme_mod );
 		
-		if ( ! $logo_id ) {
-			return;
-		}
+		if ( ! $logo_id ) return;
 
 		$logo = wp_get_attachment_image_src( $logo_id, 'full' );
 
-		if ( ! $logo ) {
-			return;
-		}
+		if ( ! $logo ) return;
 
 		// For clarity
 		$logo_url = esc_url( $logo[0] );
+		$logo_alt = get_post_meta( $logo_id, '_wp_attachment_image_alt', TRUE );
 		$logo_width = esc_attr( $logo[1] );
 		$logo_height = esc_attr( $logo[2] );
 
@@ -354,8 +356,8 @@ if ( ! function_exists( 'chaplin_get_custom_logo' ) ) :
 
 		?>
 
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php bloginfo( 'name' ); ?>" class="custom-logo-link <?php echo esc_attr( $logo_theme_mod_class ); ?>">
-			<img src="<?php echo esc_url( $logo_url ); ?>" width="<?php echo esc_attr( $logo_width ); ?>" height="<?php echo esc_attr( $logo_height ); ?>" />
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" class="custom-logo-link <?php echo esc_attr( $logo_theme_mod_class ); ?>">
+			<img src="<?php echo esc_url( $logo_url ); ?>" width="<?php echo esc_attr( $logo_width ); ?>" height="<?php echo esc_attr( $logo_height ); ?>" <?php if ( $logo_alt ) echo ' alt="' . esc_attr( $logo_alt ) . '"'; ?> />
 		</a>
 
 		<?php
@@ -676,6 +678,27 @@ endif;
 
 
 /*	-----------------------------------------------------------------------------------------------
+	IS THE POST/PAGE SET TO A COVER TEMPLATE?
+	Helper function for checking if the specified post is set to any of the cover templates.
+
+	@param	$post mixed		Optional. Post ID or WP_Post object. Default is global $post.
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_is_cover_template' ) ) :
+	function chaplin_is_cover_template( $post = null ) {
+
+		$post = get_post( $post );
+
+		// Filterable list of cover templates to check forE
+		$cover_templates = apply_filters( 'chaplin_cover_templates', array( 'template-cover.php', 'template-full-width-cover.php' ) );
+
+		return in_array( get_page_template_slug( $post ), $cover_templates );
+
+	}
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
 	FILTER COMMENT REPLY LINK TO NOT JS SCROLL
 	Filter the comment reply link to add a class indicating it should not use JS slow-scroll, as it
 	makes it scroll to the wrong position on the page
@@ -805,7 +828,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 		if ( $post_meta && ! in_array( 'empty', $post_meta ) ) :
 
 			// Make sure the right color is used for the post meta
-			if ( in_array( $page_template, array( 'template-cover.php', 'template-full-width-cover.php' ) ) && $location == 'single-top' ) {
+			if ( chaplin_is_cover_template( $post_id ) && $location == 'single-top' ) {
 				$post_meta_classes .= ' color-inherit';
 			} else {
 				$post_meta_classes .= ' color-accent';
@@ -829,7 +852,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 					<?php
 
 					// Allow output of additional meta items to be added by child themes and plugins
-					do_action( 'chaplin_start_of_post_meta_list', $post_meta, $post_id );
+					do_action( 'chaplin_start_of_post_meta_list', $post_meta, $post_id, $location );
 
 					// Post date
 					if ( in_array( 'post-date', $post_meta ) ) : 
@@ -988,12 +1011,12 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 							<?php endif; ?>
 
 						</li>
-						<?php 
+					<?php endif; 
 
-						// Allow output of additional post meta types to be added by child themes and plugins
-						do_action( 'chaplin_end_of_post_meta_list', $post_meta, $post_id );
+					// Allow output of additional post meta types to be added by child themes and plugins
+					do_action( 'chaplin_end_of_post_meta_list', $post_meta, $post_id, $location );
 
-					endif; ?>
+					?>
 
 				</ul><!-- .post-meta -->
 

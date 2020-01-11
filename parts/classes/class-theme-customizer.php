@@ -30,6 +30,21 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			 * Site Identity
 			 * ------------------------------------------------------------------------ */
 
+			/* Overlay Logo ------------------ */
+
+			$wp_customize->add_setting( 'chaplin_overlay_logo', array(
+				'capability' 		=> 'edit_theme_options',
+				'sanitize_callback' => 'absint'
+			) );
+
+			$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'chaplin_overlay_logo', array(
+				'label'			=> __( 'Overlay Logo', 'chaplin' ),
+				'description'	=> __( 'Displayed instead of the regular logo on pages using the Cover Template.', 'chaplin' ),
+				'priority'		=> 8,
+				'mime_type'		=> 'image',
+				'section' 		=> 'title_tagline',
+			) ) );
+
 			/* 2X Header Logo ---------------- */
 
 			$wp_customize->add_setting( 'chaplin_retina_logo', array(

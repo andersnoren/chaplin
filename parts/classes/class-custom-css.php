@@ -378,7 +378,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 					'primary'				=> array(
 						'background-color'		=> '.bg-primary, .bg-primary-hover:hover, :root .has-primary-background-color',
 						'border-color'			=> '.border-color-primary, .border-color-primary-hover:hover',
-						'color'					=> '.color-primary, .color-primary-hover:hover, :root .has-primary-color, body, .main-menu-alt ul li, .overlay-header .header-inner.is-sticky',
+						'color'					=> '.color-primary, .color-primary-hover:hover, :root .has-primary-color, body, .main-menu-alt ul li',
 						'fill'					=> '.fill-children-primary, .fill-children-primary *',
 					),
 					'headings'				=> array(
@@ -417,7 +417,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 						'fill'					=> '.fill-children-light-background, .fill-children-light-background *',
 					),
 					'overlay_text'			=> array(
-						'color'					=> '.cover-header .entry-header, .overlay-header .header-inner',
+						'color'					=> '.cover-header .entry-header, .overlay-header .header-inner:not(.is-sticky)',
 					),
 				),
 

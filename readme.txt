@@ -175,6 +175,18 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.0.2 (2020-01-11)
+-------------------------
+- Added the "Overlay Logo" setting, which enables a separate logo to be set on cover templates
+- Added chaplin_is_cover_template(), for checking if a post is set to one of the cover templates
+- Fixed the text color in the sticky header on cover templates post 2.0.0
+- Fixed the chaplin_end_of_post_meta_list action being wrapped by the edit_post_link conditional
+- Fixed duplicate code comments in chaplin_body_classes()
+- Updated the chaplin_start/end_of_post_meta_list action to make the $location variable accessible
+- Updated chaplin_get_custom_logo() to remove the title attribute, and added rel="home" and alt attributes
+- Updated the footer copyright link with a rel="home" attribute
+- Removed empty class attribute from the site footer
+
 Version 2.0.1 (2019-12-24)
 -------------------------
 - Adjustments to base block margins
