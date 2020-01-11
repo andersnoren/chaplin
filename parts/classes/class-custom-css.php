@@ -87,41 +87,41 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 
 			$css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
 
-			// backup values within single or double quotes
+			// Backup values within single or double quotes
 			preg_match_all('/(\'[^\']*?\'|"[^"]*?")/ims', $css, $hit, PREG_PATTERN_ORDER);
 
 			for ( $i = 0; $i < count( $hit[1] ); $i++ ) {
 				$css = str_replace( $hit[1][$i], '##########' . $i . '##########', $css );
 			}
 
-			// remove traling semicolon of selector's last property
+			// Remove traoling semicolon of selector's last property
 			$css = preg_replace( '/;[\s\r\n\t]*?}[\s\r\n\t]*/ims', "}\r\n", $css );
 
-			// remove any whitespace between semicolon and property-name
+			// Remove any whitespace between semicolon and property-name
 			$css = preg_replace( '/;[\s\r\n\t]*?([\r\n]?[^\s\r\n\t])/ims', ';$1', $css );
 
-			// remove any whitespace surrounding property-colon
+			// Remove any whitespace surrounding property-colon
 			$css = preg_replace( '/[\s\r\n\t]*:[\s\r\n\t]*?([^\s\r\n\t])/ims', ':$1', $css );
 
-			// remove any whitespace surrounding selector-comma
+			// Remove any whitespace surrounding selector-comma
 			$css = preg_replace( '/[\s\r\n\t]*,[\s\r\n\t]*?([^\s\r\n\t])/ims', ',$1', $css );
 
-			// remove any whitespace surrounding opening parenthesis
+			// Remove any whitespace surrounding opening parenthesis
 			$css = preg_replace( '/[\s\r\n\t]*{[\s\r\n\t]*?([^\s\r\n\t])/ims', '{$1', $css );
 
-			// remove any whitespace between numbers and units
+			// Remove any whitespace between numbers and units
 			$css = preg_replace( '/([\d\.]+)[\s\r\n\t]+(px|em|pt|%)/ims', '$1$2', $css );
 
-			// shorten zero-values
+			// Shorten zero-values
 			$css = preg_replace( '/([^\d\.]0)(px|em|pt|%)/ims', '$1', $css );
 
-			// constrain multiple whitespaces
+			// Constrain multiple whitespaces
 			$css = preg_replace( '/\p{Zs}+/ims',' ', $css );
 
-			// remove newlines
+			// Remove newlines
 			$css = str_replace( array( "\r\n", "\r", "\n" ), '', $css );
 
-			// Restore backupped values within single or double quotes
+			// Restore backed up values within single or double quotes
 			for ( $i = 0; $i < count( $hit[1] ); $i++ ) {
 				$css = str_replace( '##########' . $i . '##########', $hit[1][$i], $css );
 			}
@@ -131,8 +131,10 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 		}
 
 		/*	-----------------------------------------------------------------------------------------------
-			GET CSS BUILT FROM EVENT ACF 
-			Build CSS reflecting colors, fonts and other options set in the ACF settings, and return them for output
+			GET CSS FOR CUSTOMIZER OPTIONS
+			Build CSS reflecting colors, fonts and other options set in the Customizer settings, and return them for output
+
+			@param		$type string	Whether to return CSS for 'front-end', 'block-editor', or 'classic-editor'
 		--------------------------------------------------------------------------------------------------- */
 
 		public static function get_customizer_css( $type = 'front-end' ) {
@@ -310,11 +312,11 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 				}
 			}
 
-			/* Minify before output -------------- */
+			/* Minify the results ------------ */
 
 			$css = self::minify_css( $css );
 
-			/* Return the results ---------------- */
+			/* Return the results ------------ */
 
 			return $css;
 			
@@ -324,7 +326,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 			GET THE CSS ELEMENTS
 			Stores an array of all elements to apply custom CSS to.
 			
-			@param		$type string	Whether to return CSS for 'front-end', 'block-editor', or 'classic-editor'
+			@param		$type string	Whether to return elements for 'front-end', 'block-editor', or 'classic-editor'
 		--------------------------------------------------------------------------------------------------- */
 
 		public static function get_css_elements_array( $type = 'front-end' ) {

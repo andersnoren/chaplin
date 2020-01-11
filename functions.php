@@ -213,7 +213,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		}
 
 		// Check whether the current page should have an overlay header
-		if ( chaplin_is_cover_template( $post->ID ) ) {
+		if ( $post && chaplin_is_cover_template( $post->ID ) ) {
 			$classes[] = 'overlay-header';
 
 			// Check if we're fading
