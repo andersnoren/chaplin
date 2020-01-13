@@ -56,7 +56,7 @@
 							if ( $logo ) {
 
 								// On cover templates, append the overlay logo if one is set
-								if ( chaplin_is_cover_template() ) {
+								if ( is_singular() && chaplin_is_cover_template() ) {
 									$logo .= chaplin_get_custom_logo( 'chaplin_overlay_logo' );
 								}
 

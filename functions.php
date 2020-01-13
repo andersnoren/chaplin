@@ -213,7 +213,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		}
 
 		// Check whether the current page should have an overlay header
-		if ( $post && chaplin_is_cover_template( $post->ID ) ) {
+		if ( is_singular() && chaplin_is_cover_template( $post->ID ) ) {
 			$classes[] = 'overlay-header';
 
 			// Check if we're fading
@@ -689,7 +689,7 @@ if ( ! function_exists( 'chaplin_is_cover_template' ) ) :
 
 		$post = get_post( $post );
 
-		// Filterable list of cover templates to check forE
+		// Filterable list of cover templates to check for
 		$cover_templates = apply_filters( 'chaplin_cover_templates', array( 'template-cover.php', 'template-full-width-cover.php' ) );
 
 		return in_array( get_page_template_slug( $post ), $cover_templates );

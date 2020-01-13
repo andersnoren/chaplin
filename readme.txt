@@ -175,6 +175,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.0.4 (2020-01-13)
+-------------------------
+- Fixed false positive from chaplin_is_cover_template() on archive pages if the first post is set to a cover template
+
 Version 2.0.3 (2020-01-11)
 -------------------------
 - Fixed a notice for the $post object not being set in chaplin_body_classes
