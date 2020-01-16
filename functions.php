@@ -657,6 +657,44 @@ endif;
 
 
 /*	-----------------------------------------------------------------------------------------------
+	OUTPUT SOCIAL MENU
+	Output the social menu, if set.
+
+	@param array $args		Arguments for wp_nav_menu().
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_the_social_menu' ) ) :
+	function chaplin_the_social_menu( $args = array() ) {
+
+		$args = wp_parse_args( $args, array(
+			'theme_location'	=> 'social-menu',
+			'container'			=> '',
+			'container_class'	=> '',
+			'items_wrap'		=> '%3$s',
+			'menu_id'			=> '',
+			'menu_class'		=> '',
+			'depth'				=> 1,
+			'link_before'		=> '<span class="screen-reader-text">',
+			'link_after'		=> '</span>',
+			'fallback_cb'		=> '',
+		) );
+
+		if ( has_nav_menu( $args['theme_location'] ) ) : ?>
+
+			<ul class="social-menu reset-list-style social-icons s-icons">
+
+				<?php wp_nav_menu( $args ); ?>
+
+			</ul><!-- .social-menu -->
+
+			<?php 
+		endif;
+
+	}
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
 	IS COMMENT BY POST AUTHOR?
 	Check if the specified comment is written by the author of the post commented on.
 --------------------------------------------------------------------------------------------------- */

@@ -175,6 +175,12 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.0.5 (2020-01-16)
+-------------------------
+- Added a function for outputting the social menu, making it easier for child themes to output it in other locations.
+- Updated the alternative/fallback main menu to display the sub menu dropdown when the parent menu item link is :focus.
+- Added -moz-osx-font-smoothing: grayscale to all elements already set to -webkit-font-smoothing: antialiased.
+
 Version 2.0.4 (2020-01-13)
 -------------------------
 - Fixed false positive from chaplin_is_cover_template() on archive pages if the first post is set to a cover template

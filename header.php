@@ -85,7 +85,7 @@
 
 							<div class="main-menu-alt-container hide-js">
 
-								<ul class="main-menu-alt reset-list-style">
+								<ul class="main-menu-alt dropdown-menu reset-list-style">
 									<?php
 									if ( has_nav_menu( 'main-menu' ) ) {
 										wp_nav_menu( array(

@@ -45,28 +45,10 @@
 
 				<p class="menu-copyright">&copy; <?php echo esc_html( date( 'Y' ) ); ?> <a href="<?php echo esc_url( home_url() ); ?>"><?php echo bloginfo( 'name' ); ?></a></p>
 
-				<?php if ( has_nav_menu( 'social-menu' ) ) : ?>
-
-					<ul class="social-menu reset-list-style social-icons s-icons">
-
-						<?php
-						wp_nav_menu( array(
-							'theme_location'	=> 'social-menu',
-							'container'			=> '',
-							'container_class'	=> '',
-							'items_wrap'		=> '%3$s',
-							'menu_id'			=> '',
-							'menu_class'		=> '',
-							'depth'				=> 1,
-							'link_before'		=> '<span class="screen-reader-text">',
-							'link_after'		=> '</span>',
-							'fallback_cb'		=> '',
-						) );
-						?>
-
-					</ul><!-- .social-menu -->
-
-				<?php endif; ?>
+				<?php
+				
+				// Output the social menu, if set
+				chaplin_the_social_menu(); ?>
 
 			</div><!-- .menu-bottom -->
 

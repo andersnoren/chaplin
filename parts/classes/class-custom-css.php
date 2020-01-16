@@ -459,7 +459,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 					'accent'				=> array(
 						'background-color'		=> ':root .has-accent-background-color, ' . $buttons_targets,
 						'border-color'			=> '.editor-styles-wrapper blockquote, .editor-styles-wrapper .wp-block-quote,',
-						'color'					=> ':root .has-accent-color, .editor-styles-wrapper a, .editor-styles-wrapper .wp-block-file .wp-block-file__textlink, .editor-styles-wrapper .wp-block-button.is-style-outline',
+						'color'					=> ':root .has-accent-color, .editor-styles-wrapper .editor-block-list__layout a, .editor-styles-wrapper .wp-block-file .wp-block-file__textlink, .editor-styles-wrapper .wp-block-button.is-style-outline',
 					),
 					'buttons_background'	=> array(
 						'background-color'		=> $buttons_targets,

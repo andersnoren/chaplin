@@ -967,6 +967,9 @@ chaplin.focusManagement = {
 
 	init: function() {
 
+		// Add and remove a class from dropdown menu items on focus
+		chaplin.focusManagement.dropdownFocus();
+
 		// If the visitor tabs out of the main menu, return focus to the navigation toggle
 		// Also, if the visitor tabs into a hidden element, move the focus to the element after the hidden element
 		chaplin.focusManagement.focusLoop();
@@ -984,6 +987,12 @@ chaplin.focusManagement = {
 					$( '.search-modal .search-field' ).focus();
 				}
 			}
+		} );
+	},
+
+	dropdownFocus: function() {
+		$( '.dropdown-menu a' ).on( 'blur focus', function( e ) {
+			$( this ).parents( 'li.menu-item-has-children' ).toggleClass( 'focus' );
 		} );
 	}
 
@@ -1231,6 +1240,6 @@ $doc.ready( function() {
 	chaplin.mainMenu.init();					// Main Menu
 	chaplin.focusManagement.init();				// Focus Management
 	chaplin.dynamicScreenHeight.init();			// Dynamic Screen Height
-	chaplin.loadMore.init();					// Load More
+	chaplin.loadMore.init();					// Load More	
 
 } );

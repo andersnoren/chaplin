@@ -4,6 +4,7 @@
 
 .editor-styles-wrapper {
 	color: #1A1B1F;
+	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -86,7 +87,7 @@
 
 /* Typography -------------------------------- */
 
-.editor-styles-wrapper a {
+.editor-styles-wrapper .editor-block-list__layout a {
 	color: #007C89;
 	text-decoration: underline;
 }
