@@ -354,7 +354,7 @@ if ( ! function_exists( 'chaplin_sidebar_registration' ) ) :
 					'id' 			=> 'footer-one',
 					'description' 	=> __( 'Widgets in this area will be displayed in the first column in the footer.', 'chaplin' ),
 				),
-			),
+			)
 		);
 
 		// Footer #2
@@ -365,7 +365,7 @@ if ( ! function_exists( 'chaplin_sidebar_registration' ) ) :
 					'id' 			=> 'footer-two',
 					'description' 	=> __( 'Widgets in this area will be displayed in the second column in the footer.', 'chaplin' ),
 				),
-			),
+			)
 		);
 
 	}

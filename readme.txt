@@ -175,6 +175,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.1.1 (2020-01-18)
+-------------------------
+- Fixed trailing comma in array array_merge args causing parse errors in some versions of PHP.
+
 Version 2.1.0 (2020-01-18)
 -------------------------
 - Added a function for outputting the social menu, making it easier for child themes to output it in other locations.
