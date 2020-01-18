@@ -77,11 +77,11 @@ if ( ( $query_args['max_num_pages'] > $query_args['paged'] ) ) : ?>
 				<nav class="link-pagination<?php echo esc_attr( $pagination_class ); ?>">
 
 					<?php if ( get_previous_posts_link() ) : ?>
-						<?php previous_posts_link( '← ' . __( 'Previous page', 'chaplin' ) ); ?>
+						<?php previous_posts_link( '<span class="arrow" aria-hidden="true">&larr;</span> ' . __( 'Previous page', 'chaplin' ) ); ?>
 					<?php endif; ?>
 
 					<?php if ( get_next_posts_link() ) : ?>
-						<?php next_posts_link( __( 'Next page', 'chaplin' ) . ' →' ); ?>
+						<?php next_posts_link( __( 'Next page', 'chaplin' ) . ' <span class="arrow" aria-hidden="true">&rarr;</span>' ); ?>
 					<?php endif; ?>
 
 				</nav><!-- .posts-pagination -->

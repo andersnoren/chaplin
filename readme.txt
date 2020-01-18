@@ -175,11 +175,18 @@ Included as part of:
 
 == Changelog ==
 
-Version 2.0.5 (2020-01-16)
+Version 2.1.0 (2020-01-18)
 -------------------------
 - Added a function for outputting the social menu, making it easier for child themes to output it in other locations.
-- Updated the alternative/fallback main menu to display the sub menu dropdown when the parent menu item link is :focus.
 - Added -moz-osx-font-smoothing: grayscale to all elements already set to -webkit-font-smoothing: antialiased.
+- Moved the Chaplin_Customize_Control_Checkbox_Multiple class to its own file, matching handling of other classes.
+- Updated the alternative/fallback main menu to display the sub menu dropdown when the parent menu item link is :focus.
+- Updated functions.php by moving template tags into parts/template-tags.php and cleaned up the structure a bit.
+- Updated the registration and deregistration of widgets by using a single function instead of two.
+- Replaced the "é" character in the "Theme by Anders Norén" translateable string with &eacute;.
+- Replaced the apostrophy character in the "Daisy’s" translateable string with &rsquo;.
+- Replaced the arrow characters in pagination.php with &larr; and &rarr; wrapped in aria-hidden spans, matching the args to the_post_navigation();.
+- Various code cleanup
 
 Version 2.0.4 (2020-01-13)
 -------------------------

@@ -9,17 +9,17 @@ if ( post_password_required() ) {
 	return;
 }
 
-if ( $comments ) : ?>
+if ( $comments ) : 
+	?>
 
 	<div class="comments section-inner thin max-percentage no-margin" id="comments">
 
 		<?php
 
-		$post_type = get_post_type();
 		$comments_number = absint( get_comments_number() );
 		$review_post_types = apply_filters( 'chaplin_post_types_with_reviews_instead_of_comments', array( 'product' ) );
 		
-		if ( in_array( $post_type, $review_post_types ) ) {
+		if ( in_array( get_post_type(), $review_post_types ) ) {
 			// Translators: %s = the number of review
 			$comments_title = sprintf( _nx( '%s Review', '%s Reviews', $comments_number, 'Translators: %s = the number of reviews', 'chaplin' ), $comments_number );
 		} else {
@@ -37,19 +37,23 @@ if ( $comments ) : ?>
 
 		<?php
 
-		wp_list_comments( array(
-			'walker'      	=> new Chaplin_Walker_Comment(),
-			'avatar_size'	=> 120,
-			'style' 		=> 'div',
-		) );
+		wp_list_comments(
+			array(
+				'walker'      => new Chaplin_Walker_Comment(),
+				'avatar_size' => 120,
+				'style'       => 'div',
+			)
+		);
 
-		$comment_pagination = paginate_comments_links( array(
-			'echo'					=> false,
-			'end_size'				=> 0,
-			'mid_size'				=> 0,
-			'next_text' 			=> __( 'Newer Comments', 'chaplin' ) . ' &rarr;',
-			'prev_text' 			=> '&larr; ' . __( 'Older Comments', 'chaplin' ),
-		) );
+		$comment_pagination = paginate_comments_links(
+			array(
+				'echo'      => false,
+				'end_size'  => 0,
+				'mid_size'  => 0,
+				'next_text' => __( 'Newer Comments', 'chaplin' ) . ' &rarr;',
+				'prev_text' => '&larr; ' . __( 'Older Comments', 'chaplin' ),
+			)
+		);
 
 		if ( $comment_pagination ) :
 
@@ -74,13 +78,16 @@ endif;
 
 if ( comments_open() || pings_open() ) :
 
-	comment_form( array(
-		'class_form'			=> 'section-inner thin max-percentage no-margin',
-		'comment_notes_before'	=> '',
-		'comment_notes_after'	=> '',
-	) );
+	comment_form(
+		array(
+			'class_form'           => 'section-inner thin max-percentage no-margin',
+			'comment_notes_before' => '',
+			'comment_notes_after'  => '',
+		)
+	);
 
-elseif ( is_single() ) : ?>
+elseif ( is_single() ) : 
+	?>
 
 	<div class="comment-respond" id="respond">
 

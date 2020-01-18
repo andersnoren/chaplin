@@ -2,7 +2,7 @@
 
 	<?php 
 
-	$post_type = get_post_type();
+	$_post_type = get_post_type();
 	
 	// On the cover page template, output the cover header
 	if ( chaplin_is_cover_template() ) : 
@@ -102,7 +102,7 @@
 				'before'           => '<nav class="post-nav-links bg-light-background"><span class="label">' . __( 'Pages:', 'chaplin' ) . '</span>',
 				'after'            => '</nav>',
 			) );
-			if ( $post_type !== 'post' ) {
+			if ( $_post_type !== 'post' ) {
 				edit_post_link();
 			}
 			?>
@@ -123,7 +123,7 @@
 		}
 
 		// Output comments wrapper if it's a post, or if comments are open, or if there's a comment number – and check for password
-		if ( ( $post_type == 'post' || comments_open() || get_comments_number() ) && ! post_password_required() ) : ?>
+		if ( ( $_post_type == 'post' || comments_open() || get_comments_number() ) && ! post_password_required() ) : ?>
 
 			<div class="comments-wrapper">
 

@@ -24,17 +24,21 @@
 				<ul class="main-menu reset-list-style">
 					<?php
 					if ( has_nav_menu( 'main-menu' ) ) {
-						wp_nav_menu( array(
-							'container' 		=> '',
-							'items_wrap' 		=> '%3$s',
-							'show_toggles'		=> true,
-							'theme_location' 	=> 'main-menu',
-						) );
+						wp_nav_menu(
+							array(
+								'container'      => '',
+								'items_wrap'     => '%3$s',
+								'show_toggles'   => true,
+								'theme_location' => 'main-menu',
+							)
+						);
 					} else {
-						wp_list_pages( array( 
-							'match_menu_classes' 	=> true,
-							'title_li' 				=> false, 
-						) );
+						wp_list_pages( 
+							array( 
+								'match_menu_classes' => true,
+								'title_li'           => false, 
+							)
+						);
 					}
 					?>
 				</ul>

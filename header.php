@@ -15,9 +15,9 @@
 
 	<body <?php body_class(); ?>>
 
-		<?php 
+		<?php
 		if ( function_exists( 'wp_body_open' ) ) {
-			wp_body_open(); 
+			wp_body_open();
 		}
 		?>
 
@@ -29,7 +29,7 @@
 		$show_header = apply_filters( 'chaplin_show_header_footer_on_only_content_templates', false );
 
 		// Don't output the markup of the header on the only content templates, unless filtered to do so
-		if ( ! is_page_template( $only_content_templates ) || $show_header ) : 
+		if ( ! is_page_template( $only_content_templates ) || $show_header ) :
 
 			// Add conditional sticky class to .header-inner
 			$header_inner_classes = '';
@@ -94,9 +94,9 @@
 											'theme_location' 	=> 'main-menu',
 										) );
 									} else {
-										wp_list_pages( array( 
+										wp_list_pages( array(
 											'match_menu_classes' 	=> true,
-											'title_li' 				=> false, 
+											'title_li' 				=> false,
 										) );
 									}
 									?>
@@ -106,13 +106,13 @@
 
 							<div class="header-toggles hide-no-js">
 
-								<?php 
-								
+								<?php
+
 								// Check whether the header search is deactivated in the customizer
-								$disable_header_search = get_theme_mod( 'chaplin_disable_header_search', false ); 
-								
+								$disable_header_search = get_theme_mod( 'chaplin_disable_header_search', false );
+
 								if ( ! $disable_header_search ) : ?>
-								
+
 									<a href="#" class="toggle search-toggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field" aria-pressed="false">
 										<div class="toggle-text">
 											<?php esc_html_e( 'Search', 'chaplin' ); ?>
@@ -141,7 +141,7 @@
 
 				</div><!-- .header-inner -->
 
-				<?php 
+				<?php
 				// Output the search modal (if it isn't deactivated in the customizer)
 				if ( ! $disable_header_search ) {
 					get_template_part( 'parts/modal-search' );
@@ -150,9 +150,10 @@
 
 			</header><!-- #site-header -->
 
-			<?php 
+			<?php
 			// Output the menu modal
-			get_template_part( 'parts/modal-menu' ); 
+			get_template_part( 'parts/modal-menu' );
 
 		endif; // is_page_template()
 		?>
+		

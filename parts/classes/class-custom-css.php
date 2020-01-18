@@ -540,5 +540,3 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 
 	}
 endif;
-
-?>

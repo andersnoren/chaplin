@@ -1186,7 +1186,7 @@ if ( ! function_exists( 'chaplin_get_color_schemes' ) ) :
 				),
 			),
 			'daisys' 	=> array(
-				'name'			=> _x( 'Daisy’s', 'Color scheme name', 'chaplin' ),
+				'name'			=> _x( 'Daisy&rsquo;s', 'Color scheme name', 'chaplin' ),
 				'colors'		=> array(
 					'background_color'									=> 'FFFFFF',
 					'chaplin_primary_text_color'						=> '#082E54',
