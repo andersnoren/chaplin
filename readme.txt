@@ -175,6 +175,14 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.1.3 (2020-01-18)
+-------------------------
+- Take three – sorry! Now verified that it works in older versions of PHP.
+
+Version 2.1.2 (2020-01-18)
+-------------------------
+- Fixed trailing comma in array array_merge args causing parse errors in some versions of PHP – take two.
+
 Version 2.1.1 (2020-01-18)
 -------------------------
 - Fixed trailing comma in array array_merge args causing parse errors in some versions of PHP.

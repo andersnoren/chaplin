@@ -347,26 +347,18 @@ if ( ! function_exists( 'chaplin_sidebar_registration' ) ) :
 		);
 
 		// Footer #1
-		register_sidebar(
-			array_merge( $shared_args,
-				array(
-					'name' 			=> __( 'Footer #1', 'chaplin' ),
-					'id' 			=> 'footer-one',
-					'description' 	=> __( 'Widgets in this area will be displayed in the first column in the footer.', 'chaplin' ),
-				),
-			)
-		);
+		register_sidebar( array_merge( $shared_args, array(
+			'name' 			=> __( 'Footer #1', 'chaplin' ),
+			'id' 			=> 'footer-one',
+			'description' 	=> __( 'Widgets in this area will be displayed in the first column in the footer.', 'chaplin' ),
+		) ) );
 
 		// Footer #2
-		register_sidebar(
-			array_merge( $shared_args,
-				array(
-					'name' 			=> __( 'Footer #2', 'chaplin' ),
-					'id' 			=> 'footer-two',
-					'description' 	=> __( 'Widgets in this area will be displayed in the second column in the footer.', 'chaplin' ),
-				),
-			)
-		);
+		register_sidebar( array_merge( $shared_args, array(
+			'name' 			=> __( 'Footer #2', 'chaplin' ),
+			'id' 			=> 'footer-two',
+			'description' 	=> __( 'Widgets in this area will be displayed in the second column in the footer.', 'chaplin' ),
+		) ) );
 
 	}
 	add_action( 'widgets_init', 'chaplin_sidebar_registration' );
@@ -766,8 +758,8 @@ if ( ! function_exists( 'chaplin_block_editor_settings' ) ) :
 					'shortName' => _x( 'XL', 'Short name of the larger font size in the Gutenberg editor.', 'chaplin' ),
 					'size'      => 32,
 					'slug'      => 'larger',
-				),
-			),
+				)
+			)
 		);
 
 	}
