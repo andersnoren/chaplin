@@ -10,6 +10,18 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 		public static function chaplin_register( $wp_customize ) {
 
 			/* ------------------------------------------------------------------------
+			 * Theme Options Panel
+			 * ------------------------------------------------------------------------ */
+
+			$wp_customize->add_panel( 'chaplin_theme_options', array(
+				'priority'       => 30,
+				'capability'     => 'edit_theme_options',
+				'theme_supports' => '',
+				'title'          => __( 'Theme Options', 'chaplin' ),
+				'description'    => __( 'Options included in the Chaplin theme.', 'chaplin' ),
+			) );
+
+			/* ------------------------------------------------------------------------
 			 * Site Title & Description
 			 * ------------------------------------------------------------------------ */
 
@@ -62,6 +74,35 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			) );
 
 			/* ------------------------------------------------------------------------
+			 * General Options
+			 * ------------------------------------------------------------------------ */
+
+			$wp_customize->add_section( 'chaplin_general_options', array(
+				'title' 		=> __( 'General Options', 'chaplin' ),
+				'priority' 		=> 40,
+				'capability' 	=> 'edit_theme_options',
+				'description' 	=> __( 'General theme options for Chaplin.', 'chaplin' ),
+				'panel'			=> 'chaplin_theme_options',
+			) );
+
+			/* Disable Smooth Scroll --------- */
+
+			$wp_customize->add_setting( 'chaplin_disable_smooth_scroll', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'			=> false,
+				'sanitize_callback' => 'chaplin_sanitize_checkbox'
+			) );
+
+			$wp_customize->add_control( 'chaplin_disable_smooth_scroll', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_general_options',
+				'priority'		=> 5,
+				'label' 		=> __( 'Disable Smooth Scroll', 'chaplin' ),
+				'description'	=> __( 'By default, Chaplin will animate the scroll when an anchor link is clicked. Check this to disable that behavior.', 'chaplin' ),
+			) );
+
+
+			/* ------------------------------------------------------------------------
 			 * Color Schemes
 			 * ------------------------------------------------------------------------ */
 
@@ -70,6 +111,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'priority' 		=> 40,
 				'capability' 	=> 'edit_theme_options',
 				'description' 	=> __( 'Select which color scheme to use.', 'chaplin' ),
+				'panel'			=> 'chaplin_theme_options',
 			) );
 
 			/* Color Scheme Selector --------- */
@@ -122,6 +164,14 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			// Update background color with postMessage, so inline CSS output is updated as well
 			$wp_customize->get_setting( 'background_color' )->transport = 'refresh';
 
+			$wp_customize->add_section( 'chaplin_color_schemes', array(
+				'title' 		=> __( 'Color Schemes', 'chaplin' ),
+				'priority' 		=> 40,
+				'capability' 	=> 'edit_theme_options',
+				'description' 	=> __( 'Select which color scheme to use.', 'chaplin' ),
+				'panel'			=> 'chaplin_theme_options',
+			) );
+
 			/* ------------------------------------------------------------------------
 			 * Fonts
 			 * ------------------------------------------------------------------------ */
@@ -131,6 +181,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'priority' 		=> 40,
 				'capability' 	=> 'edit_theme_options',
 				'description' 	=> __( 'Specify which fonts to use. Chaplin supports all fonts on <a href="https://fonts.google.com" target="_blank">Google Fonts</a> and all <a href="https://www.w3schools.com/cssref/css_websafe_fonts.asp" target="_blank">web safe fonts</a>.', 'chaplin' ),
+				'panel'			=> 'chaplin_theme_options',
 			) );
 
 			/* Font Options ------------------ */
@@ -308,6 +359,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'priority' 		=> 40,
 				'capability' 	=> 'edit_theme_options',
 				'description' 	=> __( 'Settings for images in Chaplin.', 'chaplin' ),
+				'panel'			=> 'chaplin_theme_options',
 			) );
 
 			// Activate low-resolution images setting
@@ -362,6 +414,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'priority' 		=> 40,
 				'capability' 	=> 'edit_theme_options',
 				'description' 	=> __( 'Settings for the site header.', 'chaplin' ),
+				'panel'			=> 'chaplin_theme_options',
 			) );
 
 			/* Sticky Header ----------------- */
@@ -416,28 +469,20 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			 * Posts
 			 * ------------------------------------------------------------------------ */
 
-			$wp_customize->add_panel( 'chaplin_post_options', array(
-				'priority'       => 41,
-				'capability'     => 'edit_theme_options',
-				'theme_supports' => '',
-				'title'          => __( 'Posts', 'chaplin' ),
-				'description'    => '',
+			$wp_customize->add_section( 'chaplin_post_archive_options', array(
+				'title' 		=> __( 'Post Archive', 'chaplin' ),
+				'priority' 		=> 50,
+				'capability' 	=> 'edit_theme_options',
+				'description' 	=> __( 'Settings for post archives.', 'chaplin' ),
+				'panel'			=> 'chaplin_theme_options',
 			) );
 
 			$wp_customize->add_section( 'chaplin_single_post_options', array(
 				'title' 		=> __( 'Single Post', 'chaplin' ),
-				'priority' 		=> 10,
+				'priority' 		=> 60,
 				'capability' 	=> 'edit_theme_options',
 				'description' 	=> __( 'Settings for single posts.', 'chaplin' ),
-				'panel'			=> 'chaplin_post_options',
-			) );
-
-			$wp_customize->add_section( 'chaplin_post_archive_options', array(
-				'title' 		=> __( 'Post Archive', 'chaplin' ),
-				'priority' 		=> 20,
-				'capability' 	=> 'edit_theme_options',
-				'description' 	=> __( 'Settings for post archives.', 'chaplin' ),
-				'panel'			=> 'chaplin_post_options',
+				'panel'			=> 'chaplin_theme_options',
 			) );
 
 			/* ------------------------------------------------------------------------
@@ -604,7 +649,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$wp_customize->add_setting( 'chaplin_show_archive_header_on_home', array(
 				'capability' 		=> 'edit_theme_options',
-				'default'			=> true,
+				'default'			=> false,
 				'sanitize_callback' => 'chaplin_sanitize_checkbox',
 			) );
 
@@ -663,7 +708,8 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'title' 		=> __( 'Cover Template', 'chaplin' ),
 				'capability' 	=> 'edit_theme_options',
 				'description' 	=> __( 'Settings for the "Cover Template" page template.', 'chaplin' ),
-				'priority'       => 42,
+				'priority'      => 43,
+				'panel'			=> 'chaplin_theme_options',
 			) );
 
 			/* Overlay Fixed Background ------ */

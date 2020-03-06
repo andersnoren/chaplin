@@ -25,30 +25,34 @@
 	max-width: 610px;
 }
 
-.editor-block-list__block[data-align="wide"] .wp-block-group .wp-block {
+.editor-styles-wrapper *[data-align="wide"] .wp-block-group .wp-block {
 	max-width: calc( 100% - 40px );
 }
 
-.editor-block-list__block[data-align="full"] .wp-block-group .wp-block {
+.editor-styles-wrapper *[data-align="full"] .wp-block-group .wp-block {
 	max-width: 100%;
 }
 
-*[data-align=right] .editor-block-list__block-edit,
-*[data-align=left] .editor-block-list__block-edit {
+.editor-styles-wrapper *[data-align=right] .editor-block-list__block-edit,
+.editor-styles-wrapper *[data-align=left] .editor-block-list__block-edit,
+.editor-styles-wrapper *[data-align=right] .is-block-content,
+.editor-styles-wrapper *[data-align=left] .is-block-content {
+	margin-bottom: 1em;
 	max-width: 50%;
 }
 
-.editor-block-list__block[data-align="wide"],
-.editor-block-list__block[data-align="full"] {
+.editor-styles-wrapper *[data-align="center"],
+.editor-styles-wrapper *[data-align="wide"],
+.editor-styles-wrapper *[data-align="full"] {
 	margin-bottom: 30px;
 	margin-top: 30px;
 }
 
-.editor-block-list__block[data-align="wide"] {
+.editor-styles-wrapper *[data-align="wide"] {
     max-width: 1120px;
 }
 
-.editor-block-list__block[data-align="full"] {
+.editor-styles-wrapper *[data-align="full"] {
     max-width: none;
 }
 
@@ -87,7 +91,8 @@
 
 /* Typography -------------------------------- */
 
-.editor-styles-wrapper .editor-block-list__layout a {
+.editor-styles-wrapper .editor-block-list__layout a,
+.editor-styles-wrapper .block-editor-block-list__layout a {
 	color: #007C89;
 	text-decoration: underline;
 }
@@ -169,9 +174,10 @@
 }
 
 .editor-styles-wrapper .alignleft,
-.editor-styles-wrapper .alignright {
+.editor-styles-wrapper .alignright
+.editor-styles-wrapper *[data-align=right],
+.editor-styles-wrapper *[data-align=left] {
 	margin-bottom: 1.2em;
-	max-width: 50%;
 }
 
 .editor-styles-wrapper .wp-caption .alignleft,
@@ -186,11 +192,10 @@
 	color: inherit;
 	font-size: 14px;
 	font-weight: 500;
-	margin-top: 10px;
 	text-align: left;
 }
 
-.editor-styles-wrapper .editor-block-list__block[data-align="full"] figcaption {
+.editor-styles-wrapper *[data-align="full"] figcaption {
 	padding: 0 15px;
 }
 
@@ -393,7 +398,7 @@
 	font-style: italic;
 	font-weight: 700;
 	line-height: 1.25;
-} 
+}
 
 
 /* Block: Cover ------------------------------ */
@@ -449,16 +454,16 @@
 	max-width: 50%;
 }
 
-.editor-styles-wrapper .editor-block-list__block .wp-block-pullquote p {
+.editor-styles-wrapper * .wp-block-pullquote p {
 	font-weight: 700;
 	line-height: 1.25;
 	margin-bottom: 20px;
 }
 
-.editor-styles-wrapper .editor-block-list__block .wp-block-pullquote p,
+.editor-styles-wrapper * .wp-block-pullquote p,
 .editor-styles-wrapper .wp-block-pullquote.is-style-solid-color blockquote > .block-editor-rich-text p,
-.editor-styles-wrapper .editor-block-list__block[data-type="core/pullquote"][data-align=right] .editor-rich-text p,
-.editor-styles-wrapper .editor-block-list__block[data-type="core/pullquote"][data-align=left] .editor-rich-text p {
+.editor-styles-wrapper *[data-type="core/pullquote"][data-align=right] .editor-rich-text p,
+.editor-styles-wrapper *[data-type="core/pullquote"][data-align=left] .editor-rich-text p {
 	font-size: 1.75em;
 }
 
@@ -511,7 +516,7 @@
 .editor-styles-wrapper .is-style-outline .wp-block-button__link {
 	background: none;
 	border-color: currentColor;
-	color: #1A1B1F;
+	color: #007C89;
 	padding: calc( 1.175em - 2px ) calc( 1.75em - 2px );
 }
 
@@ -574,9 +579,8 @@
 	margin-top: 10px;
 }
 
-.editor-styles-wrapper .wp-block-latest-comments__comment-excerpt p:last-child {
-	margin-bottom: 0;
-}
+.editor-styles-wrapper .wp-block-latest-comments__comment-excerpt p:first-child { margin-top: 0; }
+.editor-styles-wrapper .wp-block-latest-comments__comment-excerpt p:last-child { margin-bottom: 0; }
 
 
 /* Block: Latest Posts ----------------------- */
@@ -614,7 +618,7 @@
 	margin-top: 3rem;
 }
 
-.editor-styles-wrapper .editor-block-list__block[data-type*="core-embed"][data-align=center] * {
+.editor-styles-wrapper *[data-type*="core-embed"][data-align=center] * {
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -646,8 +650,12 @@
 /* Block: Image ------------------------------ */
 
 .editor-styles-wrapper .wp-block-image {
-	margin-bottom: 3rem;
-	margin-top: 3rem;
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
+
+.editor-styles-wrapper .wp-block-image figcaption {
+	margin-bottom: 0;
 }
 
 /* Block: Group ------------------------------ */
@@ -683,8 +691,13 @@
 		font-size: 18px;
 	}
 
-	.editor-block-list__block[data-align="wide"],
-	.editor-block-list__block[data-align="full"] {
+	.editor-styles-wrapper *[data-align="center"] {
+		margin-bottom: 40px;
+		margin-top: 40px;
+	}
+
+	.editor-styles-wrapper *[data-align="wide"],
+	.editor-styles-wrapper *[data-align="full"] {
 		margin-bottom: 60px;
 		margin-top: 60px;
 	}
@@ -714,8 +727,8 @@
 		padding: 40px 30px;
 	}
 
-	.editor-styles-wrapper .editor-block-list__block[data-type="core/pullquote"][data-align=wide] blockquote > .block-editor-rich-text p, 
-	.editor-styles-wrapper .editor-block-list__block[data-type="core/pullquote"][data-align=full] blockquote > .block-editor-rich-text p {
+	.editor-styles-wrapper *[data-type="core/pullquote"][data-align=wide] blockquote > .block-editor-rich-text p, 
+	.editor-styles-wrapper *[data-type="core/pullquote"][data-align=full] blockquote > .block-editor-rich-text p {
 		font-size: 2.5em;
 	}
 
@@ -739,6 +752,13 @@
 		padding-top: 24px;
 	}
 
+	/* BLOCK: IMAGE */
+
+	.editor-styles-wrapper .wp-block-image {
+		margin-bottom: 40px;
+		margin-top: 40px;
+	}
+
 }
 
 
@@ -747,8 +767,8 @@
 
 	/* STRUCTURE */
 
-	.editor-block-list__block[data-align="wide"],
-	.editor-block-list__block[data-align="full"] {
+	.editor-styles-wrapper *[data-align="wide"],
+	.editor-styles-wrapper *[data-align="full"] {
 		margin-bottom: 80px;
 		margin-top: 80px;
 	}
@@ -775,8 +795,8 @@
 
 	/* STRUCTURE */
 
-	.editor-block-list__block[data-align="wide"],
-	.editor-block-list__block[data-align="full"] {
+	.editor-styles-wrapper *[data-align="wide"],
+	.editor-styles-wrapper *[data-align="full"] {
 		margin-bottom: 80px;
 		margin-top: 80px;
 	}

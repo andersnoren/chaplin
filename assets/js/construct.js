@@ -143,7 +143,7 @@ chaplin.toggles = {
 	// Do the toggle
 	toggle: function() {
 
-		$( '*[data-toggle-target]' ).live( 'click', function( e ) {
+		$( '*[data-toggle-target]' ).on( 'click', function( e ) {
 
 			// Get our targets
 			var $toggle = $( this ),
@@ -359,7 +359,7 @@ chaplin.coverModals = {
 	// Close modal on outside click
 	outsideUntoggle: function() {
 
-		$doc.live( 'click', function( e ) {
+		$doc.on( 'click', function( e ) {
 
 			var $target = $( e.target ),
 				modal = '.cover-modal.active';
@@ -408,7 +408,7 @@ chaplin.coverModals = {
 
 		// Check for modal matching querystring when clicking a link
 		// Format: www.url.com?modal=modal-id
-		$( 'a' ).live( 'click', function() {
+		$( 'a' ).on( 'click', function() {
 
 			// Load based on query string
 			if ( $( this ).attr( 'href' ) && $( this ).attr( 'href' ).indexOf( key ) !== -1 ) {
@@ -614,7 +614,7 @@ chaplin.smoothScroll = {
 	init: function() {
 
 		// Scroll to on-page elements by hash
-		$( 'a[href*="#"]' ).not( '[href="#"]' ).not( '[href="#0"]' ).on( 'click', function( event ) {
+		$( 'body:not(.disable-smooth-scroll) a[href*="#"]' ).not( '[href="#"]' ).not( '[href="#0"]' ).on( 'click', function( event ) {
 			if ( location.pathname.replace(/^\//, '' ) == this.pathname.replace(/^\//, '' ) && location.hostname == this.hostname ) {
 				var $target = $( this.hash ).length ? $( this.hash ) : $( '[name=' + this.hash.slice(1) + ']' );
 				chaplin.smoothScroll.scrollToTarget( $target, $( this ) );
@@ -622,7 +622,7 @@ chaplin.smoothScroll = {
 		} );
 
 		// Scroll to elements specified with a data attribute
-		$( '*[data-scroll-to]' ).on( 'click', function( event ) {
+		$( 'body:not(.disable-smooth-scroll) *[data-scroll-to]' ).on( 'click', function( event ) {
 			var $target = $( $( this ).data( 'scroll-to' ) );
 			chaplin.smoothScroll.scrollToTarget( $target, $( this ) );
 		} );

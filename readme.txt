@@ -3,7 +3,7 @@ Contributors: Anlino
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=anders%40andersnoren%2ese&lc=US&item_name=Free%20WordPress%20Themes%20from%20Anders%20Noren&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.5
 Requires PHP: 5.4
-Tested up to: 5.3.2
+Tested up to: 5.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -31,7 +31,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 2. In the righthand sidebar, expand the "Page Attributes" dropdown, click the "Template" dropdown, and select "Cover Template" from the list.
 3. The cover template works best when you've added a featured image and an excerpt, which you can do in the righthand sidebar.
 4. Click the gray "Preview" button to preview your page, or the blue "Publish" button to make it public.
-5. The cover template includes a number of different settings that you can use to modify how your page is presented. Go to Appearance → Customize, and the click the "Cover Template" panel.
+5. The cover template includes a number of different settings that you can use to modify how your page is presented. Go to Appearance → Customize, click the "Theme Options" panel, and then the "Cover Template" panel.
 6. Here, you can modify the color of the image overlay, the color of the text in the overlay, whether to use a fixed background image (creating a parallax-esque effect), how the color overlay should blend into the image, and which opacity the color overlay should have.
 7. When you're done, click the blue "Publish" button to save your changes.
 
@@ -48,7 +48,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Fonts" panel.
+3. Click the "Theme Options" panel, and then the "Fonts" panel.
 4. Open fonts.google.com in a different browser window, and find the fonts you want to use. You can select one font for headings, and one for body text (everything but titles). Your body font should have at least the following styles: Regular, Regular Italic, Bold, and Bold Italic.
 5. Go back to the "Fonts" window in your browser, and enter the names of the fonts you want to use in the "Body Font" and "Headings Font" text fields.
 6. Select the weight of the headings in the dropdown. Note that all fonts do not have support for all font weights, so check which weights/styles the font you want to use supports.
@@ -60,7 +60,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Site Header" panel.
+3. Click the "Theme Options" panel, and then the "Site Header" panel.
 4. Check the "Sticky Header" checkbox, and click the blue "Publish" button to save your changes.
 
 
@@ -68,15 +68,23 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Site Header" panel.
+3. Click the "Theme Options" panel, and then the "Site Header" panel.
 4. Check the "Disable Search Button" checkbox, and click the blue "Publish" button to save your changes.
+
+
+== Disable Smooth Scroll ==
+
+1. Log in to the administration panel of your site.
+2. Go to Appearance → Customize.
+3. Click the "Theme Options" panel, and then the "General Options" panel.
+4. Check the "Disable Smooth Scroll" checkbox, and click the blue "Publish" button to save your changes.
 
 
 == Replace the Menu Modal With a Regular Menu ==
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Site Header" panel.
+3. Click the "Theme Options" panel, and then the "Site Header" panel.
 4. Check the "Disable Menu Modal on Desktop" checkbox, and click the blue "Publish" button to save your changes.
 
 
@@ -84,7 +92,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Posts" panel, and then the "Post Archive" panel.
+3. Click the "Theme Options" panel, and then the "Post Archive" panel.
 4. There are three options for the pagination:
 	a. "Load more on button click": Displays a button that, when clicked, loads more posts without a hard reload.
 	b. "Load more on scroll": When the visitor has reached the bottom of the page, more posts are loaded without a hard reload.
@@ -96,7 +104,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Posts" panel, and then the "Single Post" panel.
+3. Click the "Theme Options" panel, and then the "Single Post" panel.
 4. Uncheck the "Show Related Posts" checkbox, and click the blue "Publish" button to save your changes.
 
 
@@ -104,7 +112,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Posts" panel, and then the "Post Archive" panel.
+3. Click the "Theme Options" panel, and then the "Post Archive" panel.
 4. Check the "Show Excerpts" checkbox, and click the blue "Publish" button to save your changes.
 
 
@@ -112,7 +120,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Posts" panel, and then the "Post Archive" panel.
+3. Click the "Theme Options" panel, and then the "Post Archive" panel.
 4. Locate the "Number of Columns" setting in the list, and select the number of columns you want displayed.
 5. Click the blue "Publish" button to save your changes.
 
@@ -121,7 +129,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Posts" panel, and then the "Post Archive" panel.
+3. Click the "Theme Options" panel, and then the "Post Archive" panel.
 4. Locate the "Preview Image Aspect Ratio" setting in the list, and select the aspect ratio you want to use.
 5. Click the blue "Publish" button to save your changes.
 
@@ -130,7 +138,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 1. Log in to the administration panel of your site.
 2. Go to Appearance → Customize.
-3. Click the "Posts" panel. If you want to modify the post meta on single posts, click "Single Post". If you want to modify the post meta on the post archive, click "Post Archive".
+3. Click the "Theme Options" panel. If you want to modify the post meta on single posts, click "Single Post". If you want to modify the post meta on the post archive, click "Post Archive".
 4. There are three different post meta locations that you can modify:
 	a. "Top Post Meta": Displayed above the content, and below the titles, when viewing a single post.
 	b. "Bottom Post Meta": Displayed below the content, and above the comments, when viewing a single post.
@@ -174,6 +182,26 @@ Included as part of:
 
 
 == Changelog ==
+
+Version 2.2.0 (2020-03-06)
+-------------------------
+- Updates for WordPress 5.4.
+	- Updated the calendar widget styles (retro!).
+	- Updated the block editor styles to account for class changes and removed markup.
+	- Added styles for the new social icons and buttons blocks.
+	- Updated "Tested up to" to 5.4.
+- Block editor styles: Fixed default color of buttons with "Outline" style.
+- Block editor styles: Updated margins of alignment classes to better reflect the front-end.
+- Block editor styles: Updated margins on the Recent Comments block.
+- Moved the editor stylesheets (block editor and classic editor) to the /assets/css/ subfolder.
+- Fixed the columns setting for the latest post block when set to the "Grid" style.
+- Updated all featured image output using background-image to also output the image as an image element.
+- Customizer: Collected all settings in a single panel: "Theme Options", and updated readme instructions accordingly.
+- Customizer: Added a "General Options" panel.
+- Customizer: Added a "Disable Smooth Scroll" setting (default false), along with documentation in the readme.
+- JavaScript: replaced all live() calls with on(), removing the need for jquery-migrate.js.
+- Set the menu modal to overflow: hidden;, fixing a scrollbar issue with the intro animation in Firefox.
+- Improved the footer menu behavior when there's a large number of menu items.
 
 Version 2.1.3 (2020-01-18)
 -------------------------

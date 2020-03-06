@@ -11,9 +11,9 @@
 			<?php
 
 			$aspect_ratio = get_theme_mod( 'chaplin_preview_image_aspect_ratio', '16x10' );
+			$image_size = chaplin_get_preview_image_size();
 
 			if ( has_post_thumbnail() && ! post_password_required() ) {
-				$image_size = chaplin_get_preview_image_size();
 				$image_url = get_the_post_thumbnail_url( $post->ID, $image_size );
 			} else {
 				$image_url = $fallback_image_url;
@@ -21,7 +21,9 @@
 
 			if ( $aspect_ratio !== 'original' ) : ?>
 
-				<a href="<?php the_permalink(); ?>" class="faux-image aspect-ratio-<?php echo $aspect_ratio; ?>" style="background-image: url( <?php echo esc_attr( $image_url ); ?> );"></a>
+				<a href="<?php the_permalink(); ?>" class="faux-image aspect-ratio-<?php echo $aspect_ratio; ?>" style="background-image: url( <?php echo esc_attr( $image_url ); ?> );">
+					<?php the_post_thumbnail( $image_size ); ?>
+				</a>
 
 			<?php else : ?>
 

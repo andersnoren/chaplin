@@ -283,6 +283,11 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 			$classes[] = 'disable-search-modal';
 		}
 
+		// Check for disabled smooth scroll
+		if ( get_theme_mod( 'chaplin_disable_smooth_scroll', false ) ) {
+			$classes[] = 'disable-smooth-scroll';
+		}
+
 		// Check for disabled menu modal on desktop
 		if ( get_theme_mod( 'chaplin_disable_menu_modal_on_desktop', false ) ) {
 			$classes[] = 'disable-menu-modal-on-desktop';
@@ -630,7 +635,7 @@ if ( ! function_exists( 'chaplin_block_editor_styles' ) ) :
 		}
 
 		// Enqueue the editor styles
-		wp_enqueue_style( 'chaplin_block_editor_styles', get_theme_file_uri( '/chaplin-editor-style-block-editor.css' ), $css_dependencies, wp_get_theme()->get( 'Version' ), 'all' );
+		wp_enqueue_style( 'chaplin_block_editor_styles', get_theme_file_uri( 'assets/css/chaplin-editor-style-block-editor.css' ), $css_dependencies, wp_get_theme()->get( 'Version' ), 'all' );
 
 		// Add inline style from the Customizer
 		wp_add_inline_style( 'chaplin_block_editor_styles', Chaplin_Custom_CSS::get_customizer_css( 'block-editor' ) );
@@ -648,7 +653,7 @@ if ( ! function_exists( 'chaplin_classic_editor_styles' ) ) :
 	function chaplin_classic_editor_styles() {
 
 		$classic_editor_styles = array(
-			'chaplin-editor-style-classic-editor.css',
+			'assets/css/chaplin-editor-style-classic-editor.css',
 		);
 
 		// Retrieve the Google Fonts URL and add it as a dependency
