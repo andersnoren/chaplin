@@ -183,6 +183,16 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.2.1 (2020-03-06)
+-------------------------
+- Improved behavior of alignnone group blocks nested within alignwide and alignnone.
+- Fixed sizing mismatch between regular button and button set to style: outline.
+- Adjusted the base block margin of the Buttons block and Button block.
+- Tweaked the margin of the intro text/description beneath page titles.
+- Reduced the horizontal margins on mobile from 25px to 20px, to give a bit more space for the content.
+- Adjusted the border width, margin and padding of the base blockquote slightly.
+- Tweaked vertical margin of post meta items.
+
 Version 2.2.0 (2020-03-06)
 -------------------------
 - Updates for WordPress 5.4.
