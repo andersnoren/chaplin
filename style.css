@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 2.2.1
+	Version: 2.2.2
 	Description: Chaplin is a feature-packed WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. This flexibility makes Chaplin suitable for pretty much any type of website, including business sites and portfolios. All of the fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported, and you can choose one of the ten included color schemes or build one from scratch. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, full-width templates, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, full-width-template
 	Author: Anders Norén
@@ -2296,18 +2296,6 @@ h1.entry-title,
 	margin-left: 0;
 }
 
-/* Block: Shared Stacked Background Blocks ----- */
-
-.wp-block-cover.alignwide + .wp-block-cover.alignwide,
-.wp-block-group.has-background.alignwide + .wp-block-group.has-background.alignwide {
-	margin-top: -3rem;
-}
-
-.wp-block-cover.alignfull + .wp-block-cover.alignfull,
-.wp-block-group.has-background.alignfull + .wp-block-group.has-background.alignfull {
-	margin-top: -5rem;
-}
-
 /* Block: _Shared Lists ---------------------- */
 
 .wp-block-archives,
@@ -2907,6 +2895,22 @@ table.is-style-stripes tbody tr:nth-child( odd ),
 .alignright {
 	float: right;
 	margin: .3rem 0 2rem 2rem;
+}
+
+/* STACKED BACKGROUND BLOCKS */
+
+.alignwide.wp-block-cover + .alignwide.wp-block-cover,
+.alignwide.wp-block-cover + .alignwide.has-background,
+.alignwide.has-background + .alignwide.wp-block-cover,
+.alignwide.has-background + .alignwide.has-background {
+	margin-top: -3rem;
+}
+
+.alignfull.wp-block-cover + .alignfull.wp-block-cover,
+.alignfull.wp-block-cover + .alignfull.has-background,
+.alignfull.has-background + .alignfull.wp-block-cover,
+.alignfull.has-background + .alignfull.has-background {
+	margin-top: -5rem;
 }
 
 
@@ -4035,15 +4039,6 @@ body.woocommerce-page .entry-content {
 		margin-top: 4rem;
 	}
 
-	/* BLOCK: SHARED STACKED BACKGROUND BLOCKS */
-
-	.wp-block-cover.alignwide + .wp-block-cover.alignwide,
-	.wp-block-cover.alignfull + .wp-block-cover.alignfull,
-	.wp-block-group.has-background.alignwide + .wp-block-group.has-background.alignwide,
-	.wp-block-group.has-background.alignfull + .wp-block-group.has-background.alignfull {
-		margin-top: -6rem;
-	}
-
 	/* COBLOCK: BUTTONS */
 
 	.wp-block-coblocks-buttons {
@@ -4224,6 +4219,19 @@ body.woocommerce-page .entry-content {
 	.entry-content > .alignwide {
 		max-width: calc( 100vw - 8rem );
 		width: calc( 100vw - 8rem );
+	}
+
+	/* Stacked Background Blocks */
+
+	.alignwide.wp-block-cover + .alignwide.wp-block-cover,
+	.alignwide.wp-block-cover + .alignwide.has-background,
+	.alignwide.has-background + .alignwide.wp-block-cover,
+	.alignwide.has-background + .alignwide.has-background,
+	.alignfull.wp-block-cover + .alignfull.wp-block-cover,
+	.alignfull.wp-block-cover + .alignfull.has-background,
+	.alignfull.has-background + .alignfull.wp-block-cover,
+	.alignfull.has-background + .alignfull.has-background {
+		margin-top: -6rem;
 	}
 
 	/* ENTRY MEDIA */
@@ -4606,15 +4614,6 @@ body.woocommerce-page .entry-content {
 
 	/* Blocks -------------------------------- */
 
-	/* BLOCK: SHARED STACKED BACKGROUND BLOCKS */
-
-	.wp-block-cover.alignwide + .wp-block-cover.alignwide,
-	.wp-block-cover.alignfull + .wp-block-cover.alignfull,
-	.wp-block-group.has-background.alignwide + .wp-block-group.has-background.alignwide,
-	.wp-block-group.has-background.alignfull + .wp-block-group.has-background.alignfull {
-		margin-top: -8rem;
-	}
-
 	/* BLOCK: COLUMNS */
 
 	.wp-block-columns.alignwide,
@@ -4690,6 +4689,19 @@ body.woocommerce-page .entry-content {
 	.entry-content > .alignwide {
 		max-width: calc( 100vw - 10rem );
 		width: calc( 100vw - 10rem );
+	}
+
+	/* Stacked Background Blocks */
+
+	.alignwide.wp-block-cover + .alignwide.wp-block-cover,
+	.alignwide.wp-block-cover + .alignwide.has-background,
+	.alignwide.has-background + .alignwide.wp-block-cover,
+	.alignwide.has-background + .alignwide.has-background,
+	.alignfull.wp-block-cover + .alignfull.wp-block-cover,
+	.alignfull.wp-block-cover + .alignfull.has-background,
+	.alignfull.has-background + .alignfull.wp-block-cover,
+	.alignfull.has-background + .alignfull.has-background {
+		margin-top: -8rem;
 	}
 
 	/* ENTRY MEDIA */
@@ -4847,13 +4859,6 @@ body.woocommerce-page .entry-content {
 	
 	/* Blocks -------------------------------- */
 
-	/* BLOCK: SHARED STACKED BACKGROUND BLOCKS */
-
-	.wp-block-cover.alignfull + .wp-block-cover.alignfull,
-	.wp-block-group.has-background.alignfull + .wp-block-group.has-background.alignfull {
-		margin-top: -10rem;
-	}
-
 	/* BLOCK: COLUMNS */
 
 	.wp-block-columns.alignfull { 
@@ -4886,6 +4891,15 @@ body.woocommerce-page .entry-content {
 
 	.entry-content > .alignfull {
 		margin-left: calc( ( 100vw - 112rem ) / -2 );
+	}
+
+	/* Stacked Background Blocks */
+
+	.alignfull.wp-block-cover + .alignfull.wp-block-cover,
+	.alignfull.wp-block-cover + .alignfull.has-background,
+	.alignfull.has-background + .alignfull.wp-block-cover,
+	.alignfull.has-background + .alignfull.has-background {
+		margin-top: -10rem;
 	}
 
 	/* Comments ------------------------------ */

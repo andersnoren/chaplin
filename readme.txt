@@ -183,6 +183,11 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.2.2 (2020-03-08)
+-------------------------
+- Block editor styles: Adjusted width of nested alignnone group blocks to make their contents match the width on the front-end (580px).
+- Better targeting of stacked alignwide and alignfull background blocks.
+
 Version 2.2.1 (2020-03-06)
 -------------------------
 - Improved behavior of alignnone group blocks nested within alignwide and alignnone.
