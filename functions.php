@@ -597,6 +597,8 @@ if ( ! function_exists( 'chaplin_ajax_load_more' ) ) :
 		if ( $ajax_query->have_posts() ) :
 			while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
 
+				global $post;
+
 				$iteration++;
 
 				/**

@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.2.4 (2020-03-15)
+-------------------------
+- Fixed notice for undefined $post variable in actions added to functions.php in the previous version.
+
 Version 2.2.3 (2020-03-15)
 -------------------------
 - Block editor styles: Set placeholder text to the secondary text color.
