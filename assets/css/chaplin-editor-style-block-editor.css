@@ -14,6 +14,7 @@
 }
 
 .block-editor-default-block-appender textarea.block-editor-default-block-appender__content {
+	color: #747579;
 	font-family: inherit;
 	font-size: inherit;
 }
@@ -66,6 +67,27 @@
 .editor-styles-wrapper .editor-rich-text__tinymce,
 .editor-styles-wrapper .editor-rich-text__tinymce.mce-content-body {
 	line-height: 1.5;
+}
+
+
+/* Placeholders ------------------------------ */
+
+.editor-post-title__block .editor-post-title__input::placeholder,
+.components-modal__frame input::placeholder, 
+.components-modal__frame textarea::placeholder, 
+.components-popover input::placeholder, 
+.components-popover textarea::placeholder, 
+.edit-post-header input::placeholder, 
+.edit-post-header textarea::placeholder, 
+.edit-post-sidebar input::placeholder, 
+.edit-post-sidebar textarea::placeholder, 
+.edit-post-text-editor input::placeholder, 
+.edit-post-text-editor textarea::placeholder, 
+.edit-post-visual-editor input::placeholder, 
+.edit-post-visual-editor textarea::placeholder, 
+.editor-post-publish-panel input::placeholder, 
+.editor-post-publish-panel textarea::placeholder {
+	color: #747579;
 }
 
 

@@ -51,15 +51,40 @@
 
 			<div class="posts-grid grid load-more-target <?php echo $post_grid_column_classes; ?>">
 			
-				<?php while ( have_posts() ) : the_post(); ?>
+				<?php 
+
+				// Calculate the current offset
+				$iteration = $wp_query->get( 'posts_per_page' ) * $wp_query->get( 'paged' );
+
+				while ( have_posts() ) : the_post(); 
+
+					$iteration++;
+
+					/**
+					 * Fires before output of a grid item in the posts loop.
+					 * 
+					 * Allows output of custom elements within the posts loop, like banners.
+					 * To add markup spanning the entire width of the posts grid, wrap it in the following element:
+					 * <div class="grid-item col-1">[Your content]</div>
+					 * @param int   $post_id 	Post ID.
+					 * @param int   $iteration 	The current iteration of the loop.
+					 */
+					do_action( 'chaplin_posts_loop_before_grid_item', $post->ID, $iteration );
+					?>
 
 					<div class="grid-item">
-				
 						<?php get_template_part( 'parts/preview', get_post_type() ); ?>
-
 					</div><!-- .grid-item -->
 
-				<?php endwhile; ?>
+					<?php 
+
+					/**
+					 * Fires after output of a grid item in the posts loop.
+					 */
+					do_action( 'chaplin_posts_loop_after_grid_item', $post->ID, $iteration );
+
+				endwhile;
+				?>
 
 			</div><!-- .posts-grid -->
 

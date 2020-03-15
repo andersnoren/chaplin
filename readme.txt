@@ -183,6 +183,11 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.2.3 (2020-03-15)
+-------------------------
+- Block editor styles: Set placeholder text to the secondary text color.
+- Added actions for outputting elements within the posts loop.
+
 Version 2.2.2 (2020-03-08)
 -------------------------
 - Block editor styles: Adjusted width of nested alignnone group blocks to make their contents match the width on the front-end (580px).

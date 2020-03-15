@@ -591,20 +591,38 @@ if ( ! function_exists( 'chaplin_ajax_load_more' ) ) :
 			$post_type = 'post';
 		}
 
-		if ( $ajax_query->have_posts() ) :
-			while ( $ajax_query->have_posts() ) : 
-			
-				$ajax_query->the_post();
+		// Calculate the current offset
+		$iteration = $ajax_query->query['posts_per_page'] * $ajax_query->query['paged'];
 
+		if ( $ajax_query->have_posts() ) :
+			while ( $ajax_query->have_posts() ) : $ajax_query->the_post();
+
+				$iteration++;
+
+				/**
+				 * Fires before output of a grid item in the posts loop.
+				 * 
+				 * Allows output of custom elements within the posts loop, like banners.
+				 * To add markup spanning the entire width of the posts grid, wrap it in the following element:
+				 * <div class="grid-item col-1">[Your content]</div>
+				 * @param int   $post_id 	Post ID.
+				 * @param int   $iteration 	The current iteration of the loop.
+				 */
+
+				do_action( 'chaplin_posts_loop_before_grid_item', $post->ID, $iteration );
 				?>
 
 				<div class="grid-item">
-
 					<?php get_template_part( 'parts/preview', $post_type ); ?>
-
 				</div><!-- .grid-item -->
 
-				<?php
+				<?php 
+
+				/**
+				 * Fires after output of a grid item in the posts loop.
+				 */
+
+				do_action( 'chaplin_posts_loop_after_grid_item', $post->ID, $iteration );
 
 			endwhile;
 		endif;

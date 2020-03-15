@@ -454,7 +454,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 					),
 					'secondary'				=> array(
 						'background-color'		=> ':root .has-secondary-background-color',
-						'color'					=> ':root .has-secondary-color, .editor-styles-wrapper .wp-block-latest-comments time, .editor-styles-wrapper .wp-block-latest-posts time',
+						'color'					=> ':root .has-secondary-color, .editor-styles-wrapper .wp-block-latest-comments time, .editor-styles-wrapper .wp-block-latest-posts time, .block-editor-default-block-appender textarea.block-editor-default-block-appender__content, .editor-post-title__block .editor-post-title__input::placeholder, .block-editor-default-block-appender textarea.block-editor-default-block-appender__content .editor-post-title__input::placeholder, .components-modal__frame input::placeholder, .components-modal__frame textarea::placeholder, .components-popover input::placeholder, .components-popover textarea::placeholder, .edit-post-header input::placeholder, .edit-post-header textarea::placeholder, .edit-post-sidebar input::placeholder, .edit-post-sidebar textarea::placeholder, .edit-post-text-editor input::placeholder, .edit-post-text-editor textarea::placeholder, .edit-post-visual-editor input::placeholder, .edit-post-visual-editor textarea::placeholder, .editor-post-publish-panel input::placeholder, .editor-post-publish-panel textarea::placeholder',
 					),
 					'accent'				=> array(
 						'background-color'		=> ':root .has-accent-background-color, ' . $buttons_targets,
