@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.2.5 (2020-03-20)
+-------------------------
+- Block editor styles: Make the block appender icon and the block shortcut icons inherit the text color, making them more visible when a dark background color is set.
+
 Version 2.2.4 (2020-03-15)
 -------------------------
 - Fixed notice for undefined $post variable in actions added to functions.php in the previous version.
