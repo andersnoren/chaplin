@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.2.6 (2020-04-02)
+-------------------------
+- Updated the sub-menu-toggle to use a link element, fixing an issue where some browsers on some versions of Android were unable to click them and expand the sub levels.
+
 Version 2.2.5 (2020-03-20)
 -------------------------
 - Block editor styles: Make the block appender icon and the block shortcut icons inherit the text color, making them more visible when a dark background color is set.
