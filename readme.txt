@@ -183,6 +183,11 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.2.7 (2020-04-02)
+-------------------------
+- Don't output "Comments are closed" when comments are closed.
+- Updated the smoothScroll function to not smooth scroll when the clicked element has the "do-not-smooth-scroll" class, which is set on the "Reply" link in comments.
+
 Version 2.2.6 (2020-04-02)
 -------------------------
 - Updated the sub-menu-toggle to use a link element, fixing an issue where some browsers on some versions of Android were unable to click them and expand the sub levels.

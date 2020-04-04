@@ -76,23 +76,10 @@ if ( $comments ) :
 	<?php 
 endif;
 
-if ( comments_open() || pings_open() ) :
-
-	comment_form(
-		array(
-			'class_form'           => 'section-inner thin max-percentage no-margin',
-			'comment_notes_before' => '',
-			'comment_notes_after'  => '',
-		)
-	);
-
-elseif ( is_single() ) : 
-	?>
-
-	<div class="comment-respond" id="respond">
-
-		<p class="comments-closed"><?php esc_html_e( 'Comments are closed.', 'chaplin' ); ?></p>
-
-	</div><!-- #respond -->
-
-<?php endif; ?>
+if ( comments_open() || pings_open() ) {
+	comment_form( array(
+		'class_form'           => 'section-inner thin max-percentage no-margin',
+		'comment_notes_before' => '',
+		'comment_notes_after'  => '',
+	) );
+}

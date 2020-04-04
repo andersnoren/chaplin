@@ -614,7 +614,7 @@ chaplin.smoothScroll = {
 	init: function() {
 
 		// Scroll to on-page elements by hash
-		$( 'body:not(.disable-smooth-scroll) a[href*="#"]' ).not( '[href="#"]' ).not( '[href="#0"]' ).on( 'click', function( event ) {
+		$( 'body:not(.disable-smooth-scroll) a[href*="#"]' ).not( '[href="#"]' ).not( '[href="#0"]' ).not( '.do-not-smooth-scroll' ).on( 'click', function( event ) {
 			if ( location.pathname.replace(/^\//, '' ) == this.pathname.replace(/^\//, '' ) && location.hostname == this.hostname ) {
 				var $target = $( this.hash ).length ? $( this.hash ) : $( '[name=' + this.hash.slice(1) + ']' );
 				chaplin.smoothScroll.scrollToTarget( $target, $( this ) );

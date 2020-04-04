@@ -318,7 +318,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		}
 
 		// Check if we're showing comments
-		if ( $post && ( ( $post_type == 'post' || comments_open() || get_comments_number() ) && ! post_password_required() ) ) {
+		if ( is_singular() && ( ( comments_open() || get_comments_number() ) && ! post_password_required() ) ) {
 			$classes[] = 'showing-comments';
 		} else {
 			$classes[] = 'not-showing-comments';
@@ -484,7 +484,7 @@ endif;
 if ( ! function_exists( 'chaplin_filter_comment_reply_link' ) ) :
 	function chaplin_filter_comment_reply_link( $link ) {
 
-		$link = str_replace( 'class=\'', 'class=\'do-not-scroll ', $link );
+		$link = str_replace( 'class=\'', 'class=\'do-not-smooth-scroll ', $link );
 		return $link;
 
 	}
