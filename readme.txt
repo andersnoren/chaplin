@@ -183,7 +183,13 @@ Included as part of:
 
 == Changelog ==
 
-Version 2.2.7 (2020-04-02)
+Version 2.2.8 (2020-04-04)
+-------------------------
+- Fixed widget search field being hidden in 5.4 due to markup change (and bad, old CSS on my part).
+- Improved styling of lists in widgets.
+- Fixed incorrect date in the changelog for version 2.2.7 (was 2020-04-02, corrected to 2020-04-04 in this version).
+
+Version 2.2.7 (2020-04-04)
 -------------------------
 - Don't output "Comments are closed" when comments are closed.
 - Updated the smoothScroll function to not smooth scroll when the clicked element has the "do-not-smooth-scroll" class, which is set on the "Reply" link in comments.
