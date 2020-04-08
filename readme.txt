@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.2.9 (2020-04-08)
+-------------------------
+- Fixed links in featured image captions being output as code (thanks, @cannondale63).
+
 Version 2.2.8 (2020-04-04)
 -------------------------
 - Fixed widget search field being hidden in 5.4 due to markup change (and bad, old CSS on my part).
