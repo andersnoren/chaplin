@@ -4,23 +4,8 @@
 
 	<?php
 
-	$archive_title = '';
-	$archive_subtitle = '';
-	
-	if ( is_search() ) {
-		global $wp_query;
-		/* Translators: %s = The search query */
-		$archive_title = sprintf( _x( 'Search: %s', '%s = The search query', 'chaplin' ), '&ldquo;' . get_search_query() . '&rdquo;' );
-		if ( $wp_query->found_posts ) {
-			/* Translators: %s = Number of results */
-			$archive_subtitle = sprintf( _nx( 'We found %s result for your search.', 'We found %s results for your search.',  $wp_query->found_posts, '%s = Number of results', 'chaplin' ), $wp_query->found_posts );
-		} else {
-			$archive_subtitle = __( 'We could not find any results for your search. You can give it another try through the search form below.', 'chaplin' );
-		}
-	} else {
-		$archive_title = get_the_archive_title();
-		$archive_subtitle = get_the_archive_description( '<div>', '</div>' ); 
-	}
+	$archive_title = get_the_archive_title();
+	$archive_subtitle = get_the_archive_description( '<div>', '</div>' );
 
 	// Check if we should show the archive header on the blog page
 	$show_home_header = get_theme_mod( 'chaplin_show_archive_header_on_home', false );

@@ -183,6 +183,11 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.2.10 (2020-04-09)
+-------------------------
+- Updated functions hooked to filters for `get_the_archive_title/description()` to handle search, allowing us to simplify `index.php`.
+- Reduced the bottom margin of the site header on desktop.
+
 Version 2.2.9 (2020-04-08)
 -------------------------
 - Fixed links in featured image captions being output as code (thanks, @cannondale63).

@@ -440,10 +440,15 @@ endif;
 if ( ! function_exists( 'chaplin_filter_archive_title' ) ) :
 	function chaplin_filter_archive_title( $title ) {
 
-		// Use the blog page title on home
+		// On home, use title of the page for posts page.
 		$blog_page_id = get_option( 'page_for_posts' );
 		if ( is_home() && $blog_page_id && get_the_title( $blog_page_id ) ) {
 			$title = get_the_title( $blog_page_id );
+		} 
+
+		// On search, show the search query.
+		elseif ( is_search() ) {
+			$title = sprintf( _x( 'Search: %s', '%s = The search query', 'chaplin' ), '&ldquo;' . get_search_query() . '&rdquo;' );
 		}
 
 		return $title;
@@ -462,10 +467,21 @@ endif;
 if ( ! function_exists( 'chaplin_filter_archive_description' ) ) :
 	function chaplin_filter_archive_description( $description ) {
 
-		// Use the blog page manual excerpt on home
+		// On the blog page, use the manual excerpt of the page for posts page.
 		$blog_page_id = get_option( 'page_for_posts' );
 		if ( is_home() && $blog_page_id && has_excerpt( $blog_page_id ) ) {
 			$description = get_the_excerpt( $blog_page_id );
+		}
+		
+		// On search, show a string describing the results of the search.
+		elseif ( is_search() ) {
+			global $wp_query;
+			if ( $wp_query->found_posts ) {
+				/* Translators: %s = Number of results */
+				$description = sprintf( _nx( 'We found %s result for your search.', 'We found %s results for your search.',  $wp_query->found_posts, '%s = Number of results', 'chaplin' ), $wp_query->found_posts );
+			} else {
+				$description = __( 'We could not find any results for your search. You can give it another try through the search form below.', 'chaplin' );
+			}
 		}
 
 		return $description;
