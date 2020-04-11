@@ -41,6 +41,8 @@
 
 			<header id="site-header">
 
+				<?php do_action( 'chaplin_header_start' ); ?>
+
 				<div class="header-inner<?php echo esc_attr( $header_inner_classes ); ?>">
 
 					<div class="section-inner">
@@ -147,6 +149,8 @@
 					get_template_part( 'parts/modal-search' );
 				}
 				?>
+
+				<?php do_action( 'chaplin_header_end' ); ?>
 
 			</header><!-- #site-header -->
 

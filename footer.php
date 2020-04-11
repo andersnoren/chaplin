@@ -8,6 +8,8 @@
 		
 			<footer id="site-footer" role="contentinfo">
 
+				<?php do_action( 'chaplin_footer_start' ); ?>
+
 				<?php if ( is_active_sidebar( 'footer-one' ) || is_active_sidebar( 'footer-two' ) ) : ?>
 
 					<div class="footer-widgets-outer-wrapper border-color-border section-inner">
@@ -72,6 +74,8 @@
 					</div><!-- .footer-credits -->
 
 				</div><!-- .footer-bottom -->
+
+				<?php do_action( 'chaplin_footer_end' ); ?>
 
 			</footer><!-- #site-footer -->
 

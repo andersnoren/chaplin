@@ -14,6 +14,8 @@
 		
 		<header class="archive-header section-inner">
 
+			<?php do_action( 'chaplin_archive_header_start' ); ?>
+
 			<?php if ( $archive_title ) : ?>
 				<h1 class="archive-title"><?php echo wp_kses_post( $archive_title ); ?></h1>
 			<?php endif; ?>
@@ -21,6 +23,8 @@
 			<?php if ( $archive_subtitle ) : ?>
 				<div class="archive-subtitle section-inner thin max-percentage intro-text"><?php echo wp_kses_post( wpautop( $archive_subtitle ) ); ?></div>
 			<?php endif; ?>
+
+			<?php do_action( 'chaplin_archive_header_end' ); ?>
 			
 		</header><!-- .archive-header -->
 
@@ -29,6 +33,8 @@
 	<div class="posts section-inner">
 
 		<?php if ( have_posts() ) : 
+
+			do_action( 'chaplin_posts_start' );
 
 			$post_grid_column_classes = chaplin_get_post_grid_column_classes();
 		
@@ -72,6 +78,8 @@
 				?>
 
 			</div><!-- .posts-grid -->
+
+			<?php do_action( 'chaplin_posts_end' ); ?>
 
 		<?php elseif ( is_search() ) : ?>
 

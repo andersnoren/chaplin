@@ -2,6 +2,8 @@
 
 	<?php 
 
+	do_action( 'chaplin_entry_article_start', $post->ID );
+
 	$_post_type = get_post_type();
 	
 	// On the cover page template, output the cover header
@@ -76,16 +78,24 @@
 			<figure class="featured-media">
 
 				<?php 
+
+				do_action( 'chaplin_featured_media_start', $post->ID );
 				
 				the_post_thumbnail();
 
 				$caption = get_the_post_thumbnail_caption();
 				
-				if ( $caption ) : ?>
+				if ( $caption ) : 
+					?>
 
 					<figcaption class="wp-caption-text"><?php echo wp_kses_post( $caption ); ?></figcaption>
 
-				<?php endif; ?>
+					<?php 
+				endif; 
+
+				do_action( 'chaplin_featured_media_end', $post->ID );
+				
+				?>
 
 			</figure><!-- .featured-media -->
 
@@ -112,6 +122,8 @@
 
 		<?php 
 
+		do_action( 'chaplin_entry_footer', $post->ID );
+
 		// Single bottom post meta
 		chaplin_the_post_meta( $post->ID, 'single-bottom' );
 
@@ -133,5 +145,7 @@
 		<?php endif; ?>
 
 	</div><!-- .post-inner -->
+
+	<?php do_action( 'chaplin_entry_article_end', $post->ID ); ?>
 
 </article><!-- .post -->

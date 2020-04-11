@@ -1,6 +1,8 @@
 <header class="entry-header">
 
 	<?php 
+	
+	do_action( 'chaplin_entry_header_start', $post->ID );
 
 	if ( is_front_page() ) {
 		the_title( '<div class="entry-title faux-heading heading-size-1">', '</div>' );
@@ -36,6 +38,8 @@
 	} else {
 		chaplin_the_post_meta( $post->ID, 'single-top' );
 	}
+
+	do_action( 'chaplin_entry_header_end', $post->ID );
 
 	?>
 

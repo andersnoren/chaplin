@@ -20,6 +20,8 @@ get_header(); ?>
 
 			<article <?php post_class( 'section-inner' ); ?> id="post-<?php the_ID(); ?>">
 
+				<?php do_action( 'chaplin_entry_article_start', $post->ID ); ?>
+
 				<?php the_title( '<h1 class="screen-reader-text">', '</h1>' ); ?>
 
 				<div class="post-inner" id="post-inner">
@@ -35,6 +37,8 @@ get_header(); ?>
 					</div><!-- .entry-content -->
 
 				</div><!-- .post-inner -->
+
+				<?php do_action( 'chaplin_entry_article_end', $post->ID ); ?>
 
 			</article><!-- .post -->
 			<?php

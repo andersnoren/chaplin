@@ -183,6 +183,11 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.3.0 (2020-04-11)
+-------------------------
+- Updated multiple template files with actions that can be hooked into in child themes, making it easier to add custom output.
+- Updated the theme description.
+
 Version 2.2.10 (2020-04-09)
 -------------------------
 - Updated functions hooked to filters for `get_the_archive_title/description()` to handle search, allowing us to simplify `index.php`.
