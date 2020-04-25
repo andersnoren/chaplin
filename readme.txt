@@ -183,6 +183,12 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.3.1 (2020-04-25)
+-------------------------
+- Fixed alignfull having an incorrect negative lefthand margin on mobile (thanks, @mrwweb).
+- Fixed targeting of classes in the comment form styles.
+- Fixed input line height issue with placeholders in Firefox.
+
 Version 2.3.0 (2020-04-11)
 -------------------------
 - Updated multiple template files with actions that can be hooked into in child themes, making it easier to add custom output.

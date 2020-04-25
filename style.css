@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 2.3.0
+	Version: 2.3.1
 	Description: Chaplin is a feature-packed and developer friendly WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. This flexibility makes Chaplin suitable for pretty much any type of website, including business sites and portfolios. All of the fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported, and you can choose one of the ten included color schemes or build one from scratch. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, full-width templates, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, full-width-template
 	Author: Anders Norén
@@ -509,6 +509,7 @@ textarea {
 	color: inherit;
 	display: block;
 	font-size: 1.6rem;
+	line-height: normal;
 	margin: 0;
 	max-width: 100%;
 	outline: none;
@@ -2874,7 +2875,7 @@ table.is-style-stripes tbody tr:nth-child( odd ),
 }
 
 .entry-content > .alignfull {
-	margin-left: -2.5rem;
+	margin-left: -2rem;
 	max-width: 100vw;
 	width: 100vw;
 }
@@ -3122,38 +3123,35 @@ div.comment:first-of-type {
 	padding-top: 6rem;
 }
 
-.comment-form {
+.comment-respond form {
 	margin-top: 2.2rem;
 }
 
-.comment-form p.logged-in-as {
+.comment-respond form p.logged-in-as {
 	font-size: 1em;
 	line-height: 1.25;
-	margin: -1.2rem 0 2.8rem 0;
+	margin: -2rem 0 3rem 0;
 }
 
-.comment-form:after {
+.comment-respond form:after {
 	clear: both;
 	content: "";
 	display: block;
 }
 
-.comment-respond .logged-in-as {
-	margin: -2rem 0 3rem 0;
-}
-
-.comment-respond .logged-in-as a {
+.comment-respond form .logged-in-as a {
 	color: inherit;
 	text-decoration: none;
 }
 
-.comment-respond .logged-in-as a:hover {
+.comment-respond form .logged-in-as a:hover {
 	text-decoration: underline;
 }
 
-.comment-form p {
+.comment-respond form p {
 	line-height: 1.1;
 	margin-bottom: 2rem;
+	width: 100%;
 }
 
 .comment-form-cookies-consent {
@@ -3161,7 +3159,7 @@ div.comment:first-of-type {
 	display: flex;
 }
 
-.comment-form > p:last-of-type {
+.comment-respond form > p:last-of-type {
 	margin-bottom: 0;
 }
 
