@@ -537,6 +537,9 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$post_meta_choices = apply_filters( 'chaplin_post_meta_choices_in_the_customizer', $post_meta_choices );
 
+			// Sort the choices alphabetically, by value (localized description string).
+			asort( $post_meta_choices );
+
 			// Post Meta Single Top Setting
 			$wp_customize->add_setting( 'chaplin_post_meta_single_top', array(
 				'capability' 		=> 'edit_theme_options',

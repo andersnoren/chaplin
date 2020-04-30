@@ -183,6 +183,15 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.4.0 (2020-04-30)
+-------------------------
+- The post meta update!
+Restructured the post meta output to use a switch statement rather than if statements, making it possible to change the order of post meta items in child themes, as well as add custom post meta items inbetween default post meta items.
+- Added the `chaplin_post_meta_items` and `chaplin_post_meta_items_[$location]` filters, which can be used to filter the post meta items either globally or for a specific location (single-top, single-bottom, archive, or a custom one).
+- Added the `chaplin_post_meta_[$post_meta_item]` action to the default in the `switch` statement. The action can be used to output custom post meta items, added through `chaplin_post_meta_items` or `chaplin_post_meta_items_[$location]`.
+- Order the post meta checkboxes in the Customizer alphabetically, by value, so they're ordered correctly when localized.
+- Added a manual sorting of built-in post meta items, filterable with `chaplin_post_meta_order`.
+
 Version 2.3.2 (2020-04-30)
 -------------------------
 - Fixed CSS specificity issues with the block editor font size classes by modifying the targeting to match the selectors used in Core as of 5.4.1.

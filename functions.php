@@ -13,11 +13,9 @@ if ( ! function_exists( 'chaplin_theme_support' ) ) :
 		add_theme_support( 'automatic-feed-links' );
 
 		// Custom background color
-		add_theme_support( 'custom-background',
-			array(
-				'default-color'	=> 'FFFFFF'
-			)
-		);
+		add_theme_support( 'custom-background', array(
+			'default-color'	=> 'FFFFFF'
+		) );
 
 		// Set content-width
 		global $content_width;
