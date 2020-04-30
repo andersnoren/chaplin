@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.3.2 (2020-04-30)
+-------------------------
+- Fixed CSS specificity issues with the block editor font size classes by modifying the targeting to match the selectors used in Core as of 5.4.1.
+
 Version 2.3.1 (2020-04-25)
 -------------------------
 - Fixed alignfull having an incorrect negative lefthand margin on mobile (thanks, @mrwweb).

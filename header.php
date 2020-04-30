@@ -76,9 +76,7 @@
 							<?php endif; ?>
 
 							<?php if ( $site_description ) : ?>
-
-								<div class="site-description"><?php echo esc_html( $site_description ); ?></div><!-- .site-description -->
-
+								<div class="site-description"><?php echo esc_html( $site_description ); ?></div>
 							<?php endif; ?>
 
 						</div><!-- .header-titles -->
