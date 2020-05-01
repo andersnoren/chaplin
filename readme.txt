@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.4.1 (2020-05-01)
+-------------------------
+- Fixed a potential error in the new post meta code on older version of PHP.
+
 Version 2.4.0 (2020-04-30)
 -------------------------
 - The post meta update!

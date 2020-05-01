@@ -376,6 +376,7 @@ if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
 		$post_meta_custom = array_diff( $post_meta, $post_meta_order );
 
 		// Loop over the intended order, and sort $post_meta_reordered accordingly
+		$post_meta_reordered = array();
 		foreach ( $post_meta_order as $i => $post_meta_name ) {
 			$original_i = array_search( $post_meta_name, $post_meta );
 			if ( $original_i === false ) continue;
