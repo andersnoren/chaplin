@@ -303,7 +303,7 @@ endif;
 --------------------------------------------------------------------------------------------------- */
 
 if ( ! function_exists( 'chaplin_the_post_meta' ) ) :
-	function chaplin_the_post_meta( $post_id = null, $location = 'single-top' ) {
+	function chaplin_the_post_meta( $post_id, $location = 'single-top' ) {
 
 		// Escaped in chaplin_get_post_meta()
 		echo chaplin_get_post_meta( $post_id, $location );
@@ -312,330 +312,379 @@ if ( ! function_exists( 'chaplin_the_post_meta' ) ) :
 endif;
 
 if ( ! function_exists( 'chaplin_get_post_meta' ) ) :
-	function chaplin_get_post_meta( $post_id = null, $location = 'single-top' ) {
+	function chaplin_get_post_meta( $post_id, $location = 'single-top' ) {
 
-		// Require post ID
-		if ( ! $post_id ) return;
+		/**
+		 * Filter for modifying the post types supporting post meta output.
+		 * 
+		 * If you wish to enable a post type to display post meta, add it here.
+		 * 
+		 * @param array	$post_types		Post types with post meta support.
+		 */
 
-		$page_template = get_page_template_slug( $post_id );
+		$post_types = apply_filters( 'chaplin_allowed_post_types_for_meta_output', array( 'post', 'jetpack-portfolio' ) );
 
-		// Check that the post type should be able to output post meta
-		$allowed_post_types = apply_filters( 'chaplin_allowed_post_types_for_meta_output', array( 'post', 'jetpack-portfolio' ) );
-		if ( ! in_array( get_post_type( $post_id ), $allowed_post_types ) ) {
-			return;
+		if ( ! in_array( get_post_type( $post_id ), $post_types ) ) return;
+
+		// Setup arrays with CSS classes for the post meta wrapper and list elements.
+		$post_meta_wrapper_classes = array( 'post-meta-wrapper' );
+		$post_meta_classes = array( 'post-meta' );
+
+		// Get the post meta settings for the location passes as a parameter.
+		switch ( $location ) {
+
+			// In the single post header
+			case 'single-top' :
+				$post_meta = get_theme_mod( 'chaplin_post_meta_single_top' );
+				$post_meta_wrapper_classes[] = 'post-meta-single';
+				$post_meta_wrapper_classes[] = 'post-meta-single-top';
+
+				// Empty = use a fallback
+				if ( ! $post_meta ) {
+					$post_meta = array(
+						'post-date',
+						'categories',
+					);
+				}
+				break;
+
+			// Below the single post content
+			case 'single-bottom' :
+				$post_meta = get_theme_mod( 'chaplin_post_meta_single_bottom' );
+				$post_meta_wrapper_classes[] = 'post-meta-single';
+				$post_meta_wrapper_classes[] = 'post-meta-single-bottom';
+
+				// Empty = use a fallback
+				if ( ! $post_meta ) {
+					$post_meta = array(
+						'tags',
+					);
+				}
+				break;
+
+			// In post previews
+			case 'archive' :
+				$post_meta = get_theme_mod( 'chaplin_post_meta_archive' );
+				$post_meta_wrapper_classes[] = 'post-meta-archive';
+
+				// Empty = use a fallback
+				if ( ! $post_meta ) {
+					$post_meta = array(
+						'post-date',
+					);
+				}
+				break;
+
 		}
 
-		$post_meta_wrapper_classes = '';
-		$post_meta_classes = '';
+		// If we have post meta at this point, sort it.
+		if ( $post_meta && ! in_array( 'empty', $post_meta ) ) {
 
-		// Get the post meta settings for the location specified
-		if ( 'single-top' === $location ) {
+			/**
+			 * Filter for the order of the post meta.
+			 * 
+			 * Allows child themes to modify the order of the post meta.
+			 * Note: Any post meta items added via the chaplin_post_meta_items filter will not be affected by this sorting.
+			 * 
+			 * @param array $post_meta_order 	Order of the post meta items.
+			 */
 
-			$post_meta = get_theme_mod( 'chaplin_post_meta_single_top' );
-			$post_meta_wrapper_classes = ' post-meta-single post-meta-single-top';
+			$post_meta_order = apply_filters( 'chaplin_post_meta_order', array( 'post-date', 'author', 'categories', 'jetpack-portfolio-type', 'tags', 'jetpack-portfolio-tag', 'comments', 'sticky', 'edit-link' ) );
 
-			// Empty = use a fallback
-			if ( ! $post_meta ) {
-				$post_meta = array(
-					'post-date',
-					'categories',
-				);
+			// Store any custom post meta items in a separate array, so we can append them after sorting.
+			$post_meta_custom = array_diff( $post_meta, $post_meta_order );
+
+			// Loop over the intended order, and sort $post_meta_reordered accordingly.
+			$post_meta_reordered = array();
+			foreach ( $post_meta_order as $i => $post_meta_name ) {
+				$original_i = array_search( $post_meta_name, $post_meta );
+				if ( $original_i === false ) continue;
+				$post_meta_reordered[$i] = $post_meta[$original_i];
 			}
 
-		} elseif ( 'single-bottom' === $location ) {
-
-			$post_meta = get_theme_mod( 'chaplin_post_meta_single_bottom' );
-			$post_meta_wrapper_classes = ' post-meta-single post-meta-single-bottom';
-
-			// Empty = use a fallback
-			if ( ! $post_meta ) {
-				$post_meta = array(
-					'tags',
-				);
-			}
-
-		} elseif ( 'archive' === $location ) {
-
-			$post_meta = get_theme_mod( 'chaplin_post_meta_archive' );
-			$post_meta_wrapper_classes = ' post-meta-archive';
-
-			// Empty = use a fallback
-			if ( ! $post_meta ) {
-				$post_meta = array(
-					'post-date',
-				);
-			}
+			// Reassign the reordered post meta with custom post meta items appended, and update the indexes.
+			$post_meta = array_values( array_merge( $post_meta_reordered, $post_meta_custom ) );
 
 		}
 
-		// Sort the post meta in a more logical order.
-		// Note: this sorting can be overwritten with the chaplin_post_meta_items filter.
-		$post_meta_order = apply_filters( 'chaplin_post_meta_order', array( 'post-date', 'author', 'categories', 'jetpack-portfolio-type', 'tags', 'jetpack-portfolio-tag', 'comments', 'sticky', 'edit-link' ) );
+		/**
+		 * Filter for the post meta.
+		 * 
+		 * Allows child themes to add, remove and modify which post meta items to include.
+		 * 
+		 * @param array 	$post_meta 	Post meta items to include in the post meta.
+		 * @param string 	$location 	Post meta location being output.
+		 */
 
-		// Store any custom post meta items in a separate array, so we can append them after sorting
-		$post_meta_custom = array_diff( $post_meta, $post_meta_order );
+		$post_meta = apply_filters( 'chaplin_post_meta_items', $post_meta, $location );
 
-		// Loop over the intended order, and sort $post_meta_reordered accordingly
-		$post_meta_reordered = array();
-		foreach ( $post_meta_order as $i => $post_meta_name ) {
-			$original_i = array_search( $post_meta_name, $post_meta );
-			if ( $original_i === false ) continue;
-			$post_meta_reordered[$i] = $post_meta[$original_i];
+		// If the post meta setting has the value 'empty', it's explicitly empty and the default post meta shouldn't be output.
+		if ( ! $post_meta || ( $post_meta && in_array( 'empty', $post_meta ) ) ) return;
+
+		// Make sure the right color is used for the post meta.
+		if ( chaplin_is_cover_template( $post_id ) && $location == 'single-top' ) {
+			$post_meta_classes[] = 'color-inherit';
+		} else {
+			$post_meta_classes[] = 'color-accent';
 		}
 
-		// Reassign the reordered post meta with custom post meta items appended, and update the indexes
-		$post_meta = array_values( array_merge( $post_meta_reordered, $post_meta_custom ) );
+		/**
+		 * Filter for the post meta CSS classes.
+		 * 
+		 * Allows child themes to filter the classes on the post meta wrapper element and list element.
+		 * 
+		 * @param array 	$classes 	CSS classes of the element.
+		 * @param string	$location 	Post meta location being output.
+		 * @param array		$post_meta 	Post meta items included in the location.
+		 */
 
-		// Make the $post_meta array filterable
-		$post_meta = apply_filters( 'chaplin_post_meta_items', $post_meta );
-		$post_meta = apply_filters( 'chaplin_post_meta_items_' . $location, $post_meta );
+		$post_meta_wrapper_classes = apply_filters( 'chaplin_post_meta_wrapper_classes', $post_meta_wrapper_classes, $location, $post_meta );
+		$post_meta_classes = apply_filters( 'chaplin_post_meta_classes', $post_meta_classes, $location, $post_meta );
 
-		// If the post meta setting has the value 'empty', it's explicitly empty and the default post meta shouldn't be output
-		if ( $post_meta && ! in_array( 'empty', $post_meta ) ) :
+		// Convert the class arrays to strings for output.
+		$post_meta_wrapper_classes_str = implode( ' ', $post_meta_wrapper_classes );
+		$post_meta_classes_str = implode( ' ', $post_meta_classes );
 
-			// Make sure the right color is used for the post meta
-			if ( chaplin_is_cover_template( $post_id ) && $location == 'single-top' ) {
-				$post_meta_classes .= ' color-inherit';
-			} else {
-				$post_meta_classes .= ' color-accent';
-			}
+		// Enable the $has_meta variable to be modified in actions.
+		global $has_meta;
 
-			// Enable this variable to be modified in actions
-			global $has_meta;
+		// Default it to false, to make sure we don't output an empty container.
+		$has_meta = false;
 
-			// Default it to false, to make sure we don't output an empty container
-			$has_meta = false;
+		global $post;
+		$post = get_post( $post_id );
+		setup_postdata( $post );
 
-			global $post;
-			$post = get_post( $post_id );
-			setup_postdata( $post );
+		// Record output.
+		ob_start();
+		?>
 
-			ob_start();
+		<div class="<?php echo esc_attr( $post_meta_wrapper_classes_str ); ?>">
+			<ul class="<?php echo esc_attr( $post_meta_classes_str ); ?>">
 
-			?>
+				<?php
 
-			<div class="post-meta-wrapper<?php echo esc_attr( $post_meta_wrapper_classes ); ?>">
+				/**
+				 * Action run before output of post meta items.
+				 * 
+				 * If you add any output to this action, make sure you include $has_meta as a global variable 
+				 * and set it to true.
+				 * 
+				 * @param array		$post_meta 	Post meta items included in the location.
+				 * @param array 	$post_id 	ID of the post.
+				 * @param string	$location 	Post meta location being output.
+				 */
 
-				<ul class="post-meta<?php echo esc_attr( $post_meta_classes ); ?>">
+				do_action( 'chaplin_start_of_post_meta_list', $post_meta, $post_id, $location );
 
-					<?php
+				foreach ( $post_meta as $post_meta_item ) :
 
-					/*
-					 *	This action is run before the $post_meta items have been output.
-					 *
-					 *	Note: If you add any output to this action, make sure you include $has_meta as a global
-					 *	variable and set it to true.
-					 */
+					switch ( $post_meta_item ) {
 
-					do_action( 'chaplin_start_of_post_meta_list', $post_meta, $post_id, $location );
-
-					foreach ( $post_meta as $post_meta_item ) :
-
-						switch ( $post_meta_item ) {
-
-							// Post date
-							case 'post-date' : 
-								$has_meta = true;
-								?>
-								<li class="post-date">
-									<a class="meta-wrapper" href="<?php the_permalink(); ?>">
-										<span class="meta-icon">
-											<span class="screen-reader-text"><?php esc_html_e( 'Post date', 'chaplin' ); ?></span>
-											<?php chaplin_the_theme_svg( 'calendar' ); ?>
-										</span>
-										<span class="meta-text">
-											<?php the_time( get_option( 'date_format' ) ); ?>
-										</span>
-									</a>
-								</li>
-								<?php
-								break;
-
-							// Author
-							case 'author' : 
-								$has_meta = true;
-								?>
-								<li class="post-author meta-wrapper">
+						// Post date
+						case 'post-date' : 
+							$has_meta = true;
+							?>
+							<li class="post-date">
+								<a class="meta-wrapper" href="<?php the_permalink(); ?>">
 									<span class="meta-icon">
-										<span class="screen-reader-text"><?php esc_html_e( 'Post author', 'chaplin' ); ?></span>
-										<?php chaplin_the_theme_svg( 'user' ); ?>
+										<span class="screen-reader-text"><?php esc_html_e( 'Post date', 'chaplin' ); ?></span>
+										<?php chaplin_the_theme_svg( 'calendar' ); ?>
 									</span>
 									<span class="meta-text">
-										<?php 
-										// Translators: %s = the author name
-										printf( esc_html_x( 'By %s', '%s = author name', 'chaplin' ), '<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author_meta( 'display_name' ) ) . '</a>' ); ?>
+										<?php the_time( get_option( 'date_format' ) ); ?>
 									</span>
-								</li>
-								<?php
-								break;
+								</a>
+							</li>
+							<?php
+							break;
 
-							// Categories
-							case 'categories' : 
-								if ( ! has_category() ) break;
-								$has_meta = true;
-								?>
-								<li class="post-categories meta-wrapper">
+						// Author
+						case 'author' : 
+							$has_meta = true;
+							?>
+							<li class="post-author meta-wrapper">
+								<span class="meta-icon">
+									<span class="screen-reader-text"><?php esc_html_e( 'Post author', 'chaplin' ); ?></span>
+									<?php chaplin_the_theme_svg( 'user' ); ?>
+								</span>
+								<span class="meta-text">
+									<?php 
+									// Translators: %s = the author name
+									printf( esc_html_x( 'By %s', '%s = author name', 'chaplin' ), '<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author_meta( 'display_name' ) ) . '</a>' ); ?>
+								</span>
+							</li>
+							<?php
+							break;
+
+						// Categories
+						case 'categories' : 
+							if ( ! has_category() ) break;
+							$has_meta = true;
+							?>
+							<li class="post-categories meta-wrapper">
+								<span class="meta-icon">
+									<span class="screen-reader-text"><?php esc_html_e( 'Post categories', 'chaplin' ); ?></span>
+									<?php chaplin_the_theme_svg( 'folder' ); ?>
+								</span>
+								<span class="meta-text">
+									<?php esc_html_e( 'In', 'chaplin' ); ?> <?php the_category( ', ' ); ?>
+								</span>
+							</li>
+							<?php
+							break;
+
+						// Jetpack Portfolio Type
+						case 'jetpack-portfolio-type' : 
+							if ( ! has_term( '', 'jetpack-portfolio-type', $post_id ) ) break;
+							$has_meta = true;
+							?>
+							<li class="post-jetpack-portfolio-type meta-wrapper">
+								<span class="meta-icon">
+									<span class="screen-reader-text"><?php esc_html_e( 'Portfolio types', 'chaplin' ); ?></span>
+									<?php chaplin_the_theme_svg( 'folder' ); ?>
+								</span>
+								<span class="meta-text">
+									<?php the_terms( $post_id, 'jetpack-portfolio-type', __( 'In', 'chaplin' ) . ' ', ', ' ); ?>
+								</span>
+							</li>
+							<?php
+							break;
+
+						// Tags
+						case 'tags' : 
+							if ( ! has_tag( '', $post_id ) ) break;
+							$has_meta = true;
+							?>
+							<li class="post-tags meta-wrapper">
+								<span class="meta-icon">
+									<span class="screen-reader-text"><?php esc_html_e( 'Tags', 'chaplin' ); ?></span>
+									<?php chaplin_the_theme_svg( 'tag' ); ?>
+								</span>
+								<span class="meta-text">
+									<?php the_tags( '', ', ', '' ); ?>
+								</span>
+							</li>
+							<?php
+							break;
+
+						// Jetpack Portfolio Tags
+						case 'jetpack-portfolio-tag' : 
+							if ( ! has_term( '', 'jetpack-portfolio-tag', $post_id ) ) break;
+							$has_meta = true;
+							?>
+							<li class="post-jetpack-portfolio-tag meta-wrapper">
+								<span class="meta-icon">
+									<span class="screen-reader-text"><?php esc_html_e( 'Portfolio tags', 'chaplin' ); ?></span>
+									<?php chaplin_the_theme_svg( 'tag' ); ?>
+								</span>
+								<span class="meta-text">
+									<?php the_terms( $post_id, 'jetpack-portfolio-tag', '', ', ' ); ?>
+								</span>
+							</li>
+							<?php
+							break;
+
+						// Comments
+						case 'comments' : 
+							if ( post_password_required() || ! comments_open() || ! get_comments_number() ) break;
+							$has_meta = true;
+							?>
+							<li class="post-comment-link meta-wrapper">
+								<span class="meta-icon">
+									<?php chaplin_the_theme_svg( 'comment' ); ?>
+								</span>
+								<span class="meta-text">
+									<?php comments_popup_link(); ?>
+								</span>
+							</li>
+							<?php
+							break;
+
+						// Sticky
+						case 'sticky' : 
+							if ( ! is_sticky() ) break;
+							$has_meta = true;
+							?>
+							<li class="post-sticky meta-wrapper">
+								<span class="meta-icon">
+									<?php chaplin_the_theme_svg( 'bookmark' ); ?>
+								</span>
+								<span class="meta-text">
+									<?php esc_html_e( 'Sticky post', 'chaplin' ); ?>
+								</span>
+							</li>
+							<?php
+							break;
+
+						// Edit link
+						case 'edit-link' : 
+							if ( ! current_user_can( 'edit_post', $post_id ) ) break;
+							$has_meta = true;
+							?>
+							<li class="post-edit">
+
+								<a href="<?php echo esc_url( get_edit_post_link() ); ?>" class="meta-wrapper">
 									<span class="meta-icon">
-										<span class="screen-reader-text"><?php esc_html_e( 'Post categories', 'chaplin' ); ?></span>
-										<?php chaplin_the_theme_svg( 'folder' ); ?>
+										<?php chaplin_the_theme_svg( 'edit' ); ?>
 									</span>
 									<span class="meta-text">
-										<?php esc_html_e( 'In', 'chaplin' ); ?> <?php the_category( ', ' ); ?>
+										<?php esc_html_e( 'Edit', 'chaplin' ); ?>
 									</span>
-								</li>
-								<?php
-								break;
+								</a>
 
-							// Jetpack Portfolio Type
-							case 'jetpack-portfolio-type' : 
-								if ( ! has_term( '', 'jetpack-portfolio-type', $post_id ) ) break;
-								$has_meta = true;
-								?>
-								<li class="post-jetpack-portfolio-type meta-wrapper">
-									<span class="meta-icon">
-										<span class="screen-reader-text"><?php esc_html_e( 'Portfolio types', 'chaplin' ); ?></span>
-										<?php chaplin_the_theme_svg( 'folder' ); ?>
-									</span>
-									<span class="meta-text">
-										<?php the_terms( $post_id, 'jetpack-portfolio-type', __( 'In', 'chaplin' ) . ' ', ', ' ); ?>
-									</span>
-								</li>
-								<?php
-								break;
+							</li>
+							<?php
+							break;
+						
+						default : 
 
-							// Tags
-							case 'tags' : 
-								if ( ! has_tag( '', $post_id ) ) break;
-								$has_meta = true;
-								?>
-								<li class="post-tags meta-wrapper">
-									<span class="meta-icon">
-										<span class="screen-reader-text"><?php esc_html_e( 'Tags', 'chaplin' ); ?></span>
-										<?php chaplin_the_theme_svg( 'tag' ); ?>
-									</span>
-									<span class="meta-text">
-										<?php the_tags( '', ', ', '' ); ?>
-									</span>
-								</li>
-								<?php
-								break;
+							/**
+							 * Action for handling of custom post meta items.
+							 * 
+							 * This action gets called if the post meta looped over doesn't match any of the types supported
+							 * out of the box in Chaplin. If you've added a custom post meta type in a child theme, you can
+							 * output it here by hooking into chaplin_post_meta_[your-post-meta-key].
+							 * 
+							 *	Note: If you add any output to this action, make sure you include $has_meta as a global
+							 *	variable and set it to true.
+							 * 
+							 * @param array 	$post_id 	ID of the post.
+							 * @param string	$location 	Post meta location being output.
+							 */
 
-							// Jetpack Portfolio Tags
-							case 'jetpack-portfolio-tag' : 
-								if ( ! has_term( '', 'jetpack-portfolio-tag', $post_id ) ) break;
-								$has_meta = true;
-								?>
-								<li class="post-jetpack-portfolio-tag meta-wrapper">
-									<span class="meta-icon">
-										<span class="screen-reader-text"><?php esc_html_e( 'Portfolio tags', 'chaplin' ); ?></span>
-										<?php chaplin_the_theme_svg( 'tag' ); ?>
-									</span>
-									<span class="meta-text">
-										<?php the_terms( $post_id, 'jetpack-portfolio-tag', '', ', ' ); ?>
-									</span>
-								</li>
-								<?php
-								break;
+							do_action( 'chaplin_post_meta_' . $post_meta_item, $post_id, $location );
+					}
 
-							// Comments
-							case 'comments' : 
-								if ( post_password_required() || ! comments_open() || ! get_comments_number() ) break;
-								$has_meta = true;
-								?>
-								<li class="post-comment-link meta-wrapper">
-									<span class="meta-icon">
-										<?php chaplin_the_theme_svg( 'comment' ); ?>
-									</span>
-									<span class="meta-text">
-										<?php comments_popup_link(); ?>
-									</span>
-								</li>
-								<?php
-								break;
+				endforeach;
 
-							// Sticky
-							case 'sticky' : 
-								if ( ! is_sticky() ) break;
-								$has_meta = true;
-								?>
-								<li class="post-sticky meta-wrapper">
-									<span class="meta-icon">
-										<?php chaplin_the_theme_svg( 'bookmark' ); ?>
-									</span>
-									<span class="meta-text">
-										<?php esc_html_e( 'Sticky post', 'chaplin' ); ?>
-									</span>
-								</li>
-								<?php
-								break;
+				/**
+				 * Action run after output of post meta items.
+				 * 
+				 * If you add any output to this action, make sure you include $has_meta as a global variable 
+				 * and set it to true.
+				 * 
+				 * @param array		$post_meta 	Post meta items included in the location.
+				 * @param array 	$post_id 	ID of the post.
+				 * @param string	$location 	Post meta location being output.
+				 */
 
-							// Edit link
-							case 'edit-link' : 
-								if ( ! current_user_can( 'edit_post', $post_id ) ) break;
-								$has_meta = true;
-								?>
-								<li class="post-edit">
+				do_action( 'chaplin_end_of_post_meta_list', $post_meta, $post_id, $location );
 
-									<a href="<?php echo esc_url( get_edit_post_link() ); ?>" class="meta-wrapper">
-										<span class="meta-icon">
-											<?php chaplin_the_theme_svg( 'edit' ); ?>
-										</span>
-										<span class="meta-text">
-											<?php esc_html_e( 'Edit', 'chaplin' ); ?>
-										</span>
-									</a>
+				?>
 
-								</li>
-								<?php
-								break;
-							
-							default : 
+			</ul>
+		</div>
 
-								/*
-								 *	This action is run if no matching cases were found the switch statement.
-								 *	Child theme developers: If you add a custom post_meta type, output it here by hooking 
-								 *	into chaplin_post_meta_[your-post-meta-key].
-								 *
-								 *	Note: If you add any output to this action, make sure you include $has_meta as a global
-								 *	variable and set it to true.
-								 */
+		<?php
 
-								do_action( 'chaplin_post_meta_' . $post_meta_item, $post_id, $location );
-								break;
-						}
+		wp_reset_postdata();
 
-					endforeach;
+		// Get the recorded output.
+		$meta_output = ob_get_clean();
 
-					/*
-					 *	This action is run after the $post_meta items have been output.
-					 *
-					 *	Note: If you add any output to this action, make sure you include $has_meta as a global
-					 *	variable and set it to true.
-					 */
-
-					do_action( 'chaplin_end_of_post_meta_list', $post_meta, $post_id, $location );
-
-					?>
-
-				</ul><!-- .post-meta -->
-
-			</div><!-- .post-meta-wrapper -->
-
-			<?php
-
-			wp_reset_postdata();
-
-			$meta_output = ob_get_clean();
-
-			// If there is meta to output, return the markup
-			if ( $has_meta && $meta_output ) {
-				return $meta_output;
-			}
-
-		endif;
-
-		// If we've reached this point, there's nothing to return, so we return nothing
-		return;
+		// If there is post meta, return it.
+		return ( $has_meta && $meta_output ) ? $meta_output : '';
 
 	}
 endif;

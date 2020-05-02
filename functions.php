@@ -735,7 +735,7 @@ endif;
 if ( ! function_exists( 'chaplin_block_editor_settings' ) ) :
 	function chaplin_block_editor_settings() {
 
-		/* Block Editor Palette --------------------------------------- */
+		/* Block Editor Palette -------------- */
 
 		$editor_color_palette = array();
 
@@ -770,7 +770,7 @@ if ( ! function_exists( 'chaplin_block_editor_settings' ) ) :
 			add_theme_support( 'editor-color-palette', $editor_color_palette );
 		}
 
-		/* Gutenberg Font Sizes --------------------------------------- */
+		/* Block Editor Font Sizes ----------- */
 
 		add_theme_support( 'editor-font-sizes',
 			array(

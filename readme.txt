@@ -183,6 +183,20 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.4.2 (2020-05-02)
+-------------------------
+- Some additional improvements to the post meta, including:
+	- Changed the post meta location conditionals to a switch statement.
+	- Made the $post_id parameter required.
+	- Removed unused $page_template variable.
+	- Only run the post meta sorting loop if there is post meta to sort.
+	- Exit out early if there isn't any post meta after the post meta filters have been run.
+	- Made the CSS classes in the post meta wrapper element and unordered list element filterable.
+	- Removed the `break` statement from the `default` case in the post meta type `switch` statement.
+- Clarified some comments in the code.
+- Removed the Chaplin drop cap styles, since they were duplicating the style in Core.
+- CSS cleanup (line breaks, comment headings, etc).
+
 Version 2.4.1 (2020-05-01)
 -------------------------
 - Fixed a potential error in the new post meta code on older version of PHP.

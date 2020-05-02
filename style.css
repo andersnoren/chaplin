@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 2.4.1
+	Version: 2.4.2
 	Description: Chaplin is a feature-packed and developer friendly WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. This flexibility makes Chaplin suitable for pretty much any type of website, including business sites and portfolios. All of the fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported, and you can choose one of the ten included color schemes or build one from scratch. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, full-width templates, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, full-width-template
 	Author: Anders Norén
@@ -21,8 +21,8 @@
 	2. 	Element Base
 	3. 	Helper Classes
 	4. 	Site Header
-	5. 	Menu Modal
-	6. 	Search Modal
+	5. 	Modal: Menu
+	6. 	Modal: Search
 	7. 	Page Templates
 		a. 	Template: Cover Template
 		b. 	Template: Only Content
@@ -109,7 +109,6 @@ body {
 	overflow: hidden;
 }
 
-
 /* Clearing ---------------------------------- */
 
 .group:after,
@@ -120,14 +119,12 @@ body {
 	display: block;
 }
 
-
 /* Base Transitions -------------------------- */
 
 a,
 path {
 	transition: all .15s linear;
 }
-
 
 /* Screen Reader Text ------------------------ */
 
@@ -158,7 +155,6 @@ path {
 	z-index: 100000;
 }
 
-
 /* Skip Link --------------------------------- */
 
 .skip-link {
@@ -172,7 +168,6 @@ path {
 	left: 2.5rem;
 	text-decoration: none;
 }
-
 
 /* Accessibility Settings -------------------- */
 
@@ -262,7 +257,6 @@ a {
 	text-decoration: underline;
 }
 
-
 /* Lists ------------------------------------- */
 
 ul,
@@ -311,7 +305,6 @@ dt {
 dt + dd { margin-top: 0.5rem; }
 dd + dt { margin-top: 1.5rem; }
 
-
 /* Quotes ------------------------------------ */
 
 blockquote {
@@ -338,7 +331,6 @@ blockquote cite {
 blockquote p:last-child {
 	margin: 0;
 }
-
 
 /* Code -------------------------------------- */
 
@@ -372,7 +364,6 @@ pre code {
 	padding: 0;
 }
 
-
 /* Media ------------------------------------- */
 
 figure {
@@ -403,7 +394,6 @@ figcaption,
 	margin-top: 1.5rem;
 }
 
-
 /* GALLERIES */
 
 .gallery {
@@ -428,7 +418,6 @@ figcaption,
 	display: block;
 	margin-top: .8em;
 }
-
 
 /* Inputs ------------------------------------ */
 
@@ -608,7 +597,6 @@ input[type="submit"]:focus {
 	width: 40px;
 }
 
-
 /* Tables ------------------------------------ */
 
 table {
@@ -676,7 +664,6 @@ th {
 .no-scrollbars { scrollbar-width: none; }
 .no-scrollbars::-webkit-scrollbar { display: none; }
 
-
 /* Sections ---------------------------------- */
 
 section {
@@ -696,7 +683,6 @@ section {
 
 .section-inner.thin { max-width: 58rem; }
 .section-inner.no-margin { margin: 0; }
-
 
 /* Toggles ----------------------------------- */
 
@@ -721,7 +707,6 @@ button.toggle {
 	border-radius: 0;
 	padding: 0;
 }
-
 
 /* Grid Structure ---------------------------- */
 
@@ -785,7 +770,6 @@ button.toggle {
 .grid.match-gutter + .grid.match-gutter { margin-top: 1rem; }
 .grid.match-gutter .grid-item { margin-bottom: 1rem; }
 
-
 /* Hiding and Showing ------------------------ */
 
 .js .show-js { display: block !important; }
@@ -793,7 +777,6 @@ button.toggle {
 
 .no-js .show-no-js { display: block !important; }
 .no-js .hide-no-js { display: none !important; }
-
 
 /* Typography -------------------------------- */
 
@@ -808,7 +791,6 @@ button.toggle {
 		-ms-user-select: none;
 	user-select: none;
 }
-
 
 /* Colors ------------------------------------ */
 
@@ -914,7 +896,6 @@ button.toggle {
 	fill: currentColor;
 }
 
-
 /* Opacity ----------------------------------- */
 
 .opacity-0 { 	opacity: 0.0; }
@@ -929,9 +910,7 @@ button.toggle {
 .opacity-90 { 	opacity: 0.9; }
 .opacity-100 { 	opacity: 1.0; }
 
-
 /* Blend Mode -------------------------------- */
-
 
 .blend-mode-normal { 		mix-blend-mode: normal; }
 .blend-mode-multiply { 		mix-blend-mode: multiply; }
@@ -949,7 +928,6 @@ button.toggle {
 .blend-mode-saturation { 	mix-blend-mode: saturation; }
 .blend-mode-color { 		mix-blend-mode: color; }
 .blend-mode-luminosity { 	mix-blend-mode: luminosity; }
-
 
 /* Image Classes ----------------------------- */
 
@@ -1011,9 +989,7 @@ a.faux-image {
 		left: -9999rem;
 }
 
-
 /* Search Form ------------------------------- */
-
 
 .search-form {
 	align-items: stretch;
@@ -1135,7 +1111,6 @@ ul.social-icons li {
 .s-icons a[href*="youtube.com"]::before { content: '\f167'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="unsplash.com"]::before { content: '\f030'; font-family: 'Font Awesome 5'; }
 
-
 /* Cover Modals ------------------------------ */
 
 .cover-modal {
@@ -1151,7 +1126,6 @@ ul.social-icons li {
 .cover-modal.show-modal {
 	display: block;
 }
-
 
 /* Loading Indicator ------------------------- */
 
@@ -1173,8 +1147,7 @@ ul.social-icons li {
 	border-top-color: #fff;
 }
 
-
-/* Animations ------------------------------- */
+/* Animations -------------------------------- */
 
 @keyframes spin {
     0% { 	transform: rotate( 0deg ); }
@@ -1284,7 +1257,6 @@ ul.social-icons li {
 	transition: all .15s linear;
 }
 
-
 /* Sticky Header ----------------------------- */
 
 .header-inner.is-sticky {
@@ -1301,7 +1273,6 @@ ul.social-icons li {
 	box-shadow: none;
 }
 
-
 /* Overlay Header ---------------------------- */
 
 .overlay-header #site-header {
@@ -1315,7 +1286,6 @@ ul.social-icons li {
 .overlay-header:not(.showing-menu-modal):not(.overlay-header-has-text-color) .header-inner:not(.is-sticky) {
 	color: #fff;
 }
-
 
 /* Header Navigation ------------------------- */
 
@@ -1572,7 +1542,7 @@ ul.main-menu-alt {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	5. Menu Modal
+/*	5. Modal: Menu
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -1620,8 +1590,7 @@ ul.main-menu-alt {
 	position: relative;
 }
 
-
-/* Menu Modal Toggles ------------------------ */
+/* Modal: Menu Toggles ----------------------- */
 
 .menu-modal-toggles {
 	margin-left: 0;
@@ -1636,7 +1605,6 @@ ul.main-menu-alt {
 .menu-modal-toggles .toggle-text {
 	display: block;
 }
-
 
 /* Main Menu --------------------------------- */
 
@@ -1715,7 +1683,6 @@ a.sub-menu-toggle.active svg {
 	border-left-width: 1rem;
 }
 
-
 /* Menu Bottom ------------------------------- */
 
 .menu-bottom {
@@ -1740,7 +1707,7 @@ a.sub-menu-toggle.active svg {
 
 
 /* --------------------------------------------------------------------------------------------- */
-/*	6. Search Modal
+/*	6. Modal: Search
 /* --------------------------------------------------------------------------------------------- */
 
 
@@ -1801,7 +1768,6 @@ a.sub-menu-toggle.active svg {
 .search-untoggle:hover svg {
 	transform: scale( 1.15 );
 }
-
 
 /* Modal Search Form ------------------------- */
 
@@ -1934,6 +1900,7 @@ a.sub-menu-toggle.active svg {
 /* --------------------------------------------------------------------------------------------- */
 /*	7b. Template: Only Content
 /* --------------------------------------------------------------------------------------------- */
+
 
 .has-only-content .post-inner {
 	padding: 0;
@@ -2090,7 +2057,6 @@ h1.entry-title,
 	fill: currentColor;
 }
 
-
 /* Featured Media ---------------------------- */
 
 .featured-media {
@@ -2112,7 +2078,6 @@ h1.entry-title,
 .post-inner {
 	padding-top: 5rem;
 }
-
 
 /* Post Footer ------------------------------- */
 
@@ -2137,7 +2102,6 @@ h1.entry-title,
 .post-meta-wrapper.post-meta-single-bottom {
 	margin-top: 3rem;
 }
-
 
 /* Single Pagination ------------------------- */
 
@@ -2174,7 +2138,6 @@ h1.entry-title,
 .post-navigation a:hover .post-title {
 	text-decoration: underline;
 }
-
 
 /* Related Posts ----------------------------- */
 
@@ -2225,7 +2188,6 @@ h1.entry-title,
 :root .has-buttons-background-background-color { background-color: #007C89; }
 :root .has-buttons-text-background-color { background-color: #fff; }
 
-
 /* Block Typography Classes ------------------ */
 
 .has-text-align-left { text-align: left; }
@@ -2233,32 +2195,10 @@ h1.entry-title,
 .has-text-align-right { text-align: right; }
 .has-text-align-justify { text-align: justify; }
 
-.has-drop-cap:first-letter {
-    float: left;
-    font-size: 8.4em;
-    line-height: .68;
-    font-weight: 100;
-    margin: .05em .1em 0 0;
-    text-transform: uppercase;
-    font-style: normal
-}
-
-.has-drop-cap:after {
-    content: "";
-    display: table;
-    clear: both;
-    padding-top: 14px
-}
-
 /* Block: Base Margins ----------------------- */
 
-:root *[class*="_inner-container"] > *:first-child {
-	margin-top: 0;
-}
-
-:root *[class*="_inner-container"] > *:last-child {
-	margin-bottom: 0;
-}
+:root *[class*="_inner-container"] > *:first-child { margin-top: 0; }
+:root *[class*="_inner-container"] > *:last-child { margin-bottom: 0; }
 
 .wp-block-archives,
 .wp-block-button,
@@ -2502,7 +2442,6 @@ section.wp-block-cover-image > h2 {
     margin: 0 1rem 0 0;
 }
 
-
 /* Block: Gallery ---------------------------- */
 /* Block: Group ------------------------------ */
 
@@ -2534,7 +2473,6 @@ section.wp-block-cover-image > h2 {
 	margin: 1.5rem 0 0;
 }
 
-
 /* Block: Latest Comments -------------------- */
 
 .wp-block-latest-comments__comment-meta {
@@ -2552,7 +2490,6 @@ section.wp-block-cover-image > h2 {
 	font-weight: 400;
 	margin-top: .6rem;
 }
-
 
 /* Block: Latest Posts ----------------------- */
 
@@ -2591,7 +2528,6 @@ section.wp-block-cover-image > h2 {
 	line-height: 1.4;
 	margin-top: 1.5rem;
 }
-
 
 /* Block: List ------------------------------- */
 /* Block: Media Text ------------------------- */
@@ -2638,7 +2574,6 @@ p.has-background {
 .wp-block-pullquote.alignright p {
 	font-size: 1.75em;
 }
-
 
 .entry-content .wp-block-pullquote p {
 	max-width: 100%;
@@ -2749,7 +2684,6 @@ p.has-background {
     padding-left: 2em;
 }
 
-
 /* Block: Social ----------------------------- */
 
 .wp-social-link {
@@ -2779,7 +2713,6 @@ table.is-style-stripes tbody tr:nth-child( odd ),
 /* Block: Tag Cloud -------------------------- */
 /* Block: Verse ------------------------------ */
 /* Block: Video ------------------------------ */
-
 /* CoBlock: Features ------------------------- */
 
 .wp-block-coblocks-features .wp-block-coblocks-feature .wp-block-coblocks-icon {
@@ -2841,7 +2774,6 @@ table.is-style-stripes tbody tr:nth-child( odd ),
 	margin-bottom: 1rem;
 }
 
-
 /* Font Sizes -------------------------------- */
 
 :root .has-small-font-size { font-size: .842em; }
@@ -2850,7 +2782,6 @@ table.is-style-stripes tbody tr:nth-child( odd ),
 :root .has-medium-font-size { font-size: 1.1em; }
 :root .has-large-font-size { font-size: 1.25em; }
 :root .has-larger-font-size { font-size: 1.5em; }
-
 
 /* Alignments -------------------------------- */
 
@@ -2926,7 +2857,6 @@ table.is-style-stripes tbody tr:nth-child( odd ),
 	margin-top: -5rem;
 }
 
-
 /* Entry Media ------------------------------- */
 
 .alignfull > figcaption,
@@ -2943,7 +2873,7 @@ table.is-style-stripes tbody tr:nth-child( odd ),
 /* -------------------------------------------------------------------------------- */
 
 
-/* Comment Headers ----------------------------- */
+/* Comment Headers --------------------------- */
 
 .comments-wrapper {
 	margin-top: 5rem;
@@ -2963,8 +2893,7 @@ table.is-style-stripes tbody tr:nth-child( odd ),
 	font-size: 1.8rem;
 }
 
-
-/* Comment Item ----------------------------- */
+/* Comment Item ------------------------------ */
 
 /* COMMENT HEADER */
 
@@ -3035,7 +2964,6 @@ div.comment:first-of-type {
 	text-decoration: underline;
 }
 
-
 /* COMMENT CONTENT */
 
 :root .comment-content > *:first-child { margin-top: 0; }
@@ -3070,16 +2998,14 @@ div.comment:first-of-type {
 .comment-footer-meta a { text-decoration: none; }
 .comment-footer-meta a:hover { text-decoration: underline; }
 
-
-/* Pingbacks & Trackbacks ------------------------- */
+/* Pingbacks & Trackbacks -------------------- */
 
 .pingback .comment-meta,
 .trackback .comment-meta {
 	padding-left: 0;
 }
 
-
-/* Comments Pagination ---------------------------- */
+/* Comments Pagination ----------------------- */
 
 .comments-pagination {
 	display: flex;
@@ -3116,8 +3042,7 @@ div.comment:first-of-type {
 	text-align: right;
 }
 
-
-/* Comment Respond ---------------------------- */
+/* Comment Respond --------------------------- */
 
 .comment-respond:not(:first-child) {
 	padding-top: 6rem;
@@ -3178,8 +3103,7 @@ div.comment:first-of-type {
 	margin-left: auto;
 }
 
-
-/* Reply Respond ---------------------------- */
+/* Reply Respond ----------------------------- */
 
 .comments .comment-respond {
 	padding: 3rem 0 0;
@@ -3337,8 +3261,7 @@ body.woocommerce-page .entry-content {
 	margin-top: 0;
 }
 
-
-/* Base List Widget ------------------------------- */
+/* Base List Widget -------------------------- */
 
 .chaplin-widget-list,
 .widget_archive ul,
@@ -3383,8 +3306,7 @@ body.woocommerce-page .entry-content {
 	text-decoration: underline;
 }
 
-
-/* Chaplin Widget List --------------------------------------- */
+/* Chaplin Widget List ----------------------- */
 
 .chaplin-widget-list {
 	margin-left: 0;
@@ -3438,8 +3360,7 @@ body.woocommerce-page .entry-content {
 	text-decoration: underline; 
 }
 
-
-/* Widget: Calendar ------------------------------- */
+/* Widget: Calendar -------------------------- */
 
 .calendar_wrap table {
 	font-size: 1em;
@@ -3479,14 +3400,13 @@ body.woocommerce-page .entry-content {
 	margin: 1em 0 0;
 }
 
-
-/* Widget: Image ------------------------------- */
+/* Widget: Image ----------------------------- */
 
 .widget_media_image img {
 	width: 100%;
 }
 
-/* Widget: Gallery ------------------------------- */
+/* Widget: Gallery --------------------------- */
 
 .widget_media_gallery .gallery {
 	margin: 0 -.4em -.8em -.4em;
@@ -3498,13 +3418,11 @@ body.woocommerce-page .entry-content {
 	padding: 0 .4em;
 }
 
-
-/* Widget: Nav Menu ------------------------------- */
+/* Widget: Nav Menu -------------------------- */
 
 .widget_nav_menu .widget-content > div > ul {
 	margin-left: 0;
 }
-
 
 /* Widget: RSS ------------------------------- */
 
@@ -3525,8 +3443,7 @@ body.woocommerce-page .entry-content {
 	content: "— ";
 }
 
-
-/* Widget: Search ------------------------------- */
+/* Widget: Search ---------------------------- */
 
 .widget_search img {
 	display: none;
@@ -3553,7 +3470,6 @@ body.woocommerce-page .entry-content {
 	flex-shrink: 0;
 }
 
-
 /* Widget: Tag Cloud ------------------------- */
 
 .widget_tag_cloud a {
@@ -3566,7 +3482,6 @@ body.woocommerce-page .entry-content {
 .widget_tag_cloud .tag-link-count {
 	color: #F9423A;
 }
-
 
 /* Widget: Text ------------------------------ */
 
@@ -3584,13 +3499,11 @@ body.woocommerce-page .entry-content {
 	margin-top: 6rem;
 }
 
-
 /* Footer Widgets ---------------------------- */
 
 .footer-widgets-outer-wrapper {
 	margin-bottom: 6rem;
 }
-
 
 /* Footer Inner ------------------------------ */
 
@@ -3618,7 +3531,6 @@ body.woocommerce-page .entry-content {
 	display: block;
 	padding: 1.2rem 0;
 }
-
 
 /* Footer Credits ---------------------------- */
 
@@ -3656,7 +3568,6 @@ body.woocommerce-page .entry-content {
 
 @media ( min-width: 350px ) {
 
-
 	/* Site Footer --------------------------- */
 
 	.footer-credits {
@@ -3665,18 +3576,15 @@ body.woocommerce-page .entry-content {
 		justify-content: space-between;
 	}
 	
-
 }
 
-
 @media ( min-width: 700px ) {
-
 
 	body {
 		font-size: 1.8rem;
 	}
 
-	/* Element Base ------------------------- */
+	/* Element Base -------------------------- */
 
 	p {
 		margin-bottom: 2.2rem;
@@ -3747,8 +3655,7 @@ body.woocommerce-page .entry-content {
 		margin-top: 1.8rem;
 	}
 
-
-	/* Helper Classes ------------------------- */
+	/* Helper Classes ------------------------ */
 
 	/* SECTIONS */
 
@@ -3760,7 +3667,6 @@ body.woocommerce-page .entry-content {
 		width: calc( 100% - 8rem );
 	}
 
-	
 	/* GRID STRUCTURE */
 
 	.grid {
@@ -3795,7 +3701,6 @@ body.woocommerce-page .entry-content {
 	.grid.match-gutter { margin-bottom: -2rem; }
 	.grid.match-gutter + .grid.match-gutter { margin-top: 2rem; }
 	.grid.match-gutter .grid-item { margin-bottom: 2rem; }
-
 
 	/* Site Header --------------------------- */
 
@@ -3834,8 +3739,7 @@ body.woocommerce-page .entry-content {
 		display: block;
 	}
 
-
-	/* Menu Modal ---------------------------- */
+	/* Modal: Menu --------------------------- */
 
 	.main-menu {
 		left: auto;
@@ -3887,7 +3791,7 @@ body.woocommerce-page .entry-content {
 		justify-content: flex-end;
 	}
 
-	/* Modal Search Form ------------------------- */
+	/* Modal Search Form --------------------- */
 
 	.modal-search-form {
 		position: relative;
@@ -4414,11 +4318,9 @@ body.woocommerce-page .entry-content {
 		font-size: 1.4rem;
 	}
 
-
 }
 	
 @media ( min-width: 782px ) {
-
 
 	/* Blocks -------------------------------- */
 
@@ -4433,11 +4335,9 @@ body.woocommerce-page .entry-content {
 		margin-bottom: 0;
 	}
 
-
 }
 
 @media ( min-width: 1000px ) {
-
 
 	/* Document Setup ------------------------ */
 
@@ -4495,7 +4395,6 @@ body.woocommerce-page .entry-content {
 	.grid.tlcols-3.no-hgutter > .grid-item { width: 33.33%; }
 	.grid.tlcols-4.no-hgutter > .grid-item { width: 25%; }
 
-
 	/* Site Header --------------------------- */
 
 	.header-inner.is-sticky,
@@ -4525,7 +4424,7 @@ body.woocommerce-page .entry-content {
 		display: none;
 	}
 
-	/* Menu Modal ---------------------------- */
+	/* Modal: Menu --------------------------- */
 
 	.menu-modal {
 		background: rgba( 0, 0, 0, .0 );
@@ -4621,7 +4520,6 @@ body.woocommerce-page .entry-content {
 		margin: 1rem 0 0 2rem
 	}
 
-
 	/* Post: Single -------------------------- */
 
 	.featured-media {
@@ -4634,7 +4532,6 @@ body.woocommerce-page .entry-content {
 	.related-posts-grid .grid-item:nth-child(4) {
 		display: none;
 	}
-
 
 	/* Blocks -------------------------------- */
 
@@ -4787,12 +4684,12 @@ body.woocommerce-page .entry-content {
 
 }
 
-
 @media ( min-width: 1120px ) {
 
 	/* Blocks -------------------------------- */
 
 	/* BLOCK: GROUP */
+
 	.wp-block-group.alignfull:not(.has-background) > [class*="__inner-container"] > .wp-block-group:not(.alignfull):not(.alignwide):not(.alignleft):not(.alignright),
 	.wp-block-group.alignfull:not(.has-background) > [class*="__inner-container"] > .wp-block-cover:not(.alignfull):not(.alignwide):not(.alignleft):not(.alignright) {
 		margin-left: calc( ( 100vw - 112rem ) / 2 );
@@ -4815,7 +4712,6 @@ body.woocommerce-page .entry-content {
 
 @media ( min-width: 1220px ) {
 
-
 	/* Helper Classes ------------------------ */
 
 	/* GRID STRUCTURE */
@@ -4836,14 +4732,14 @@ body.woocommerce-page .entry-content {
 		width: calc( 100% - 16rem );
 	}
 
-	/* Menu Modal ---------------------------- */
+	/* Modal: Menu --------------------------- */
 
 	.menu-modal-inner .section-inner {
 		margin: 0 0 0 8rem;
 		max-width: 64rem;
 	}
 
-	/* Search Modal -------------------------- */
+	/* Modal: Search ------------------------- */
 	/* Sub Page ------------------------------ */
 	/* Template: Cover Template -------------- */
 
@@ -4931,15 +4827,12 @@ body.woocommerce-page .entry-content {
 
 }
 
-
 @media ( min-width: 1300px ) {
-
 
 	/* Entry Content ------------------------- */
 
 	.entry-content {
 		font-size: 1.9rem;
 	}
-
 
 }

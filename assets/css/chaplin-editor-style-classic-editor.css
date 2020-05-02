@@ -4,7 +4,6 @@
 
 /* Structure --------------------------------- */
 
-
 body#tinymce.wp-editor { 
 	color: #1A1B1F;
 	font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif;
@@ -81,7 +80,6 @@ body#tinymce.wp-editor dd + dt {
 	margin-top: 1.5rem;
 }
 
-
 /* Titles ------------------------------------ */
 
 body#tinymce.wp-editor h1, 
@@ -104,7 +102,6 @@ body#tinymce.wp-editor h3 { font-size: 32px; }
 body#tinymce.wp-editor h4 { font-size: 24px; }
 body#tinymce.wp-editor h5 { font-size: 21px; }
 body#tinymce.wp-editor h6 { font-size: 1em; }
-
 
 /* Blockquote -------------------------------- */
 
@@ -129,7 +126,6 @@ body#tinymce.wp-editor blockquote cite {
 	font-style: normal;
 	margin-top: 1em;
 }
-
 
 /* Lists ------------------------------------- */
 
@@ -172,7 +168,6 @@ body#tinymce.wp-editor ol > li:first-child,
 body#tinymce.wp-editor ul > li:first-child {
 	margin-top: 0.5em;
 }
-
 
 /* Post Media -------------------------------- */
 
@@ -235,7 +230,6 @@ body#tinymce.wp-editor .gallery-caption {
 	margin: 10px 0 0;
 }
 
-
 /* Tables ------------------------------------ */
 
 body#tinymce.wp-editor table {
@@ -272,7 +266,6 @@ body#tinymce.wp-editor th {
 body#tinymce.wp-editor table tbody > tr:nth-child(odd) { 
 	background: #f1f1f3; 
 }
-
 
 /* Forms ------------------------------------- */
 
