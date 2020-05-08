@@ -128,7 +128,7 @@ endif;
 if ( ! function_exists( 'chaplin_register_styles' ) ) :
 	function chaplin_register_styles() {
 
-		$theme_version = wp_get_theme()->get( 'Version' );
+		$theme_version = wp_get_theme( 'chaplin' )->get( 'Version' );
 		$css_dependencies = array();
 
 		// Retrieve and enqueue the URL for Google Fonts
@@ -150,10 +150,13 @@ if ( ! function_exists( 'chaplin_register_styles' ) ) :
 		// Filter the list of dependencies used by the chaplin-style CSS enqueue
 		$css_dependencies = apply_filters( 'chaplin_css_dependencies', $css_dependencies );
 
-		wp_enqueue_style( 'chaplin-style', get_template_directory_uri() . '/style.css', $css_dependencies, $theme_version );
+		wp_enqueue_style( 'chaplin-style', get_template_directory_uri() . '/style.css', $css_dependencies, $theme_version, 'all' );
 
 		// Add output of Customizer settings as inline style
 		wp_add_inline_style( 'chaplin-style', Chaplin_Custom_CSS::get_customizer_css( 'front-end' ) );
+
+		// Enqueue the print styles stylesheet
+		wp_enqueue_style( 'chaplin-print-styles', get_template_directory_uri() . '/assets/css/print.css', false, $theme_version, 'print' );
 
 	}
 	add_action( 'wp_enqueue_scripts', 'chaplin_register_styles' );
@@ -168,7 +171,7 @@ endif;
 if ( ! function_exists( 'chaplin_register_scripts' ) ) :
 	function chaplin_register_scripts() {
 
-		$theme_version = wp_get_theme()->get( 'Version' );
+		$theme_version = wp_get_theme( 'chaplin' )->get( 'Version' );
 
 		if ( ( ! is_admin() ) && is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
@@ -560,7 +563,7 @@ if ( ! function_exists( 'chaplin_filter_nav_menu_item_args' ) ) :
 				$toggle_target_string = '.menu-modal .menu-item-' . $item->ID . ' > .sub-menu';
 
 				// Add the sub menu toggle
-				$args->after .= '<div class="sub-menu-toggle-wrapper"><a href="#" class="toggle sub-menu-toggle fill-children-current-color" data-toggle-target="' . $toggle_target_string . '" data-toggle-type="slidetoggle" data-toggle-duration="250"><span class="screen-reader-text">' . __( 'Show sub menu', 'chaplin' ) . '</span>' . chaplin_get_theme_svg( 'chevron-down' ) . '</a></div>';
+				$args->after .= '<div class="sub-menu-toggle-wrapper"><a href="#" class="toggle sub-menu-toggle border-color-border fill-children-current-color" data-toggle-target="' . $toggle_target_string . '" data-toggle-type="slidetoggle" data-toggle-duration="250"><span class="screen-reader-text">' . __( 'Show sub menu', 'chaplin' ) . '</span>' . chaplin_get_theme_svg( 'chevron-down' ) . '</a></div>';
 
 			}
 
@@ -669,7 +672,7 @@ if ( ! function_exists( 'chaplin_block_editor_styles' ) ) :
 		}
 
 		// Enqueue the editor styles
-		wp_enqueue_style( 'chaplin_block_editor_styles', get_theme_file_uri( 'assets/css/chaplin-editor-style-block-editor.css' ), $css_dependencies, wp_get_theme()->get( 'Version' ), 'all' );
+		wp_enqueue_style( 'chaplin_block_editor_styles', get_theme_file_uri( 'assets/css/chaplin-editor-style-block-editor.css' ), $css_dependencies, wp_get_theme( 'chaplin' )->get( 'Version' ), 'all' );
 
 		// Add inline style from the Customizer
 		wp_add_inline_style( 'chaplin_block_editor_styles', Chaplin_Custom_CSS::get_customizer_css( 'block-editor' ) );

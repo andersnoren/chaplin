@@ -892,6 +892,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 		// Return the sitewide color options included
 		public static function chaplin_get_color_options() {
+
 			return apply_filters( 'chaplin_accent_color_options', array(
 				'chaplin_accent_color' => array(
 					'default'	=> '#007C89',

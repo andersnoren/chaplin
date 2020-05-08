@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 2.4.2
+	Version: 2.5.0
 	Description: Chaplin is a feature-packed and developer friendly WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. This flexibility makes Chaplin suitable for pretty much any type of website, including business sites and portfolios. All of the fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported, and you can choose one of the ten included color schemes or build one from scratch. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, full-width templates, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, full-width-template
 	Author: Anders Norén
@@ -205,7 +205,7 @@ h6, .heading-size-6 { font-size: 1em; }
 
 p {
 	line-height: 1.5;
-	margin: 0 0 2rem 0;
+	margin: 0 0 1.175em 0;
 }
 
 em,
@@ -328,7 +328,7 @@ blockquote cite {
 	margin: 2rem 0 0 0;
 }
 
-blockquote p:last-child {
+blockquote p:last-of-type {
 	margin: 0;
 }
 
@@ -517,9 +517,11 @@ select {
 	font-size: inherit;
 }
 
-input::-webkit-input-placeholder { line-height: normal; }
-input:-ms-input-placeholder { line-height: normal; }
-input::-moz-placeholder { line-height: normal; }
+::-webkit-input-placeholder { color: #747579; line-height: normal; }
+::-moz-placeholder { color: #747579; line-height: normal; }
+:-ms-input-placeholder { color: #747579; line-height: normal; }
+:-moz-placeholder { color: #747579; opacity: 1; line-height: normal; }
+::placeholder { color: #747579; line-height: normal; opacity: 1; }
 
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
@@ -531,8 +533,8 @@ input[type="search"]::-webkit-search-results-decoration {
 button,
 .button,
 .faux-button,
-.wp-block-button__link,
-.wp-block-file .wp-block-file__button,
+:root .wp-block-button__link,
+:root .wp-block-file__button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
@@ -557,16 +559,16 @@ input[type="submit"] {
 button:hover,
 .button:hover,
 .faux-button:hover,
-.wp-block-button__link:hover,
-.wp-block-file__button:hover,
+:root .wp-block-button__link:hover,
+:root .wp-block-file__button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover,
 button:focus,
 .button:focus,
 .faux-button:focus,
-.wp-block-button__link:focus,
-.wp-block-file__button:focus,
+:root .wp-block-button__link:focus,
+:root .wp-block-file__button:focus,
 input[type="button"]:focus,
 input[type="reset"]:focus,
 input[type="submit"]:focus {
@@ -610,23 +612,26 @@ table {
 }
 
 th,
+td,
+caption {
+	padding: .8rem;
+}
+
+th,
 td {
 	border: .1rem solid #E1E1E3;
 	line-height: 1.4;
 	margin: 0;
 	overflow: visible;
-	padding: 2.5%;
 }
 
 caption {
-	background: #E1E1E3;
+	background-color: #E1E1E3;
 	font-weight: 700;
-	padding-bottom: 2.5%;
 	text-align: center;
 }
 
 thead {
-	vertical-align: bottom;
 	white-space: nowrap;
 }
 
@@ -1133,7 +1138,7 @@ ul.social-icons li {
 	animation: spin 1.4s linear infinite;
 	border-radius: 50%;
 	border-style: solid;
-	border-width: .5rem;
+	border-width: .3rem;
     height: 5rem;
 	margin: auto;
     width: 5rem;
@@ -1653,7 +1658,8 @@ ul.main-menu-alt {
 
 a.sub-menu-toggle {
 	align-items: center;
-	border-left: .1rem solid #E1E1E3;
+	border-style: solid;
+	border-width: 0 0 0 .1rem;
 	display: flex;
 	flex-shrink: 0;
 	margin: 1rem 0;
@@ -1791,6 +1797,7 @@ a.sub-menu-toggle.active svg {
 .modal-search-form .search-field::-webkit-input-placeholder { color: inherit; }
 .modal-search-form .search-field:-ms-input-placeholder { color: inherit; }
 .modal-search-form .search-field::-moz-placeholder { color: inherit; line-height: 8rem; }
+.modal-search-form .search-field::placeholder { color: inherit; }
 
 .modal-search-form .search-submit {
 	position: absolute;
@@ -2203,12 +2210,14 @@ h1.entry-title,
 .wp-block-archives,
 .wp-block-button,
 .wp-block-buttons,
+.wp-block-calendar,
 .wp-block-categories,
 .wp-block-code,
 .wp-block-columns,
 .wp-block-cover,
 .wp-block-cover-image,
 .wp-block-embed,
+.wp-block-file,
 .wp-block-gallery,
 .wp-block-group,
 .wp-block-image,
@@ -2217,10 +2226,12 @@ h1.entry-title,
 .wp-block-media-text,
 .wp-block-preformatted,
 .wp-block-pullquote,
-.wp-block-social,
 .wp-block-quote,
 .wp-block-quote.is-large,
 .wp-block-quote.is-style-large,
+.wp-block-search,
+.wp-block-social,
+.wp-block-tag-cloud,
 .wp-block-verse,
 .wp-block-video {
 	margin-bottom: 3rem;
@@ -2314,14 +2325,53 @@ h1.entry-title,
 	color: #007C89;
 }
 
-.is-style-outline .wp-block-button__link {
+:root .is-style-outline .wp-block-button__link,
+:root .wp-block-button__link.is-style-outline {
     background-color: transparent;
     border: .2rem solid currentColor;
 	color: inherit;
 	padding: calc( 1.175em - .2rem ) calc( 1.75em - .2rem );
 }
 
+.wp-block-button__link.is-style-outline {
+	color: #007C89;
+}
+
+/* Block: Buttons ---------------------------- */
+
+.wp-block-buttons .wp-block-button {
+	margin-top: 0;
+}
+
 /* Block: Calendar --------------------------- */
+
+.wp-block-calendar {
+	border-color: #E1E1E3;
+}
+
+:root .wp-block-calendar * {
+	border-color: inherit;
+}
+
+.wp-block-calendar table {
+	font-family: inherit;
+	margin-bottom: 1rem;
+}
+
+.wp-block-calendar table caption, 
+.wp-block-calendar table tbody {
+	color: inherit;
+}
+
+.wp-block-calendar table th {
+	background-color: transparent;
+}
+
+:root .wp-block-calendar td,
+:root .wp-block-calendar th {
+	padding: .8rem;
+}
+
 /* Block: Categories ------------------------- */
 /* Block: Classic ---------------------------- */
 /* Block: Code ------------------------------- */
@@ -2408,17 +2458,20 @@ section.wp-block-cover-image > h2 {
 	width: 100%;
 }
 
-.wp-block-file.aligncenter { text-align: center; align-items: center }
-.wp-block-file.alignright { text-align: right; align-items: flex-end }
+.wp-block-file.aligncenter { 
+	text-align: center; 
+	align-items: center;
+}
+
+.wp-block-file.alignright { 
+	text-align: right; 
+	align-items: flex-end;
+}
 
 .wp-block-file a:not( .wp-block-file__button ) {
 	text-decoration: none;
 	font-weight: 700;
 	font-size: 1.1em;
-}
-
-.wp-block-file a:not( .wp-block-file__button ):hover {
-	text-decoration: underline;
 }
 
 .wp-block-file .wp-block-file__button {
@@ -2427,10 +2480,8 @@ section.wp-block-cover-image > h2 {
 	padding: 1em 1.25em;
 }
 
-.wp-block-file a.wp-block-file__button:active, 
-.wp-block-file a.wp-block-file__button:focus, 
-.wp-block-file a.wp-block-file__button:hover, 
-.wp-block-file a.wp-block-file__button:visited {
+:root .wp-block-file a.wp-block-file__button {
+	color: #fff;
 	opacity: 1;
 }
 
@@ -2439,7 +2490,11 @@ section.wp-block-cover-image > h2 {
 }
 
 .wp-block-file > *:first-child {
-    margin: 0 1rem 0 0;
+    margin: 0 0 1rem 0;
+}
+
+.wp-block-file > a:only-child {
+    margin: 0;
 }
 
 /* Block: Gallery ---------------------------- */
@@ -2475,6 +2530,10 @@ section.wp-block-cover-image > h2 {
 
 /* Block: Latest Comments -------------------- */
 
+.wp-block-latest-comments__comment {
+	font-size: inherit;
+}
+
 .wp-block-latest-comments__comment-meta {
 	font-weight: 700;
 }
@@ -2483,12 +2542,20 @@ section.wp-block-cover-image > h2 {
 	text-decoration: none;
 }
 
+/* HAS EXCERPT */
+
+.wp-block-latest-comments__comment-excerpt p {
+	font-size: .9em;
+	line-height: inherit;
+}
+
 /* HAS TIME */
 
 .wp-block-latest-comments time {
 	color: #747579;
+	font-size: .9em;
 	font-weight: 400;
-	margin-top: .6rem;
+	margin-top: .2rem;
 }
 
 /* Block: Latest Posts ----------------------- */
@@ -2519,7 +2586,7 @@ section.wp-block-cover-image > h2 {
 
 .wp-block-latest-posts time {
 	color: #747579;
-	font-size: inherit;
+	font-size: .9em;
 	margin: .8rem 0 0;
 }
 
@@ -2581,7 +2648,7 @@ p.has-background {
 
 /* STYLE: SOLID */
 
-.wp-block-pullquote.is-style-solid-color {
+.wp-block-pullquote.is-style-solid-color.has-background {
 	padding: 3rem 2rem;
 }
 
@@ -2596,20 +2663,22 @@ p.has-background {
 
 /* Block: Quote ------------------------------ */
 
+.wp-block-quote.has-text-align-center, 
 .wp-block-quote[style*="text-align:center"], 
 .wp-block-quote[style*="text-align: center"] {
 	border: none;
 	padding: 0;
 }
 
+.wp-block-quote.has-text-align-right, 
 .wp-block-quote[style*="text-align:right"], 
 .wp-block-quote[style*="text-align: right"] {
-	border-width: 0 .4rem 0 0;
+	border-width: 0 .2rem 0 0;
 	padding-left: 0;
 	padding-right: 2rem;
 }
 
-.entry-content .wp-block-quote p {
+.wp-block-quote p {
 	max-width: 100%;
 }
 
@@ -2625,6 +2694,7 @@ p.has-background {
 
 .wp-block-quote.is-large p,
 .wp-block-quote.is-style-large p {
+	font-size: inherit;
 	font-style: normal;
 	line-height: 1.25;
 }
@@ -3587,7 +3657,7 @@ body.woocommerce-page .entry-content {
 	/* Element Base -------------------------- */
 
 	p {
-		margin-bottom: 2.2rem;
+		margin-bottom: 1.22em;
 	}
 
 	ul,
@@ -3944,12 +4014,14 @@ body.woocommerce-page .entry-content {
 	/* BLOCK: BASE MARGINS */
 
 	.wp-block-archives,
+	.wp-block-calendar,
 	.wp-block-categories,
 	.wp-block-code,
 	.wp-block-columns,
 	.wp-block-cover,
 	.wp-block-cover-image,
 	.wp-block-embed,
+	.wp-block-file,
 	.wp-block-gallery,
 	.wp-block-group,
 	.wp-block-image,
@@ -3961,6 +4033,8 @@ body.woocommerce-page .entry-content {
 	.wp-block-quote,
 	.wp-block-quote.is-large,
 	.wp-block-quote.is-style-large,
+	.wp-block-search,
+	.wp-block-tag-cloud,
 	.wp-block-verse,
 	.wp-block-video {
 		margin-bottom: 4rem;
@@ -4025,11 +4099,17 @@ body.woocommerce-page .entry-content {
 		justify-content: space-between;
 	}
 
-	.wp-block-file.aligncenter { justify-content: center; }
-	.wp-block-file.alignright { justify-content: flex-end; align-items: center; }
+	.wp-block-file.aligncenter { 
+		justify-content: center; 
+	}
 
-	.wp-block-file * + .wp-block-file__button {
-		margin-left: 1rem;
+	.wp-block-file.alignright { 
+		justify-content: flex-end; 
+		align-items: center; 
+	}
+
+	.wp-block-file > *:first-child {
+		margin: 0 1rem 0 0;
 	}
 
 	/* BLOCK: IMAGE */
@@ -4112,7 +4192,7 @@ body.woocommerce-page .entry-content {
 		font-size: 2.5em;
 	}
 
-	.wp-block-pullquote.is-style-solid-color {
+	.wp-block-pullquote.is-style-solid-color.has-background {
 		padding: 4rem 3rem;
 	}
 

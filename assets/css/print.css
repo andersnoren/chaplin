@@ -1,0 +1,71 @@
+body {
+	font-size: 1.2rem;
+}
+
+body * {
+	font-size: inherit !important;
+}
+
+/* ELEMENT BASE */
+
+p {
+	orphans: 2;
+	widows: 2;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 1em 0;
+}
+
+h1 { font-size: 2.2em !important; }
+h2 { font-size: 2.0em !important; }
+h3 { font-size: 1.8em !important; }
+h4 { font-size: 1.6em !important; }
+h5 { font-size: 1.4em !important; }
+h6 { font-size: 1.2em !important; }
+
+figure {
+	page-break-inside: avoid;
+	break-inside: avoid;
+}
+
+/* HIDE ELEMENTS */
+
+#site-header,
+#site-footer,
+.skip-link,
+.cover-modal,
+.pagination-wrapper,
+.post-navigation,
+.related-posts {
+	display: none !important;
+}
+
+/* RESET WIDTHS */
+
+.alignwide,
+.alignfull,
+.entry-content,
+:root .section-inner {
+	margin-left: 0;
+	margin-right :0;
+	max-width: 100%;
+	width: 100%;
+}
+
+/* MODIFY SPACING */
+
+.post-inner {
+	padding-top: 3rem;
+}
+
+/* ENTRY CONTENT */
+
+.entry-content {
+	font-size: inherit;
+}
+
+.entry-content a[href]:after {
+	content: " (" attr(href) ")";
+	display: inline;
+}

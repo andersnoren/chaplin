@@ -183,6 +183,32 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.0 (2020-05-08)
+-------------------------
+- Added basic print styles.
+- Updated the `chaplin.loadMore` JavaScript function to update the visitor browser history based on the visitor scroll position after posts have been loaded.
+- Changed paragraph margins to be em based, to better support changes in font size (including in the print styles).
+- Fixed custom border color not being applied to the sub menu toggle border.
+- Fixed the quote block with style large having the wrong font size on the front-end.
+- Only give the solid blockquote padding when a background color is set.
+- Updated block editor styles for quotes to better match the front-end.
+- Fixed the base font size in the block editor not matching the front-end font size.
+- Fixed a outline buttons color mismatch between block editor and front-end when only the primary color is set.
+- Fixed excessive top margin of button block within buttons block.
+- Added styles for buttons not being wrapped in `.wp-block-button`, which Core might switch to in the future.
+- Reduced the specificity of some styles in the block editor styles, front-end block styles, and `class-custom-css.php`.
+- Simplified styles for the file block.
+- Added base block margins to the following Core blocks: File, Calendar, Tag Cloud.
+- Updated styles to account for Core styles overwriting the font-family and colors of the calendar block.
+- Adjusted the base table styles.
+- Adjusted the style of the latest posts and latest comments blocks.
+- Updated calls to `wp_get_theme()` with the `chaplin` slug as a parameter, to prevent child theme info from being retrieved when a child theme is active.
+- Fixed a color setting issue where buttons would have the wrong color if an accent color is set and the buttons background color is set to the default color.
+- Adjusted the border width of the loader element.
+- Increased specificity of block editor colors in the block editor styles.
+- Applied the secondary color to input `::placeholder`.
+- Updated `get_css_elements_array()` and `get_customizer_css()` to support multiple groups of selectors per CSS property, allowing us to style selectors where browsers will exit out if it hits a selector that it doesn't recognize (vendor specific ::placeholder styles, for example).
+
 Version 2.4.2 (2020-05-02)
 -------------------------
 - Some additional improvements to the post meta, including:

@@ -1043,9 +1043,13 @@ chaplin.loadMore = {
 
 			// Default values for variables
 			window.loading = false;
-			window.lastPage = false;
+			window.lastPage = $pagination.hasClass( 'last-page' );
 
+			// Load more posts
 			chaplin.loadMore.prepare( $pagination );
+
+			// Update browser history when the visitor scrolls through loaded posts
+			chaplin.loadMore.updateHistoryOnScroll();
 
 		}
 
@@ -1155,6 +1159,11 @@ chaplin.loadMore = {
 
 					$articleWrapper.removeClass( 'no-results' );
 
+					// Add the paged attribute to the articles, used by updateHistoryOnScroll()
+					$result.find( 'article' ).each( function() {
+						$( this ).attr( 'data-post-paged', query_args.paged );
+					} );
+
 					// Wait for the images to load
 					$result.imagesLoaded( function() {
 
@@ -1194,29 +1203,108 @@ chaplin.loadMore = {
 
 	},
 
+	// Update browser history on scroll
+	updateHistoryOnScroll: function() {
+
+		// Get the initial paged value
+		var initialPaged = chaplin.loadMore.getCurrentPaged();
+
+		// Get the last post visible in the viewport, and set the browser history to the paged attribute of that post
+		$win.on( 'did-interval-scroll', function() {
+
+			var $posts = $( '.posts article' );
+
+			// Check if the page has had posts loaded
+			// This attribute is added by the loadPosts function
+			if ( $posts.length && $( '[data-post-paged]' ).length ) {
+
+				// Store the ID attributes of the posts above the bottom of the viewport
+				var postsVisible = [];
+
+				// Get the bottom of the viewport
+				var winBottom = $win.scrollTop() + $win.height();
+
+				$posts.each( function() {
+
+					var elemBottom = $( this ).offset().top + $( this ).outerHeight(),
+						elemId = $( this ).attr( 'id' );
+
+					// Add or remove the ID of the post, depending on whether it's within the viewport
+					if ( elemBottom < winBottom ) {
+						postsVisible.push( elemId );
+					} else {
+						var index = postsVisible.indexOf( elemId );
+						if ( index !== -1 ) postsVisible.splice( elemId, 1 );
+					}
+
+				} );
+
+				// If we have visible posts, check if we need to update the history
+				if ( postsVisible.length !== 0 ) {
+
+					// Get the last visible post
+					var $lastPost = $( '#' + postsVisible[postsVisible.length - 1] );
+
+					// Get the paged attribute of the post, or default to the initial paged value
+					// (The initial set of posts do not have a paged attribute)
+					var newPaged = $lastPost.attr( 'data-post-paged' ) ? $lastPost.attr( 'data-post-paged' ) : initialPaged,
+						currentPaged = chaplin.loadMore.getCurrentPaged();
+
+					// Update the browser history with the paged value of the post
+					if ( newPaged !== currentPaged ) {
+						chaplin.loadMore.updateHistory( newPaged );
+					}
+
+				}
+
+			}
+
+		} );
+
+	},
+
 	// Update browser history
     updateHistory: function( paged ) {
 
 		var newUrl,
 			currentUrl = document.location.href;
 
-		// If currentUrl doesn't end with a slash, append one
-		if ( currentUrl.substr( currentUrl.length - 1 ) !== '/' ) {
-			currentUrl += '/';
-		}
-
 		var hasPaginationRegexp = new RegExp( '^(.*/page)/[0-9]*/(.*$)' );
 
 		if ( hasPaginationRegexp.test( currentUrl ) ) {
-			newUrl = currentUrl.replace( hasPaginationRegexp, '$1/' + paged + '/$2' );
+			if ( paged ) {
+				newUrl = currentUrl.replace( hasPaginationRegexp, '$1/' + paged + '/$2' );
+			} else {
+				// If there's no paged, remove /page/X from the string
+				var pageString = currentUrl.match( /\/page\/(\d*)/ )[0];
+				if ( pageString ) {
+					newUrl = currentUrl.replace( pageString, '' );
+				}
+			}
 		} else {
 			var beforeSearchReplaceRegexp = new RegExp( '^([^?]*)(\\??.*$)' );
 			newUrl = currentUrl.replace( beforeSearchReplaceRegexp, '$1page/' + paged + '/$2' );
 		}
 
+		if ( newUrl == currentUrl ) return;
+
 		history.pushState( {}, '', newUrl );
 
-	}
+	},
+
+	// Get current paged value
+	getCurrentPaged: function() {
+
+		var currentPaged = 0,
+			currentUrl = document.location.href;
+
+		if ( new RegExp( '\/page\/(\d*)' ).test( currentUrl ) ) {
+			currentPaged = currentUrl.match( /\/page\/(\d*)/ )[1];
+		}
+
+		return currentPaged;
+
+	},
 
 } // chaplin.loadMore
 
