@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.1 (2020-05-10)
+-------------------------
+- Fixed top level menu items with the sub menu toggle not having any padding between the menu item link and the toggle button.
+
 Version 2.5.0 (2020-05-08)
 -------------------------
 - Added basic print styles.
