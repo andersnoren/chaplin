@@ -1857,6 +1857,7 @@ a.sub-menu-toggle.active svg {
 	color: #fff;
 	position: relative;
 	width: 100%;
+	z-index: 1;
 }
 
 .cover-header h1, .cover-header h2, .cover-header h3, .cover-header h4, .cover-header h5, .cover-header h6, .cover-header .faux-heading {
