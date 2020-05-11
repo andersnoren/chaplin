@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.2 (2020-05-11)
+-------------------------
+- Fixed the padding for sub menu links unintentionally being applied to the sub menu toggles.
+
 Version 2.5.1 (2020-05-10)
 -------------------------
 - Fixed top level menu items with the sub menu toggle not having any padding between the menu item link and the toggle button.
