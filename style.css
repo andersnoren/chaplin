@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 2.5.2
+	Version: 2.5.3
 	Description: Chaplin is a feature-packed and developer friendly WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. This flexibility makes Chaplin suitable for pretty much any type of website, including business sites and portfolios. All of the fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported, and you can choose one of the ten included color schemes or build one from scratch. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, full-width templates, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, full-width-template
 	Author: Anders Norén
@@ -76,6 +76,11 @@ blockquote:after {
 
 html {
 	font-size: 62.5%; /* 1rem = 10px */
+}
+
+/* Fix for the admin bar */
+@media ( max-width: 599px ) {
+	html.scroll-locked { margin: 0 !important; }
 }
 
 body {
@@ -1271,7 +1276,15 @@ ul.social-icons li {
 		right: 0;
 		top: 0;
 	transition: box-shadow .2s linear, background-color .2s linear;
-	z-index: 5;
+	z-index: 9999;
+}
+
+@media ( min-width: 600px ) and ( max-width: 782px ) {
+	.admin-bar .header-inner.is-sticky { top: 4.6rem; }
+}
+
+@media ( min-width: 782px ) {
+	.admin-bar .header-inner.is-sticky { top: 3.2rem; }
 }
 
 .showing-menu-modal .header-inner.is-sticky {
@@ -1397,6 +1410,7 @@ ul.social-icons li {
 .main-menu-alt-container {
 	display: none;
 	margin-left: 6rem;
+	padding: 2rem 0;
 }
 
 ul.main-menu-alt {
@@ -1448,6 +1462,7 @@ ul.main-menu-alt {
 .main-menu-alt ul {
 	background: currentColor;
 	border-radius: .4rem;
+	box-shadow: 0 0 1rem rgba( 0, 0, 0, 0.05 );
 	color: #f1f1f3;
 	font-size: 1.7rem;
 	opacity: 0;
@@ -1465,7 +1480,7 @@ ul.main-menu-alt {
 	color: #1A1B1F;
 }
 
-.main-menu-alt li.menu-item-has-children:hover > ul,
+.main-menu-alt li:hover > ul,
 .main-menu-alt li.focus > ul {
 	right: -2rem;
 	opacity: 1;
@@ -1498,7 +1513,7 @@ ul.main-menu-alt {
 }
 
 .main-menu-alt ul a {
-	background: transparent;
+	background-color: transparent;
 	border: none;
 	display: block;
 	padding: 1rem 2rem;
@@ -1523,7 +1538,7 @@ ul.main-menu-alt {
 	top: -1rem;
 }
 
-.main-menu-alt ul li.menu-item-has-children:hover > ul,
+.main-menu-alt ul li:hover > ul,
 .main-menu-alt ul li.focus > ul {
 	right: calc( 100% + 2rem );
 }
@@ -1539,10 +1554,34 @@ ul.main-menu-alt {
 
 .main-menu-alt ul ul:after {
 	border-bottom-color: transparent;
-	border-left-color: currentcolor;
+	border-left-color: currentColor;
 	bottom: auto;
 	right: -1.6rem;
 	top: 2rem;
+}
+
+/* CONDITIONAL SUB LEVEL DIRECTION */
+
+.main-menu-alt ul.expand-right {
+	right: auto;
+	left: 99999rem;
+}
+
+.main-menu-alt li:hover > ul.expand-right,
+.main-menu-alt li.focus > ul.expand-right {
+	left: calc( 100% + 2rem );
+}
+
+.main-menu-alt ul.expand-right:before {
+	right: auto;
+	left: -2rem;
+}
+
+.main-menu-alt ul.expand-right:after {
+	border-left-color: transparent;
+	border-right-color: currentColor;
+	right: auto;
+	left: -1.6rem;
 }
 
 
@@ -1562,7 +1601,7 @@ ul.main-menu-alt {
 		right: 99999rem;
 		top: 0;
 	transition: opacity .25s ease-in, left 0s .25s, right 0s .25s;
-	z-index: 99;
+	z-index: 9999;
 }
 
 .menu-modal.show-modal {
@@ -1586,6 +1625,12 @@ ul.main-menu-alt {
 	justify-content: stretch;
 	overflow: auto;
 	width: 100%;
+}
+
+.admin-bar .menu-modal-inner { margin-top: 4.6rem; }
+
+@media ( min-width: 782px ) {
+	.admin-bar .menu-modal-inner { margin-top: 3.2rem; }
 }
 
 .menu-wrapper {
@@ -1727,12 +1772,18 @@ a.sub-menu-toggle.active svg {
 		top: 0;
 	transition: opacity .2s linear, left 0s .2s linear;
 	width: 100%;
-	z-index: 999;
+	z-index: 9999;
 }
 
 .search-modal-inner {
 	transform: translateY( -100% );
 	transition: transform .15s linear, box-shadow .15s linear;
+}
+
+.admin-bar .search-modal-inner { margin-top: 4.6rem; }
+
+@media ( min-width: 782px ) {
+	.admin-bar .search-modal-inner { margin-top: 3.2rem; }
 }
 
 .search-modal-inner .section-inner {
@@ -1857,7 +1908,6 @@ a.sub-menu-toggle.active svg {
 	color: #fff;
 	position: relative;
 	width: 100%;
-	z-index: 1;
 }
 
 .cover-header h1, .cover-header h2, .cover-header h3, .cover-header h4, .cover-header h5, .cover-header h6, .cover-header .faux-heading {

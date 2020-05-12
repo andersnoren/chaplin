@@ -183,6 +183,17 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.3 (2020-05-12)
+-------------------------
+- Removed unneccessary `z-index` property from `.cover-header .entry-header`, fixing overlap issue with the alt menu.
+- Positioned the sticky header below the admin bar, when the admin bar is displayed.
+- Increased the z-index value of the sticky header and the cover modals, to prevent z-index conflicts with blocks that apply high z-index values.
+- Improved the display of the menu modal and search modal when the admin bar is displayed.
+- Updated the horizontal main menu with logic for determining whether to expand sub levels to the left or right, depending on available screen space in either direction (thanks for the nudge, @psonetz).
+- Added four new actions to `header.php`, to make it easier to add custom content to the toggles and the header navigation.
+- Added four new actions to `menu-modal.php`, to make it easier to add custom content to the modal menu.
+- Replaced `esc_html()` with `wp_kses_post()` when outputting the site title and site description in the header, to preserve markup.
+
 Version 2.5.2 (2020-05-11)
 -------------------------
 - Fixed the padding for sub menu links unintentionally being applied to the sub menu toggles.

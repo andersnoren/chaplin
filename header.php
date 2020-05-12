@@ -66,7 +66,7 @@
 								$site_title_class = 'site-logo';
 							} else {
 								$site_title_class = 'site-title';
-								$home_link_contents = '<a href="' . esc_url( home_url( '/' ) ) . '" rel="home">' . esc_html( $site_title ) . '</a>';
+								$home_link_contents = '<a href="' . esc_url( home_url( '/' ) ) . '" rel="home">' . wp_kses_post( $site_title ) . '</a>';
 							}
 
 							if ( is_front_page() ) : ?>
@@ -76,12 +76,18 @@
 							<?php endif; ?>
 
 							<?php if ( $site_description ) : ?>
-								<div class="site-description"><?php echo esc_html( $site_description ); ?></div>
+								<div class="site-description"><?php echo wp_kses_post( $site_description ); ?></div>
 							<?php endif; ?>
 
 						</div><!-- .header-titles -->
 
 						<div class="header-navigation-wrapper">
+
+							<?php
+
+							do_action( 'chaplin_header_navigation_start' );
+
+							?>
 
 							<div class="main-menu-alt-container hide-js">
 
@@ -108,6 +114,8 @@
 
 								<?php
 
+								do_action( 'chaplin_header_toggles_start' );
+
 								// Check whether the header search is deactivated in the customizer
 								$disable_header_search = get_theme_mod( 'chaplin_disable_header_search', false );
 
@@ -133,7 +141,19 @@
 									</div><!-- .bars -->
 								</a><!-- .nav-toggle -->
 
+								<?php
+
+								do_action( 'chaplin_header_toggles_end' );
+
+								?>
+
 							</div><!-- .header-toggles -->
+
+							<?php
+
+							do_action( 'chaplin_header_navigation_end' );
+
+							?>
 
 						</div><!-- .header-navigation-wrapper -->
 

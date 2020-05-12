@@ -889,6 +889,7 @@ chaplin.scrollLock = {
 
 		// Then lock styles and state
 		$( 'html' ).css( appliedLock );
+		$( 'html' ).addClass( 'scroll-locked' );
 		$( 'html' ).attr( 'scroll-lock-top', prevScroll.scrollTop );
 		$win.scrollLeft( 0 ).scrollTop( 0 );
 
@@ -904,6 +905,7 @@ chaplin.scrollLock = {
 
 		// Revert styles and state
 		$( 'html' ).attr( 'style', $( '<x>' ).css( prevLockStyles ).attr( 'style' ) || '' );
+		$( 'html' ).removeClass( 'scroll-locked' );
 		$( 'html' ).attr( 'scroll-lock-top', '' );
 		$win.scrollLeft( prevScroll.scrollLeft ).scrollTop( prevScroll.scrollTop );
 
@@ -1010,8 +1012,12 @@ chaplin.mainMenu = {
 		// If the current menu item is in a sub level, expand all the levels higher up on load
 		chaplin.mainMenu.expandLevel();
 
+		// Determine the direction of sub menus in the alt menu
+		chaplin.mainMenu.directionCheck();
+
 	},
 
+	// If the current menu item is in a sub level, expand all the levels higher up on load
 	expandLevel: function() {
 		var $activeMenuItem = $( '.main-menu .current-menu-item' );
 
@@ -1024,6 +1030,30 @@ chaplin.mainMenu = {
 			} )
 		}
 	},
+
+	// Determine the direction of sub menus in the alt menu
+	directionCheck: function() {
+
+		$( '.main-menu-alt a' ).on( 'hover, focus', function() {
+			var $sub = $( this ).closest( 'li' ).find( 'ul' ).first();
+			if ( $sub.length ) {
+
+				$descendantSubs = $sub.find( 'ul' );
+
+				var subOffsetLeft = $sub.offset().left,
+					subOffsetRight = subOffsetLeft + $sub.outerWidth(),
+					winWidth = $win.width();
+
+				if ( subOffsetRight > winWidth ) {
+					$sub.add( $descendantSubs ).removeClass( 'expand-right' ).addClass( 'expand-left' );
+				} else if ( subOffsetLeft < 0 ) {
+					$sub.add( $descendantSubs ).removeClass( 'expand-left' ).addClass( 'expand-right' );
+				}
+
+			}
+		} );
+
+	}
 
 } // chaplin.mainMenu
 

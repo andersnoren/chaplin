@@ -21,6 +21,10 @@
 
 				</div><!-- .menu-modal-toggles -->
 
+				<?php 
+				do_action( 'chaplin_menu_modal_before_menu' );
+				?>
+
 				<ul class="main-menu reset-list-style">
 					<?php
 					if ( has_nav_menu( 'main-menu' ) ) {
@@ -41,18 +45,30 @@
 						);
 					}
 					?>
-				</ul>
+				</ul><!-- .main-menu -->
+
+				<?php 
+				do_action( 'chaplin_menu_modal_after_menu' );
+				?>
 
 			</div><!-- .menu-top -->
 
 			<div class="menu-bottom">
+
+				<?php
+				do_action( 'chaplin_menu_modal_bottom_start' );
+				?>
 
 				<p class="menu-copyright">&copy; <?php echo esc_html( date( 'Y' ) ); ?> <a href="<?php echo esc_url( home_url() ); ?>"><?php echo bloginfo( 'name' ); ?></a></p>
 
 				<?php
 				
 				// Output the social menu, if set
-				chaplin_the_social_menu(); ?>
+				chaplin_the_social_menu(); 
+
+				do_action( 'chaplin_menu_modal_bottom_end' );
+				
+				?>
 
 			</div><!-- .menu-bottom -->
 
