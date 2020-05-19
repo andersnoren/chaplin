@@ -445,7 +445,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 				'block-editor'		=> array(
 					// Typography
 					'body_font'				=> array(
-						'font-family'			=> '.editor-styles-wrapper > *, .editor-styles-wrapper .editor-post-title__block .editor-post-title__input',
+						'font-family'			=> '.editor-styles-wrapper > *, .editor-post-title__block .editor-post-title__input',
 					),
 					'headings_font'			=> array(
 						'font-family'			=> $headings_targets,

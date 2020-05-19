@@ -183,6 +183,18 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.5 (2020-05-19)
+-------------------------
+- Fixed the block editor post title being set in the body font when both the headings font and the body font is set in the Customizer (thanks, Thomas Cloer).
+
+Version 2.5.4 (2020-05-14)
+-------------------------
+- Fixed some issues with the sub menu `directionCheck` on the alt menu.
+- Removed the shadow from alt menu sub menus.
+- Fixed alt menu links having the wrong line height.
+- Removed an unneccessary `is_admin()` check in `wp_enqueue_scripts`.
+- Removed the 50% max width on `alignleft` and `alignright` when they have the `is-resized` class.
+
 Version 2.5.3 (2020-05-12)
 -------------------------
 - Removed unneccessary `z-index` property from `.cover-header .entry-header`, fixing overlap issue with the alt menu.

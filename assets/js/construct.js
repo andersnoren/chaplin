@@ -995,6 +995,7 @@ chaplin.focusManagement = {
 	dropdownFocus: function() {
 		$( '.dropdown-menu a' ).on( 'blur focus', function( e ) {
 			$( this ).parents( 'li.menu-item-has-children' ).toggleClass( 'focus' );
+			if ( e.type == 'focus' ) $( this ).trigger( 'focus-applied' );
 		} );
 	}
 
@@ -1034,8 +1035,13 @@ chaplin.mainMenu = {
 	// Determine the direction of sub menus in the alt menu
 	directionCheck: function() {
 
-		$( '.main-menu-alt a' ).on( 'hover, focus', function() {
+		// Note: the focus-applied event is triggered 
+		// by chaplin.focusManagement.dropdownFocus when
+		// the sub has been given the .focus class.
+
+		$( '.main-menu-alt ul a' ).on( 'hover focus-applied', function() {
 			var $sub = $( this ).closest( 'li' ).find( 'ul' ).first();
+			console.log( $sub );
 			if ( $sub.length ) {
 
 				$descendantSubs = $sub.find( 'ul' );

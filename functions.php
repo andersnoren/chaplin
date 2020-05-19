@@ -173,7 +173,7 @@ if ( ! function_exists( 'chaplin_register_scripts' ) ) :
 
 		$theme_version = wp_get_theme( 'chaplin' )->get( 'Version' );
 
-		if ( ( ! is_admin() ) && is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
 		}
 
