@@ -3,7 +3,7 @@ Contributors: Anlino
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=anders%40andersnoren%2ese&lc=US&item_name=Free%20WordPress%20Themes%20from%20Anders%20Noren&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.5
 Requires PHP: 5.4
-Tested up to: 5.4
+Tested up to: 5.4.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -182,6 +182,15 @@ Included as part of:
 
 
 == Changelog ==
+
+Version 2.5.6 (2020-05-20)
+-------------------------
+- Removed the extra 16 pixel margin below Gallery blocks when the gallery block has the `.wp-block-gallery > .blocks-gallery-grid` markup structure.
+- Bumped "Tested up to" to 5.4.1.
+- Added the "Tested up to" and "Requires PHP" header fields to `style.css`, per the new Theme Directory requirements.
+- Added social icon for Telegram (both telegram.me and t.me).
+- Tweaked the list styles, and changed some list styles from `entry-content` specific to global, reducing specificity and making them easier for blocks to overwrite.
+- Block Editor styles: Removed the default `max-width` of nested blocks and removed the max-width of paragraphs, making the behavior of nested blocks in the block editor more closely mirror the result on the front-end.
 
 Version 2.5.5 (2020-05-19)
 -------------------------

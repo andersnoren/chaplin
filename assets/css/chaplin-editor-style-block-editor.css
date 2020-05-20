@@ -31,6 +31,10 @@
 	max-width: 610px;
 }
 
+.wp-block .wp-block {
+	max-width: 100%;
+}
+
 .editor-styles-wrapper *[data-align="wide"] .wp-block-group .wp-block {
 	max-width: calc( 100% - 40px );
 }
@@ -712,10 +716,6 @@
 }
 
 /* Block: Paragraph -------------------------- */
-
-.wp-block[data-type="core/paragraph"] p {
-	max-width: 580px;
-}
 
 
 /* -------------------------------------------------------------------------------- */

@@ -2,7 +2,7 @@
 
 	Theme Name: Chaplin
     Text Domain: chaplin
-	Version: 2.5.5
+	Version: 2.5.6
 	Description: Chaplin is a feature-packed and developer friendly WordPress theme that gives you full control over the fonts and colors on your site. It is built from the ground-up with the new Block Editor in mind, and makes it easy to create good looking layouts on both posts and pages. This flexibility makes Chaplin suitable for pretty much any type of website, including business sites and portfolios. All of the fonts and colors in the theme can be easily modified within the Customizer, allowing you to create a unique look and feel for your site in less than a minute. All fonts on Google Fonts are supported, and you can choose one of the ten included color schemes or build one from scratch. Any changes you make to the fonts and colors are reflected in the editor styles for both the Block Editor and the Classic Editor, so you always have a good idea of the end result when you create your content. Chaplin also includes a cover template with a hero image (pictured in the screenshot), infinite scroll on archive pages, settings for what post meta to display on archive pages and single posts, custom logo support, two widget areas, a search overlay, full-width templates, a sticky header option, a social menu with icons, a responsive design, a lightweight construction to ensure quick load times, support for Jetpack Portfolio and CoBlocks, and much more. Demo: https://andersnoren.se/themes/chaplin/
 	Tags: blog, portfolio, grid-layout, one-column, custom-background, custom-colors, custom-logo, custom-menu, editor-style, featured-images, footer-widgets, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, full-width-template
 	Author: Anders Norén
@@ -10,6 +10,8 @@
 	Theme URI: https://www.andersnoren.se/teman/chaplin-wordpress-theme/
 	License: GNU General Public License version 2.0
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
+	Requires PHP: 5.4
+	Tested up to: 5.4.1
 	
 	All files, unless otherwise stated, are released under the GNU General Public License
 	version 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -266,16 +268,8 @@ a {
 
 ul,
 ol {
-	margin: 0 0 3rem 3rem;
+	margin: .5rem 0 3rem 3rem;
 }
-
-ul { list-style: disc; }
-ul ul { list-style: circle; }
-ul ul ul { list-style: square; }
-
-ol { list-style: decimal; }
-ol ol { list-style: lower-alpha; }
-ol ol ol { list-style: lower-roman; }
 
 li {
 	line-height: 1.5;
@@ -284,7 +278,7 @@ li {
 
 li > ul,
 li > ol {
-	margin: 1rem 0 0 2rem;
+	margin: .5rem 0 .5rem 2rem;
 }
 
 .reset-list-style,
@@ -1112,6 +1106,8 @@ ul.social-icons li {
 .s-icons a[href*="slack.com"]::before { content: '\f198'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="soundcloud.com"]::before { content: '\f1be'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="spotify.com"]::before { content: '\f1bc'; font-family: 'Font Awesome 5 Brands'; }
+.s-icons a[href*="telegram.me"]::before,
+.s-icons a[href*="//t.me"]::before { content: '\f3fe'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="tumblr.com"]::before { content: '\f173'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="twitch"]::before { content: '\f1e8'; font-family: 'Font Awesome 5 Brands'; }
 .s-icons a[href*="twitter.com"]::before { content: '\f099'; font-family: 'Font Awesome 5 Brands'; }
@@ -2548,6 +2544,11 @@ section.wp-block-cover-image > h2 {
 }
 
 /* Block: Gallery ---------------------------- */
+
+.wp-block-gallery > .blocks-gallery-grid {
+	margin-bottom: -1.6rem;
+}
+
 /* Block: Group ------------------------------ */
 
 .wp-block-group.has-background {
@@ -2885,13 +2886,6 @@ table.is-style-stripes tbody tr:nth-child( odd ),
 
 .entry-content a:hover {
 	text-decoration: underline;
-}
-
-.entry-content ul ul,
-.entry-content ol ol,
-.entry-content ul ol,
-.entry-content ol ul {
-	margin-bottom: 1rem;
 }
 
 /* Font Sizes -------------------------------- */
@@ -3372,15 +3366,6 @@ body.woocommerce-page .entry-content {
 	margin: 0 0 2.4rem;
 }
 
-.widget li {
-	margin-top: 1.4rem;
-}
-
-.widget li > ul, 
-.widget li > ol {
-	margin-top: 0;
-}
-
 /* Base List Widget -------------------------- */
 
 .chaplin-widget-list,
@@ -3398,7 +3383,7 @@ body.woocommerce-page .entry-content {
 .widget_pages ul ul,
 .widget_meta ul ul,
 .widget_nav_menu ul ul {
-	margin-left: 3rem;
+	margin: 0 0 0 3rem;
 }
 
 .widget_archive li,
