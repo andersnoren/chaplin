@@ -190,6 +190,7 @@ Version 2.5.7 (2020-05-20)
 Version 2.5.6 (2020-05-20)
 -------------------------
 - Removed the extra 16 pixel margin below Gallery blocks when the gallery block has the `.wp-block-gallery > .blocks-gallery-grid` markup structure.
+
 Version 2.5.6 (2020-05-20)
 -------------------------
 - Removed the extra 16 pixel margin below Gallery blocks when the gallery block has the `.wp-block-gallery > .blocks-gallery-grid` markup structure.
