@@ -21,7 +21,7 @@
 		}
 		?>
 
-		<a class="skip-link faux-button" href="#site-content"><?php _e( 'Skip to the content', 'chaplin' ); ?></a>
+		<a class="skip-link faux-button" href="#site-content"><?php esc_html_e( 'Skip to the content', 'chaplin' ); ?></a>
 
 		<?php
 

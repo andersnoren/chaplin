@@ -183,6 +183,17 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.8 (2020-06-05)
+-------------------------
+- Related posts updates (thanks, @databell96):
+	- Added a filter for which post types support related posts (default to post).
+	- Set related posts to default to the post type of the post being displayed.
+	- Updated the logic to relate by any terms of publicly queryable taxonomies the post is in.
+	- Added a filter for excluding specific taxonomies from being used in the related posts (defaults to post_format).
+	- Changed the related posts heading to a h2, to prevent skipping a heading level in the page hierarchy.
+	- Made the related posts `get_posts` arguments filterable.
+	- Used `global $post` before using `setup_postdata()`.
+
 Version 2.5.7 (2020-05-20)
 -------------------------
 - Fixed Chaplin including a righthand margin on the list item element for no good reason whatsoever.
