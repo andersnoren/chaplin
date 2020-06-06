@@ -264,7 +264,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 			/* P3 Colors --------------------- */
 
 			// Filter for whether to output P3 colors
-			$output_p3 = apply_filters( 'chaplin_output_p3_colors', true );
+			$output_p3 = apply_filters( 'chaplin_custom_css_output_p3_colors', true );
 
 			// Default value
 			$p3_value = '';
@@ -272,6 +272,41 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 			// P3 media query opening and closing
 			$p3_open =	'@supports ( color: color( display-p3 0 0 0 / 1 ) ) {';
 			$p3_close = '}';
+
+			/* CSS Variables ----------------- */
+
+			// Filter for whether to output CSS variables
+			$output_css_variables = apply_filters( 'chaplin_custom_css_output_variables', true );
+
+			if ( $output_css_variables ) {
+
+				$css_variables_string = '';
+
+				foreach ( $properties as $name => $data ) {
+
+					// Skip if we're missing a value, or if it's the same as the default
+					if ( ! $data['value'] || $data['value'] == $data['default'] ) continue;
+
+					$variable_name = '--' . str_replace( '_', '-', $name );
+
+					if ( $data['type'] == 'color' ) {
+						$variable_name .= '-color';
+					}
+
+					$variable_value = isset( $data['prefix'] ) ? $data['prefix'] : '';
+					$variable_value .= $data['value'];
+					$variable_value .= isset( $data['suffix'] ) ? $data['suffix'] : '';
+					
+					$css_variables_string .= $variable_name . ': ' . $variable_value . ';';
+
+				}
+
+				// Only output the wrapping scope if we have variables to output
+				if ( $css_variables_string ) {
+					$css .= ':root {' . $css_variables_string . '}';
+				}
+
+			}
 
 			/* CSS Elements ------------------ */
 
@@ -346,13 +381,13 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 			/* Helper Variables -------------- */
 
 			// Type specific helper variables
-			switch( $type ) {
+			switch ( $type ) {
 				case 'front-end' :
 					$headings_targets = apply_filters( 'chaplin_headings_targets_front_end', 'h1, h2, h3, h4, h5, h6, .faux-heading' );
 					$buttons_targets = apply_filters( 'chaplin_buttons_targets_front_end', 'button, .button, .faux-button, :root .wp-block-button__link, :root .wp-block-file a.wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']' );
 					break;
 				case 'block-editor' : 
-					$headings_targets = apply_filters( 'chaplin_headings_targets_block_editor', ':root .wp-block h1, :root .wp-block h2, :root .wp-block h3, :root .wp-block h4, :root .wp-block h5, :root .wp-block h6, .editor-post-title__block .editor-post-title__input' );
+					$headings_targets = apply_filters( 'chaplin_headings_targets_block_editor', ':root .wp-block h1, :root .wp-block h2, :root .wp-block h3, :root .wp-block h4, :root .wp-block h5, :root .wp-block h6, .editor-post-title__block .editor-post-title__input, .editor-post-title__block .editor-post-title__input:focus' );
 					$buttons_targets = apply_filters( 'chaplin_buttons_targets_block_editor', '.editor-styles-wrapper .faux-button, .wp-block-button__link, .editor-styles-wrapper :root .wp-block-file a.wp-block-file__button' );
 					break;
 				case 'classic-editor' : 
@@ -466,7 +501,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 					),
 					'primary'				=> array(
 						'background-color'		=> ':root .has-primary-background-color',
-						'color'					=> ':root .has-primary-color, .editor-styles-wrapper > *, .editor-styles-wrapper .editor-post-title__input',
+						'color'					=> ':root .has-primary-color, .editor-styles-wrapper > *',
 					),
 					'headings'				=> array(
 						'color'					=> $headings_targets,

@@ -133,6 +133,11 @@
 }
 
 .editor-post-title__block .editor-post-title__input,
+.editor-post-title__block .editor-post-title__input:focus {
+	color: inherit;
+}
+
+.editor-post-title__block .editor-post-title__input,
 .wp-block h1, 
 .wp-block h2, 
 .wp-block h3, 

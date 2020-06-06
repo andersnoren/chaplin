@@ -183,6 +183,14 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.9 (2020-06-06)
+-------------------------
+- Fixed the block editor title color being incorrect when focused (thanks, @craveiroraul).
+- Added the phone icon to social links with `tel:` in the URL (thanks, Frank Schmittlein).
+- Added Inter to the list of recommended fonts from Google Fonts.
+- Added output of CSS variables for the Customizer settings, to make it easier for child themes and custom CSS to make use of them without resorting to hard coded values. Can be disabled with the `chaplin_custom_css_output_variables` filter.
+- Renamed the filter for disabling P3 colors to `chaplin_custom_css_output_p3_colors`, to make it more consistent with the filter for disabling CSS variables.
+
 Version 2.5.8 (2020-06-05)
 -------------------------
 - Related posts updates (thanks, @databell96):

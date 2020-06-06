@@ -176,6 +176,7 @@ if ( ! class_exists( 'Chaplin_Google_Fonts' ) ) :
 				'Helvetica',
 				'IBM Plex Sans',
 				'IBM Plex Serif',
+				'Inter',
 				'Josefin Sans',
 				'Lato',
 				'Libre Baskerville',
