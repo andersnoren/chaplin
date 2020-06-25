@@ -402,19 +402,19 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 				'front-end'			=> array(
 					// Typography
 					'body_font'				=> array(
-						'font-family'			=> 'body',
+						'font-family'			=> 'body, .ff-body',
 					),
 					'headings_font'			=> array(
-						'font-family'			=> $headings_targets,
+						'font-family'			=> $headings_targets . ', .ff-headings',
 					),
 					'headings_weight'		=> array(
-						'font-weight'			=> $headings_targets,
+						'font-weight'			=> $headings_targets . ', .fw-headings',
 					),
 					'headings_case'			=> array(
-						'text-transform'		=> $headings_targets,
+						'text-transform'		=> $headings_targets . ', .tt-headings',
 					),
 					'headings_spacing'		=> array(
-						'letter-spacing'		=> $headings_targets,
+						'letter-spacing'		=> $headings_targets . ', .ls-headings',
 					),
 					// Colors
 					'background'			=> array(
@@ -467,7 +467,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 						'fill'					=> '.fill-children-border, .fill-children-border *',
 					),
 					'light_background'		=> array(
-						'background-color'		=> '.bg-light-background, .bg-light-background-hover:hover, :root .has-light-background-background-color, code, kbd, samp, .main-menu-alt ul, table.is-style-stripes tr:nth-child( odd )',
+						'background-color'		=> '.bg-light-background, .bg-light-background-hover:hover, :root .has-light-background-background-color, code, kbd, samp, table.is-style-stripes tr:nth-child( odd )',
 						'border-color'			=> '.border-color-light-background, .border-color-light-background-hover:hover',
 						'color'					=> '.color-light-background, .color-light-background-hover:hover, :root .has-light-background-color, .main-menu-alt ul',
 						'fill'					=> '.fill-children-light-background, .fill-children-light-background *',

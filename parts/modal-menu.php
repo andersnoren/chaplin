@@ -64,7 +64,7 @@
 				<?php
 				
 				// Output the social menu, if set
-				chaplin_the_social_menu(); 
+				chaplin_the_social_menu();
 
 				do_action( 'chaplin_menu_modal_bottom_end' );
 				

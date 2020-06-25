@@ -183,6 +183,13 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.10 (2020-06-25)
+-------------------------
+- Added helper classes for typography settings (body/headings font family, weight, letter spacing, casing, etc).
+- Increased the z-index value of the horizontal main menu sub menus, to reduce the risk for elements in content overlapping them (thanks, @jonasschoen).
+- Removed unnecessary `.main-menu-alt ul` background color property from the custom color CSS output.
+- Fixed alignwide width not matching the inner sections on mobile.
+
 Version 2.5.9 (2020-06-06)
 -------------------------
 - Fixed the block editor title color being incorrect when focused (thanks, @craveiroraul).
