@@ -183,6 +183,13 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.11 (2020-06-29)
+-------------------------
+- Fixed the pagination not showing up on the last page when showing previous/next page links (thanks, Stefan Vetter).
+- Fixed the History API URL updates when a posts page is set and permalinks lack trailing slash (dito).
+- Fixed the button background color and color settings in the Customizer overwriting color settings in the Block Editor for specific buttons (dito).
+- Fixed the text color of the outline buttons not reflecting the color setting in the Customizer.
+
 Version 2.5.10 (2020-06-25)
 -------------------------
 - Added helper classes for typography settings (body/headings font family, weight, letter spacing, casing, etc).

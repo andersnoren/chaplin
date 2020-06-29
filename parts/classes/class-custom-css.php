@@ -384,7 +384,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 			switch ( $type ) {
 				case 'front-end' :
 					$headings_targets = apply_filters( 'chaplin_headings_targets_front_end', 'h1, h2, h3, h4, h5, h6, .faux-heading' );
-					$buttons_targets = apply_filters( 'chaplin_buttons_targets_front_end', 'button, .button, .faux-button, :root .wp-block-button__link, :root .wp-block-file a.wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']' );
+					$buttons_targets = apply_filters( 'chaplin_buttons_targets_front_end', 'button, .button, .faux-button, .wp-block-button__link, :root .wp-block-file a.wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']' );
 					break;
 				case 'block-editor' : 
 					$headings_targets = apply_filters( 'chaplin_headings_targets_block_editor', ':root .wp-block h1, :root .wp-block h2, :root .wp-block h3, :root .wp-block h4, :root .wp-block h5, :root .wp-block h6, .editor-post-title__block .editor-post-title__input, .editor-post-title__block .editor-post-title__input:focus' );
@@ -449,12 +449,12 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 					'accent'				=> array(
 						'background-color'		=> '.bg-accent, .bg-accent-hover:hover, :root .has-accent-background-color, ' . $buttons_targets,
 						'border-color'			=> '.border-color-accent, .border-color-accent-hover:hover, blockquote',
-						'color'					=> '.color-accent, .color-accent-hover:hover, :root .has-accent-color, a, .wp-block-button.is-style-outline, .wp-block-button__link.is-style-outline',
+						'color'					=> '.color-accent, .color-accent-hover:hover, :root .has-accent-color, a, .is-style-outline .wp-block-button__link:not(.has-text-color), .wp-block-button__link.is-style-outline',
 						'fill'					=> '.fill-children-accent, .fill-children-accent *',
 					),
 					'buttons_background'	=> array(
 						'background-color'		=> $buttons_targets . ', :root .has-buttons-background-background-color',
-						'color'					=> ':root .has-buttons-background-color, .wp-block-button.is-style-outline, .wp-block-button__link.is-style-outline',
+						'color'					=> ':root .has-buttons-background-color, .is-style-outline .wp-block-button__link:not(.has-text-color), .wp-block-button__link.is-style-outline',
 					),
 					'buttons_text'			=> array(
 						'background-color'		=> ':root .has-buttons-text-background-color',

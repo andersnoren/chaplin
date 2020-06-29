@@ -31,31 +31,30 @@ if ( ! array_key_exists( 'paged', $query_args ) || 0 == $query_args['paged'] ) {
 // Encode our modified query
 $json_query_args = wp_json_encode( $query_args ); 
 
+$wrapper_classes 	= '';
+$pagination_classes = '';
+
+$wrapper_classes 	.= ' pagination-type-' . $pagination_type;
+$pagination_classes .= ' pagination-type-' . $pagination_type;
+
 // Indicate when we're loading into the last page, so the pagination can be hidden for the button and scroll types
-if ( ! ( $query_args['max_num_pages'] > $query_args['paged'] ) ) {
-	$wrapper_class = ' loaded-last-page';
-} else {
-	$wrapper_class = '';
+if ( $query_args['max_num_pages'] == $query_args['paged'] ) {
+	$wrapper_classes .= ' loaded-last-page';
 }
 
-if ( ( $query_args['max_num_pages'] > $query_args['paged'] ) ) : ?>
+if ( ( $query_args['max_num_pages'] >= $query_args['paged'] ) ) : ?>
 
-	<div class="pagination-wrapper section-inner <?php echo esc_attr( $wrapper_class ); ?>">
+	<div class="pagination-wrapper section-inner<?php echo esc_attr( $wrapper_classes ); ?>">
 
-		<div id="pagination" class="pagination-type-<?php echo esc_attr( $pagination_type ); ?>" data-query-args="<?php echo esc_attr( $json_query_args ); ?>" data-pagination-type="<?php echo esc_attr( $pagination_type ); ?>" data-load-more-target=".load-more-target">
+		<div id="pagination" class="<?php echo esc_attr( $pagination_classes ); ?>" data-query-args="<?php echo esc_attr( $json_query_args ); ?>" data-pagination-type="<?php echo esc_attr( $pagination_type ); ?>" data-load-more-target=".load-more-target">
 
 			<?php if ( $pagination_type == 'button' ) : ?>
-
 				<button id="load-more"><?php esc_html_e( 'Load More', 'chaplin' ); ?></button>
-
 			<?php endif; ?>
 
 			<?php if ( in_array( $pagination_type, array( 'button', 'scroll' ) ) ) : ?>
-
 				<p class="out-of-posts"><?php esc_html_e( 'Nothing left to load.', 'chaplin' ); ?></p>
-
 				<div class="loading-icon"><?php chaplin_loading_indicator(); ?></div>
-
 			<?php endif;
 
 			// The pagination links also work as a no-js fallback, so they always need to be output
@@ -64,17 +63,17 @@ if ( ( $query_args['max_num_pages'] > $query_args['paged'] ) ) : ?>
 
 			if ( $has_previous_link || $has_next_link ) :
 
-				$pagination_class = '';
+				$link_pagination_classes = '';
 
 				if ( ! $has_previous_link ) {
-					$pagination_class = ' only-next';
+					$link_pagination_classes = ' only-next';
 				} elseif ( ! $has_next_link ) {
-					$pagination_class = ' only-previous';
+					$link_pagination_classes = ' only-previous';
 				}
 
 				?>
 
-				<nav class="link-pagination<?php echo esc_attr( $pagination_class ); ?>">
+				<nav class="link-pagination<?php echo esc_attr( $link_pagination_classes ); ?>">
 
 					<?php if ( get_previous_posts_link() ) : ?>
 						<?php previous_posts_link( '<span class="arrow" aria-hidden="true">&larr;</span> ' . __( 'Previous page', 'chaplin' ) ); ?>
