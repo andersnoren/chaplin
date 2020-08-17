@@ -31,7 +31,7 @@
 		Add the values of the checked checkboxes to the hidden input
 	--------------------------------------------------------------------------------------------------- */
 
-	$( '.customize-control-checkbox-multiple input[type="checkbox"]' ).live( 'change', function() {
+	$( document ).on( 'change', '.customize-control-checkbox-multiple input[type="checkbox"]', function() {
 
 		// Get the values of all of the checkboxes into a comma seperated variable
 		checkbox_values = $( this ).parents( '.customize-control' ).find( 'input[type="checkbox"]:checked' ).map(
@@ -55,7 +55,7 @@
 		Update the color pickers when a new color scheme is selected
 	--------------------------------------------------------------------------------------------------- */
 
-	$( '#customize-control-chaplin_color_schemes_selector .chaplin-color-scheme-control input' ).live( 'change', function() {
+	$( document ).on( 'change', '#customize-control-chaplin_color_schemes_selector .chaplin-color-scheme-control input', function() {
 
 		if ( $( this ).is( ':checked' ) ) {
 

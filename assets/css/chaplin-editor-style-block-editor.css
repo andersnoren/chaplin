@@ -73,6 +73,14 @@
 	max-width: 620px;
 }
 
+.editor-styles-wrapper *[data-align="wide"] > [data-type="core/group"] {
+	max-width: 1120px !important;
+}
+
+.editor-styles-wrapper *[data-align="full"] > [data-type="core/group"] {
+	max-width: none !important;
+}
+
 .editor-styles-wrapper .editor-rich-text__tinymce,
 .editor-styles-wrapper .editor-rich-text__tinymce.mce-content-body {
 	line-height: 1.5;
