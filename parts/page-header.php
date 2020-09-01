@@ -4,7 +4,7 @@
 	
 	do_action( 'chaplin_entry_header_start', $post->ID );
 
-	if ( is_front_page() ) {
+	if ( is_front_page() && is_home() ) {
 		the_title( '<div class="entry-title faux-heading heading-size-1">', '</div>' );
 	} else {
 		the_title( '<h1 class="entry-title">', '</h1>' );

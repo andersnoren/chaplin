@@ -183,6 +183,11 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.13 (2020-09-01)
+-------------------------
+- Updated the site title in the header to only be wrapped in a H1 element on a front page set to display latest posts (thanks, wporgspix).
+- Removed unnecessary styling for inline text elements styled with browser defaults (italics, inserts, bold).
+
 Version 2.5.12 (2020-08-17)
 -------------------------
 - Updated the block editor styles alignment of Group blocks to work in WordPress 5.5 (thanks, @mrwweb).
