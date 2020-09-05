@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.14 (2020-09-05)
+-------------------------
+- Block editor editor styles: Fixed the headings not being set in the font set in the Customizer due to markup changes in WP 5.5 (thanks, @mrwweb).
+
 Version 2.5.13 (2020-09-01)
 -------------------------
 - Updated the site title in the header to only be wrapped in a H1 element on a front page set to display latest posts (thanks, wporgspix).
