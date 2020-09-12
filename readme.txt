@@ -3,7 +3,7 @@ Contributors: Anlino
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=anders%40andersnoren%2ese&lc=US&item_name=Free%20WordPress%20Themes%20from%20Anders%20Noren&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.5
 Requires PHP: 5.4
-Tested up to: 5.5
+Tested up to: 5.5.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -182,6 +182,10 @@ Included as part of:
 
 
 == Changelog ==
+
+Version 2.5.15 (2020-09-12)
+-------------------------
+- Fixed the block editor block inserter "plus" character not being visible in WordPress 5.5, due to legacy code making it visible with all color settings in earlier WordPress versions (thanks, @mrwweb).
 
 Version 2.5.14 (2020-09-05)
 -------------------------
