@@ -58,7 +58,7 @@
 			<div class="cover-header-inner-wrapper">
 				<div class="cover-header-inner">
 					<div class="cover-color-overlay color-accent<?php echo esc_attr( $color_overlay_classes ); ?>"<?php echo $color_overlay_style; ?>></div>
-					<?php the_post_thumbnail(); ?>
+					<?php the_post_thumbnail( 'chaplin_fullscreen' ); ?>
 					<div class="section-inner<?php echo esc_attr( $section_inner_classes ); ?>">
 						<?php get_template_part( 'parts/page-header' ); ?>
 					</div><!-- .section-inner -->

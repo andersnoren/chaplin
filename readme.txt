@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.16 (2020-09-16)
+-------------------------
+- Fixed the cover template featured image being loaded in two different image sizes, resulting in increased page size (thanks, @jvjerde).
+
 Version 2.5.15 (2020-09-12)
 -------------------------
 - Fixed the block editor block inserter "plus" character not being visible in WordPress 5.5, due to legacy code making it visible with all color settings in earlier WordPress versions (thanks, @mrwweb).
