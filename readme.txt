@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.17 (2020-10-12)
+-------------------------
+- Fixed gallery blocks not being full-width when the images contained in them are thinner than the width of the section.
+
 Version 2.5.16 (2020-09-16)
 -------------------------
 - Fixed the cover template featured image being loaded in two different image sizes, resulting in increased page size (thanks, @jvjerde).
