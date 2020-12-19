@@ -66,7 +66,7 @@
 			</div><!-- .cover-header-inner-wrapper -->
 		</div><!-- .cover-header -->
 
-	<?php 
+		<?php 
 	
 	// On all other pages, output the regular page header
 	else : 

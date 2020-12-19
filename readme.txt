@@ -183,6 +183,20 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.5.18 (2020-12-19)
+-------------------------
+- Reduce risk of errors given by the $iteration incremenent variable in the posts loop by parsing as integer.
+- Fixed flex issue with the file block button.
+- Fixed potential issue with gallery item width when the image is linked and less wide than the wrapping figure element.
+- Renamed the Main Menu theme location to match the naming of the other menus (from "Main menu" to "Main Menu").
+- Fixed previews outputting the images of password protected content when the image aspect ratio wasn't set to `original`.
+- Adjusted the fallback image to use the `post_thumbnail_html` filter, which makes it possible for the fallback image to be displayed in block editor content (like the posts block).
+- Improved the preview media image output, and added better image output checks for password protected posts.
+- Added password protected check to image output in recent posts widget.
+- Editor styles: Changed horizontal margins of blocks to `auto`, to work with the new markup structure in 5.6.
+- Editor styles: Updated post grid styles to fix the columns breaking in 5.6.
+- Fixed WooCommerce JS conflict in chaplin.smoothScroll().
+
 Version 2.5.17 (2020-10-12)
 -------------------------
 - Fixed gallery blocks not being full-width when the images contained in them are thinner than the width of the section.

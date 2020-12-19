@@ -212,7 +212,7 @@ if ( ! function_exists( 'chaplin_menus' ) ) :
 
 		// Register menus
 		$locations = array(
-			'main-menu'   => __( 'Main menu', 'chaplin' ),
+			'main-menu'   => __( 'Main Menu', 'chaplin' ),
 			'footer-menu' => __( 'Footer Menu', 'chaplin' ),
 			'social-menu' => __( 'Social Menu', 'chaplin' ),
 		);
@@ -609,7 +609,7 @@ if ( ! function_exists( 'chaplin_ajax_load_more' ) ) :
 		}
 
 		// Calculate the current offset
-		$iteration = $ajax_query->query['posts_per_page'] * $ajax_query->query['paged'];
+		$iteration = intval( $ajax_query->query['posts_per_page'] ) * intval( $ajax_query->query['paged'] );
 
 		if ( $ajax_query->have_posts() ) :
 			while ( $ajax_query->have_posts() ) : $ajax_query->the_post();

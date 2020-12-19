@@ -45,7 +45,7 @@
 				<?php 
 
 				// Calculate the current offset
-				$iteration = $wp_query->get( 'posts_per_page' ) * $wp_query->get( 'paged' );
+				$iteration = intval( $wp_query->get( 'posts_per_page' ) ) * intval( $wp_query->get( 'paged' ) );
 
 				while ( have_posts() ) : the_post(); 
 

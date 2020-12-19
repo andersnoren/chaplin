@@ -97,9 +97,7 @@ if ( ! function_exists( 'chaplin_get_fallback_image_url' ) ) :
 
 		$disable_fallback_image = get_theme_mod( 'chaplin_disable_fallback_image', false );
 
-		if ( $disable_fallback_image ) {
-			return '';
-		}
+		if ( $disable_fallback_image ) return '';
 
 		$fallback_image_id = get_theme_mod( 'chaplin_fallback_image' );
 
@@ -116,21 +114,94 @@ endif;
 
 
 /* ---------------------------------------------------------------------------------------------
-   OUTPUT FALLBACK IMAGE
+   OUTPUT AND RETURN FALLBACK IMAGE
    --------------------------------------------------------------------------------------------- */
 
 if ( ! function_exists( 'chaplin_the_fallback_image' ) ) :
 	function chaplin_the_fallback_image() {
 
-		$fallback_image_url = chaplin_get_fallback_image_url();
-
-		if ( ! $fallback_image_url ) {
-			return;
-		}
-
-		echo '<img src="' . esc_attr( $fallback_image_url ) . '" class="fallback-featured-image" />';
+		echo chaplin_get_fallback_image();
 
 	}
+endif;
+
+if ( ! function_exists( 'chaplin_get_fallback_image' ) ) :
+	function chaplin_get_fallback_image() {
+
+		$fallback_image_url = chaplin_get_fallback_image_url();
+
+		if ( ! $fallback_image_url ) return;
+
+		return '<img src="' . esc_attr( $fallback_image_url ) . '" class="fallback-featured-image" />';
+
+	}
+endif;
+
+
+/* ---------------------------------------------------------------------------------------------
+   FILTER POST THUMBNAIL HTML TO INCLUDE FALLBACK IMAGE
+   If a post thumbnail isn't set, filter 
+------------------------------------------------------------------------------------------------ */
+
+if ( ! function_exists( 'chaplin_filter_fallback_image' ) ) :
+	function chaplin_filter_fallback_image( $html, $post_id, $post_thumbnail_id ) {
+
+		// If this is the featured image of the post currently being displayed, don't modify the html.
+		// I.e. don't show the fallback image for the main image of a singular post or page.
+		if ( is_single( $post_id ) || is_page( $post_id ) ) return $html;
+
+		// Make the disable fallback image variable filterable in child themes and plugins
+		$disable_fallback_image = get_theme_mod( 'chaplin_disable_fallback_image', false );
+		$disable_fallback_image = apply_filters( 'chaplin_disable_fallback_image_on_post', $disable_fallback_image, $post_id, $post_thumbnail_id );
+
+		// If the post is password protected, return the fallback image (or an empty string, if the fallback image is disabled).
+		if ( post_password_required( $post_id ) ) {
+			return chaplin_get_fallback_image();
+
+		// If there's an image already set, return it.
+		} else if ( $html ) {
+			return $html;
+
+		// If not, and the fallback image is not disabled, return the fallback image.
+		} else if ( ! $disable_fallback_image ) {
+			return chaplin_get_fallback_image();
+
+		// If not, and the fallback image is disabled, return nothing.
+		} else {
+			return '';
+		}
+
+	}
+	add_filter( 'post_thumbnail_html', 'chaplin_filter_fallback_image', 10, 3 );
+endif;
+
+
+/* ---------------------------------------------------------------------------------------------
+   FILTER HAS_POST_THUMBNAIL TO MATCH FALLBACK IMAGE VALUE
+   If the fallback image is enabled, make sure the has_post_thumbnail() reflects that when a post 
+   thumbnail isn't set.
+------------------------------------------------------------------------------------------------ */
+
+if ( ! function_exists( 'chaplin_filter_has_post_thumbnail' ) ) :
+	function chaplin_filter_has_post_thumbnail( $has_thumbnail, $post_id ) {
+
+		// If this is the featured image of the post currently being displayed, don't modify the has_thumbnail variable.
+		// I.e. don't show the fallback image for the main image of a singular post or page.
+		if ( is_single( $post_id ) || is_page( $post_id ) ) return $has_thumbnail;
+
+		$disable_fallback_image = get_theme_mod( 'chaplin_disable_fallback_image', false );
+
+		// If the fallback image is disabled, return the original $has_thumbnail value (true if there's a featured image set).
+		if ( $disable_fallback_image ) {
+			return $has_thumbnail;
+
+		// If the fallback image is enabled, there's always a featured image, so return true.
+		} else {
+			return true;
+		}
+
+	}
+	add_filter( 'has_post_thumbnail', 'chaplin_filter_has_post_thumbnail', 10, 2 );
 endif;
 
 

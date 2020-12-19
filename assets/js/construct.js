@@ -614,17 +614,19 @@ chaplin.smoothScroll = {
 	init: function() {
 
 		// Scroll to on-page elements by hash
-		$( 'body:not(.disable-smooth-scroll) a[href*="#"]' ).not( '[href="#"]' ).not( '[href="#0"]' ).not( '.do-not-smooth-scroll' ).on( 'click', function( event ) {
+		$( 'body:not(.disable-smooth-scroll) a[href*="#"]' ).not( '[href="#"]' ).not( '[href="#0"]' ).not( '.do-not-smooth-scroll' ).on( 'click', function( e ) {
 			if ( location.pathname.replace(/^\//, '' ) == this.pathname.replace(/^\//, '' ) && location.hostname == this.hostname ) {
 				var $target = $( this.hash ).length ? $( this.hash ) : $( '[name=' + this.hash.slice(1) + ']' );
 				chaplin.smoothScroll.scrollToTarget( $target, $( this ) );
+				e.preventDefault();
 			}
 		} );
 
 		// Scroll to elements specified with a data attribute
-		$( 'body:not(.disable-smooth-scroll) *[data-scroll-to]' ).on( 'click', function( event ) {
+		$( 'body:not(.disable-smooth-scroll) *[data-scroll-to]' ).on( 'click', function( e ) {
 			var $target = $( $( this ).data( 'scroll-to' ) );
 			chaplin.smoothScroll.scrollToTarget( $target, $( this ) );
+			e.preventDefault();
 		} );
 
 	},
@@ -633,8 +635,6 @@ chaplin.smoothScroll = {
 	scrollToTarget: function( $target, $clickElem ) {
 
 		if ( $target.length ) {
-
-			event.preventDefault();
 
 			var additionalOffset 	= 0,
 				scrollSpeed			= 500;

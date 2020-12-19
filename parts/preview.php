@@ -1,47 +1,44 @@
 <article <?php post_class( 'preview preview-' . get_post_type() ); ?> id="post-<?php the_ID(); ?>">
 
-	<?php
+	<?php 
+	
+	if ( has_post_thumbnail( $post->ID ) ) :
 
-	$fallback_image_url = chaplin_get_fallback_image_url();
+		$fallback_image_url = chaplin_get_fallback_image_url();
 
-	if ( ( has_post_thumbnail() && ! post_password_required() ) || $fallback_image_url ) : ?>
+		$image_size 	= chaplin_get_preview_image_size();
+		$image_url 		= get_the_post_thumbnail_url( $post->ID, $image_size ) ?: $fallback_image_url;
 
-		<figure class="preview-media">
+		// If the post is password protected, show the fallback image (or no image, if the fallback image option is disabled)
+		if ( post_password_required( $post->ID ) ) {
+			$image_url = $fallback_image_url;
+		}
 
-			<?php
+		if ( $image_url ) : 
 
-			$aspect_ratio = get_theme_mod( 'chaplin_preview_image_aspect_ratio', '16x10' );
-			$image_size = chaplin_get_preview_image_size();
+			$aspect_ratio 			= get_theme_mod( 'chaplin_preview_image_aspect_ratio', '16x10' );
+			$image_link_classes 	= '';
+			$image_link_style_attr 	= '';
 
-			if ( has_post_thumbnail() && ! post_password_required() ) {
-				$image_url = get_the_post_thumbnail_url( $post->ID, $image_size );
-			} else {
-				$image_url = $fallback_image_url;
+			if ( $aspect_ratio !== 'original' ) {
+				$image_link_classes 	= ' faux-image aspect-ratio-' . $aspect_ratio;
+				$image_link_style_attr 	= ' style="background-image: url( ' . esc_url( $image_url ) . ' );"';
 			}
 
-			if ( $aspect_ratio !== 'original' ) : ?>
+			?>
 
-				<a href="<?php the_permalink(); ?>" class="faux-image aspect-ratio-<?php echo $aspect_ratio; ?>" style="background-image: url( <?php echo esc_attr( $image_url ); ?> );">
-					<?php the_post_thumbnail( $image_size ); ?>
+			<figure class="preview-media">
+
+				<a href="<?php the_permalink(); ?>" class="preview-media-link<?php echo esc_attr( $image_link_classes ); ?>"<?php echo $image_link_style_attr; ?>>
+					<?php the_post_thumbnail( $post->ID, $image_size ); ?>
 				</a>
 
-			<?php else : ?>
+			</figure><!-- .preview-media -->
 
-				<a href="<?php the_permalink(); ?>">
-					<?php 
-					if ( has_post_thumbnail() && ! post_password_required() ) {
-						the_post_thumbnail( $post->ID, $image_size ); 
-					} else {
-						echo '<img src="' . esc_url( $fallback_image_url ) . '" />';
-					}
-					?>
-				</a>
-
-			<?php endif; ?>
-			
-		</figure><!-- .preview-media -->
-
-	<?php endif; ?>
+			<?php 
+		endif;
+	endif; 
+	?>
 
 	<header class="preview-header">
 

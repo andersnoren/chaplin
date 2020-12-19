@@ -33,6 +33,8 @@ class Chaplin_Recent_Posts extends WP_Widget {
 
 		global $post;
 
+		$fallback_image_url = chaplin_get_fallback_image_url();
+
 		$ignore = get_option( 'sticky_posts' );
 
 		$recent_posts = get_posts( array(
@@ -55,12 +57,17 @@ class Chaplin_Recent_Posts extends WP_Widget {
 
 						<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
 
-							<?php
-							$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'thumbnail' );
-							$image_url = $image ? $image[0] : chaplin_get_fallback_image_url();
+							<?php 
+							if ( post_password_required( $post->ID ) ) {
+								$image_url = $fallback_image_url;
+							} else {
+								$image_url = get_the_post_thumbnail_url( $post->ID, 'thumbnail' ) ?: $fallback_image_url; 
+							}
 							?>
 
-							<div class="post-image" style="background-image: url( <?php echo esc_url( $image_url ); ?> );"></div>
+							<?php if ( $image_url ) : ?>
+								<figure class="post-image" style="background-image: url( <?php echo esc_url( $image_url ); ?> );"></figure>
+							<?php endif; ?>
 
 							<div class="inner">
 
