@@ -110,6 +110,20 @@
 
 							</div><!-- .main-menu-alt-container -->
 
+							<?php
+
+							// Check whether to display the social menu in the header on desktop
+							$show_desktop_header_social_menu = get_theme_mod( 'chaplin_show_desktop_header_social_menu', true );
+
+							if ( $show_desktop_header_social_menu ) :
+								?>
+								<div class="main-menu-alt-social-container">
+									<?php chaplin_the_social_menu(); ?>
+								</div><!-- .main-menu-alt-social-container' -->
+								<?php
+							endif;
+							?>
+
 							<div class="header-toggles hide-no-js">
 
 								<?php
@@ -119,7 +133,8 @@
 								// Check whether the header search is deactivated in the customizer
 								$disable_header_search = get_theme_mod( 'chaplin_disable_header_search', false );
 
-								if ( ! $disable_header_search ) : ?>
+								if ( ! $disable_header_search ) : 
+									?>
 
 									<a href="#" class="toggle search-toggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field" aria-pressed="false">
 										<div class="toggle-text">
@@ -128,7 +143,9 @@
 										<?php chaplin_the_theme_svg( 'search' ); ?>
 									</a><!-- .search-toggle -->
 
-								<?php endif; ?>
+									<?php 
+								endif;
+								?>
 
 								<a href="#" class="toggle nav-toggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal" aria-pressed="false" data-set-focus=".menu-modal">
 									<div class="toggle-text">

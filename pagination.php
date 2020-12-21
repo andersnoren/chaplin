@@ -22,10 +22,8 @@ if ( ! array_key_exists( 'post_status', $query_args ) ) {
 
 // Make sure the paged value exists and is at least 1
 if ( ! array_key_exists( 'paged', $query_args ) || 0 == $query_args['paged'] ) {
-
 	// The page that will be loaded
 	$query_args['paged'] = 1;
-
 }
 
 // Encode our modified query

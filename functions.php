@@ -143,7 +143,7 @@ if ( ! function_exists( 'chaplin_register_styles' ) ) :
 		$load_font_awesome = apply_filters( 'chaplin_load_font_awesome', has_nav_menu( 'social-menu' ) );
 
 		if ( $load_font_awesome ) {
-			wp_register_style( 'chaplin-font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.css', false, 1.0, 'all' );
+			wp_register_style( 'chaplin-font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.css', false, "5.15.1", 'all' );
 			$css_dependencies[] = 'chaplin-font-awesome';
 		}
 
@@ -237,6 +237,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 
 		// Determine type of infinite scroll
 		$pagination_type = get_theme_mod( 'chaplin_pagination_type', 'button' );
+		
 		switch ( $pagination_type ) {
 			case 'button':
 				$classes[] = 'pagination-type-button';
@@ -727,6 +728,60 @@ if ( ! function_exists( 'chaplin_add_classic_editor_customizer_styles' ) ) :
 
 	}
 	add_filter( 'tiny_mce_before_init', 'chaplin_add_classic_editor_customizer_styles' );
+endif;
+
+
+/* ---------------------------------------------------------------------------------------------
+   FILTER NAV MENU WIDGET ARGUMENTS FOR SOCIAL MENU
+   Adjust the styling of the nav menu widget when it's set to display the social menu.
+
+   @param array $nav_menu_args	The arguments for wp_nav_menu.
+   @param obj $nav_menu			The menu set to be displayed.
+   --------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_widget_nav_menu_args' ) ) :
+	function chaplin_widget_nav_menu_args( $nav_menu_args, $nav_menu ) {
+
+		// Get the social menu
+		$theme_locations 	= get_nav_menu_locations();
+		$social_menu 		= get_term( $theme_locations['social-menu'], 'nav_menu' );
+		$social_menu_id 	= isset( $social_menu->term_id ) ? $social_menu->term_id : null;
+
+		// If we're not outputting the social menu, return the existing args
+		if ( $social_menu_id !== $nav_menu->term_id ) return $nav_menu_args;
+
+		// If we are outputting the social menu, modify the args to match the social menu
+		$nav_menu_args = wp_parse_args( $nav_menu_args, chaplin_get_social_menu_args() );
+
+		return $nav_menu_args;
+
+	}
+	add_filter( 'widget_nav_menu_args', 'chaplin_widget_nav_menu_args', 10, 2 );
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
+	GET SOCIAL MENU WP_NAV_MENU ARGS
+	Return the social menu arguments for wp_nav_menu().
+
+	@param array $args		Arguments to use in conjunction with the default arguments.
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_get_social_menu_args' ) ) :
+	function chaplin_get_social_menu_args( $args = array() ) {
+
+		return $args = wp_parse_args( $args, array(
+			'theme_location'	=> 'social-menu',
+			'container'			=> '',
+			'container_class'	=> '',
+			'menu_class'		=> 'social-menu reset-list-style social-icons s-icons',
+			'depth'				=> 1,
+			'link_before'		=> '<span class="screen-reader-text">',
+			'link_after'		=> '</span>',
+			'fallback_cb'		=> '',
+		) );
+
+	}
 endif;
 
 

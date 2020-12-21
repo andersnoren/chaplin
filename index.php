@@ -4,8 +4,8 @@
 
 	<?php
 
-	$archive_title = get_the_archive_title();
-	$archive_subtitle = get_the_archive_description( '<div>', '</div>' );
+	$archive_title 		= get_the_archive_title();
+	$archive_subtitle 	= get_the_archive_description( '<div>', '</div>' );
 
 	// Check if we should show the archive header on the blog page
 	$show_home_header = get_theme_mod( 'chaplin_show_archive_header_on_home', false );
@@ -14,17 +14,25 @@
 		
 		<header class="archive-header section-inner">
 
-			<?php do_action( 'chaplin_archive_header_start' ); ?>
-
-			<?php if ( $archive_title ) : ?>
+			<?php 
+			
+			do_action( 'chaplin_archive_header_start' );
+			
+			if ( $archive_title ) : 
+				?>
 				<h1 class="archive-title"><?php echo wp_kses_post( $archive_title ); ?></h1>
-			<?php endif; ?>
-
-			<?php if ( $archive_subtitle ) : ?>
+				<?php 
+			endif;
+			
+			if ( $archive_subtitle ) : 
+				?>
 				<div class="archive-subtitle section-inner thin max-percentage intro-text"><?php echo wp_kses_post( wpautop( $archive_subtitle ) ); ?></div>
-			<?php endif; ?>
-
-			<?php do_action( 'chaplin_archive_header_end' ); ?>
+				<?php 
+			endif;
+			
+			do_action( 'chaplin_archive_header_end' ); 
+			
+			?>
 			
 		</header><!-- .archive-header -->
 
@@ -34,6 +42,9 @@
 
 		<?php if ( have_posts() ) : 
 
+			/*
+			* @hooked chaplin_output_previous_posts_link - 10
+			*/
 			do_action( 'chaplin_posts_start' );
 
 			$post_grid_column_classes = chaplin_get_post_grid_column_classes();

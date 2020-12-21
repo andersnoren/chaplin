@@ -295,29 +295,11 @@ endif;
 if ( ! function_exists( 'chaplin_the_social_menu' ) ) :
 	function chaplin_the_social_menu( $args = array() ) {
 
-		$args = wp_parse_args( $args, array(
-			'theme_location'	=> 'social-menu',
-			'container'			=> '',
-			'container_class'	=> '',
-			'items_wrap'		=> '%3$s',
-			'menu_id'			=> '',
-			'menu_class'		=> '',
-			'depth'				=> 1,
-			'link_before'		=> '<span class="screen-reader-text">',
-			'link_after'		=> '</span>',
-			'fallback_cb'		=> '',
-		) );
+		$social_args = chaplin_get_social_menu_args( $args );
 
-		if ( has_nav_menu( $args['theme_location'] ) ) : ?>
-
-			<ul class="social-menu reset-list-style social-icons s-icons">
-
-				<?php wp_nav_menu( $args ); ?>
-
-			</ul><!-- .social-menu -->
-
-			<?php 
-		endif;
+		if ( has_nav_menu( $social_args['theme_location'] ) ) {
+			wp_nav_menu( $social_args );
+		}
 
 	}
 endif;
@@ -326,6 +308,8 @@ endif;
 /*	-----------------------------------------------------------------------------------------------
 	IS COMMENT BY POST AUTHOR?
 	Check if the specified comment is written by the author of the post commented on.
+
+	@param obj $comment		The comment object.
 --------------------------------------------------------------------------------------------------- */
 
 if ( ! function_exists( 'chaplin_is_comment_by_post_author' ) ) :
@@ -813,4 +797,248 @@ if ( ! function_exists( 'chaplin_loading_indicator' ) ) :
 		echo '<div class="loader border-color-border' . $extra_loading_classes . '"></div>';
 
 	}
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
+	OUTPUT PREVIOUS POSTS LINK ON ARCHIVE PAGES
+	On archive pages, when on at least page 2 and using the button or scroll load more type, output
+	a link allowing visitor to go back to the previous page in the chronology.
+	(When you're on page 2, output a link to go back to page one.)
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_output_previous_posts_link' ) ) :
+	function chaplin_output_previous_posts_link() {
+
+		global $paged;
+		$pagination_type = get_theme_mod( 'chaplin_pagination_type', 'button' );
+		
+		if ( ( $pagination_type == 'button' || $pagination_type = 'scroll' ) && $paged && $paged > 1 ) : 
+			?>
+
+			<div class="previous-posts-link-wrapper color-secondary hide-no-js">
+				<?php previous_posts_link( '<span class="arrow" aria-hidden="true">&larr; </span>' . __( 'To The Previous Page', 'chaplin' ) ); ?>
+			</div><!-- .previous-posts-link-wrapper -->
+			
+			<?php
+		endif;
+
+	}
+	add_action( 'chaplin_posts_start', 'chaplin_output_previous_posts_link' );
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
+	BREADCRUMBS
+	Output breadcrumbs
+
+	@param array $args {
+		@type int		$post_id				The ID of the post to output the breadcrumbs for
+		@type string	$additional_classes		Extra classes for the breadcrumbs wrapper
+	}
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_breadcrumbs' ) ) : 
+	function chaplin_breadcrumbs( $args = array() ) {
+
+		// Check if we're showing breadcrumbs
+		$show_breadcrumbs = get_theme_mod( 'chaplin_show_breadcrumbs', false );
+		if ( ! $show_breadcrumbs ) return;
+
+		// No breadcrumbs on the front page
+		if ( is_front_page() ) return;
+
+		// Filter the arguments
+		$args = apply_filters( 'chaplin_breadcrumbs_args', wp_parse_args( $args, array(
+			'post_id'				=> null,
+			'additional_classes'	=> '',
+		) ) );
+
+		// Get them as variables, to simplify
+		$post_id 			= $args['post_id'];
+		$additional_classes = $args['additional_classes'] ? ' ' . $args['additional_classes'] : '';
+
+		// Get the post object
+		if ( is_home() ) {
+			$post_id = get_option( 'page_for_posts' );
+			$post = get_post( $post_id );
+		} elseif ( $post_id ) {
+			$post = get_post( $post_id );
+		} elseif ( is_single() || is_page() || is_attachment() ) {
+			global $post;
+			if ( $post ) {
+				$post_id = $post->ID;
+			}
+		} 
+
+		// Get the queried object
+		$queried_object = get_queried_object() ? get_queried_object() : null;
+
+		// Get the id of the page for posts, if one exists
+		$page_for_posts_id = get_option( 'page_for_posts' );
+
+		// Specify a seperator
+		$sep = apply_filters( 'chaplin_breadcrumbs_separator', '<span class="sep fill-children-current-color chevron-icon">' . chaplin_get_theme_svg( 'chevron-right' ) . '</span>' );
+
+		?>
+
+		<div class="breadcrumbs-wrapper<?php echo esc_attr( $additional_classes ); ?>">
+
+			<div class="breadcrumbs-inner-wrapper no-scrollbars">
+
+				<ul class="breadcrumbs reset-list-style color-secondary">
+
+					<?php
+
+					// Record the output of the breadcrumbs list items
+					ob_start();
+
+					// No seperator before the first item
+					echo '<li><a href="' . home_url() . '">' . __( 'Home', 'chaplin' ) . '</a></li>';
+
+					if ( is_404() ) {
+						echo '<li>' . $sep . __( 'Error 404', 'chaplin' ) . '</li>';
+					} elseif ( is_tag() || is_category() || is_tax() ) {
+
+						$taxonomy 			= get_taxonomy( $queried_object->taxonomy );
+						$taxonomy_labels 	= get_taxonomy_labels( $taxonomy );
+
+						// If we're showing post taxonomies, and a page for posts exists, link to it
+						if ( ( is_tag() || is_category() ) && $page_for_posts_id ) {
+							echo '<li>' . $sep . '<a href="' . get_permalink( $page_for_posts_id ) . '">' . get_the_title( $page_for_posts_id ) . '</a></li>';
+						}
+						// If we're showing a taxonomy, and that taxonomy has a single custom post type, and that custom post type is public and has an archive, link to it
+						else {
+							$tax_cpts = isset( $taxonomy->object_type ) ? $taxonomy->object_type : array();
+							if ( count( $tax_cpts ) === 1 ) {
+								$tax_cpt = get_post_type_object( $tax_cpts[0] );
+								if ( $tax_cpt && $tax_cpt->public && $tax_cpt->has_archive ) {
+									$tax_cpt_name = isset( $tax_cpt->labels->singular_name ) ? $tax_cpt->labels->singular_name : $tax_cpt->labels->name;
+									$tax_cpt_archive_url = get_post_type_archive_link( $tax_cpt->name );
+									echo '<li>' . $sep . '<a href="' . esc_url( $tax_cpt_archive_url ) . '">' . $tax_cpt_name . '</a></li>';
+								}
+							}
+						}
+
+						echo '<li>' . $sep . $taxonomy_labels->singular_name . '</li>';
+
+						// Output all ancestors to the term
+						$ancestors = get_ancestors( $queried_object->term_id, $queried_object->taxonomy, 'taxonomy' );
+						
+						if ( $ancestors ) {
+							foreach ( $ancestors as $ancestor_id ) {
+								$ancestor_term = get_term( $ancestor_id, $queried_object->taxonomy );
+								echo '<li>' . $sep . '<a href="' . esc_url( get_term_link( $ancestor_term ) ) . '">' . $ancestor_term->name . '</a></li>';
+							}
+						}
+
+						echo '<li>' . $sep . '<a href="' . esc_url( get_term_link( $queried_object ) ) . '">' . $queried_object->name . '</a></li>';
+					} elseif ( is_day() ) {
+						echo '<li>' . $sep . __( 'Day', 'chaplin' ) . '</li>';
+						echo '<li>' . $sep . ''; the_time( get_option( 'date_format' ) ); echo'</li>';
+					} elseif ( is_month() ) {
+						echo '<li>' . $sep .  __( 'Month', 'chaplin' ) . '</li>';
+						echo '<li>' . $sep . get_the_time( 'F Y' ) . '</li>';
+					} elseif ( is_year() ) {
+						echo '<li>' . $sep . __( 'Year', 'chaplin' ) . '</li>';
+						echo '<li>' . $sep . get_the_time( 'Y' ) . '</li>';
+					} elseif ( is_author() ) {
+						echo '<li>' . $sep . __( 'Author', 'chaplin' ) . '</li>';
+						echo '<li>' . $sep . '<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . get_the_author() . '</a></li>'; 
+					} elseif ( isset( $_GET['paged'] ) && !empty( $_GET['paged'] ) ) {
+						echo '<li>' . $sep . __( 'Archive', 'chaplin' ) . '</li>';
+					} elseif ( is_search() ) {
+						echo '<li>' . $sep . __( 'Search', 'chaplin' ) . '</li>';
+						echo '<li>' . $sep . '"' . get_search_query() . '"</li>';
+					} elseif ( is_archive() || is_home() ) {
+						echo '<li>' . $sep . get_the_archive_title() .'</li>';
+					} elseif ( is_singular() ) {
+
+						// Get the post type data
+						$post_type 		= get_post_type( $post_id );
+						$post_type_obj 	= get_post_type_object( $post_type );
+
+						// If the post type has a post type archive, output it
+						if ( $post_type_obj->has_archive ) {
+							if ( ! isset( $post_type_archive_label ) ) {
+								$post_type_archive_label = $post_type_obj->labels->name;
+							}
+							echo '<li>' . $sep . '<a href="' . esc_url( get_post_type_archive_link( $post_type ) ) . '">' . $post_type_archive_label . '</a></li>';
+						} elseif ( $post_type == 'attachment' ) {
+							echo '<li>' . $sep . __( 'Attachment', 'chaplin' ) . '</li>';
+						} elseif ( $post_type == 'product' ) {
+							$shop_id = get_option( 'woocommerce_shop_page_id' );
+							if ( $shop_id ) {
+								echo '<li>' . $sep . '<a href="' . esc_url( get_permalink( $shop_id ) ) . '">' . get_the_title( $shop_id ) . '</a></li>';
+							}
+						}
+
+						// Display ancestors for post types that support it
+						$ancestors = get_post_ancestors( $post_id );
+						if ( $ancestors ) {
+							$ancestors = array_reverse( $ancestors );
+							foreach ( $ancestors as $ancestor_id ) {
+								echo '<li>' . $sep . '<a href="' . esc_url( get_permalink( $ancestor_id ) ) . '">' . get_the_title( $ancestor_id ) . '</a></li>';
+							}
+						}
+
+						// Output link to the blog page if we're on a blog post
+						if ( $post_type == 'post' && $page_for_posts_id ) {
+							echo '<li>' . $sep . '<a href="' . esc_url( get_permalink( $page_for_posts_id ) ) . '">' . get_the_title( $page_for_posts_id ) . '</a></li>';	
+						}
+
+						echo '<li>' . $sep . '<a href="' . esc_url( get_permalink( $post_id ) ) . '">' . get_the_title( $post_id ) . '</a></li>';
+
+					} else {
+
+						echo '<li>' . $sep . '<a href="' . esc_url( get_permalink( $post_id ) ) . '">' . get_the_title( $post_id ) . '</a></li>';
+
+					}
+
+					// Make the markup of the breadcrumbs list items filterable.
+					// Child themes and plugins can set  the list items with their own logic here!
+					echo apply_filters( 'chaplin_breadcrumbs_list_items_markup', ob_get_clean(), $args );
+
+					?>
+
+				</ul><!-- .breadcrumbs -->
+
+			</div><!-- .no-scrollbars -->
+
+		</div><!-- .breadcrumbs-wrapper -->
+
+		<?php
+
+	}
+	add_action( 'chaplin_archive_header_start', 'chaplin_breadcrumbs' );
+	add_action( 'chaplin_entry_header_start', 'chaplin_breadcrumbs' );
+endif;
+
+
+
+/*	-----------------------------------------------------------------------------------------------
+	OUTPUT PREVIOUS POSTS LINK ON ARCHIVE PAGES
+	On archive pages, when on at least page 2 and using the button or scroll load more type, output
+	a link allowing visitor to go back to the previous page in the chronology.
+	(When you're on page 2, output a link to go back to page one.)
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_output_previous_posts_link' ) ) :
+	function chaplin_output_previous_posts_link() {
+
+		global $paged;
+		$pagination_type = get_theme_mod( 'chaplin_pagination_type', 'button' );
+		
+		if ( ( $pagination_type == 'button' || $pagination_type = 'scroll' ) && $paged && $paged > 1 ) : 
+			?>
+
+			<div class="previous-posts-link-wrapper color-secondary hide-no-js">
+				<?php previous_posts_link( '<span class="arrow" aria-hidden="true">&larr; </span>' . __( 'To The Previous Page', 'chaplin' ) ); ?>
+			</div><!-- .previous-posts-link-wrapper -->
+			
+			<?php
+		endif;
+
+	}
+	add_action( 'chaplin_posts_start', 'chaplin_output_previous_posts_link' );
 endif;

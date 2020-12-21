@@ -101,6 +101,22 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'description'	=> __( 'By default, Chaplin will animate the scroll when an anchor link is clicked. Check this to disable that behavior.', 'chaplin' ),
 			) );
 
+			/* Disable Smooth Scroll --------- */
+
+			$wp_customize->add_setting( 'chaplin_show_breadcrumbs', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'			=> false,
+				'sanitize_callback' => 'chaplin_sanitize_checkbox'
+			) );
+
+			$wp_customize->add_control( 'chaplin_show_breadcrumbs', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_general_options',
+				'priority'		=> 5,
+				'label' 		=> __( 'Show Breadcrumbs', 'chaplin' ),
+				'description'	=> __( 'Display breadcrumbs above the title on posts, pages, and archive pages.', 'chaplin' ),
+			) );
+
 
 			/* ------------------------------------------------------------------------
 			 * Color Schemes
@@ -461,8 +477,24 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 				'type' 			=> 'checkbox',
 				'section' 		=> 'chaplin_site_header_options',
 				'priority'		=> 10,
-				'label' 		=> __( 'Disable Menu Modal on Desktop', 'chaplin' ),
-				'description' 	=> __( 'Check to display a regular menu on desktop screens, instead of the search and menu toggles.', 'chaplin' ),
+				'label' 		=> __( 'Show Horizontal Menu on Desktop', 'chaplin' ),
+				'description' 	=> __( 'Check to display a regular menu on desktop screens, instead of the menu button.', 'chaplin' ),
+			) );
+
+			/* Display Social Menu in Header on Desktop */
+
+			$wp_customize->add_setting( 'chaplin_show_desktop_header_social_menu', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'			=> false,
+				'sanitize_callback' => 'chaplin_sanitize_checkbox',
+			) );
+
+			$wp_customize->add_control( 'chaplin_show_desktop_header_social_menu', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_site_header_options',
+				'priority'		=> 10,
+				'label' 		=> __( 'Show Social Menu in Header on Desktop', 'chaplin' ),
+				'description' 	=> __( 'Check to display the social menu in the site header on desktop.', 'chaplin' ),
 			) );
 
 			/* ------------------------------------------------------------------------

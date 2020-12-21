@@ -130,8 +130,8 @@
 		// Single post navigation
 		if ( is_single() ) {
 			the_post_navigation( array(
-				'prev_text' => '<span class="arrow" aria-hidden="true">&larr;</span><span class="screen-reader-text">' . __( 'Previous post:', 'chaplin' ) . '</span><span class="post-title">%title</span>',
-				'next_text' => '<span class="arrow" aria-hidden="true">&rarr;</span><span class="screen-reader-text">' . __( 'Next post:', 'chaplin' ) . '</span><span class="post-title">%title</span>',
+				'prev_text' 	=> '<span class="arrow" aria-hidden="true">&larr;</span><span class="screen-reader-text">' . __( 'Previous post:', 'chaplin' ) . '</span><span class="post-title">%title</span>',
+				'next_text' 	=> '<span class="arrow" aria-hidden="true">&rarr;</span><span class="screen-reader-text">' . __( 'Next post:', 'chaplin' ) . '</span><span class="post-title">%title</span>',
 			) );
 		}
 

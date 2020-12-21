@@ -183,6 +183,21 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.6.0 (2020-12-XX)
+-------------------------
+- On archive pages, when set to an infinite scroll pagination type, show a link to the previous page in the archive chronology if there is one.
+- Improved display of link pagination.
+- Updated FontAwesome to 5.15.1.
+- Added Font Awesome icon for Slideshare.
+- Better hover style for regular links (underline before hover, no underline during hover).
+- Updated the "Navigation Menu" widget to use social icons when displaying the menu set as the "Social Menu".
+– Moved the social menu wp_nav_menu() arguments to chaplin_get_social_menu_args(), for reusability.
+- Social menu: Changed the Unsplash icon to the actual logo.
+- Rephrased the "Disable Menu Modal on Desktop" Customizer option to be more clear.
+- Added the option to display the social menu in the site header on desktop.
+- Added the chevron-right SVG icon.
+- Added the option to display breadcrumbs.
+
 Version 2.5.18 (2020-12-19)
 -------------------------
 - Reduce risk of errors given by the $iteration incremenent variable in the posts loop by parsing as integer.
