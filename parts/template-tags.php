@@ -913,9 +913,8 @@ if ( ! function_exists( 'chaplin_maybe_output_breadcrumbs' ) ) :
 							if ( count( $tax_cpts ) === 1 ) {
 								$tax_cpt = get_post_type_object( $tax_cpts[0] );
 								if ( $tax_cpt && $tax_cpt->public && $tax_cpt->has_archive ) {
-									$tax_cpt_name = isset( $tax_cpt->labels->singular_name ) ? $tax_cpt->labels->singular_name : $tax_cpt->labels->name;
-									$tax_cpt_archive_url = get_post_type_archive_link( $tax_cpt->name );
-									echo '<li>' . $sep . '<a href="' . esc_url( $tax_cpt_archive_url ) . '">' . $tax_cpt_name . '</a></li>';
+									$tax_cpt_url = get_post_type_archive_link( $tax_cpt->name );
+									echo '<li>' . $sep . '<a href="' . esc_url( $tax_cpt_url ) . '">' . $tax_cpt->labels->name . '</a></li>';
 								}
 							}
 						}
@@ -950,6 +949,8 @@ if ( ! function_exists( 'chaplin_maybe_output_breadcrumbs' ) ) :
 					} elseif ( is_search() ) {
 						echo '<li>' . $sep . __( 'Search', 'chaplin' ) . '</li>';
 						echo '<li>' . $sep . '"' . get_search_query() . '"</li>';
+					} elseif ( is_post_type_archive() ) {
+						echo '<li>' . $sep . $queried_object->labels->name .'</li>';
 					} elseif ( is_archive() || is_home() ) {
 						echo '<li>' . $sep . get_the_archive_title() .'</li>';
 					} elseif ( is_singular() ) {
@@ -960,10 +961,7 @@ if ( ! function_exists( 'chaplin_maybe_output_breadcrumbs' ) ) :
 
 						// If the post type has a post type archive, output it
 						if ( $post_type_obj->has_archive ) {
-							if ( ! isset( $post_type_archive_label ) ) {
-								$post_type_archive_label = $post_type_obj->labels->name;
-							}
-							echo '<li>' . $sep . '<a href="' . esc_url( get_post_type_archive_link( $post_type ) ) . '">' . $post_type_archive_label . '</a></li>';
+							echo '<li>' . $sep . '<a href="' . esc_url( get_post_type_archive_link( $post_type ) ) . '">' . $post_type_obj->labels->name . '</a></li>';
 						} elseif ( $post_type == 'attachment' ) {
 							echo '<li>' . $sep . __( 'Attachment', 'chaplin' ) . '</li>';
 						} elseif ( $post_type == 'product' ) {

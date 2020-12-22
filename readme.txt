@@ -205,6 +205,7 @@ Version 2.6.0 (2020-12-22)
 - Made comment avatars and thumbnails in the widget list (recent posts/comments) round.
 - Fixed Internet Explorer 11 overflow issue with the main menu alt dropdown icon.
 - Bumped "Tested up to" to 5.6.
+- Updated the theme description to include the new features.
 
 Version 2.5.18 (2020-12-19)
 -------------------------
