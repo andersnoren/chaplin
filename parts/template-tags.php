@@ -353,7 +353,7 @@ endif;
    OUTPUT & GET POST META
    If it's a single post, output the post meta values specified in the Customizer settings.
 
-   @param	$post_id int		The ID of the post for which the post meta should be output
+   @param	$post_id int		The ID of the post for which the post meta should be output.
    @param	$location string	Which post meta location to output.
 --------------------------------------------------------------------------------------------------- */
 
@@ -830,7 +830,7 @@ endif;
 
 /*	-----------------------------------------------------------------------------------------------
 	BREADCRUMBS
-	Output breadcrumbs
+	Maybe output breadcrumbs, if enabled in the Customizer settings.
 
 	@param array $args {
 		@type int		$post_id				The ID of the post to output the breadcrumbs for
@@ -838,8 +838,8 @@ endif;
 	}
 --------------------------------------------------------------------------------------------------- */
 
-if ( ! function_exists( 'chaplin_breadcrumbs' ) ) : 
-	function chaplin_breadcrumbs( $args = array() ) {
+if ( ! function_exists( 'chaplin_maybe_output_breadcrumbs' ) ) : 
+	function chaplin_maybe_output_breadcrumbs( $args = array() ) {
 
 		// Check if we're showing breadcrumbs
 		$show_breadcrumbs = get_theme_mod( 'chaplin_show_breadcrumbs', false );
@@ -1010,10 +1010,165 @@ if ( ! function_exists( 'chaplin_breadcrumbs' ) ) :
 		<?php
 
 	}
-	add_action( 'chaplin_archive_header_start', 'chaplin_breadcrumbs' );
-	add_action( 'chaplin_entry_header_start', 'chaplin_breadcrumbs' );
+	add_action( 'chaplin_archive_header_start', 'chaplin_maybe_output_breadcrumbs' );
+	add_action( 'chaplin_entry_header_start', 'chaplin_maybe_output_breadcrumbs' );
 endif;
 
+
+/*	-----------------------------------------------------------------------------------------------
+	POST META SINGULAR BOTTOM
+	Maybe output the post meta bottom on singular.
+
+	@param	$post_id int	The ID of the post.
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_maybe_output_single_post_meta_bottom' ) ) : 
+	function chaplin_maybe_output_single_post_meta_bottom( $post_id ) {
+
+		// Single bottom post meta
+		chaplin_the_post_meta( $post_id, 'single-bottom' );
+
+	}
+	add_action( 'chaplin_entry_footer', 'chaplin_maybe_output_single_post_meta_bottom', 10 );
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
+	AUTHOR BIO
+	Maybe output the author bio, if enabled in the Customizer settings.
+
+	@param	$post_id int	The ID of the post.
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_maybe_output_author_bio' ) ) : 
+	function chaplin_maybe_output_author_bio( $post_id ) {
+
+		// Check if we're set to show the author bio.
+		$show_author_bio = get_theme_mod( 'chaplin_enable_author_bio', false );
+		if ( ! $show_author_bio ) return;
+
+		// Get the post we're showing the author bio for.
+		$author_post = get_post( $post_id );
+		if ( ! $author_post ) return;
+
+		// Get data about the post post.
+		$post_type 		= isset( $author_post->post_type ) ? $author_post->post_type : '';
+		$post_author_id = isset( $author_post->post_author ) ? $author_post->post_author : null;
+
+		if ( ! $post_author_id ) return;
+
+		// Check if the post type should display an author bio (only post, by default).
+		$author_bio_supported_post_types = apply_filters( 'chaplin_author_bio_supported_post_types', array( 'post' ) );
+		if ( ! in_array( $post_type, $author_bio_supported_post_types ) ) return;
+
+		// Get the author, and allow child themes and plugins to filter whether to display the author bio for specific users.
+		$author_bio_show_for_user = apply_filters( 'chaplin_author_bio_enable_for_user', true, $post_author_id );
+		if ( ! $author_bio_show_for_user ) return;
+
+		// Get author information.
+		$author_avatar 		= get_avatar( $post_author_id, 88 );
+		$author_name 		= get_the_author_meta( 'display_name', $post_author_id ) ? get_the_author_meta( 'display_name', $post_author_id ) : get_the_author_meta( 'nickname', $post_author_id );
+		$author_description = get_the_author_meta( 'description', $post_author_id );
+		$author_posts_url 	= get_author_posts_url( $post_author_id );
+		$author_url 		= get_the_author_meta( 'url', $post_author_id );
+
+		// Output the author bio.
+		?>
+
+		<div class="author-bio section-inner thin bg-light-background color-light-background">
+
+			<div class="author-bio-inner color-primary">
+
+				<?php do_action( 'chaplin_author_bio_start' ); ?>
+
+				<header class="author-bio-header">
+
+					<?php if ( $author_avatar ) : ?>
+						<a href="<?php echo esc_url( $author_posts_url ); ?>" class="author-avatar">
+							<?php echo $author_avatar; ?>
+						</a><!-- .author-avatar -->
+					<?php endif; ?>
+
+					<?php if ( $author_name ) : ?>
+						<h2 class="author-bio-title">
+							<?php printf( esc_html_x( 'By %s', '%s = author name', 'chaplin' ), '<a href="' . esc_url( $author_posts_url ) . '">' . $author_name . '</a>' ); ?>
+						</h2>
+					<?php endif; ?>
+
+				</header><!-- .author-bio-header -->
+
+				<?php if ( $author_description ) : ?>
+					<div class="author-bio-description">
+						<?php echo wpautop( $author_description ); ?>
+					</div><!-- .author-bio-description -->
+				<?php endif; ?>
+
+				<footer class="author-bio-footer color-accent">
+
+					<ul class="author-bio-meta-list post-meta">
+
+						<?php do_action( 'chaplin_author_bio_meta_list_start' ); ?>
+
+						<li class="author-bio-meta-archive-link icon-chevron-circled">
+							<a class="meta-wrapper" href="<?php echo esc_url( $author_posts_url ); ?>">
+								<span class="meta-icon">
+									<?php chaplin_the_theme_svg( 'chevron-right-circled' ); ?>
+								</span>
+								<span class="meta-text"><?php _e( 'View Archive', 'chaplin' ); ?></span>
+							</a>
+						</li>
+
+						<?php if ( $author_url ) : ?>
+
+							<li class="author-bio-meta-website-link icon-chevron-circled">
+								<a class="meta-wrapper" href="<?php echo esc_url( $author_url ); ?>">
+									<span class="meta-icon">
+										<?php chaplin_the_theme_svg( 'chevron-right-circled' ); ?>
+									</span>
+									<span class="meta-text"><?php _e( 'Visit Website', 'chaplin' ); ?></span>
+								</a>
+							</li>
+
+						<?php endif; ?>
+
+						<?php do_action( 'chaplin_author_bio_meta_list_end' ); ?>
+
+					</ul><!-- .author-bio-meta-list -->
+
+				</footer><!-- .author-bio-footer -->
+
+				<?php do_action( 'chaplin_author_bio_end' ); ?>
+
+			</div><!-- .author-bio-inner -->
+
+		</div><!-- .author-bio -->
+
+		<?php
+
+	}
+	add_action( 'chaplin_entry_footer', 'chaplin_maybe_output_author_bio', 20 );
+endif;
+
+
+/*	-----------------------------------------------------------------------------------------------
+	SINGLE POST NAVIGATION
+	Maybe output the single post navigation.
+--------------------------------------------------------------------------------------------------- */
+
+if ( ! function_exists( 'chaplin_maybe_output_single_post_navigation' ) ) : 
+	function chaplin_maybe_output_single_post_navigation() {
+
+		// Only on posts
+		if ( ! is_singular( apply_filters( 'chaplin_the_post_navigation_post_types', array( 'post' ) ) ) ) return;
+
+		the_post_navigation( array(
+			'prev_text' 	=> '<span class="arrow" aria-hidden="true">&larr;</span><span class="screen-reader-text">' . __( 'Previous post:', 'chaplin' ) . '</span><span class="post-title">%title</span>',
+			'next_text' 	=> '<span class="arrow" aria-hidden="true">&rarr;</span><span class="screen-reader-text">' . __( 'Next post:', 'chaplin' ) . '</span><span class="post-title">%title</span>',
+		) );
+
+	}
+	add_action( 'chaplin_entry_footer', 'chaplin_maybe_output_single_post_navigation', 30 );
+endif;
 
 
 /*	-----------------------------------------------------------------------------------------------

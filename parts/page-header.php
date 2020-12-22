@@ -1,7 +1,9 @@
 <header class="entry-header">
 
 	<?php 
-	
+	/*
+	 * @hooked chaplin_maybe_output_breadcrumbs - 10
+	 */
 	do_action( 'chaplin_entry_header_start', $post->ID );
 
 	if ( is_front_page() && is_home() ) {

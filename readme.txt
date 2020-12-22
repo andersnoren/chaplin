@@ -3,7 +3,7 @@ Contributors: Anlino
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=anders%40andersnoren%2ese&lc=US&item_name=Free%20WordPress%20Themes%20from%20Anders%20Noren&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.5
 Requires PHP: 5.4
-Tested up to: 5.5.1
+Tested up to: 5.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -183,7 +183,7 @@ Included as part of:
 
 == Changelog ==
 
-Version 2.6.0 (2020-12-XX)
+Version 2.6.0 (2020-12-22)
 -------------------------
 - On archive pages, when set to an infinite scroll pagination type, show a link to the previous page in the archive chronology if there is one.
 - Improved display of link pagination.
@@ -195,8 +195,16 @@ Version 2.6.0 (2020-12-XX)
 - Social menu: Changed the Unsplash icon to the actual logo.
 - Rephrased the "Disable Menu Modal on Desktop" Customizer option to be more clear.
 - Added the option to display the social menu in the site header on desktop.
-- Added the chevron-right SVG icon.
+- Added the chevron-right and chevron-right-circled SVG icons.
 - Added the option to display breadcrumbs.
+- Adjusted vertical position of post meta tag icon and post meta comment icon.
+- Added an author bio on single posts, enabled in the Customizer (and disabled by default).
+- Moved output of single post navigation and post meta bottom to the `chaplin_entry_footer` action, to make it easier for plugins and child themes to rearrange and add new elements in that area of content.php.
+- Fixed conditional for single post navigation output, so it only shows up on posts (or post types specified by child themes using a filter).
+- Updated button styles to overwrite the default WooCommerce styles.
+- Made comment avatars and thumbnails in the widget list (recent posts/comments) round.
+- Fixed Internet Explorer 11 overflow issue with the main menu alt dropdown icon.
+- Bumped "Tested up to" to 5.6.
 
 Version 2.5.18 (2020-12-19)
 -------------------------

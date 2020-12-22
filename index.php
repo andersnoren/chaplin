@@ -16,6 +16,9 @@
 
 			<?php 
 			
+			/*
+			 * @hooked chaplin_maybe_output_breadcrumbs - 10
+			 */
 			do_action( 'chaplin_archive_header_start' );
 			
 			if ( $archive_title ) : 
@@ -43,8 +46,8 @@
 		<?php if ( have_posts() ) : 
 
 			/*
-			* @hooked chaplin_output_previous_posts_link - 10
-			*/
+			 * @hooked chaplin_output_previous_posts_link - 10
+			 */
 			do_action( 'chaplin_posts_start' );
 
 			$post_grid_column_classes = chaplin_get_post_grid_column_classes();

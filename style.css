@@ -546,7 +546,11 @@ button,
 :root .wp-block-file__button,
 input[type="button"],
 input[type="reset"],
-input[type="submit"] {
+input[type="submit"],
+:root .woocommerce #respond input#submit,
+:root .woocommerce a.button,
+:root .woocommerce button.button,
+:root .woocommerce input.button {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	background: #007C89;
@@ -573,6 +577,10 @@ button:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover,
+:root .woocommerce #respond input#submit:hover,
+:root .woocommerce a.button:hover,
+:root .woocommerce button.button:hover,
+:root .woocommerce input.button:hover,
 button:focus,
 .button:focus,
 .faux-button:focus,
@@ -580,7 +588,11 @@ button:focus,
 :root .wp-block-file__button:focus,
 input[type="button"]:focus,
 input[type="reset"]:focus,
-input[type="submit"]:focus {
+input[type="submit"]:focus,
+:root .woocommerce #respond input#submit:focus,
+:root .woocommerce a.button:focus,
+:root .woocommerce button.button:focus,
+:root .woocommerce input.button:focus {
 	text-decoration: underline;
 }
 
@@ -1485,6 +1497,7 @@ ul.social-icons li {
 	display: none;
 	margin-left: 6rem;
 	padding: 2rem 0;
+	width: 100%;
 }
 
 ul.main-menu-alt {
@@ -1515,6 +1528,7 @@ ul.main-menu-alt {
 	display: block;
 	height: .8rem;
 	margin-left: 1rem;
+	overflow: hidden;
 	width: 1.3rem;
 }
 
@@ -2168,12 +2182,12 @@ h1.entry-title,
 	font-size: 1.5rem;
 	font-weight: 600;
 	list-style: none;
-	margin: -.9rem 0 0 -2rem;
+	margin: 0 0 -.9rem -2rem;
 }
 
 .post-meta li {
 	flex-shrink: 0;
-	margin: .9rem 0 0 2rem;
+	margin: 0 0 .9rem 2rem;
 	max-width: calc( 100% - 2rem );
 }
 
@@ -2201,13 +2215,15 @@ h1.entry-title,
 	color: inherit;
 }
 
-.post-meta .post-author .meta-icon svg { 		width: 1.6rem; height: 1.8rem; }
-.post-meta .post-categories .meta-icon svg { 	width: 1.8rem; height: 1.7rem; }
-.post-meta .post-comment-link .meta-icon svg { 	width: 1.8rem; height: 1.8rem; }
-.post-meta .post-date .meta-icon svg { 			width: 1.7rem; height: 1.8rem; }
-.post-meta .post-edit .meta-icon svg { 			width: 1.8rem; height: 1.8rem; }
-.post-meta .post-sticky .meta-icon svg { 		width: 1.5rem; height: 1.8rem; }
-.post-meta .post-tags .meta-icon svg { 			width: 1.8rem; height: 1.8rem; }
+.post-meta .icon-chevron-circled .meta-icon svg { 	width: 1.8rem; height: 1.8rem; }
+
+.post-meta .post-author .meta-icon svg { 			width: 1.6rem; height: 1.8rem; }
+.post-meta .post-categories .meta-icon svg { 		width: 1.8rem; height: 1.7rem; }
+.post-meta .post-comment-link .meta-icon svg { 		width: 1.8rem; height: 1.8rem; transform: translateY( .1rem ); }
+.post-meta .post-date .meta-icon svg { 				width: 1.7rem; height: 1.8rem; }
+.post-meta .post-edit .meta-icon svg { 				width: 1.8rem; height: 1.8rem; }
+.post-meta .post-sticky .meta-icon svg { 			width: 1.5rem; height: 1.8rem; }
+.post-meta .post-tags .meta-icon svg { 				width: 1.8rem; height: 1.8rem; transform: translateY( .1rem ); }
 
 .post-meta path,
 .post-meta polygon,
@@ -2238,6 +2254,63 @@ h1.entry-title,
 }
 
 /* Post Footer ------------------------------- */
+
+/* AUTHOR BIO */
+
+:root .author-bio {
+	margin: 4rem 0 0;
+	width: 100%;
+}
+
+.author-bio {
+	border-radius: .4rem;
+	padding: 2rem;
+	position: relative;
+}
+
+.author-bio:before {
+	border: .6rem solid transparent;
+	border-bottom-color: currentColor;
+	content: "";
+	display: block;
+	position: absolute;
+		left: 3.1rem;
+		bottom: 100%;
+}
+
+.author-bio-inner > * + * {
+	margin-top: 1.6rem;
+}
+
+.author-bio-header {
+	align-items: center;
+	display: flex;
+}
+
+.author-bio-header .avatar {
+	border-radius: 50%;
+	flex-shrink: 0;
+	height: 3.6rem;
+	margin: 0 1.6rem 0 0;
+	width: 3.6rem;
+}
+
+.author-bio-title {
+	font-size: 2.1rem;
+	margin: 0;
+}
+
+.author-bio-title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.author-bio-title a:hover {
+	text-decoration: underline;
+}
+
+.author-bio-description > *:first-child { margin-top: 0; }
+.author-bio-description > *:last-child { margin-bottom: 0; }
 
 /* POST NAV LINKS */
 
@@ -3166,7 +3239,10 @@ div.comment:first-of-type {
 }
 
 .comment-meta .avatar {
+	border-radius: 50%;
 	display: none;
+	height: 6rem;
+	width: 6rem;
 }
 
 .comment-meta a {
@@ -3556,7 +3632,7 @@ body.woocommerce-page .entry-content {
 }
 
 .chaplin-widget-list a {
-	align-items: flex-start;
+	align-items: center;
 	color: inherit;
 	display: flex; 
 	text-decoration: none;
@@ -3565,6 +3641,7 @@ body.woocommerce-page .entry-content {
 .chaplin-widget-list .post-image {
 	background: #fff no-repeat center;
 	background-size: cover;
+	border-radius: 50%;
 	flex-shrink: 0;
 	height: 7rem;
 	width: 7rem;
@@ -3945,6 +4022,12 @@ body.woocommerce-page .entry-content {
 	.grid.match-gutter + .grid.match-gutter { margin-top: 2rem; }
 	.grid.match-gutter .grid-item { margin-bottom: 2rem; }
 
+	/* BREADCRUMBS */
+
+	.breadcrumbs-wrapper {
+		margin-bottom: 2rem;
+	}
+
 	/* Site Header --------------------------- */
 
 	#site-header {
@@ -4095,11 +4178,11 @@ body.woocommerce-page .entry-content {
 	}
 
 	.post-meta-archive .post-meta {
-		margin: -1.2rem 0 0 -2.5rem;
+		margin: 0 0 -1.2rem -2.5rem;
 	}
 
 	.post-meta-archive .post-meta li {
-		margin: 1.2rem 0 0 2.5rem;
+		margin: 0 0 1.2rem 2.5rem;
 	}
 
 	/* Post: Single -------------------------- */
@@ -4115,11 +4198,11 @@ body.woocommerce-page .entry-content {
 	}
 
 	.post-meta {
-		margin: -1.4rem 0 0 -3rem;
+		margin: 0 0 -1.4rem -3rem;
 	}
 
 	.post-meta li {
-		margin: 1.4rem 0 0 3rem;
+		margin: 0 0 1.4rem 3rem;
 		max-width: calc( 100% - 3rem );
 	}
 
@@ -4132,6 +4215,33 @@ body.woocommerce-page .entry-content {
 	}
 
 	/* POST FOOTER */
+
+	/* Author Bio */
+
+	.author-bio {
+		margin-top: 4rem;
+		padding: 3rem;
+	}
+
+	.author-bio:before {
+		left: 4.4rem;
+	}
+
+	.author-bio-inner > * + * {
+		margin-top: 2rem;
+	}
+
+	.author-bio-header .avatar {
+		height: 4.4rem;
+		margin: 0 2rem 0 0;
+		width: 4.4rem;
+	}
+
+	.author-bio-title {
+		font-size: 2.4rem;
+	}
+
+	/* Post Meta Single Bottom */
 
 	.post-meta-wrapper.post-meta-single-bottom {
 		margin-top: 4rem;
@@ -4454,11 +4564,9 @@ body.woocommerce-page .entry-content {
 
 	.comment-meta .avatar {
 		display: block;
-		height: 6rem;
 		position: absolute;
 			left: 0;
 			top: .5em;
-		width: 6rem;
 	}
 
 	.comment-author b a {

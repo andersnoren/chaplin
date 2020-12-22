@@ -73,7 +73,8 @@
 	
 		get_template_part( 'parts/page-header' );
 		
-		if ( has_post_thumbnail() && ! post_password_required() ) : ?>
+		if ( has_post_thumbnail() && ! post_password_required() ) : 
+			?>
 
 			<figure class="featured-media">
 
@@ -99,9 +100,10 @@
 
 			</figure><!-- .featured-media -->
 
-		<?php endif; ?>
-
-	<?php endif; ?>
+			<?php 
+		endif; // has_post_thumbnail()
+	endif; // chaplin_is_cover_template()
+	?>
 
 	<div class="post-inner" id="post-inner">
 
@@ -122,27 +124,24 @@
 
 		<?php 
 
+		/*
+		 * @hooked chaplin_maybe_output_single_post_meta_bottom - 10
+		 * @hooked chaplin_maybe_output_author_bio - 20
+		 * @hooked chaplin_maybe_output_single_post_navigation - 30
+		 */
 		do_action( 'chaplin_entry_footer', $post->ID );
 
-		// Single bottom post meta
-		chaplin_the_post_meta( $post->ID, 'single-bottom' );
-
-		// Single post navigation
-		if ( is_single() ) {
-			the_post_navigation( array(
-				'prev_text' 	=> '<span class="arrow" aria-hidden="true">&larr;</span><span class="screen-reader-text">' . __( 'Previous post:', 'chaplin' ) . '</span><span class="post-title">%title</span>',
-				'next_text' 	=> '<span class="arrow" aria-hidden="true">&rarr;</span><span class="screen-reader-text">' . __( 'Next post:', 'chaplin' ) . '</span><span class="post-title">%title</span>',
-			) );
-		}
-
-		// Output comments wrapper if it's a post, or if comments are open, or if there's a comment number – and check for password
-		if ( ( comments_open() || get_comments_number() ) && ! post_password_required() ) : ?>
+		// Output comments wrapper if comments are open or if there are comments, and check for password
+		if ( ( comments_open() || get_comments_number() ) && ! post_password_required() ) : 
+			?>
 
 			<div class="comments-wrapper">
 				<?php comments_template(); ?>
 			</div><!-- .comments-wrapper -->
 
-		<?php endif; ?>
+			<?php 
+		endif; 
+		?>
 
 	</div><!-- .post-inner -->
 

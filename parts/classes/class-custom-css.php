@@ -384,7 +384,7 @@ if ( ! class_exists( 'Chaplin_Custom_CSS' ) ) :
 			switch ( $type ) {
 				case 'front-end' :
 					$headings_targets = apply_filters( 'chaplin_headings_targets_front_end', 'h1, h2, h3, h4, h5, h6, .faux-heading' );
-					$buttons_targets = apply_filters( 'chaplin_buttons_targets_front_end', 'button, .button, .faux-button, .wp-block-button__link, :root .wp-block-file a.wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\']' );
+					$buttons_targets = apply_filters( 'chaplin_buttons_targets_front_end', 'button, .button, .faux-button, .wp-block-button__link, :root .wp-block-file a.wp-block-file__button, input[type=\'button\'], input[type=\'reset\'], input[type=\'submit\'], :root .woocommerce #respond input#submit, :root .woocommerce a.button, :root .woocommerce button.button, :root .woocommerce input.button' );
 					break;
 				case 'block-editor' : 
 					$headings_targets = apply_filters( 'chaplin_headings_targets_block_editor', ':root .wp-block h1, :root h1.wp-block, :root .wp-block h2, :root h2.wp-block, :root .wp-block h3, :root h3.wp-block, :root .wp-block h4, :root h4.wp-block, :root .wp-block h5, :root h5.wp-block, :root .wp-block h6, :root h6.wp-block, .editor-post-title__block .editor-post-title__input, .editor-post-title__block .editor-post-title__input:focus' );

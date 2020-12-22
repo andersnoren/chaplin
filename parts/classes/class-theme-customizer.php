@@ -521,6 +521,21 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 			 * Posts > Single Post
 			 * ------------------------------------------------------------------------ */
 
+			/* Enable Author Bio ------------- */
+
+			$wp_customize->add_setting( 'chaplin_enable_author_bio', array(
+				'capability' 		=> 'edit_theme_options',
+				'default'			=> true,
+				'sanitize_callback' => 'chaplin_sanitize_checkbox',
+			) );
+
+			$wp_customize->add_control( 'chaplin_enable_author_bio', array(
+				'type' 			=> 'checkbox',
+				'section' 		=> 'chaplin_single_post_options',
+				'label' 		=> __( 'Show Author Bio', 'chaplin' ),
+				'description' 	=> __( 'Check to show an author bio below the content on single posts.', 'chaplin' ),
+			) );
+
 			/* Enable Related Posts ---------- */
 
 			$wp_customize->add_setting( 'chaplin_enable_related_posts', array(
