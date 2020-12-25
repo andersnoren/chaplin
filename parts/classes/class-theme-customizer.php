@@ -525,7 +525,7 @@ if ( ! class_exists( 'Chaplin_Customize' ) ) :
 
 			$wp_customize->add_setting( 'chaplin_enable_author_bio', array(
 				'capability' 		=> 'edit_theme_options',
-				'default'			=> true,
+				'default'			=> false,
 				'sanitize_callback' => 'chaplin_sanitize_checkbox',
 			) );
 

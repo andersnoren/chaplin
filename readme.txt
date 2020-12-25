@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.6.1 (2020-12-25)
+-------------------------
+- Changed the new author bio setting in the Customizer to default to false, to match front-end behavior.
+
 Version 2.6.0 (2020-12-22)
 -------------------------
 - On archive pages, when set to an infinite scroll pagination type, show a link to the previous page in the archive chronology if there is one.
