@@ -3,7 +3,7 @@ Contributors: Anlino
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=anders%40andersnoren%2ese&lc=US&item_name=Free%20WordPress%20Themes%20from%20Anders%20Noren&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.5
 Requires PHP: 5.4
-Tested up to: 5.6
+Tested up to: 5.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -182,6 +182,13 @@ Included as part of:
 
 
 == Changelog ==
+
+Version 2.6.2 (2021-03-12)
+-------------------------
+- Fixed an incorrect parameter being passed to the_post_thumbnail() in preview.php (thanks, @milindmore22).
+- WordPress 5.7: Adjusted button styles to work with new alignment classes.
+- Added wrapping quotes to paths in background-image: url( [path] ), to prevent issues with paths with funky characters (thanks, @jonkastonka).
+- Comments: Added margin between "Reply to [Name]" and the "Cancel Reply" link (thanks, @rogierpmd).
 
 Version 2.6.1 (2020-12-25)
 -------------------------

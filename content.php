@@ -20,7 +20,7 @@
 		$image_url = ! post_password_required() ? get_the_post_thumbnail_url( $post->ID, 'chaplin_fullscreen' ) : '';
 
 		if ( $image_url ) {
-			$cover_header_style 	= ' style="background-image: url( ' . esc_url( $image_url ) . ' );"';
+			$cover_header_style 	= ' style="background-image: url( \'' . esc_url( $image_url ) . '\' );"';
 			$cover_header_classes 	= ' bg-image';
 		}
 

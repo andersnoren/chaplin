@@ -66,7 +66,7 @@ class Chaplin_Recent_Posts extends WP_Widget {
 							?>
 
 							<?php if ( $image_url ) : ?>
-								<figure class="post-image" style="background-image: url( <?php echo esc_url( $image_url ); ?> );"></figure>
+								<figure class="post-image" style="background-image: url( '<?php echo esc_url( $image_url ); ?>' );"></figure>
 							<?php endif; ?>
 
 							<div class="inner">

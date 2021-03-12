@@ -59,7 +59,7 @@ class Chaplin_Recent_Comments extends WP_Widget {
 							<?php /* Translators: %1$s = post title, %2$s = post date */ ?>
 							<a href="<?php echo esc_url( get_permalink( $comment->comment_post_ID ) ); ?>#comment-<?php echo esc_attr( $comment->comment_ID ); ?>">
 
-								<div class="post-image" style="background-image: url( <?php echo esc_url( get_avatar_url( get_comment_author_email( $comment->comment_ID ), array( 'size' => '160' ) ) ); ?> );"></div>
+								<div class="post-image" style="background-image: url( '<?php echo esc_url( get_avatar_url( get_comment_author_email( $comment->comment_ID ), array( 'size' => '160' ) ) ); ?>' );"></div>
 
 								<div class="inner">
 

@@ -22,7 +22,7 @@
 
 			if ( $aspect_ratio !== 'original' ) {
 				$image_link_classes 	= ' faux-image aspect-ratio-' . $aspect_ratio;
-				$image_link_style_attr 	= ' style="background-image: url( ' . esc_url( $image_url ) . ' );"';
+				$image_link_style_attr 	= ' style="background-image: url( \'' . esc_url( $image_url ) . '\' );"';
 			}
 
 			?>
@@ -30,7 +30,7 @@
 			<figure class="preview-media">
 
 				<a href="<?php the_permalink(); ?>" class="preview-media-link<?php echo esc_attr( $image_link_classes ); ?>"<?php echo $image_link_style_attr; ?>>
-					<?php the_post_thumbnail( $post->ID, $image_size ); ?>
+					<?php the_post_thumbnail( $image_size ); ?>
 				</a>
 
 			</figure><!-- .preview-media -->
