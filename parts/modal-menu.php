@@ -8,7 +8,7 @@
 
 				<div class="menu-modal-toggles header-toggles">
 
-					<a href="#" class="toggle nav-toggle nav-untoggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal" aria-pressed="false" data-set-focus="#site-header .nav-toggle">
+					<a href="#" class="toggle nav-toggle nav-untoggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal" aria-pressed="false" data-set-focus="#site-header .nav-toggle" role="button"> 
 						<div class="toggle-text">
 							<?php esc_html_e( 'Close', 'chaplin' ); ?>
 						</div>

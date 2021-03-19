@@ -183,6 +183,13 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.6.3 (2021-03-19)
+-------------------------
+- Changed the heading element in the custom widgets to make the headings sequential.
+- Added role="button" to links with the aria-pressed attribute, to make it appear correctly to screen readers.
+- Block editor styles: Fixed the pullquote block missing vertical margin when set to no alignment.
+- Block editor styles: Fixed the border color of the quote block not reflecting Customizer settings.
+
 Version 2.6.2 (2021-03-12)
 -------------------------
 - Fixed an incorrect parameter being passed to the_post_thumbnail() in preview.php (thanks, @milindmore22).

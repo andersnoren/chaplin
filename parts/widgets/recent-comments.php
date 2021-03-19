@@ -63,7 +63,7 @@ class Chaplin_Recent_Comments extends WP_Widget {
 
 								<div class="inner">
 
-									<h5 class="title"><?php echo wp_kses_post( get_comment_author() ); ?></h5>
+									<h3 class="title heading-size-5"><?php echo wp_kses_post( get_comment_author() ); ?></h5>
 									<p class="meta color-secondary"><?php echo wp_kses_post( get_comment_date( get_option( 'date_format' ) ) ); ?></p>
 
 								</div>

@@ -208,10 +208,6 @@
 
 /* Post Media -------------------------------- */
 
-.editor-styles-wrapper figure {
-	margin: 0 auto;
-}
-
 .editor-styles-wrapper .alignleft,
 .editor-styles-wrapper .alignright
 .editor-styles-wrapper *[data-align=right],
@@ -383,7 +379,7 @@
 }
 
 .editor-styles-wrapper .wp-block-quote {
-	border-color: #007C89 !important;
+	border-color: #007C89;
 	border-style: solid;
 	border-width: 0 0 0 2px;
 	color: inherit;
@@ -469,6 +465,11 @@
 
 /* Block: Paragraph -------------------------- */
 /* Block: Pullquote -------------------------- */
+
+.wp-block-pullquote {
+	margin-bottom: 30px;
+	margin-top: 30px;
+}
 
 .editor-styles-wrapper .wp-block-pullquote {
 	border: none;

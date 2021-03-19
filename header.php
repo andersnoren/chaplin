@@ -136,7 +136,7 @@
 								if ( ! $disable_header_search ) : 
 									?>
 
-									<a href="#" class="toggle search-toggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field" aria-pressed="false">
+									<a href="#" class="toggle search-toggle" data-toggle-target=".search-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-search-modal" data-set-focus=".search-modal .search-field" aria-pressed="false" role="button">
 										<div class="toggle-text">
 											<?php esc_html_e( 'Search', 'chaplin' ); ?>
 										</div>
@@ -147,7 +147,7 @@
 								endif;
 								?>
 
-								<a href="#" class="toggle nav-toggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal" aria-pressed="false" data-set-focus=".menu-modal">
+								<a href="#" class="toggle nav-toggle" data-toggle-target=".menu-modal" data-toggle-screen-lock="true" data-toggle-body-class="showing-menu-modal" aria-pressed="false" data-set-focus=".menu-modal" role="button">
 									<div class="toggle-text">
 										<?php esc_html_e( 'Menu', 'chaplin' ); ?>
 									</div>
