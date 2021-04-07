@@ -183,6 +183,11 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.6.4 (2021-04-07)
+-------------------------
+- Changed the heading element in the recent posts widget to make the headings sequential.
+- Fixed a notice in chaplin_widget_nav_menu_args() when no social menu is set (thanks, Olaf).
+
 Version 2.6.3 (2021-03-19)
 -------------------------
 - Changed the heading element in the custom widgets to make the headings sequential.

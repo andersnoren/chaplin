@@ -742,15 +742,19 @@ endif;
 if ( ! function_exists( 'chaplin_widget_nav_menu_args' ) ) :
 	function chaplin_widget_nav_menu_args( $nav_menu_args, $nav_menu ) {
 
-		// Get the social menu
-		$theme_locations 	= get_nav_menu_locations();
+		// Get the social menu.
+		$theme_locations = get_nav_menu_locations();
+
+		// If there is no social menu set, return the nav menu args.
+		if ( ! isset( $theme_locations['social-menu'] ) ) return $nav_menu_args;
+
 		$social_menu 		= get_term( $theme_locations['social-menu'], 'nav_menu' );
 		$social_menu_id 	= isset( $social_menu->term_id ) ? $social_menu->term_id : null;
 
-		// If we're not outputting the social menu, return the existing args
+		// If we're not outputting the social menu, return the existing args.
 		if ( $social_menu_id !== $nav_menu->term_id ) return $nav_menu_args;
 
-		// If we are outputting the social menu, modify the args to match the social menu
+		// If we are outputting the social menu, modify the args to match the social menu.
 		$nav_menu_args = wp_parse_args( $nav_menu_args, chaplin_get_social_menu_args() );
 
 		return $nav_menu_args;
