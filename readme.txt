@@ -183,6 +183,10 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.6.5 (2021-04-11)
+-------------------------
+- Fixed the "greater than" character (>) closing elements on some server configurations when used in HTML attributes (thanks, @sgclark).
+
 Version 2.6.4 (2021-04-07)
 -------------------------
 - Changed the heading element in the recent posts widget to make the headings sequential.
