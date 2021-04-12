@@ -183,6 +183,13 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.6.6 (2021-04-12)
+-------------------------
+- Cover Template: Moved the cover page header to its own template file, parts/page-header-cover.php, to make it easier to reuse elsewhere and to make it more pluggable in child themes.
+- JavaScript: In chaplin.mainMenu.directionCheck, replaced the `hover` event with `mouseover` to fix jQuery issue, and removed `console.log()` call.
+- Post Navigation Links: Made it possible for them to wrap, for better display on posts/pages with lots of `nextpage`.
+- Social Icons: Added TikTok.
+
 Version 2.6.5 (2021-04-11)
 -------------------------
 - Fixed the "greater than" character (>) closing elements on some server configurations when used in HTML attributes (thanks, @sgclark).

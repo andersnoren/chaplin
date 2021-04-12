@@ -1039,9 +1039,8 @@ chaplin.mainMenu = {
 		// by chaplin.focusManagement.dropdownFocus when
 		// the sub has been given the .focus class.
 
-		$( '.main-menu-alt ul a' ).on( 'hover focus-applied', function() {
+		$( '.main-menu-alt ul a' ).on( 'mouseover focus-applied', function() {
 			var $sub = $( this ).closest( 'li' ).find( 'ul' ).first();
-			console.log( $sub );
 			if ( $sub.length ) {
 
 				$descendantSubs = $sub.find( 'ul' );
