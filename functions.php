@@ -301,7 +301,7 @@ if ( ! function_exists( 'chaplin_body_classes' ) ) :
 		}
 
 		// Check for post thumbnail
-		if ( is_singular() && has_post_thumbnail() ) {
+		if ( is_singular() && get_the_post_thumbnail_url() ) {
 			$classes[] = 'has-post-thumbnail';
 		} elseif ( is_singular() ) {
 			$classes[] = 'missing-post-thumbnail';

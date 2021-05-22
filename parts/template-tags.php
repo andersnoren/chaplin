@@ -140,15 +140,11 @@ endif;
 
 /* ---------------------------------------------------------------------------------------------
    FILTER POST THUMBNAIL HTML TO INCLUDE FALLBACK IMAGE
-   If a post thumbnail isn't set, filter 
+   If a post thumbnail isn't set, filter the fallback image to be used instead.
 ------------------------------------------------------------------------------------------------ */
 
 if ( ! function_exists( 'chaplin_filter_fallback_image' ) ) :
 	function chaplin_filter_fallback_image( $html, $post_id, $post_thumbnail_id ) {
-
-		// If this is the featured image of the post currently being displayed, don't modify the html.
-		// I.e. don't show the fallback image for the main image of a singular post or page.
-		if ( is_single( $post_id ) || is_page( $post_id ) ) return $html;
 
 		// Make the disable fallback image variable filterable in child themes and plugins
 		$disable_fallback_image = get_theme_mod( 'chaplin_disable_fallback_image', false );
@@ -184,10 +180,6 @@ endif;
 
 if ( ! function_exists( 'chaplin_filter_has_post_thumbnail' ) ) :
 	function chaplin_filter_has_post_thumbnail( $has_thumbnail, $post_id ) {
-
-		// If this is the featured image of the post currently being displayed, don't modify the has_thumbnail variable.
-		// I.e. don't show the fallback image for the main image of a singular post or page.
-		if ( is_single( $post_id ) || is_page( $post_id ) ) return $has_thumbnail;
 
 		$disable_fallback_image = get_theme_mod( 'chaplin_disable_fallback_image', false );
 

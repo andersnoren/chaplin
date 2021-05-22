@@ -49,7 +49,7 @@ $section_inner_classes = $overlay_fade_text ? ' fade-block' : '';
 	<div class="cover-header-inner-wrapper">
 		<div class="cover-header-inner">
 			<div class="cover-color-overlay color-accent<?php echo esc_attr( $color_overlay_classes ); ?>"<?php echo $color_overlay_style; ?>></div>
-			<?php the_post_thumbnail( 'chaplin_fullscreen' ); ?>
+			<?php if ( $image_url ) the_post_thumbnail( 'chaplin_fullscreen' ); ?>
 			<div class="section-inner<?php echo esc_attr( $section_inner_classes ); ?>">
 				<?php get_template_part( 'parts/page-header' ); ?>
 			</div><!-- .section-inner -->

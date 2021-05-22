@@ -9,14 +9,22 @@
 	// On the cover page template, output the cover header.
 	if ( chaplin_is_cover_template() ) : 
 
-		include( locate_template( 'parts/page-header-cover.php' ) );
+		get_template_part( 'parts/page-header-cover' );
 	
 	// On all other pages, output the regular page header.
 	else : 
 	
 		get_template_part( 'parts/page-header' );
-		
-		if ( has_post_thumbnail() && ! post_password_required() ) : 
+
+		/*
+		 * We filter has_post_thumbnail() to return true for the fallback image, but not get_the_post_thumbnail_url().
+		 * This means that if has_post_thumbnail() returns true, but get_the_post_thumbnail_url() returns false,
+		 * we're about to output the fallback image and the conditional (correctly) fails.
+		 * 
+		 * This sad workaround is used to get the fallback image into the Latest Posts block.
+		 */
+
+		if ( get_the_post_thumbnail_url() && ! post_password_required() ) : 
 			?>
 
 			<figure class="featured-media">
@@ -44,7 +52,7 @@
 			</figure><!-- .featured-media -->
 
 			<?php 
-		endif; // has_post_thumbnail()
+		endif; // get_the_post_thumbnail_url() && ! post_password_required()
 	endif; // chaplin_is_cover_template()
 	?>
 

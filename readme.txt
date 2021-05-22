@@ -3,7 +3,7 @@ Contributors: Anlino
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=anders%40andersnoren%2ese&lc=US&item_name=Free%20WordPress%20Themes%20from%20Anders%20Noren&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.5
 Requires PHP: 5.4
-Tested up to: 5.7
+Tested up to: 5.7.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -182,6 +182,14 @@ Included as part of:
 
 
 == Changelog ==
+
+Version 2.6.7 (2021-05-22)
+-------------------------
+- Added a bottom margin to the image in the Latest Posts block.
+- Updated chaplin_filter_fallback_image() and chaplin_filter_has_post_thumbnail() to make sure that the Latest Posts block shows the fallback image for the post currently being displayed as well.
+- Updated the content.php image output to account for the changes to the post thumbnail filters, making sure that the fallback image is not displayed on singular pages.
+- Replaced include( locate_template() ) with get_template_part() in content.php.
+- Bumped "Tested up to" to 5.7.2.
 
 Version 2.6.6 (2021-04-12)
 -------------------------
