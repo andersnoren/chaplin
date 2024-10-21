@@ -68,7 +68,7 @@
 						<p class="theme-credits color-secondary">
 							<?php
 							/* Translators: $s = name of the theme developer */
-							printf( esc_html_x( 'Theme by %s', 'Translators: $s = name of the theme developer', 'chaplin' ), '<a href="https://www.andersnoren.se">' . esc_html__( 'Anders Nor&eacute;n', 'chaplin' ) . '</a>' ); ?>
+							printf( esc_html_x( 'Theme by %s', 'Translators: $s = name of the theme developer', 'chaplin' ), '<a href="https://andersnoren.se">' . esc_html__( 'Anders Nor&eacute;n', 'chaplin' ) . '</a>' ); ?>
 						</p><!-- .theme-credits -->
 
 					</div><!-- .footer-credits -->

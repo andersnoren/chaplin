@@ -917,6 +917,7 @@ if ( ! function_exists( 'chaplin_maybe_output_breadcrumbs' ) ) :
 						$ancestors = get_ancestors( $queried_object->term_id, $queried_object->taxonomy, 'taxonomy' );
 						
 						if ( $ancestors ) {
+							$ancestors = array_reverse( $ancestors );
 							foreach ( $ancestors as $ancestor_id ) {
 								$ancestor_term = get_term( $ancestor_id, $queried_object->taxonomy );
 								echo '<li>' . $sep . '<a href="' . esc_url( get_term_link( $ancestor_term ) ) . '">' . $ancestor_term->name . '</a></li>';
