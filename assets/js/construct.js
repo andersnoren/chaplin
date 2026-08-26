@@ -1175,7 +1175,8 @@ chaplin.loadMore = {
 			type: 'post',
 			data: {
 				action: 'chaplin_ajax_load_more',
-				json_data: json_query_args
+				json_data: json_query_args,
+				nonce: chaplin_ajax_load_more.nonce
 			},
 			success: function( result ) {
 

@@ -4,6 +4,13 @@
 // Available types: button/links/scroll
 $pagination_type = get_theme_mod( 'chaplin_pagination_type', 'button' );
 
+// If this post type isn't whitelisted for lazy loading, output the link pagination.
+$post_type = get_post_type() ?: 'post';
+$allowed_post_types = apply_filters( 'chaplin_allowed_post_types_for_lazy_loading', array( 'post', 'page', 'product', 'jetpack-portfolio', 'any' ) );
+if ( ! in_array( $post_type, $allowed_post_types ) ) {
+	$pagination_type = 'links';
+}
+
 // Get the global $wp_query
 global $wp_query;
 
@@ -57,11 +64,9 @@ if ( ( $query_args['max_num_pages'] >= $query_args['paged'] ) ) : ?>
 
 			// The pagination links also work as a no-js fallback, so they always need to be output
 			$has_previous_link = get_previous_posts_link();
-			$has_next_link = get_next_posts_link();
+			$has_next_link     = get_next_posts_link();
 
 			if ( $has_previous_link || $has_next_link ) :
-
-				$link_pagination_classes = '';
 
 				if ( ! $has_previous_link ) {
 					$link_pagination_classes = ' only-next';
@@ -69,15 +74,20 @@ if ( ( $query_args['max_num_pages'] >= $query_args['paged'] ) ) : ?>
 					$link_pagination_classes = ' only-previous';
 				}
 
+				// Make sure the link pagination is visible if we're outputting a post type not whitelisted for lazy loading.
+				if ( $pagination_type === 'links' ) {
+					$link_pagination_classes .= ' fallback-pagination';
+				}
+
 				?>
 
 				<nav class="link-pagination<?php echo esc_attr( $link_pagination_classes ); ?>">
 
-					<?php if ( get_previous_posts_link() ) : ?>
+					<?php if ( $has_previous_link ) : ?>
 						<?php previous_posts_link( '<span class="arrow" aria-hidden="true">&larr;</span> ' . __( 'Previous page', 'chaplin' ) ); ?>
 					<?php endif; ?>
 
-					<?php if ( get_next_posts_link() ) : ?>
+					<?php if ( $has_next_link ) : ?>
 						<?php next_posts_link( __( 'Next page', 'chaplin' ) . ' <span class="arrow" aria-hidden="true">&rarr;</span>' ); ?>
 					<?php endif; ?>
 
