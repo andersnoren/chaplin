@@ -607,7 +607,7 @@ if ( ! function_exists( 'chaplin_ajax_load_more' ) ) :
 		}
 
 		// Whitelist only the query vars this feature actually needs.
-		$allowed_keys = array(
+		$allowed_keys = apply_filters( 'chaplin_allowed_keys_for_lazy_loading_query_args', array(
 			'paged',
 			'post_type',
 			'posts_per_page',
@@ -618,7 +618,9 @@ if ( ! function_exists( 'chaplin_ajax_load_more' ) ) :
 			's',
 			'order',
 			'orderby',
-		);
+			'jetpack-portfolio-tag',
+			'jetpack-portfolio-type'
+		) );
 
 		$query_args = array();
 		foreach ( $allowed_keys as $key ) {

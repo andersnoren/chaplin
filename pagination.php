@@ -5,7 +5,12 @@
 $pagination_type = get_theme_mod( 'chaplin_pagination_type', 'button' );
 
 // If this post type isn't whitelisted for lazy loading, output the link pagination.
-$post_type = get_post_type() ?: 'post';
+if ( is_search() ) {
+	$post_type = 'any';
+} else {
+	$post_type = get_post_type() ?: 'post';
+}
+
 $allowed_post_types = apply_filters( 'chaplin_allowed_post_types_for_lazy_loading', array( 'post', 'page', 'product', 'jetpack-portfolio', 'any' ) );
 if ( ! in_array( $post_type, $allowed_post_types ) ) {
 	$pagination_type = 'links';
@@ -25,6 +30,11 @@ if ( ! array_key_exists( 'max_num_pages', $query_args ) ) {
 // If post_status is not already set, add it
 if ( ! array_key_exists( 'post_status', $query_args ) ) {
 	$query_args['post_status'] = 'publish';
+}
+
+// If post_type is not already set, add it
+if ( ! array_key_exists( 'post_type', $query_args ) || ( array_key_exists( 'post_type', $query_args ) && empty( $query_args['post_type'] ) ) ) {
+	$query_args['post_type'] = $post_type;
 }
 
 // Make sure the paged value exists and is at least 1
@@ -72,6 +82,8 @@ if ( ( $query_args['max_num_pages'] >= $query_args['paged'] ) ) : ?>
 					$link_pagination_classes = ' only-next';
 				} elseif ( ! $has_next_link ) {
 					$link_pagination_classes = ' only-previous';
+				} else {
+					$link_pagination_classes = '';
 				}
 
 				// Make sure the link pagination is visible if we're outputting a post type not whitelisted for lazy loading.

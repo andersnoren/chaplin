@@ -183,6 +183,12 @@ Included as part of:
 
 == Changelog ==
 
+Version 2.6.10 (2026-09-17)
+-------------------------
+- Fixed lazy loading pagination for Jetpack portfolio taxonomies.
+- Added filter for allowed pagination query arguments.
+- Fixed a notice for link pagination classes.
+
 Version 2.6.9 (2026-08-26)
 -------------------------
 - Bumped "Tested up to" to 7.1.
